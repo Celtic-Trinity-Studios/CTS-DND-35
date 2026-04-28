@@ -7,7 +7,12 @@
 
   <div class="wizard-content">
     {{#if isStep1}}
-    <h3 style="margin-top:0;">Level {{nextLevel}} Advancement</h3>
+    <div class="flexrow" style="align-items:center; justify-content:space-between; margin-top:0;">
+      <h3 style="margin:0;">Level {{nextLevel}} Advancement</h3>
+      <button type="button" class="cts-btn secondary toggle-unavailable">
+        {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
+      </button>
+    </div>
     <p class="notes">Current level: {{totalLevel}} | New class level after gain: {{classLevelAfterGain}}</p>
 
     <div class="form-group">
@@ -103,7 +108,12 @@
     {{/if}}
 
     {{#if isStep3}}
-    <h3 style="margin-top:0;">Feat & Spell Selection</h3>
+    <div class="flexrow" style="align-items:center; justify-content:space-between; margin-top:0;">
+      <h3 style="margin:0;">Feat & Spell Selection</h3>
+      <button type="button" class="cts-btn secondary toggle-unavailable">
+        {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
+      </button>
+    </div>
     {{#if requiresFeatChoice}}
     <p class="notes">This level grants a feat choice. Choose one to continue.</p>
     {{else}}

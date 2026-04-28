@@ -42,6 +42,7 @@ export class CharacterWizard extends Application {
       },
       classSearch: "",
       activeClassUuid: "",
+      showUnavailable: true,
       skillRanks: {
         primary: this._initSkillRanks(),
         secondary: this._initSkillRanks()
@@ -75,7 +76,7 @@ export class CharacterWizard extends Application {
     await this._loadSpellChoices();
     const context = super.getData() ?? {};
     const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
-    const showUnavailable = true;
+    const showUnavailable = this.state.showUnavailable !== false;
     context.actor = this.actor;
     context.state = this.state;
     context.config = CTSDND35;
@@ -672,6 +673,12 @@ export class CharacterWizard extends Application {
       const choice = this.classChoices.find((c) => c.uuid === uuid);
       if (!choice || !this._isClassAvailable(choice).ok) return;
       this.state.classes.secondary = uuid;
+      this.render();
+    });
+
+    html.find(".toggle-unavailable").click((ev) => {
+      ev.preventDefault();
+      this.state.showUnavailable = !this.state.showUnavailable;
       this.render();
     });
 

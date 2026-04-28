@@ -3,6 +3,60 @@ export function getSkillRankCap(totalLevel, isClassSkill) {
   return Math.floor((totalLevel + 3) / 2);
 }
 
+const ALIGNMENT_CODES = new Set(["lg", "ng", "cg", "ln", "tn", "cn", "le", "ne", "ce"]);
+
+function normalizeAlignmentCode(value) {
+  const raw = String(value || "").trim().toLowerCase();
+  if (!raw) return "";
+  if (ALIGNMENT_CODES.has(raw)) return raw;
+  const table = {
+    "lawful good": "lg",
+    "neutral good": "ng",
+    "chaotic good": "cg",
+    "lawful neutral": "ln",
+    "true neutral": "tn",
+    "neutral": "tn",
+    "chaotic neutral": "cn",
+    "lawful evil": "le",
+    "neutral evil": "ne",
+    "chaotic evil": "ce"
+  };
+  return table[raw] || "";
+}
+
+function axisOfAlignment(code) {
+  const c = normalizeAlignmentCode(code);
+  return {
+    lawChaos: c.startsWith("l") ? "lawful" : c.startsWith("c") ? "chaotic" : "neutral",
+    goodEvil: c.endsWith("g") ? "good" : c.endsWith("e") ? "evil" : "neutral"
+  };
+}
+
+function alignmentRequirementMatches(requirement, actorAlignment) {
+  const req = String(requirement || "").trim().toLowerCase();
+  if (!req || req === "none" || req === "any") return true;
+  const actorCode = normalizeAlignmentCode(actorAlignment);
+  if (!actorCode) return false;
+  const actorAxis = axisOfAlignment(actorCode);
+
+  if (ALIGNMENT_CODES.has(req)) return req === actorCode;
+  const exactCode = normalizeAlignmentCode(req);
+  if (exactCode) return exactCode === actorCode;
+
+  if (req === "any nonlawful") return actorAxis.lawChaos !== "lawful";
+  if (req === "any nonchaotic") return actorAxis.lawChaos !== "chaotic";
+  if (req === "any nongood") return actorAxis.goodEvil !== "good";
+  if (req === "any nonevil") return actorAxis.goodEvil !== "evil";
+
+  if (req === "any lawful") return actorAxis.lawChaos === "lawful";
+  if (req === "any chaotic") return actorAxis.lawChaos === "chaotic";
+  if (req === "any good") return actorAxis.goodEvil === "good";
+  if (req === "any evil") return actorAxis.goodEvil === "evil";
+  if (req === "any neutral") return actorAxis.lawChaos === "neutral" || actorAxis.goodEvil === "neutral";
+
+  return true;
+}
+
 export function getSkillPointCost(isClassSkill, rankDelta = 1) {
   return isClassSkill ? rankDelta : rankDelta * 2;
 }
@@ -73,14 +127,17 @@ export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLev
     }
   }
 
-  const alignmentMap = [
-    ["lawful good", "lg"], ["neutral good", "ng"], ["chaotic good", "cg"],
-    ["lawful neutral", "ln"], ["true neutral", "tn"], ["neutral", "tn"],
-    ["chaotic neutral", "cn"], ["lawful evil", "le"], ["neutral evil", "ne"], ["chaotic evil", "ce"]
+  const alignmentPhrases = [
+    "lawful good", "neutral good", "chaotic good",
+    "lawful neutral", "true neutral", "chaotic neutral",
+    "lawful evil", "neutral evil", "chaotic evil",
+    "any nonlawful", "any nonchaotic", "any nongood", "any nonevil",
+    "any lawful", "any chaotic", "any good", "any evil", "any neutral", "any"
   ];
-  for (const [label, code] of alignmentMap) {
-    if (text.includes(label) && actorAlignment !== code) {
-      reasons.push(`Alignment ${label} required`);
+  for (const phrase of alignmentPhrases) {
+    if (!text.includes(phrase)) continue;
+    if (!alignmentRequirementMatches(phrase, actorAlignment)) {
+      reasons.push(`Alignment requirement: ${phrase}`);
       break;
     }
   }
@@ -245,13 +302,9 @@ export function evaluateClassAvailability({ requirements = {}, actor = {}, known
 
   const reqAlign = String(requirements.req_alignment || "").trim().toLowerCase();
   if (reqAlign && reqAlign !== "none") {
-    const map = {
-      "lawful good": "lg", "neutral good": "ng", "chaotic good": "cg",
-      "lawful neutral": "ln", "neutral": "tn", "true neutral": "tn",
-      "chaotic neutral": "cn", "lawful evil": "le", "neutral evil": "ne", "chaotic evil": "ce"
-    };
-    const needed = map[reqAlign] || reqAlign;
-    if (needed && alignment !== needed) reasons.push(`Alignment requirement: ${reqAlign}`);
+    if (!alignmentRequirementMatches(reqAlign, alignment)) {
+      reasons.push(`Alignment requirement: ${reqAlign}`);
+    }
   }
 
   const reqSkill = String(requirements.req_skill || "").trim();

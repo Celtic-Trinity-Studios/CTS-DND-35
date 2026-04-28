@@ -22,6 +22,7 @@ export class LevelUpWizard extends Application {
       selectedClassUuid: "",
       classSearch: "",
       activeClassUuid: "",
+      showUnavailable: true,
       hpMethod: "fixed",
       hpManual: 1,
       skillRanks: this._initSkillRanks(),
@@ -282,7 +283,7 @@ export class LevelUpWizard extends Application {
     await this._loadSpellChoices();
 
     const context = super.getData() ?? {};
-    const showUnavailable = true;
+    const showUnavailable = this.state.showUnavailable !== false;
     const featSearch = this.state.featSearch.toLowerCase().trim();
     const selectedClassSkills = this.classSkillMap[this.state.selectedClassUuid] || [];
     const nextLevel = this._nextLevel();
@@ -457,6 +458,12 @@ export class LevelUpWizard extends Application {
       const choice = this.classChoices.find((c) => c.uuid === uuid);
       if (!choice || !this._isClassAvailable(choice).ok) return;
       this.state.selectedClassUuid = uuid;
+      this.render();
+    });
+
+    html.find(".toggle-unavailable").click((ev) => {
+      ev.preventDefault();
+      this.state.showUnavailable = !this.state.showUnavailable;
       this.render();
     });
 
