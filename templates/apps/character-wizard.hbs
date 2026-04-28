@@ -2,7 +2,8 @@
   <header class="wizard-header flexrow">
     <div class="step-indicator {{#if isStep1}}active{{/if}}">1. Basics</div>
     <div class="step-indicator {{#if isStep2}}active{{/if}}">2. Abilities</div>
-    <div class="step-indicator {{#if isStep3}}active{{/if}}">3. Feats & Skills</div>
+    <div class="step-indicator {{#if isStep3}}active{{/if}}">3. Skills</div>
+    <div class="step-indicator {{#if isStep4}}active{{/if}}">4. Feats</div>
   </header>
 
   <div class="wizard-content">
@@ -32,15 +33,6 @@
       <label>Deity</label>
       <input type="text" data-prop="basics.deity" value="{{state.basics.deity}}" placeholder="Optional" />
     </div>
-    <div class="form-group">
-      <label>Size</label>
-      <select data-prop="basics.size" disabled>
-        {{#each config.sizes as |label key|}}
-        <option value="{{key}}" {{#if (cts-eq key ../state.basics.size)}}selected{{/if}}>{{label}}</option>
-        {{/each}}
-      </select>
-      <p class="notes" style="flex:0 0 100%;">Size is determined automatically by race.</p>
-    </div>
     {{/if}}
 
     {{#if isStep2}}
@@ -48,96 +40,157 @@
     <div class="form-group">
       <label>Generation Method</label>
       <select data-prop="abilityMethod">
-        <option value="array" {{#if (cts-eq state.abilityMethod "array")}}selected{{/if}}>Standard Array (15, 14, 13, 12, 10, 8)</option>
-        <option value="pointbuy" {{#if (cts-eq state.abilityMethod "pointbuy")}}selected{{/if}}>Point Buy (25 Points)</option>
-        <option value="roll" {{#if (cts-eq state.abilityMethod "roll")}}selected{{/if}}>Roll (4d6 drop lowest)</option>
+        <option value="array" {{#if (cts-eq state.abilityMethod "array")}}selected{{/if}}>Standard Array</option>
+        <option value="pointbuy" {{#if (cts-eq state.abilityMethod "pointbuy")}}selected{{/if}}>Point Buy</option>
+        <option value="roll" {{#if (cts-eq state.abilityMethod "roll")}}selected{{/if}}>Roll 4d6 drop lowest</option>
       </select>
     </div>
 
     {{#if (cts-eq state.abilityMethod "roll")}}
-      <div class="flexrow mb-md">
-        <button type="button" class="roll-stats cts-btn"><i class="fas fa-dice"></i> Roll Abilities</button>
-      </div>
-      {{#if state.rolls.length}}
-      <p class="notes" style="text-align:center; font-weight:bold;">Rolled values: {{#each state.rolls}}{{this}} {{/each}}</p>
-      {{/if}}
+    <div class="flexrow mb-md">
+      <button type="button" class="roll-stats cts-btn"><i class="fas fa-dice"></i> Roll Abilities</button>
+    </div>
     {{/if}}
 
-    {{#if (cts-eq state.abilityMethod "pointbuy")}}
-      <p class="notes" style="text-align:center;">Points Remaining: 
-        <strong style="font-size:16px; color: {{#if (cts-eq pointBuyRemaining 0)}}var(--cts-success){{else}}var(--cts-primary){{/if}};">{{pointBuyRemaining}}</strong> / 25
-      </p>
-    {{/if}}
-
-    <div class="ability-assignment mt-md">
-      <div class="flexrow" style="padding-bottom: 4px; border-bottom: 1px solid var(--cts-border-dark);">
-        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Ability</div>
-        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Base Score</div>
-        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Racial Mod</div>
-        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Final Score</div>
+    <div style="max-height: 280px; overflow-y: auto;">
+      {{#each config.abilityAbbreviations as |abbr key|}}
+      <div class="form-group">
+        <label>{{abbr}}</label>
+        <input type="number" data-prop="abilities.{{key}}" value="{{lookup ../state.abilities key}}" min="8" max="18" />
       </div>
-      <div style="padding-top: 8px;">
-        {{#each config.abilityAbbreviations as |abbr key|}}
-        <div class="flexrow mb-sm" style="align-items: center;">
-          <div class="flexcol" style="flex:1; text-align:center; font-weight:bold; font-size:16px;">{{abbr}}</div>
-          <div class="flexcol" style="flex:1; text-align:center;">
-            {{#if (cts-eq ../state.abilityMethod "roll")}}
-              <input type="number" data-prop="abilities.{{key}}" value="{{lookup ../state.abilities key}}" style="text-align:center;" readonly />
-            {{else}}
-              <input type="number" data-prop="abilities.{{key}}" value="{{lookup ../state.abilities key}}" style="text-align:center;" min="8" max="18" />
-            {{/if}}
-          </div>
-          <div class="flexcol" style="flex:1; text-align:center; font-weight:bold; color: {{#if (lookup ../currentRace.abilities key)}}var(--cts-primary-light){{else}}var(--cts-text-light){{/if}};">
-            {{cts-sign (lookup ../currentRace.abilities key)}}
-          </div>
-          <div class="flexcol stat-value derived" style="flex:1;">
-            {{lookup ../finalAbilities key}}
-          </div>
-        </div>
-        {{/each}}
-      </div>
+      {{/each}}
     </div>
     {{/if}}
 
     {{#if isStep3}}
-    <h3 style="margin-top:0;">Feats & Skills</h3>
+    <h3 style="margin-top:0;">Skills</h3>
     <div class="form-group">
-      <label>Starting Feat (SRD)</label>
-      <select data-prop="selectedFeatUuid">
-        <option value="">-- Choose a feat --</option>
-        {{#each featChoices as |feat|}}
-        <option value="{{feat.uuid}}" {{#if (cts-eq feat.uuid ../state.selectedFeatUuid)}}selected{{/if}}>{{feat.name}}</option>
+      <label>Primary Class</label>
+      <select data-prop="classes.primary">
+        <option value="">-- Select class --</option>
+        {{#each classChoices as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.primary)}}selected{{/if}}>{{c.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Secondary Class (optional)</label>
+      <select data-prop="classes.secondary">
+        <option value="">-- None --</option>
+        {{#each classChoices as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}}>{{c.name}}</option>
         {{/each}}
       </select>
     </div>
 
-    <p class="notes" style="margin-bottom:8px;">
-      Skill Points Remaining: <strong>{{skillPointRemaining}}</strong> / {{skillPointBudget}}
+    <p class="notes">
+      {{primaryClassLabel}} points: <strong>{{skillBudget.primaryRemaining}}</strong> / {{skillBudget.primary}}
+      &nbsp; | &nbsp;
+      {{secondaryClassLabel}} points: <strong>{{skillBudget.secondaryRemaining}}</strong> / {{skillBudget.secondary}}
     </p>
-    <div style="max-height: 300px; overflow-y: auto; padding-right: 4px;">
-      {{#each config.skills as |skill key|}}
-      <div class="form-group" style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-        <label style="flex: 1;">{{skill.label}}</label>
-        <input type="number" data-prop="skills.{{key}}" value="{{lookup ../state.skillRanks key}}" min="0" style="width: 70px; text-align: center;" />
+
+    <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
+      <div class="flexrow" style="font-weight: bold; margin-bottom: 6px;">
+        <div style="flex: 2;">Skill</div>
+        <div style="flex: 1; text-align:center;">Total</div>
+        <div style="flex: 1; text-align:center;">{{primaryClassLabel}}</div>
+        <div style="flex: 1; text-align:center;">{{secondaryClassLabel}}</div>
+        <div style="flex: 0.7; text-align:center;">Ability</div>
+      </div>
+      {{#each skillRows as |row|}}
+      <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
+        <div style="flex: 2;">{{row.label}}</div>
+        <div style="flex: 1; text-align:center; font-weight:bold;">{{row.total}}</div>
+        <div style="flex: 1; text-align:center;">
+          <button type="button" class="skill-dec" data-which="primary" data-skill="{{row.key}}">-</button>
+          <span style="display:inline-block; min-width: 20px;">{{row.primaryRanks}}</span>
+          <button type="button" class="skill-inc" data-which="primary" data-skill="{{row.key}}">+</button>
+        </div>
+        <div style="flex: 1; text-align:center;">
+          <button type="button" class="skill-dec" data-which="secondary" data-skill="{{row.key}}">-</button>
+          <span style="display:inline-block; min-width: 20px;">{{row.secondaryRanks}}</span>
+          <button type="button" class="skill-inc" data-which="secondary" data-skill="{{row.key}}">+</button>
+        </div>
+        <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>
       </div>
       {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if isStep4}}
+    <h3 style="margin-top:0;">Feats</h3>
+    <p class="notes">
+      {{#if featsRemaining}}Choose feats.{{else}}No more feats may be added.{{/if}}
+      Remaining: <strong>{{featsRemaining}}</strong> / {{featSlots}}
+    </p>
+    <div class="flexrow" style="gap:8px;">
+      <div style="flex: 1;">
+        <div class="form-group">
+          <label>Search</label>
+          <input type="text" data-prop="featSearch" value="{{state.featSearch}}" placeholder="Type here to search" />
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select data-prop="featTypeFilter">
+            <option value="all" {{#if (cts-eq state.featTypeFilter "all")}}selected{{/if}}>Everything</option>
+            {{#each featTypes as |type|}}
+            <option value="{{type}}" {{#if (cts-eq type ../state.featTypeFilter)}}selected{{/if}}>{{type}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div style="max-height: 240px; overflow-y: auto; border:1px solid var(--cts-border-dark);">
+          {{#each featChoices as |feat|}}
+          <div class="feat-choice" data-uuid="{{feat.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
+            <strong>{{feat.name}}</strong>
+            <span class="notes"> - {{feat.type}}</span>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <h4 style="margin:0 0 6px 0;">{{#if activeFeat}}{{activeFeat.name}}{{else}}Select a feat{{/if}}</h4>
+        <div style="max-height: 180px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+          {{{activeFeat.description}}}
+        </div>
+        <div style="margin-top:8px;">
+          <button type="button" class="cts-btn add-feat">Add</button>
+        </div>
+        <div style="margin-top:8px;">
+          <strong>Selected:</strong>
+          {{#if selectedFeats.length}}
+            {{#each selectedFeats as |feat|}}
+            <div class="flexrow" style="align-items:center; margin-top:4px;">
+              <span style="flex:1;">{{feat.name}}</span>
+              <button type="button" class="remove-feat" data-uuid="{{feat.uuid}}">Remove</button>
+            </div>
+            {{/each}}
+          {{else}}
+            <div class="notes">No feats selected yet.</div>
+          {{/if}}
+        </div>
+      </div>
     </div>
     {{/if}}
   </div>
 
   <footer class="wizard-footer flexrow" style="gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid var(--cts-border-dark);">
     {{#if isStep1}}
-      <button type="button" class="cts-btn next-step" style="flex: 1;"><i class="fas fa-arrow-right"></i> Next Step</button>
+    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
     {{/if}}
-    
+
     {{#if isStep2}}
-      <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;"><i class="fas fa-arrow-left"></i> Back</button>
-      <button type="button" class="cts-btn next-step" style="flex: 1;"><i class="fas fa-arrow-right"></i> Next Step</button>
+    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
+    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
     {{/if}}
 
     {{#if isStep3}}
-      <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;"><i class="fas fa-arrow-left"></i> Back</button>
-      <button type="button" class="cts-btn apply-wizard" style="flex: 1;"><i class="fas fa-check"></i> Apply & Finish</button>
+    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
+    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
+    {{/if}}
+
+    {{#if isStep4}}
+    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
+    <button type="button" class="cts-btn apply-wizard" style="flex: 1;">Apply & Finish</button>
     {{/if}}
   </footer>
 </form>

@@ -5,6 +5,8 @@ export class CharacterWizard extends Application {
     super(options);
     this.actor = actor;
     this.featChoices = [];
+    this.classChoices = [];
+    this.classSkillMap = {};
     this.state = {
       step: 1,
       basics: {
@@ -19,8 +21,18 @@ export class CharacterWizard extends Application {
         str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8
       },
       rolls: [],
-      selectedFeatUuid: "",
-      skillRanks: this._initSkillRanks()
+      classes: {
+        primary: "",
+        secondary: ""
+      },
+      skillRanks: {
+        primary: this._initSkillRanks(),
+        secondary: this._initSkillRanks()
+      },
+      featSearch: "",
+      featTypeFilter: "all",
+      selectedFeatUuids: [],
+      activeFeatUuid: ""
     };
   }
 
@@ -45,6 +57,7 @@ export class CharacterWizard extends Application {
     context.isStep1 = this.state.step === 1;
     context.isStep2 = this.state.step === 2;
     context.isStep3 = this.state.step === 3;
+    context.isStep4 = this.state.step === 4;
     
     // Calculate point buy (3.5e standard rules: 8 is 0, up to 18 is 16)
     const pbCost = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:6, 15:8, 16:10, 17:13, 18:16 };
@@ -66,14 +79,54 @@ export class CharacterWizard extends Application {
     }
 
     const intMod = Math.floor(((context.finalAbilities.int || 10) - 10) / 2);
-    const baseSkillPoints = Math.max(1, 2 + intMod);
-    const humanBonus = this.state.basics.race === "human" ? 1 : 0;
-    context.skillPointBudget = (baseSkillPoints + humanBonus) * 4;
-    context.skillPointSpent = Object.values(this.state.skillRanks).reduce((sum, n) => sum + (Number(n) || 0), 0);
-    context.skillPointRemaining = context.skillPointBudget - context.skillPointSpent;
+    await this._loadClassChoices();
+    const primaryBudget = this._computeClassSkillBudget(this.state.classes.primary, intMod);
+    const secondaryBudget = this._computeClassSkillBudget(this.state.classes.secondary, intMod);
+    const primarySpent = this._sumSkillRanks(this.state.skillRanks.primary);
+    const secondarySpent = this._sumSkillRanks(this.state.skillRanks.secondary);
+    context.skillBudget = {
+      primary: primaryBudget,
+      secondary: secondaryBudget,
+      primarySpent,
+      secondarySpent,
+      primaryRemaining: primaryBudget - primarySpent,
+      secondaryRemaining: secondaryBudget - secondarySpent
+    };
+
+    context.classChoices = this.classChoices;
+    context.primaryClassLabel = this._classLabel(this.state.classes.primary);
+    context.secondaryClassLabel = this._classLabel(this.state.classes.secondary);
+    context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
+      const pRanks = this.state.skillRanks.primary[key] || 0;
+      const sRanks = this.state.skillRanks.secondary[key] || 0;
+      const totalRanks = pRanks + sRanks;
+      const abilityMod = Math.floor(((context.finalAbilities[skill.ability] || 10) - 10) / 2);
+      const classBonus = totalRanks >= 1 && this._isClassSkillForSelected(key) ? 3 : 0;
+      return {
+        key,
+        label: skill.label,
+        ability: skill.ability.toUpperCase(),
+        primaryRanks: pRanks,
+        secondaryRanks: sRanks,
+        total: totalRanks + abilityMod + classBonus
+      };
+    });
 
     await this._loadFeatChoices();
-    context.featChoices = this.featChoices;
+    const featSearch = this.state.featSearch.trim().toLowerCase();
+    context.featChoices = this.featChoices.filter((feat) => {
+      const searchOk = !featSearch || feat.name.toLowerCase().includes(featSearch);
+      const typeOk = this.state.featTypeFilter === "all" || feat.type === this.state.featTypeFilter;
+      return searchOk && typeOk;
+    });
+    context.featTypes = Array.from(new Set(this.featChoices.map((f) => f.type).filter(Boolean))).sort();
+    context.selectedFeats = this.state.selectedFeatUuids
+      .map((uuid) => this.featChoices.find((f) => f.uuid === uuid))
+      .filter(Boolean);
+    const active = this.featChoices.find((f) => f.uuid === this.state.activeFeatUuid);
+    context.activeFeat = active ?? null;
+    context.featSlots = this.state.basics.race === "human" ? 2 : 1;
+    context.featsRemaining = context.featSlots - this.state.selectedFeatUuids.length;
     
     return context;
   }
@@ -91,13 +144,65 @@ export class CharacterWizard extends Application {
     const pack = game.packs.get("CTS-DND-35.srd-feats");
     if (!pack) return;
 
-    const index = await pack.getIndex({ fields: ["name"] });
-    this.featChoices = index
-      .map((entry) => ({
-        uuid: `Compendium.${pack.collection}.${entry._id}`,
-        name: entry.name
+    const docs = await pack.getDocuments();
+    this.featChoices = docs
+      .map((doc) => ({
+        uuid: doc.uuid,
+        name: doc.name,
+        type: doc.system?.featType || "General",
+        description: doc.system?.description || ""
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  async _loadClassChoices() {
+    if (this.classChoices.length) return;
+    const pack = game.packs.get("CTS-DND-35.srd-classes");
+    if (!pack) return;
+
+    const docs = await pack.getDocuments();
+    this.classChoices = docs
+      .map((doc) => ({
+        uuid: doc.uuid,
+        name: doc.name,
+        skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
+        classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : []
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    this.classSkillMap = Object.fromEntries(this.classChoices.map((c) => [c.uuid, c.classSkills]));
+  }
+
+  _computeClassSkillBudget(classUuid, intMod) {
+    if (!classUuid) return 0;
+    const cls = this.classChoices.find((c) => c.uuid === classUuid);
+    if (!cls) return 0;
+    const humanBonus = this.state.basics.race === "human" ? 1 : 0;
+    return Math.max(1, cls.skillRanksPerLevel + intMod + humanBonus) * 4;
+  }
+
+  _sumSkillRanks(rankSet) {
+    return Object.values(rankSet).reduce((sum, n) => sum + (Number(n) || 0), 0);
+  }
+
+  _remainingSkillPoints(which) {
+    const intBonus = CTSDND35.races[this.state.basics.race]?.abilities?.int || 0;
+    const intMod = Math.floor((((this.state.abilities.int || 10) + intBonus) - 10) / 2);
+    const cls = which === "primary" ? this.state.classes.primary : this.state.classes.secondary;
+    const budget = this._computeClassSkillBudget(cls, intMod);
+    return budget - this._sumSkillRanks(this.state.skillRanks[which]);
+  }
+
+  _classLabel(classUuid) {
+    if (!classUuid) return "Class";
+    const cls = this.classChoices.find((c) => c.uuid === classUuid);
+    return cls?.name || "Class";
+  }
+
+  _isClassSkillForSelected(skillKey) {
+    const primary = this.classSkillMap[this.state.classes.primary] || [];
+    const secondary = this.classSkillMap[this.state.classes.secondary] || [];
+    return primary.includes(skillKey) || secondary.includes(skillKey);
   }
 
   activateListeners(html) {
@@ -105,7 +210,7 @@ export class CharacterWizard extends Application {
     
     // Navigation
     html.find(".next-step").click(ev => {
-      this.state.step = Math.min(3, this.state.step + 1);
+      this.state.step = Math.min(4, this.state.step + 1);
       this.render();
     });
     html.find(".prev-step").click(ev => {
@@ -136,11 +241,17 @@ export class CharacterWizard extends Application {
           if (el.value === "array") this.state.abilities = {str:15, dex:14, con:13, int:12, wis:10, cha:8};
           else if (el.value === "pointbuy") this.state.abilities = {str:8, dex:8, con:8, int:8, wis:8, cha:8};
           // leave "roll" alone until they click the button
-        } else if (prop === "selectedFeatUuid") {
-          this.state.selectedFeatUuid = el.value;
+        } else if (prop === "classes.primary") {
+          this.state.classes.primary = el.value;
+        } else if (prop === "classes.secondary") {
+          this.state.classes.secondary = el.value;
+        } else if (prop === "featSearch") {
+          this.state.featSearch = el.value;
+        } else if (prop === "featTypeFilter") {
+          this.state.featTypeFilter = el.value;
         } else if (prop.startsWith("skills.")) {
-          const key = prop.split(".")[1];
-          this.state.skillRanks[key] = Math.max(0, parseInt(el.value) || 0);
+          const [, which, key] = prop.split(".");
+          this.state.skillRanks[which][key] = Math.max(0, parseInt(el.value) || 0);
         }
         this.render();
       }
@@ -164,6 +275,51 @@ export class CharacterWizard extends Application {
     html.find(".apply-wizard").click(async ev => {
       ev.preventDefault();
       await this._applyToActor();
+    });
+
+    html.find(".skill-inc").click((ev) => {
+      ev.preventDefault();
+      const which = ev.currentTarget.dataset.which;
+      const skill = ev.currentTarget.dataset.skill;
+      if (!which || !skill) return;
+      if (this._remainingSkillPoints(which) <= 0) return;
+      const current = this.state.skillRanks[which][skill] || 0;
+      this.state.skillRanks[which][skill] = current + 1;
+      this.render();
+    });
+
+    html.find(".skill-dec").click((ev) => {
+      ev.preventDefault();
+      const which = ev.currentTarget.dataset.which;
+      const skill = ev.currentTarget.dataset.skill;
+      if (!which || !skill) return;
+      const current = this.state.skillRanks[which][skill] || 0;
+      this.state.skillRanks[which][skill] = Math.max(0, current - 1);
+      this.render();
+    });
+
+    html.find(".feat-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeFeatUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".add-feat").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeFeatUuid;
+      if (!uuid) return;
+      if (this.state.selectedFeatUuids.includes(uuid)) return;
+      const slotLimit = this.state.basics.race === "human" ? 2 : 1;
+      if (this.state.selectedFeatUuids.length >= slotLimit) return;
+      this.state.selectedFeatUuids.push(uuid);
+      this.render();
+    });
+
+    html.find(".remove-feat").click((ev) => {
+      ev.preventDefault();
+      const uuid = ev.currentTarget.dataset.uuid;
+      this.state.selectedFeatUuids = this.state.selectedFeatUuids.filter((u) => u !== uuid);
+      this.render();
     });
   }
 
@@ -191,19 +347,22 @@ export class CharacterWizard extends Application {
       updates[`system.abilities.${a}.value`] = finalAbilities[a];
     }
 
-    for (const [skillKey, ranks] of Object.entries(this.state.skillRanks)) {
-      updates[`system.skills.${skillKey}.ranks`] = ranks;
-      updates[`system.skills.${skillKey}.misc`] = 0;
-      updates[`system.skills.${skillKey}.classSkill`] = false;
+    for (const key of Object.keys(CTSDND35.skills)) {
+      const ranks = (this.state.skillRanks.primary[key] || 0) + (this.state.skillRanks.secondary[key] || 0);
+      updates[`system.skills.${key}.ranks`] = ranks;
+      updates[`system.skills.${key}.misc`] = 0;
+      updates[`system.skills.${key}.classSkill`] = this._isClassSkillForSelected(key);
     }
 
     await this.actor.update(updates);
 
-    if (this.state.selectedFeatUuid) {
-      const featDoc = await fromUuid(this.state.selectedFeatUuid);
-      if (featDoc) {
-        await this.actor.createEmbeddedDocuments("Item", [featDoc.toObject()]);
-      }
+    const featItems = [];
+    for (const uuid of this.state.selectedFeatUuids) {
+      const featDoc = await fromUuid(uuid);
+      if (featDoc) featItems.push(featDoc.toObject());
+    }
+    if (featItems.length) {
+      await this.actor.createEmbeddedDocuments("Item", featItems);
     }
 
     this.actor.sheet?.render(true);
