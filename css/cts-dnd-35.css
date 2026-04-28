@@ -545,3 +545,198 @@
 .cts-dnd-35 .skills-list .skill-total:hover {
   color: var(--cts-primary);
 }
+
+/* --- Character Card Sheet Redesign --- */
+.cts-dnd-35.cts-card-sheet .window-content,
+.cts-dnd-35 .cts-card-sheet {
+  background: radial-gradient(circle at top, #1b2640 0%, #10172c 55%, #0a0f1e 100%);
+  color: #e7dcc0;
+}
+
+.cts-card-sheet {
+  border: 1px solid #6f5b2c;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.cts-card-header {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 10px;
+  background: linear-gradient(140deg, rgba(37, 48, 79, 0.95), rgba(23, 30, 52, 0.95));
+  border: 1px solid #7d6a35;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.cts-name-input {
+  font-family: var(--cts-font-heading);
+  font-size: 28px;
+  color: #ead7a5;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #7d6a35;
+}
+
+.cts-header-subline,
+.cts-header-meta {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.cts-header-subline input,
+.cts-header-subline select,
+.cts-header-meta input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #67552a;
+  color: #f0e7cf;
+}
+
+.cts-header-actions {
+  margin-top: 8px;
+}
+
+.cts-portrait {
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #7d6a35;
+}
+
+.cts-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cts-abilities-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cts-ability-tile {
+  background: linear-gradient(180deg, #2a3151, #1d233d);
+  border: 1px solid #62532b;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.cts-ability-label {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #d3c390;
+}
+
+.cts-ability-value {
+  width: 56px;
+  text-align: center;
+  margin: 4px auto;
+  background: rgba(10, 15, 30, 0.75);
+  color: #f0e7cf;
+  border: 1px solid #7a6736;
+}
+
+.cts-ability-mod {
+  font-weight: 700;
+  color: #c9b575;
+}
+
+.cts-combat-panel,
+.cts-column {
+  background: linear-gradient(180deg, #1f2945, #131a31);
+  border: 1px solid #66562d;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.cts-combat-panel h3,
+.cts-column h3 {
+  margin: 0 0 8px;
+  font-family: var(--cts-font-heading);
+  color: #d9c78f;
+  border-bottom: 1px solid rgba(205, 177, 96, 0.4);
+}
+
+.cts-combat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cts-stat-box {
+  background: rgba(10, 15, 30, 0.7);
+  border: 1px solid #594a25;
+  border-radius: 6px;
+  padding: 6px;
+  text-align: center;
+}
+
+.cts-stat-box span {
+  display: block;
+  font-size: 11px;
+  color: #bfae79;
+}
+
+.cts-stat-box strong {
+  font-size: 17px;
+  color: #f2ead2;
+}
+
+.cts-attack-lines h4,
+.cts-saves-row h4 {
+  margin: 6px 0 4px;
+  color: #d8c387;
+  font-size: 14px;
+}
+
+.cts-saves-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cts-save-box {
+  text-align: center;
+  padding: 5px 4px;
+  border: 1px solid #5a4b25;
+  border-radius: 6px;
+  background: rgba(11, 16, 31, 0.75);
+}
+
+.cts-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cts-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 2px;
+  border-bottom: 1px solid rgba(188, 161, 88, 0.18);
+  font-size: 12px;
+}
+
+.cts-line .item-name,
+.cts-line .rollable {
+  color: #e7dcc0;
+}
+
+.cts-line-controls {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.cts-line-controls a {
+  color: #c7b06a;
+}

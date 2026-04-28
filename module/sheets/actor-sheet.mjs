@@ -13,14 +13,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cts-dnd-35", "sheet", "actor"],
       width: 720,
-      height: 680,
-      tabs: [
-        {
-          navSelector: ".sheet-tabs",
-          contentSelector: ".sheet-body",
-          initial: "combat",
-        },
-      ],
+      height: 840,
     });
   }
 

@@ -1,86 +1,123 @@
-<form class="{{cssClass}}" autocomplete="off">
-  {{!-- Sheet Header --}}
-  <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-    <div class="header-fields">
-      <div class="flex-row">
-        <input class="char-name flex-grow" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-      </div>
-      <div class="flex-row">
-        <label>Race:</label>
-        <input type="text" name="system.details.race" value="{{system.details.race}}" />
-        <label>Alignment:</label>
+<form class="{{cssClass}} cts-card-sheet" autocomplete="off">
+  <header class="cts-card-header">
+    <div class="cts-header-left">
+      <input class="cts-name-input" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <div class="cts-header-subline">
+        <input type="text" name="system.details.race" value="{{system.details.race}}" placeholder="Race" />
         <select name="system.details.alignment">
-          <option value="">—</option>
+          <option value="">Alignment</option>
           {{#each config.alignments as |label key|}}
           <option value="{{key}}" {{#if (cts-eq key ../system.details.alignment)}}selected{{/if}}>{{label}}</option>
           {{/each}}
         </select>
-        <label>Deity:</label>
-        <input type="text" name="system.details.deity" value="{{system.details.deity}}" />
+        <input type="text" name="system.details.deity" value="{{system.details.deity}}" placeholder="Deity" />
       </div>
-      <div class="flex-row">
-        <label>Size:</label>
-        <select name="system.traits.size">
-          {{#each config.sizes as |label key|}}
-          <option value="{{key}}" {{#if (cts-eq key ../system.traits.size)}}selected{{/if}}>{{label}}</option>
-          {{/each}}
-        </select>
-        <div class="charlevel">
-          <label>Level: {{system.details.level.value}} XP: <input type="number" name="system.details.xpValue" value="{{system.details.xpValue}}" style="width: 50px;"/></label>
-          {{#if (cts-eq system.details.level.value 0)}}
-          <button type="button" class="cts-btn open-wizard" style="margin-top: 4px; padding: 2px 4px; font-size: 12px;"><i class="fas fa-magic"></i> Character Wizard</button>
-          {{else}}
-          <button type="button" class="cts-btn open-levelup" style="margin-top: 4px; padding: 2px 4px; font-size: 12px;"><i class="fas fa-arrow-up"></i> Level Up</button>
-          {{/if}}
-        </div>
+      <div class="cts-header-meta">
+        <span>Level {{system.details.level.value}}</span>
+        <label>XP <input type="number" name="system.details.xpValue" value="{{system.details.xpValue}}" /></label>
+        <span>{{#if system.attributes.speed.land.base}}{{system.attributes.speed.land.base}}{{else}}30{{/if}} ft.</span>
+      </div>
+      <div class="cts-header-actions">
+        {{#if (cts-eq system.details.level.value 0)}}
+        <button type="button" class="cts-btn open-wizard"><i class="fas fa-magic"></i> Character Wizard</button>
+        {{else}}
+        <button type="button" class="cts-btn open-levelup"><i class="fas fa-arrow-up"></i> Level Up</button>
+        {{/if}}
       </div>
     </div>
+    <img class="cts-portrait" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
   </header>
 
-  {{!-- Ability Scores --}}
-  {{> "systems/CTS-DND-35/templates/actor/parts/actor-abilities.hbs"}}
-
-  {{!-- Sheet Tabs --}}
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="combat"><i class="fas fa-fist-raised"></i> Combat</a>
-    <a class="item" data-tab="features"><i class="fas fa-star"></i> Features</a>
-    <a class="item" data-tab="inventory"><i class="fas fa-backpack"></i> Inventory</a>
-    <a class="item" data-tab="spells"><i class="fas fa-magic"></i> Spells</a>
-    <a class="item" data-tab="skills"><i class="fas fa-tools"></i> Skills</a>
-    <a class="item" data-tab="biography"><i class="fas fa-book"></i> Bio</a>
-  </nav>
-
-  {{!-- Sheet Body --}}
-  <section class="sheet-body">
-    {{!-- Combat Tab --}}
-    <div class="tab" data-group="primary" data-tab="combat">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-combat.hbs"}}
+  <section class="cts-top-grid">
+    <div class="cts-abilities-panel">
+      {{#each system.abilities as |ability key|}}
+      <div class="cts-ability-tile">
+        <div class="cts-ability-label">{{lookup ../config.abilityAbbreviations key}}</div>
+        <input class="cts-ability-value" type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}" />
+        <div class="cts-ability-mod rollable ability-roll" data-ability="{{key}}">{{cts-sign ability.mod}}</div>
+      </div>
+      {{/each}}
     </div>
 
-    {{!-- Features Tab --}}
-    <div class="tab" data-group="primary" data-tab="features">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-features.hbs"}}
+    <div class="cts-combat-panel">
+      <h3>Combat Stats</h3>
+      <div class="cts-combat-grid">
+        <div class="cts-stat-box">
+          <span>HP</span>
+          <strong>{{system.attributes.hp.value}} / {{system.attributes.hp.max}}</strong>
+        </div>
+        <div class="cts-stat-box">
+          <span>AC</span>
+          <strong>{{system.attributes.ac.normal}}</strong>
+        </div>
+        <div class="cts-stat-box rollable init-roll" title="Roll Initiative">
+          <span>Init</span>
+          <strong>{{cts-sign system.attributes.init.total}}</strong>
+        </div>
+      </div>
+
+      <div class="cts-attack-lines">
+        <h4>Attacks</h4>
+        {{#each items.weapons}}
+        <div class="cts-line item" data-item-id="{{this._id}}">
+          <span class="item-name item-roll">{{this.name}}</span>
+          <span class="cts-line-controls">
+            <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+          </span>
+        </div>
+        {{/each}}
+      </div>
+
+      <div class="cts-saves-row">
+        <h4>Saving Throws</h4>
+        <div class="cts-save-box rollable save-roll" data-save="fort">Fort {{cts-sign system.attributes.savingThrows.fort.total}}</div>
+        <div class="cts-save-box rollable save-roll" data-save="ref">Ref {{cts-sign system.attributes.savingThrows.ref.total}}</div>
+        <div class="cts-save-box rollable save-roll" data-save="will">Will {{cts-sign system.attributes.savingThrows.will.total}}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cts-bottom-grid">
+    <div class="cts-column">
+      <h3>Skills</h3>
+      {{#each skillList}}
+      <div class="cts-line">
+        <span class="rollable skill-roll" data-skill="{{this.key}}">{{this.label}}</span>
+        <span>{{cts-sign this.total}}</span>
+      </div>
+      {{/each}}
     </div>
 
-    {{!-- Inventory Tab --}}
-    <div class="tab" data-group="primary" data-tab="inventory">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-inventory.hbs"}}
+    <div class="cts-column">
+      <h3>Feats</h3>
+      {{#each items.feats}}
+      <div class="cts-line item" data-item-id="{{this._id}}">
+        <span class="item-name item-roll">{{this.name}}</span>
+        <span class="cts-line-controls">
+          <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+          <a class="item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+        </span>
+      </div>
+      {{/each}}
+      <a class="item-create cts-btn secondary" data-type="feat"><i class="fas fa-plus"></i> Add Feat</a>
     </div>
 
-    {{!-- Spells Tab --}}
-    <div class="tab" data-group="primary" data-tab="spells">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-spells.hbs"}}
-    </div>
-
-    {{!-- Skills Tab --}}
-    <div class="tab" data-group="primary" data-tab="skills">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-skills.hbs"}}
-    </div>
-
-    {{!-- Biography Tab --}}
-    <div class="tab" data-group="primary" data-tab="biography">
-      {{> "systems/CTS-DND-35/templates/actor/parts/actor-biography.hbs"}}
+    <div class="cts-column">
+      <h3>Inventory</h3>
+      {{#each items.equipment}}
+      <div class="cts-line item" data-item-id="{{this._id}}">
+        <span class="item-name item-roll">{{this.name}}</span>
+        <span>x{{this.system.quantity}}</span>
+      </div>
+      {{/each}}
+      {{#each items.consumables}}
+      <div class="cts-line item" data-item-id="{{this._id}}">
+        <span class="item-name item-roll">{{this.name}}</span>
+        <span>x{{this.system.quantity}}</span>
+      </div>
+      {{/each}}
+      <a class="item-create cts-btn secondary" data-type="equipment"><i class="fas fa-plus"></i> Add Item</a>
     </div>
   </section>
 </form>
