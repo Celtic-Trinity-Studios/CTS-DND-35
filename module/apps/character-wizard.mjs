@@ -1,4 +1,5 @@
 import { CTSDND35 } from "../helpers/config.mjs";
+import { evaluateFeatPrerequisites, getKnownFeatNames, getSkillPointCost, getSkillRankCap } from "../helpers/progression-rules.mjs";
 
 export class CharacterWizard extends Application {
   constructor(actor, options = {}) {
@@ -90,8 +91,8 @@ export class CharacterWizard extends Application {
     await this._loadClassChoices();
     const primaryBudget = this._computeClassSkillBudget(this.state.classes.primary, intMod);
     const secondaryBudget = allowGestalt ? this._computeClassSkillBudget(this.state.classes.secondary, intMod) : 0;
-    const primarySpent = this._sumSkillRanks(this.state.skillRanks.primary);
-    const secondarySpent = this._sumSkillRanks(this.state.skillRanks.secondary);
+    const primarySpent = this._skillCostSpent("primary");
+    const secondarySpent = this._skillCostSpent("secondary");
     context.skillBudget = {
       primary: primaryBudget,
       secondary: secondaryBudget,
@@ -110,12 +111,17 @@ export class CharacterWizard extends Application {
       const totalRanks = pRanks + sRanks;
       const abilityMod = Math.floor(((context.finalAbilities[skill.ability] || 10) - 10) / 2);
       const classBonus = totalRanks >= 1 && this._isClassSkillForSelected(key) ? 3 : 0;
+      const primaryIsClass = (this.classSkillMap[this.state.classes.primary] || []).includes(key);
+      const secondaryIsClass = (this.classSkillMap[this.state.classes.secondary] || []).includes(key);
       return {
         key,
         label: skill.label,
         ability: skill.ability.toUpperCase(),
         primaryRanks: pRanks,
         secondaryRanks: sRanks,
+        primaryCost: getSkillPointCost(primaryIsClass, 1),
+        secondaryCost: getSkillPointCost(secondaryIsClass, 1),
+        rankCap: getSkillRankCap(1, primaryIsClass || (allowGestalt && secondaryIsClass)),
         total: totalRanks + abilityMod + classBonus
       };
     });
@@ -126,6 +132,19 @@ export class CharacterWizard extends Application {
       const searchOk = !featSearch || feat.name.toLowerCase().includes(featSearch);
       const typeOk = this.state.featTypeFilter === "all" || feat.type === this.state.featTypeFilter;
       return searchOk && typeOk;
+    });
+    const knownFeatNames = getKnownFeatNames(this.actor);
+    context.featChoices = context.featChoices.map((feat) => {
+      const check = evaluateFeatPrerequisites({
+        prereqText: feat.prerequisites,
+        abilities: Object.fromEntries(Object.entries(context.finalAbilities).map(([k, v]) => [k, { value: v }])),
+        bab: this.actor.system?.attributes?.bab?.total || 0,
+        totalLevel: 1,
+        knownFeatNames,
+        allFeatNames: this.featChoices.map((f) => f.name),
+        featName: feat.name
+      });
+      return { ...feat, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
     });
     context.featTypes = Array.from(new Set(this.featChoices.map((f) => f.type).filter(Boolean))).sort();
     context.selectedFeats = this.state.selectedFeatUuids
@@ -158,7 +177,8 @@ export class CharacterWizard extends Application {
         uuid: doc.uuid,
         name: doc.name,
         type: doc.system?.featType || "General",
-        description: doc.system?.description || ""
+        description: doc.system?.description || "",
+        prerequisites: doc.system?.prerequisites || ""
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -264,12 +284,22 @@ export class CharacterWizard extends Application {
     return Object.values(rankSet).reduce((sum, n) => sum + (Number(n) || 0), 0);
   }
 
+  _skillCostSpent(which) {
+    let spent = 0;
+    const classUuid = which === "primary" ? this.state.classes.primary : this.state.classes.secondary;
+    const classSkills = this.classSkillMap[classUuid] || [];
+    for (const [key, ranks] of Object.entries(this.state.skillRanks[which])) {
+      spent += getSkillPointCost(classSkills.includes(key), Number(ranks) || 0);
+    }
+    return spent;
+  }
+
   _remainingSkillPoints(which) {
     const intBonus = CTSDND35.races[this.state.basics.race]?.abilities?.int || 0;
     const intMod = Math.floor((((this.state.abilities.int || 10) + intBonus) - 10) / 2);
     const cls = which === "primary" ? this.state.classes.primary : this.state.classes.secondary;
     const budget = this._computeClassSkillBudget(cls, intMod);
-    return budget - this._sumSkillRanks(this.state.skillRanks[which]);
+    return budget - this._skillCostSpent(which);
   }
 
   _classLabel(classUuid) {
@@ -366,8 +396,14 @@ export class CharacterWizard extends Application {
       const skill = ev.currentTarget.dataset.skill;
       if (!which || !skill) return;
       if (which === "secondary" && !game.settings.get("CTS-DND-35", "enableGestalt")) return;
-      if (this._remainingSkillPoints(which) <= 0) return;
+      const classUuid = which === "primary" ? this.state.classes.primary : this.state.classes.secondary;
+      const classSkills = this.classSkillMap[classUuid] || [];
+      const nextCost = getSkillPointCost(classSkills.includes(skill), 1);
+      if (this._remainingSkillPoints(which) < nextCost) return;
       const current = this.state.skillRanks[which][skill] || 0;
+      const other = which === "primary" ? (this.state.skillRanks.secondary[skill] || 0) : (this.state.skillRanks.primary[skill] || 0);
+      const cap = getSkillRankCap(1, this._isClassSkillForSelected(skill));
+      if (current + other >= cap) return;
       this.state.skillRanks[which][skill] = current + 1;
       this.render();
     });
@@ -394,6 +430,22 @@ export class CharacterWizard extends Application {
       const uuid = this.state.activeFeatUuid;
       if (!uuid) return;
       if (this.state.selectedFeatUuids.includes(uuid)) return;
+      const feat = this.featChoices.find((f) => f.uuid === uuid);
+      if (feat) {
+        const raceDef = CTSDND35.races[this.state.basics.race] || { abilities: {} };
+        const finalAbilities = foundry.utils.deepClone(this.state.abilities);
+        for (const [a, mod] of Object.entries(raceDef.abilities || {})) finalAbilities[a] = (finalAbilities[a] || 10) + mod;
+        const check = evaluateFeatPrerequisites({
+          prereqText: feat.prerequisites,
+          abilities: Object.fromEntries(Object.entries(finalAbilities).map(([k, v]) => [k, { value: v }])),
+          bab: this.actor.system?.attributes?.bab?.total || 0,
+          totalLevel: 1,
+          knownFeatNames: getKnownFeatNames(this.actor),
+          allFeatNames: this.featChoices.map((f) => f.name),
+          featName: feat.name
+        });
+        if (!check.ok) return;
+      }
       const slotLimit = this.state.basics.race === "human" ? 2 : 1;
       if (this.state.selectedFeatUuids.length >= slotLimit) return;
       this.state.selectedFeatUuids.push(uuid);
@@ -412,6 +464,14 @@ export class CharacterWizard extends Application {
     const { basics, abilities } = this.state;
     const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
     const raceDef = CTSDND35.races[basics.race];
+    if (!this.state.classes.primary) {
+      ui.notifications.warn("Choose a primary class before finishing character creation.");
+      return;
+    }
+    if (this._remainingSkillPoints("primary") < 0 || (allowGestalt && this._remainingSkillPoints("secondary") < 0)) {
+      ui.notifications.warn("Skill points are overspent. Adjust allocations before finishing.");
+      return;
+    }
     
     // Apply racial modifiers
     const finalAbilities = foundry.utils.deepClone(abilities);
@@ -468,6 +528,19 @@ export class CharacterWizard extends Application {
     for (const uuid of this.state.selectedFeatUuids) {
       const featDoc = await fromUuid(uuid);
       if (!featDoc) continue;
+      const featMeta = this.featChoices.find((f) => f.uuid === uuid);
+      if (featMeta) {
+        const check = evaluateFeatPrerequisites({
+          prereqText: featMeta.prerequisites,
+          abilities: Object.fromEntries(Object.entries(finalAbilities).map(([k, v]) => [k, { value: v }])),
+          bab: this.actor.system?.attributes?.bab?.total || 0,
+          totalLevel: 1,
+          knownFeatNames: getKnownFeatNames(this.actor),
+          allFeatNames: this.featChoices.map((f) => f.name),
+          featName: featMeta.name
+        });
+        if (!check.ok) continue;
+      }
       if (existingFeatNames.has(featDoc.name.toLowerCase())) continue;
       featItems.push(featDoc.toObject());
     }

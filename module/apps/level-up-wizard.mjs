@@ -1,4 +1,5 @@
 import { CTSDND35 } from "../helpers/config.mjs";
+import { evaluateFeatPrerequisites, getKnownFeatNames, getSkillPointCost, getSkillRankCap } from "../helpers/progression-rules.mjs";
 
 export class LevelUpWizard extends Application {
   constructor(actor, options = {}) {
@@ -89,13 +90,11 @@ export class LevelUpWizard extends Application {
   }
 
   _skillPointCostFor(skillKey, rankDelta) {
-    return this._isClassSkill(skillKey) ? rankDelta : rankDelta * 2;
+    return getSkillPointCost(this._isClassSkill(skillKey), rankDelta);
   }
 
   _skillRankCap(skillKey) {
-    const nextLevel = this._nextLevel();
-    if (this._isClassSkill(skillKey)) return nextLevel + 3;
-    return Math.floor((nextLevel + 3) / 2);
+    return getSkillRankCap(this._nextLevel(), this._isClassSkill(skillKey));
   }
 
   _skillSpent() {
@@ -111,56 +110,19 @@ export class LevelUpWizard extends Application {
   }
 
   _getCurrentFeatNames() {
-    return new Set(this.actor.items.filter((i) => i.type === "feat").map((i) => i.name.toLowerCase()));
+    return getKnownFeatNames(this.actor);
   }
 
   _evaluateFeatPrerequisites(feat) {
-    const prereqText = String(feat.prerequisites || "").trim();
-    if (!prereqText) return { ok: true, reasons: [] };
-
-    const reasons = [];
-    const text = prereqText.toLowerCase();
-    const abilities = this.actor.system?.abilities || {};
-
-    const abilityMatchers = [
-      ["str", /\bstr(?:ength)?\s*([0-9]{1,2})\b/i],
-      ["dex", /\bdex(?:terity)?\s*([0-9]{1,2})\b/i],
-      ["con", /\bcon(?:stitution)?\s*([0-9]{1,2})\b/i],
-      ["int", /\bint(?:elligence)?\s*([0-9]{1,2})\b/i],
-      ["wis", /\bwis(?:dom)?\s*([0-9]{1,2})\b/i],
-      ["cha", /\bcha(?:risma)?\s*([0-9]{1,2})\b/i]
-    ];
-    for (const [key, rx] of abilityMatchers) {
-      const m = prereqText.match(rx);
-      if (!m) continue;
-      const need = Number(m[1]) || 0;
-      const have = Number(abilities[key]?.value) || 0;
-      if (have < need) reasons.push(`${key.toUpperCase()} ${need}+ required`);
-    }
-
-    const babMatch = prereqText.match(/(?:base attack bonus|bab)\s*\+?\s*([0-9]+)/i);
-    if (babMatch) {
-      const needBab = Number(babMatch[1]) || 0;
-      const haveBab = Number(this.actor.system?.attributes?.bab?.total) || 0;
-      if (haveBab < needBab) reasons.push(`BAB +${needBab} required`);
-    }
-
-    const levelMatch = prereqText.match(/(?:character level|level)\s*([0-9]+)/i);
-    if (levelMatch) {
-      const needLvl = Number(levelMatch[1]) || 0;
-      const haveLvl = this._nextLevel();
-      if (haveLvl < needLvl) reasons.push(`Level ${needLvl}+ required`);
-    }
-
-    const currentFeatNames = this._getCurrentFeatNames();
-    for (const known of this.featChoices) {
-      const knownName = known.name.toLowerCase();
-      if (!knownName || knownName === feat.name.toLowerCase()) continue;
-      if (!text.includes(knownName)) continue;
-      if (!currentFeatNames.has(knownName)) reasons.push(`Requires feat: ${known.name}`);
-    }
-
-    return { ok: reasons.length === 0, reasons };
+    return evaluateFeatPrerequisites({
+      prereqText: feat.prerequisites,
+      abilities: this.actor.system?.abilities,
+      bab: this.actor.system?.attributes?.bab?.total,
+      totalLevel: this._nextLevel(),
+      knownFeatNames: this._getCurrentFeatNames(),
+      allFeatNames: this.featChoices.map((f) => f.name),
+      featName: feat.name
+    });
   }
 
   _classLevelAfterGain() {

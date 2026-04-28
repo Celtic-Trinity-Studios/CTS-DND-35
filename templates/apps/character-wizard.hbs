@@ -157,6 +157,9 @@
           <div class="feat-choice" data-uuid="{{feat.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
             <strong>{{feat.name}}</strong>
             <span class="notes"> - {{feat.type}}</span>
+            {{#unless feat.prereqOk}}
+            <div class="notes" style="color:#c94c4c;">Prereq not met: {{feat.prereqReason}}</div>
+            {{/unless}}
           </div>
           {{/each}}
         </div>
@@ -165,6 +168,10 @@
         <h4 style="margin:0 0 6px 0;">{{#if activeFeat}}{{activeFeat.name}}{{else}}Select a feat{{/if}}</h4>
         <div style="max-height: 180px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
           {{{activeFeat.description}}}
+          {{#if activeFeat.prereqReason}}
+          <hr />
+          <p class="notes" style="color:#c94c4c; margin:0;">{{activeFeat.prereqReason}}</p>
+          {{/if}}
         </div>
         <div style="margin-top:8px;">
           <button type="button" class="cts-btn add-feat">Add</button>
