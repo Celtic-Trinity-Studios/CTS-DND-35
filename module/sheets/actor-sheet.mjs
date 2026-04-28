@@ -6,7 +6,9 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
 
-const BaseActorSheet = foundry.applications?.sheets?.ActorSheetV2 ?? foundry.appv1.sheets.ActorSheet;
+const BaseActorSheet = (foundry.applications?.sheets?.ActorSheetV2 && foundry.applications?.api?.HandlebarsApplicationMixin)
+  ? foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ActorSheetV2)
+  : foundry.appv1.sheets.ActorSheet;
 
 export class CTSDND35ActorSheet extends BaseActorSheet {
 
