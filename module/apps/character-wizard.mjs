@@ -73,6 +73,7 @@ export class CharacterWizard extends Application {
     await this._loadSpellChoices();
     const context = super.getData() ?? {};
     const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
+    const showUnavailable = game.settings.get("CTS-DND-35", "showUnavailableOptions");
     context.actor = this.actor;
     context.state = this.state;
     context.config = CTSDND35;
@@ -117,11 +118,15 @@ export class CharacterWizard extends Application {
       secondaryRemaining: allowGestalt ? (secondaryBudget - secondarySpent) : 0
     };
 
-    context.availableClassChoices = this.classChoices.filter((c) => this._isClassAvailable(c));
-    if (this.state.classes.primary && !context.availableClassChoices.some((c) => c.uuid === this.state.classes.primary)) {
+    context.classChoicesForSelect = this.classChoices.map((c) => {
+      const check = this._isClassAvailable(c);
+      return { ...c, available: check.ok, unavailableReason: check.reasons.join("; ") };
+    });
+    if (!showUnavailable) context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => c.available);
+    if (this.state.classes.primary && !context.classChoicesForSelect.some((c) => c.uuid === this.state.classes.primary && c.available)) {
       this.state.classes.primary = "";
     }
-    if (this.state.classes.secondary && !context.availableClassChoices.some((c) => c.uuid === this.state.classes.secondary)) {
+    if (this.state.classes.secondary && !context.classChoicesForSelect.some((c) => c.uuid === this.state.classes.secondary && c.available)) {
       this.state.classes.secondary = "";
     }
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
@@ -174,10 +179,12 @@ export class CharacterWizard extends Application {
         skillCatalog: CTSDND35.skills
       });
       return { ...feat, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
-    }).filter((feat) => feat.prereqOk);
-    const visibleFeatUuids = new Set(context.featChoices.map((f) => f.uuid));
+    });
+    if (!showUnavailable) context.featChoices = context.featChoices.filter((feat) => feat.prereqOk);
+    const visibleFeatUuids = new Set(context.featChoices.filter((f) => showUnavailable || f.prereqOk).map((f) => f.uuid));
     this.state.selectedFeatUuids = this.state.selectedFeatUuids.filter((uuid) => visibleFeatUuids.has(uuid));
     if (this.state.activeFeatUuid && !visibleFeatUuids.has(this.state.activeFeatUuid)) this.state.activeFeatUuid = "";
+    context.showUnavailableOptions = showUnavailable;
     context.featTypes = Array.from(new Set(this.featChoices.map((f) => f.type).filter(Boolean))).sort();
     context.selectedFeats = this.state.selectedFeatUuids
       .map((uuid) => this.featChoices.find((f) => f.uuid === uuid))
@@ -475,7 +482,7 @@ export class CharacterWizard extends Application {
       requirements: classChoice?.requirements || {},
       actor: this.actor,
       knownFeatNames: getKnownFeatNames(this.actor)
-    }).ok;
+    });
   }
 
   activateListeners(html) {

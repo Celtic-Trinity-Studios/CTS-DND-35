@@ -145,7 +145,7 @@ export class LevelUpWizard extends Application {
       requirements: classChoice?.requirements || {},
       actor: this.actor,
       knownFeatNames: this._getCurrentFeatNames()
-    }).ok;
+    });
   }
 
   _evaluateFeatPrerequisites(feat) {
@@ -279,6 +279,7 @@ export class LevelUpWizard extends Application {
     await this._loadSpellChoices();
 
     const context = super.getData() ?? {};
+    const showUnavailable = game.settings.get("CTS-DND-35", "showUnavailableOptions");
     const featSearch = this.state.featSearch.toLowerCase().trim();
     const selectedClassSkills = this.classSkillMap[this.state.selectedClassUuid] || [];
     const nextLevel = this._nextLevel();
@@ -290,8 +291,12 @@ export class LevelUpWizard extends Application {
     context.isStep1 = this.state.step === 1;
     context.isStep2 = this.state.step === 2;
     context.isStep3 = this.state.step === 3;
-    context.availableClassChoices = this.classChoices.filter((c) => this._isClassAvailable(c));
-    if (this.state.selectedClassUuid && !context.availableClassChoices.some((c) => c.uuid === this.state.selectedClassUuid)) {
+    context.classChoicesForSelect = this.classChoices.map((c) => {
+      const check = this._isClassAvailable(c);
+      return { ...c, available: check.ok, unavailableReason: check.reasons.join("; ") };
+    });
+    if (!showUnavailable) context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => c.available);
+    if (this.state.selectedClassUuid && !context.classChoicesForSelect.some((c) => c.uuid === this.state.selectedClassUuid && c.available)) {
       this.state.selectedClassUuid = "";
     }
     context.totalLevel = this._totalLevel();
@@ -307,11 +312,12 @@ export class LevelUpWizard extends Application {
       .map((f) => {
         const check = this._evaluateFeatPrerequisites(f);
         return { ...f, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
-      })
-      .filter((f) => f.prereqOk);
-    if (this.state.selectedFeatUuid && !context.featChoices.some((f) => f.uuid === this.state.selectedFeatUuid)) {
+      });
+    if (!showUnavailable) context.featChoices = context.featChoices.filter((f) => f.prereqOk);
+    if (this.state.selectedFeatUuid && !context.featChoices.some((f) => f.uuid === this.state.selectedFeatUuid && f.prereqOk)) {
       this.state.selectedFeatUuid = "";
     }
+    context.showUnavailableOptions = showUnavailable;
     context.selectedClassSkills = new Set(selectedClassSkills);
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, def]) => {
       const currentRanks = Number(this.actor.system?.skills?.[key]?.ranks) || 0;

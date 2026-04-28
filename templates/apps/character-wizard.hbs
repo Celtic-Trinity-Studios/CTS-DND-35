@@ -68,8 +68,10 @@
       <label>Primary Class</label>
       <select data-prop="classes.primary">
         <option value="">-- Select class --</option>
-        {{#each availableClassChoices as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.primary)}}selected{{/if}}>{{c.name}}</option>
+        {{#each classChoicesForSelect as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.primary)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
+          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
+        </option>
         {{/each}}
       </select>
     </div>
@@ -82,8 +84,10 @@
       <label>Secondary Class (optional)</label>
       <select data-prop="classes.secondary">
         <option value="">-- None --</option>
-        {{#each availableClassChoices as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}}>{{c.name}}</option>
+        {{#each classChoicesForSelect as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
+          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
+        </option>
         {{/each}}
       </select>
     </div>
@@ -175,9 +179,11 @@
           <div class="feat-choice" data-uuid="{{feat.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
             <strong>{{feat.name}}</strong>
             <span class="notes"> - {{feat.type}}</span>
+            {{#if ../showUnavailableOptions}}
             {{#unless feat.prereqOk}}
             <div class="notes" style="color:#c94c4c;">Prereq not met: {{feat.prereqReason}}</div>
             {{/unless}}
+            {{/if}}
           </div>
           {{/each}}
         </div>

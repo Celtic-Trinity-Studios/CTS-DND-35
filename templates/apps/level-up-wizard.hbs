@@ -14,8 +14,10 @@
       <label>Class to Advance</label>
       <select data-prop="selectedClassUuid">
         <option value="">-- Select class --</option>
-        {{#each availableClassChoices as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.selectedClassUuid)}}selected{{/if}}>{{c.name}}</option>
+        {{#each classChoicesForSelect as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.selectedClassUuid)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
+          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
+        </option>
         {{/each}}
       </select>
     </div>
