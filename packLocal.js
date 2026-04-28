@@ -23,6 +23,77 @@ function parseSpellLevel(levelStr) {
     return match ? parseInt(match[0], 10) : 0;
 }
 
+function stripHtml(value) {
+    return String(value || "")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/&nbsp;/gi, " ")
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, "&")
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function parseOrdinalLevel(text) {
+    const m = String(text || "").match(/(\d+)(?:st|nd|rd|th)?/i);
+    return m ? parseInt(m[1], 10) : 0;
+}
+
+function normalizeFeatureList(text) {
+    const cleaned = stripHtml(text);
+    if (!cleaned) return [];
+    return cleaned
+        .split(/,|;/)
+        .map((part) => part.trim())
+        .filter((part) => part && part !== "-" && part.toLowerCase() !== "none");
+}
+
+function parseClassProgressionTables(fullText) {
+    const html = String(fullText || "");
+    const rows = [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((m) => m[1]);
+    let specialCol = -1;
+    let spellCols = [];
+    const featuresByLevel = {};
+    const spellsPerDayByLevel = {};
+
+    for (const rowHtml of rows) {
+        const cells = [...rowHtml.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((m) => m[1]);
+        if (!cells.length) continue;
+        const textCells = cells.map((c) => stripHtml(c));
+
+        // Header detection
+        if (specialCol < 0 && textCells.some((t) => /^level$/i.test(t)) && textCells.some((t) => /^special$/i.test(t))) {
+            specialCol = textCells.findIndex((t) => /^special$/i.test(t));
+            spellCols = textCells
+                .map((t, idx) => ({ t: t.toLowerCase(), idx }))
+                .filter(({ t }) => t === "0" || /^[1-9](st|nd|rd|th)?$/.test(t))
+                .map(({ t, idx }) => ({ spellLevel: parseOrdinalLevel(t), idx }));
+            continue;
+        }
+
+        const level = parseOrdinalLevel(textCells[0]);
+        if (!level) continue;
+
+        if (specialCol >= 0 && textCells[specialCol] != null) {
+            const feats = normalizeFeatureList(textCells[specialCol]);
+            if (feats.length) featuresByLevel[level] = feats;
+        }
+
+        if (spellCols.length) {
+            const perDay = {};
+            for (const col of spellCols) {
+                const cell = textCells[col.idx] ?? "";
+                if (!cell || cell === "-" || /^—+$/.test(cell)) continue;
+                const n = parseInt(cell, 10);
+                if (Number.isFinite(n)) perDay[col.spellLevel] = n;
+            }
+            if (Object.keys(perDay).length) spellsPerDayByLevel[level] = { spellsPerDay: perDay };
+        }
+    }
+
+    return { featuresByLevel, spellsPerDayByLevel };
+}
+
 async function openFreshDb(dbPath) {
     if (fs.existsSync(dbPath)) fs.rmSync(dbPath, { recursive: true, force: true });
     const db = new ClassicLevel(dbPath, { keyEncoding: 'utf8', valueEncoding: 'utf8' });
@@ -123,6 +194,7 @@ async function packData() {
     batch = classesDb.batch();
     for (const row of rawClasses) {
         const hdMatch = row.hit_die ? row.hit_die.match(/d(\d+)/) : null;
+        const progression = parseClassProgressionTables(row.full_text || "");
         const item = {
             _id: generateId(), name: row.name, type: "class", img: "icons/svg/combat.svg",
             system: {
@@ -131,7 +203,12 @@ async function packData() {
                 saves: { fort: "low", ref: "low", will: "low" },
                 skillRanksPerLevel: parseInt(row.skill_points) || 2,
                 classSkills: row.class_skills ? row.class_skills.split(",").map(s => s.trim()) : [],
-                spellcasting: { type: row.spell_type || "none", ability: row.spell_stat || "", progression: "" },
+                featuresByLevel: progression.featuresByLevel,
+                spellcasting: {
+                    type: row.spell_type || "none",
+                    ability: row.spell_stat || "",
+                    progression: progression.spellsPerDayByLevel
+                },
                 quantity: 1, weight: 0, price: 0, identified: true
             }
         };
