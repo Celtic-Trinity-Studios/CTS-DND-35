@@ -69,6 +69,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     }
     context.skillList = skillList;
 
+    context.sheetVisualTheme = game.settings.get("CTS-DND-35", "actorSheetVisualTheme") || "angled";
+
     return context;
   }
 

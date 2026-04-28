@@ -109,6 +109,11 @@
     "Check": "Check",
 
     "SheetActorDefault": "CTS DND 35 Actor Sheet",
-    "SheetItemDefault": "CTS DND 35 Item Sheet"
+    "SheetItemDefault": "CTS DND 35 Item Sheet",
+
+    "ActorSheetVisualTheme": "Character sheet shape theme",
+    "ActorSheetVisualThemeHint": "Rounded cards or angled / hex-style panels on the character sheet (client setting).",
+    "SheetThemeClassic": "Classic (rounded)",
+    "SheetThemeAngled": "Angled / hex"
   }
 }

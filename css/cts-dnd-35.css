@@ -1086,3 +1086,165 @@
 .cts-line-controls a {
   color: #c7b06a;
 }
+
+/* --- Character sheet: angled / hex visual theme --- */
+.cts-card-sheet.sheet-theme--angled {
+  --cts-chamfer: 12px;
+  --cts-gold: #c9a227;
+  --cts-gold-dim: #7d6a35;
+  border-radius: 0;
+  clip-path: polygon(
+    var(--cts-chamfer) 0%,
+    calc(100% - var(--cts-chamfer)) 0%,
+    100% var(--cts-chamfer),
+    100% calc(100% - var(--cts-chamfer)),
+    calc(100% - var(--cts-chamfer)) 100%,
+    var(--cts-chamfer) 100%,
+    0% calc(100% - var(--cts-chamfer)),
+    0% var(--cts-chamfer)
+  );
+  padding: 12px;
+  border-width: 2px;
+  border-color: var(--cts-gold-dim);
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-card-header {
+  border-radius: 0;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 16px),
+    calc(100% - 24px) 100%,
+    24px 100%,
+    0 calc(100% - 16px)
+  );
+  border-color: var(--cts-gold-dim);
+  box-shadow: inset 0 0 0 1px rgba(201, 162, 39, 0.12);
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-portrait {
+  border-radius: 0;
+  clip-path: polygon(12% 2%, 88% 2%, 100% 28%, 100% 72%, 88% 98%, 12% 98%, 0% 72%, 0% 28%);
+  border-width: 2px;
+  border-color: var(--cts-gold-dim);
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-abilities-panel {
+  gap: 12px;
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-ability-tile {
+  border-radius: 0;
+  clip-path: polygon(
+    25% 4%,
+    75% 4%,
+    100% 50%,
+    75% 96%,
+    25% 96%,
+    0% 50%
+  );
+  padding: 12px 14px 14px;
+  min-height: 118px;
+  border-width: 2px;
+  border-color: rgba(201, 162, 39, 0.55);
+  box-shadow: inset 0 -6px 14px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-ability-value {
+  border-radius: 0;
+  clip-path: polygon(
+    8px 0%,
+    calc(100% - 8px) 0%,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+  width: 64px;
+  padding: 6px 4px;
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-ability-mod {
+  margin-top: auto;
+  border-radius: 999px;
+  border: 2px solid rgba(201, 162, 39, 0.65);
+  background: radial-gradient(circle at 35% 28%, #3d4666, #141a2e);
+  color: #f2e6b8;
+  padding: 6px 10px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-combat-panel,
+.cts-card-sheet.sheet-theme--angled .cts-column {
+  border-radius: 0;
+  clip-path: polygon(
+    var(--cts-chamfer) 0%,
+    calc(100% - var(--cts-chamfer)) 0%,
+    100% var(--cts-chamfer),
+    100% calc(100% - var(--cts-chamfer)),
+    calc(100% - var(--cts-chamfer)) 100%,
+    var(--cts-chamfer) 100%,
+    0% calc(100% - var(--cts-chamfer)),
+    0% var(--cts-chamfer)
+  );
+  border-color: rgba(201, 162, 39, 0.45);
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-stat-box {
+  border-radius: 0;
+  clip-path: polygon(
+    10px 0%,
+    calc(100% - 10px) 0%,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px),
+    0 10px
+  );
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-combat-grid .cts-stat-box:nth-child(2) {
+  clip-path: polygon(
+    50% 0%,
+    100% 18%,
+    100% 82%,
+    50% 100%,
+    0% 82%,
+    0% 18%
+  );
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-save-box {
+  border-radius: 0;
+  clip-path: polygon(
+    8px 0%,
+    calc(100% - 8px) 0%,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+}
+
+.cts-card-sheet.sheet-theme--angled .cts-btn {
+  border-radius: 0;
+  clip-path: polygon(
+    10px 0%,
+    calc(100% - 10px) 0%,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px),
+    0 10px
+  );
+}

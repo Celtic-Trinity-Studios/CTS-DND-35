@@ -46,6 +46,26 @@ Hooks.once("init", function () {
     default: false,
   });
 
+  game.settings.register("CTS-DND-35", "actorSheetVisualTheme", {
+    name: game.i18n.localize("CTSDND35.ActorSheetVisualTheme"),
+    hint: game.i18n.localize("CTSDND35.ActorSheetVisualThemeHint"),
+    scope: "client",
+    config: true,
+    type: String,
+    choices: {
+      classic: game.i18n.localize("CTSDND35.SheetThemeClassic"),
+      angled: game.i18n.localize("CTSDND35.SheetThemeAngled"),
+    },
+    default: "angled",
+    onChange: () => {
+      if (!game.actors) return;
+      for (const actor of game.actors) {
+        const sheet = actor.sheet;
+        if (sheet?.rendered && sheet instanceof CTSDND35ActorSheet) sheet.render(false);
+      }
+    },
+  });
+
   // Register Actor sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {
