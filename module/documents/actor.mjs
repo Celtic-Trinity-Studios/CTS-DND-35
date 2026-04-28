@@ -6,6 +6,50 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 export class CTSDND35Actor extends Actor {
 
+  _ensureSystemData(systemData) {
+    if (!systemData) return;
+
+    systemData.abilities ??= {};
+    for (const key of Object.keys(CTSDND35.abilities)) {
+      systemData.abilities[key] ??= { value: 10, mod: 0, bonus: 0 };
+      systemData.abilities[key].value ??= 10;
+      systemData.abilities[key].mod ??= 0;
+      systemData.abilities[key].bonus ??= 0;
+    }
+
+    systemData.attributes ??= {};
+    systemData.attributes.hp ??= { value: 0, max: 0, temp: 0, nonlethal: 0 };
+    systemData.attributes.ac ??= { normal: 10, touch: 10, flatFooted: 10, naturalArmor: 0 };
+    systemData.attributes.init ??= { value: 0, bonus: 0, total: 0 };
+    systemData.attributes.bab ??= { value: 0, total: 0 };
+    systemData.attributes.grapple ??= { value: 0, total: 0 };
+    systemData.attributes.sr ??= { value: 0, formula: "" };
+    systemData.attributes.speed ??= {};
+    systemData.attributes.speed.land ??= { base: 30, total: 30 };
+    systemData.attributes.speed.fly ??= { base: 0, total: 0, maneuverability: "average" };
+    systemData.attributes.speed.swim ??= { base: 0, total: 0 };
+    systemData.attributes.speed.climb ??= { base: 0, total: 0 };
+    systemData.attributes.speed.burrow ??= { base: 0, total: 0 };
+    systemData.attributes.savingThrows ??= {
+      fort: { base: 0, ability: "con", bonus: 0, total: 0 },
+      ref: { base: 0, ability: "dex", bonus: 0, total: 0 },
+      will: { base: 0, ability: "wis", bonus: 0, total: 0 }
+    };
+
+    systemData.details ??= {};
+    systemData.details.level ??= { value: 0, xp: 0, xpNext: 0 };
+    systemData.details.race ??= "";
+    systemData.details.alignment ??= "";
+    systemData.details.deity ??= "";
+    systemData.details.biography ??= "";
+    systemData.details.notes ??= "";
+
+    systemData.traits ??= {};
+    systemData.traits.size ??= "med";
+    systemData.currency ??= { cp: 0, sp: 0, gp: 0, pp: 0 };
+    systemData.skills ??= {};
+  }
+
   /**
    * @override
    * Compute derived data after items and effects are applied.
@@ -14,6 +58,7 @@ export class CTSDND35Actor extends Actor {
     const actorData = this;
     const systemData = actorData.system;
     const flags = actorData.flags.ctsdnd35 || {};
+    this._ensureSystemData(systemData);
 
     // Compute ability modifiers
     this._prepareAbilities(systemData);
@@ -34,7 +79,7 @@ export class CTSDND35Actor extends Actor {
    * @param {object} systemData
    */
   _prepareAbilities(systemData) {
-    for (const [key, ability] of Object.entries(systemData.abilities)) {
+    for (const [key, ability] of Object.entries(systemData.abilities ?? {})) {
       ability.mod = Math.floor((ability.value - 10) / 2);
     }
   }
@@ -64,7 +109,7 @@ export class CTSDND35Actor extends Actor {
    */
   _prepareCombatStats(systemData) {
     // --- Saving Throws ---
-    const saves = systemData.attributes.savingThrows;
+    const saves = systemData.attributes?.savingThrows ?? {};
     for (const [key, save] of Object.entries(saves)) {
       const abilityMod = systemData.abilities[save.ability]?.mod || 0;
       save.total = (save.base || 0) + abilityMod + (save.bonus || 0);

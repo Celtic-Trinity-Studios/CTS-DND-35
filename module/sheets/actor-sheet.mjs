@@ -53,7 +53,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     const skillList = [];
     for (const [key, skillDef] of Object.entries(CTSDND35.skills)) {
       const skillData = context.system.skills?.[key] || { ranks: 0, misc: 0, classSkill: false };
-      const abilityMod = context.system.abilities[skillDef.ability]?.mod || 0;
+      const abilityMod = context.system.abilities?.[skillDef.ability]?.mod || 0;
       skillList.push({
         key,
         label: skillDef.label,
