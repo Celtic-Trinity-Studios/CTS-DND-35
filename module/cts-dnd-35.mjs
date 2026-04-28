@@ -36,6 +36,16 @@ Hooks.once("init", function () {
   CONFIG.Actor.documentClass = CTSDND35Actor;
   CONFIG.Item.documentClass = CTSDND35Item;
 
+  // System settings
+  game.settings.register("CTS-DND-35", "enableGestalt", {
+    name: "Enable Gestalt Character Creation",
+    hint: "Allow selecting and allocating a secondary class in the Character Wizard.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+  });
+
   // Register Actor sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {

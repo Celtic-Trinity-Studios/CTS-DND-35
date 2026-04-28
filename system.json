@@ -2,7 +2,7 @@
   "id": "CTS-DND-35",
   "title": "CTS DND 35",
   "description": "A custom D&D 3.5 Edition system by Celtic Trinity Studios. Clean, extensible, and built for Foundry VTT.",
-  "version": "0.4.14",
+  "version": "0.4.15",
   "authors": [
     {
       "name": "Celtic Trinity Studios"
@@ -12,7 +12,7 @@
   "license": "LICENSE.txt",
   "readme": "README.md",
   "manifest": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/releases/latest/download/system.json",
-  "download": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/releases/download/v0.4.14/CTS-DND-35.zip",
+  "download": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/releases/download/v0.4.15/CTS-DND-35.zip",
   "media": [
     {
       "type": "setup",

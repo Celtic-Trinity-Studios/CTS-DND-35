@@ -77,6 +77,7 @@
       <label>Primary Class Level</label>
       <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
     </div>
+    {{#if allowGestalt}}
     <div class="form-group">
       <label>Secondary Class (optional)</label>
       <select data-prop="classes.secondary">
@@ -90,11 +91,14 @@
       <label>Secondary Class Level</label>
       <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
     </div>
+    {{/if}}
 
     <p class="notes">
       {{primaryClassLabel}} points: <strong>{{skillBudget.primaryRemaining}}</strong> / {{skillBudget.primary}}
+      {{#if allowGestalt}}
       &nbsp; | &nbsp;
       {{secondaryClassLabel}} points: <strong>{{skillBudget.secondaryRemaining}}</strong> / {{skillBudget.secondary}}
+      {{/if}}
     </p>
 
     <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
@@ -102,7 +106,7 @@
         <div style="flex: 2;">Skill</div>
         <div style="flex: 1; text-align:center;">Total</div>
         <div style="flex: 1; text-align:center;">{{primaryClassLabel}}</div>
-        <div style="flex: 1; text-align:center;">{{secondaryClassLabel}}</div>
+        {{#if allowGestalt}}<div style="flex: 1; text-align:center;">{{secondaryClassLabel}}</div>{{/if}}
         <div style="flex: 0.7; text-align:center;">Ability</div>
       </div>
       {{#each skillRows as |row|}}
@@ -114,11 +118,13 @@
           <span style="display:inline-block; min-width: 20px;">{{row.primaryRanks}}</span>
           <button type="button" class="skill-inc" data-which="primary" data-skill="{{row.key}}">+</button>
         </div>
+        {{#if ../allowGestalt}}
         <div style="flex: 1; text-align:center;">
           <button type="button" class="skill-dec" data-which="secondary" data-skill="{{row.key}}">-</button>
           <span style="display:inline-block; min-width: 20px;">{{row.secondaryRanks}}</span>
           <button type="button" class="skill-inc" data-which="secondary" data-skill="{{row.key}}">+</button>
         </div>
+        {{/if}}
         <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>
       </div>
       {{/each}}

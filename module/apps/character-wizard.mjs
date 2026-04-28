@@ -56,9 +56,11 @@ export class CharacterWizard extends Application {
   async getData() {
     await this._hydrateFromActor();
     const context = super.getData() ?? {};
+    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
     context.actor = this.actor;
     context.state = this.state;
     context.config = CTSDND35;
+    context.allowGestalt = allowGestalt;
     
     context.isStep1 = this.state.step === 1;
     context.isStep2 = this.state.step === 2;
@@ -87,24 +89,24 @@ export class CharacterWizard extends Application {
     const intMod = Math.floor(((context.finalAbilities.int || 10) - 10) / 2);
     await this._loadClassChoices();
     const primaryBudget = this._computeClassSkillBudget(this.state.classes.primary, intMod);
-    const secondaryBudget = this._computeClassSkillBudget(this.state.classes.secondary, intMod);
+    const secondaryBudget = allowGestalt ? this._computeClassSkillBudget(this.state.classes.secondary, intMod) : 0;
     const primarySpent = this._sumSkillRanks(this.state.skillRanks.primary);
     const secondarySpent = this._sumSkillRanks(this.state.skillRanks.secondary);
     context.skillBudget = {
       primary: primaryBudget,
       secondary: secondaryBudget,
       primarySpent,
-      secondarySpent,
+      secondarySpent: allowGestalt ? secondarySpent : 0,
       primaryRemaining: primaryBudget - primarySpent,
-      secondaryRemaining: secondaryBudget - secondarySpent
+      secondaryRemaining: allowGestalt ? (secondaryBudget - secondarySpent) : 0
     };
 
     context.classChoices = this.classChoices;
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
-    context.secondaryClassLabel = this._classLabel(this.state.classes.secondary);
+    context.secondaryClassLabel = allowGestalt ? this._classLabel(this.state.classes.secondary) : "Secondary";
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
       const pRanks = this.state.skillRanks.primary[key] || 0;
-      const sRanks = this.state.skillRanks.secondary[key] || 0;
+      const sRanks = allowGestalt ? (this.state.skillRanks.secondary[key] || 0) : 0;
       const totalRanks = pRanks + sRanks;
       const abilityMod = Math.floor(((context.finalAbilities[skill.ability] || 10) - 10) / 2);
       const classBonus = totalRanks >= 1 && this._isClassSkillForSelected(key) ? 3 : 0;
@@ -277,8 +279,9 @@ export class CharacterWizard extends Application {
   }
 
   _isClassSkillForSelected(skillKey) {
+    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
     const primary = this.classSkillMap[this.state.classes.primary] || [];
-    const secondary = this.classSkillMap[this.state.classes.secondary] || [];
+    const secondary = allowGestalt ? (this.classSkillMap[this.state.classes.secondary] || []) : [];
     return primary.includes(skillKey) || secondary.includes(skillKey);
   }
 
@@ -362,6 +365,7 @@ export class CharacterWizard extends Application {
       const which = ev.currentTarget.dataset.which;
       const skill = ev.currentTarget.dataset.skill;
       if (!which || !skill) return;
+      if (which === "secondary" && !game.settings.get("CTS-DND-35", "enableGestalt")) return;
       if (this._remainingSkillPoints(which) <= 0) return;
       const current = this.state.skillRanks[which][skill] || 0;
       this.state.skillRanks[which][skill] = current + 1;
@@ -373,6 +377,7 @@ export class CharacterWizard extends Application {
       const which = ev.currentTarget.dataset.which;
       const skill = ev.currentTarget.dataset.skill;
       if (!which || !skill) return;
+      if (which === "secondary" && !game.settings.get("CTS-DND-35", "enableGestalt")) return;
       const current = this.state.skillRanks[which][skill] || 0;
       this.state.skillRanks[which][skill] = Math.max(0, current - 1);
       this.render();
@@ -405,6 +410,7 @@ export class CharacterWizard extends Application {
 
   async _applyToActor() {
     const { basics, abilities } = this.state;
+    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
     const raceDef = CTSDND35.races[basics.race];
     
     // Apply racial modifiers
@@ -428,7 +434,8 @@ export class CharacterWizard extends Application {
     }
 
     for (const key of Object.keys(CTSDND35.skills)) {
-      const ranks = (this.state.skillRanks.primary[key] || 0) + (this.state.skillRanks.secondary[key] || 0);
+      const secondaryRanks = allowGestalt ? (this.state.skillRanks.secondary[key] || 0) : 0;
+      const ranks = (this.state.skillRanks.primary[key] || 0) + secondaryRanks;
       updates[`system.skills.${key}.ranks`] = ranks;
       updates[`system.skills.${key}.misc`] = 0;
       updates[`system.skills.${key}.classSkill`] = this._isClassSkillForSelected(key);
@@ -439,7 +446,7 @@ export class CharacterWizard extends Application {
     // Ensure selected class choices become actual class items with chosen levels.
     const chosenClasses = [
       { uuid: this.state.classes.primary, level: Math.max(1, this.state.classLevels.primary || 1) },
-      { uuid: this.state.classes.secondary, level: Math.max(1, this.state.classLevels.secondary || 0) }
+      { uuid: allowGestalt ? this.state.classes.secondary : "", level: allowGestalt ? Math.max(1, this.state.classLevels.secondary || 0) : 0 }
     ].filter((c) => c.uuid && c.level > 0);
 
     for (const cls of chosenClasses) {
