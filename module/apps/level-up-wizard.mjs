@@ -156,7 +156,9 @@ export class LevelUpWizard extends Application {
       totalLevel: this._nextLevel(),
       knownFeatNames: this._getCurrentFeatNames(),
       allFeatNames: this.featChoices.map((f) => f.name),
-      featName: feat.name
+      featName: feat.name,
+      actor: this.actor,
+      skillCatalog: CTSDND35.skills
     });
   }
 

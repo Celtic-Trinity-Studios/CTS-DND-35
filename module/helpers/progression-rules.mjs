@@ -11,7 +11,7 @@ export function getKnownFeatNames(actor) {
   return new Set((actor?.items || []).filter((i) => i.type === "feat").map((i) => i.name.toLowerCase()));
 }
 
-export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLevel, knownFeatNames, allFeatNames, featName }) {
+export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLevel, knownFeatNames, allFeatNames, featName, actor, skillCatalog = {} }) {
   const raw = String(prereqText || "").trim();
   if (!raw) return { ok: true, reasons: [] };
 
@@ -58,6 +58,63 @@ export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLev
     if (!text.includes(lower)) continue;
     if (!current.has(lower)) reasons.push(`Requires feat: ${known}`);
   }
+
+  const actorSkills = actor?.system?.skills || {};
+  const actorFeatures = new Set((actor?.items || []).map((i) => String(i.name || "").toLowerCase()));
+  const actorRace = String(actor?.system?.details?.race || "").toLowerCase();
+  const actorAlignment = String(actor?.system?.details?.alignment || "").toLowerCase();
+
+  const raceWords = ["human", "elf", "dwarf", "gnome", "halfling", "half-elf", "half-orc", "orc"];
+  for (const race of raceWords) {
+    const rx = new RegExp(`\\b${race.replace("-", "[- ]?")}\\b`, "i");
+    if (rx.test(raw) && !actorRace.includes(race.replace("-", " "))) {
+      reasons.push(`Race requirement: ${race}`);
+      break;
+    }
+  }
+
+  const alignmentMap = [
+    ["lawful good", "lg"], ["neutral good", "ng"], ["chaotic good", "cg"],
+    ["lawful neutral", "ln"], ["true neutral", "tn"], ["neutral", "tn"],
+    ["chaotic neutral", "cn"], ["lawful evil", "le"], ["neutral evil", "ne"], ["chaotic evil", "ce"]
+  ];
+  for (const [label, code] of alignmentMap) {
+    if (text.includes(label) && actorAlignment !== code) {
+      reasons.push(`Alignment ${label} required`);
+      break;
+    }
+  }
+
+  const skillNameByNormalizedLabel = Object.entries(skillCatalog).reduce((acc, [key, data]) => {
+    const lbl = String(data?.label || key).toLowerCase().replace(/[^a-z0-9]/g, "");
+    acc[lbl] = key;
+    return acc;
+  }, {});
+  const skillMatches = [...raw.matchAll(/([A-Za-z][A-Za-z ()'-]+?)\s+([0-9]+)\s+ranks?/gi)];
+  for (const m of skillMatches) {
+    const label = String(m[1] || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const req = Number(m[2]) || 0;
+    const skillKey = skillNameByNormalizedLabel[label] || label;
+    const have = Number(actorSkills?.[skillKey]?.ranks) || 0;
+    if (have < req) reasons.push(`${m[1].trim()} ${req} ranks required`);
+  }
+
+  const spellReq = raw.match(/able to cast\s+(\d+)(?:st|nd|rd|th)?-level\s+(arcane|divine)?\s*spells?/i);
+  if (spellReq) {
+    const reqLevel = Number(spellReq[1]) || 0;
+    const reqType = String(spellReq[2] || "").toLowerCase();
+    const classes = Object.values(actor?.system?.spellcasting?.classes || {});
+    const ok = classes.some((c) => {
+      const type = String(c?.type || "").toLowerCase();
+      if (reqType && !type.includes(reqType)) return false;
+      const levels = Object.keys(c?.spellsPerDay || {}).map((n) => Number(n)).filter((n) => Number.isFinite(n));
+      return levels.some((n) => n >= reqLevel && (Number(c.spellsPerDay?.[n]) || 0) > 0);
+    });
+    if (!ok) reasons.push(`Able to cast ${reqLevel}${["th", "st", "nd", "rd"][reqLevel % 10] || "th"}-level ${reqType || ""} spells required`.trim());
+  }
+
+  if (text.includes("turn undead") && !actorFeatures.has("turn undead")) reasons.push("Requires Turn Undead");
+  if (text.includes("sneak attack") && !Array.from(actorFeatures).some((n) => n.includes("sneak attack"))) reasons.push("Requires Sneak Attack");
 
   return { ok: reasons.length === 0, reasons };
 }
@@ -158,6 +215,13 @@ export function evaluateClassAvailability({ requirements = {}, actor = {}, known
   const reasons = [];
   const race = String(actor?.system?.details?.race || "").toLowerCase();
   const bab = Number(actor?.system?.attributes?.bab?.total) || 0;
+  const alignment = String(actor?.system?.details?.alignment || "").toLowerCase();
+  const actorSkills = actor?.system?.skills || {};
+  const actorFeatures = new Set((actor?.items || []).map((i) => String(i.name || "").toLowerCase()));
+  const spellClasses = Object.values(actor?.system?.spellcasting?.classes || {});
+  const actorLanguages = Array.isArray(actor?.system?.traits?.languages)
+    ? actor.system.traits.languages.map((l) => String(l).toLowerCase())
+    : String(actor?.system?.traits?.languages || "").split(",").map((l) => l.trim().toLowerCase()).filter(Boolean);
 
   const reqBab = Number(requirements.req_base_attack_bonus) || 0;
   if (reqBab > 0 && bab < reqBab) reasons.push(`BAB +${reqBab} required`);
@@ -177,6 +241,82 @@ export function evaluateClassAvailability({ requirements = {}, actor = {}, known
         break;
       }
     }
+  }
+
+  const reqAlign = String(requirements.req_alignment || "").trim().toLowerCase();
+  if (reqAlign && reqAlign !== "none") {
+    const map = {
+      "lawful good": "lg", "neutral good": "ng", "chaotic good": "cg",
+      "lawful neutral": "ln", "neutral": "tn", "true neutral": "tn",
+      "chaotic neutral": "cn", "lawful evil": "le", "neutral evil": "ne", "chaotic evil": "ce"
+    };
+    const needed = map[reqAlign] || reqAlign;
+    if (needed && alignment !== needed) reasons.push(`Alignment requirement: ${reqAlign}`);
+  }
+
+  const reqSkill = String(requirements.req_skill || "").trim();
+  if (reqSkill && reqSkill.toLowerCase() !== "none") {
+    const matches = [...reqSkill.matchAll(/([A-Za-z][A-Za-z ()'-]+?)\s+([0-9]+)\s*ranks?/gi)];
+    for (const m of matches) {
+      const req = Number(m[2]) || 0;
+      const rawName = String(m[1] || "").trim().toLowerCase();
+      const hit = Object.entries(actorSkills).find(([k]) => k.toLowerCase() === rawName || rawName.includes(k.toLowerCase()));
+      const have = Number(hit?.[1]?.ranks) || 0;
+      if (have < req) {
+        reasons.push(`Skill requirement: ${m[1].trim()} ${req} ranks`);
+        break;
+      }
+    }
+  }
+
+  const reqSpells = String(requirements.req_spells || "").trim();
+  if (reqSpells && reqSpells.toLowerCase() !== "none") {
+    const m = reqSpells.match(/(\d+)(?:st|nd|rd|th)?-level\s+(arcane|divine)?\s*spells?/i);
+    if (m) {
+      const lvl = Number(m[1]) || 0;
+      const type = String(m[2] || "").toLowerCase();
+      const ok = spellClasses.some((c) => {
+        const cType = String(c?.type || "").toLowerCase();
+        if (type && !cType.includes(type)) return false;
+        return Object.entries(c?.spellsPerDay || {}).some(([sl, n]) => Number(sl) >= lvl && (Number(n) || 0) > 0);
+      });
+      if (!ok) reasons.push(`Spell requirement: ${reqSpells}`);
+    } else if (!spellClasses.length) {
+      reasons.push(`Spell requirement: ${reqSpells}`);
+    }
+  }
+
+  const reqSpecial = String(requirements.req_special || "").trim();
+  if (reqSpecial && reqSpecial.toLowerCase() !== "none") {
+    const needed = reqSpecial.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+    const ok = needed.every((n) => Array.from(actorFeatures).some((f) => f.includes(n)));
+    if (!ok) reasons.push(`Special requirement: ${reqSpecial}`);
+  }
+
+  const reqLang = String(requirements.req_languages || "").trim();
+  if (reqLang && reqLang.toLowerCase() !== "none") {
+    const needed = reqLang.split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+    const ok = needed.every((n) => actorLanguages.some((l) => l.includes(n)));
+    if (!ok) reasons.push(`Language requirement: ${reqLang}`);
+  }
+
+  const reqPsi = String(requirements.req_psionics || "").trim();
+  if (reqPsi && reqPsi.toLowerCase() !== "none") {
+    const hasPsionics = spellClasses.some((c) => String(c?.type || "").toLowerCase().includes("psionic"))
+      || Array.from(actorFeatures).some((f) => f.includes("psionic"));
+    if (!hasPsionics) reasons.push(`Psionics requirement: ${reqPsi}`);
+  }
+
+  const reqWeapon = String(requirements.req_weapon_proficiency || "").trim();
+  if (reqWeapon && reqWeapon.toLowerCase() !== "none") {
+    const ok = Array.from(actorFeatures).some((f) => f.includes(reqWeapon.toLowerCase()))
+      || Array.from(knownFeatNames).some((f) => f.includes(reqWeapon.toLowerCase()));
+    if (!ok) reasons.push(`Weapon proficiency requirement: ${reqWeapon}`);
+  }
+
+  const reqEpic = String(requirements.req_epic_feat || "").trim();
+  if (reqEpic && reqEpic.toLowerCase() !== "none") {
+    if (!knownFeatNames.has(reqEpic.toLowerCase())) reasons.push(`Epic feat requirement: ${reqEpic}`);
   }
 
   return { ok: reasons.length === 0, reasons };

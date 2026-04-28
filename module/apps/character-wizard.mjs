@@ -169,7 +169,9 @@ export class CharacterWizard extends Application {
         totalLevel: 1,
         knownFeatNames,
         allFeatNames: this.featChoices.map((f) => f.name),
-        featName: feat.name
+        featName: feat.name,
+        actor: this.actor,
+        skillCatalog: CTSDND35.skills
       });
       return { ...feat, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
     }).filter((feat) => feat.prereqOk);
@@ -605,7 +607,9 @@ export class CharacterWizard extends Application {
           totalLevel: 1,
           knownFeatNames: getKnownFeatNames(this.actor),
           allFeatNames: this.featChoices.map((f) => f.name),
-          featName: feat.name
+          featName: feat.name,
+          actor: this.actor,
+          skillCatalog: CTSDND35.skills
         });
         if (!check.ok) return;
       }
@@ -743,7 +747,9 @@ export class CharacterWizard extends Application {
           totalLevel: 1,
           knownFeatNames: getKnownFeatNames(this.actor),
           allFeatNames: this.featChoices.map((f) => f.name),
-          featName: featMeta.name
+          featName: featMeta.name,
+          actor: this.actor,
+          skillCatalog: CTSDND35.skills
         });
         if (!check.ok) continue;
       }

@@ -210,7 +210,11 @@ async function packData() {
                     req_skill: row.req_skill || "",
                     req_alignment: row.alignment || "",
                     req_spells: row.req_spells || "",
-                    req_special: row.req_special || ""
+                    req_special: row.req_special || "",
+                    req_languages: row.req_languages || "",
+                    req_psionics: row.req_psionics || "",
+                    req_weapon_proficiency: row.req_weapon_proficiency || "",
+                    req_epic_feat: row.req_epic_feat || ""
                 },
                 featuresByLevel: progression.featuresByLevel,
                 spellcasting: {
