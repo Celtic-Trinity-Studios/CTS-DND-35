@@ -64,10 +64,10 @@ export class CharacterWizard extends Application {
       id: "character-wizard",
       classes: ["cts-dnd-35", "wizard"],
       template: "systems/CTS-DND-35/templates/apps/character-wizard.hbs",
-      width: 500,
-      height: 600,
+      width: 820,
+      height: 780,
       title: "Create Character Wizard",
-      resizable: false
+      resizable: true
     });
   }
 

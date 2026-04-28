@@ -7,9 +7,9 @@
 
   <div class="wizard-content">
     {{#if isStep1}}
-    <div class="flexrow" style="align-items:center; justify-content:space-between; margin-top:0;">
-      <h3 style="margin:0;">Level {{nextLevel}} Advancement</h3>
-      <button type="button" class="cts-btn secondary toggle-unavailable">
+    <div class="wizard-step-head">
+      <h3>Level {{nextLevel}} Advancement</h3>
+      <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
         {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
       </button>
     </div>
@@ -19,8 +19,8 @@
       <label>Class Search</label>
       <input type="text" data-prop="classSearch" value="{{state.classSearch}}" placeholder="Type here to search classes" />
     </div>
-    <div class="flexrow" style="gap:8px;">
-      <div style="flex:1; max-height:220px; overflow-y:auto; border:1px solid var(--cts-border-dark);">
+    <div class="wizard-split">
+      <div class="wizard-scroll-list">
         {{#each classChoicesForSelect as |c|}}
         <div class="class-choice" data-uuid="{{c.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
           <strong>{{c.name}}</strong>
@@ -30,9 +30,9 @@
         </div>
         {{/each}}
       </div>
-      <div style="flex:1;">
+      <div class="wizard-detail-column">
         <h4 style="margin:0 0 6px 0;">{{#if activeClass}}{{activeClass.name}}{{else}}Select a class{{/if}}</h4>
-        <div style="max-height:120px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+        <div class="wizard-detail-body">
           {{{activeClass.description}}}
         </div>
         <button type="button" class="cts-btn set-levelup-class" style="margin-top:8px; width:100%;">Use for Level Up</button>
@@ -108,9 +108,9 @@
     {{/if}}
 
     {{#if isStep3}}
-    <div class="flexrow" style="align-items:center; justify-content:space-between; margin-top:0;">
-      <h3 style="margin:0;">Feat & Spell Selection</h3>
-      <button type="button" class="cts-btn secondary toggle-unavailable">
+    <div class="wizard-step-head">
+      <h3>Feat & Spell Selection</h3>
+      <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
         {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
       </button>
     </div>
@@ -163,8 +163,8 @@
       <label>Spell Search</label>
       <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
     </div>
-    <div class="flexrow" style="gap:8px;">
-      <div style="flex:1; max-height:190px; overflow-y:auto; border:1px solid var(--cts-border-dark);">
+    <div class="wizard-split" style="min-height: 200px;">
+      <div class="wizard-scroll-list" style="max-height: min(40vh, 360px);">
         {{#each availableSpells as |spell|}}
         <div class="spell-choice" data-uuid="{{spell.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
           <strong>{{spell.name}}</strong>
@@ -172,7 +172,7 @@
         </div>
         {{/each}}
       </div>
-      <div style="flex:1; max-height:190px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+      <div class="wizard-scroll-list" style="max-height: min(40vh, 360px); padding:6px;">
         <strong>Selected Spells</strong>
         {{#if selectedSpells.length}}
           {{#each selectedSpells as |spell|}}

@@ -39,8 +39,8 @@ export class LevelUpWizard extends Application {
       id: "level-up-wizard",
       classes: ["cts-dnd-35", "wizard"],
       template: "systems/CTS-DND-35/templates/apps/level-up-wizard.hbs",
-      width: 620,
-      height: 760,
+      width: 720,
+      height: 820,
       title: "Level Up Wizard",
       resizable: true
     });
