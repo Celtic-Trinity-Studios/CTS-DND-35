@@ -49,7 +49,8 @@ export class CharacterWizard extends Application {
       activeFeatUuid: "",
       featSlots: 1,
       spellSearch: "",
-      selectedSpellUuids: []
+      selectedSpellUuids: [],
+      spellPickCap: 0
     };
   }
 
@@ -196,6 +197,12 @@ export class CharacterWizard extends Application {
     context.selectedSpells = this.state.selectedSpellUuids
       .map((uuid) => allowedSpellMap.get(uuid) || this.spellChoices.find((s) => s.uuid === uuid))
       .filter(Boolean);
+    context.spellPickCap = castingDocs.reduce((sum, classDoc) => {
+      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
+      return sum + this._spellPickCapForClass(classDoc, level || 0);
+    }, 0);
+    this.state.spellPickCap = context.spellPickCap;
+    context.spellPickCount = this.state.selectedSpellUuids.length;
     
     return context;
   }
@@ -279,6 +286,13 @@ export class CharacterWizard extends Application {
       .map(([lvl]) => Number(lvl))
       .filter((n) => Number.isFinite(n));
     return levels.length ? Math.max(...levels) : -1;
+  }
+
+  _spellPickCapForClass(classDoc, classLevel) {
+    const progression = classDoc?.system?.spellcasting?.progression || {};
+    const row = progression?.[classLevel] || progression?.[String(classLevel)] || {};
+    const perDay = row?.spellsPerDay || {};
+    return Object.values(perDay).reduce((sum, n) => sum + Math.max(0, Number(n) || 0), 0);
   }
 
   _getRaceKeyFromActor() {
@@ -550,6 +564,7 @@ export class CharacterWizard extends Application {
       const uuid = ev.currentTarget.dataset.uuid;
       if (!uuid) return;
       if (this.state.selectedSpellUuids.includes(uuid)) return;
+      if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
       this.state.selectedSpellUuids.push(uuid);
       this.render();
     });
@@ -572,6 +587,10 @@ export class CharacterWizard extends Application {
     }
     if (this._remainingSkillPoints("primary") < 0 || (allowGestalt && this._remainingSkillPoints("secondary") < 0)) {
       ui.notifications.warn("Skill points are overspent. Adjust allocations before finishing.");
+      return;
+    }
+    if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length > this.state.spellPickCap) {
+      ui.notifications.warn(`You may pick at most ${this.state.spellPickCap} starting spells.`);
       return;
     }
     

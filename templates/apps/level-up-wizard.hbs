@@ -123,7 +123,10 @@
 
     {{#if spellcastingPreview}}
     <hr />
-    <p class="notes">Caster progression allows spells up to level <strong>{{maxSpellLevel}}</strong>. Select spells to add now (optional).</p>
+    <p class="notes">
+      Caster progression allows spells up to level <strong>{{maxSpellLevel}}</strong>.
+      Picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}.
+    </p>
     <div class="form-group">
       <label>Spell Search</label>
       <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
