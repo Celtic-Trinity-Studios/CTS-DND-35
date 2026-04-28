@@ -654,6 +654,8 @@
   border: 1px solid #66562d;
   border-radius: 8px;
   padding: 8px;
+  max-height: 360px;
+  overflow-y: auto;
 }
 
 .cts-combat-panel h3,

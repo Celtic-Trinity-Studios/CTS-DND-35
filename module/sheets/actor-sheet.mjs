@@ -120,6 +120,23 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
+    // Rollable ability checks
+    html.on("click", ".ability-roll", this._onAbilityRoll.bind(this));
+
+    // Rollable saves
+    html.on("click", ".save-roll", this._onSaveRoll.bind(this));
+
+    // Rollable initiative
+    html.on("click", ".init-roll", this._onInitRoll.bind(this));
+
+    // Rollable item
+    html.on("click", ".item-roll", (ev) => {
+      ev.preventDefault();
+      const li = $(ev.currentTarget).closest(".item");
+      const item = this.actor.items.get(li.data("item-id"));
+      if (item) item.roll(ev);
+    });
+
     // Everything below here is only for editable sheets
     if (!this.isEditable) return;
 
@@ -141,23 +158,6 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
-    // Rollable ability checks
-    html.on("click", ".ability-roll", this._onAbilityRoll.bind(this));
-
-    // Rollable saves
-    html.on("click", ".save-roll", this._onSaveRoll.bind(this));
-
-    // Rollable initiative
-    html.on("click", ".init-roll", this._onInitRoll.bind(this));
-
-    // Rollable item
-    html.on("click", ".item-roll", (ev) => {
-      ev.preventDefault();
-      const li = $(ev.currentTarget).closest(".item");
-      const item = this.actor.items.get(li.data("item-id"));
-      if (item) item.roll(ev);
-    });
-
     // Wizard buttons
     html.find(".open-wizard").click(ev => {
       ev.preventDefault();
@@ -168,9 +168,6 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       ev.preventDefault();
       ui.notifications.info("Level Up wizard coming soon!");
     });
-
-    // Rollable skill checks
-    html.on("click", ".skill-roll", this._onSkillRoll.bind(this));
   }
 
   /**

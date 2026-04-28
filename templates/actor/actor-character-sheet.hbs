@@ -18,7 +18,7 @@
         <span>{{#if system.attributes.speed.land.base}}{{system.attributes.speed.land.base}}{{else}}30{{/if}} ft.</span>
       </div>
       <div class="cts-header-actions">
-        {{#if (cts-eq system.details.level.value 0)}}
+        {{#if (cts-or (cts-eq system.details.level.value 0) (cts-eq system.details.level.value "0"))}}
         <button type="button" class="cts-btn open-wizard"><i class="fas fa-magic"></i> Character Wizard</button>
         {{else}}
         <button type="button" class="cts-btn open-levelup"><i class="fas fa-arrow-up"></i> Level Up</button>
