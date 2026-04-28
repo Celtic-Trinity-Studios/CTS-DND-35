@@ -23,7 +23,7 @@
       <div class="wizard-split">
         <div class="wizard-scroll-list wizard-choice-list">
           {{#each genderChoices as |gender|}}
-          <button type="button" class="wizard-choice-button open-picker {{#if gender.selected}}active{{/if}}" data-kind="gender" data-id="{{gender.key}}">
+          <button type="button" class="wizard-choice-button gender-choice {{#if gender.selected}}active{{/if}}" data-gender="{{gender.key}}">
             {{gender.label}}
           </button>
           {{/each}}
@@ -46,7 +46,7 @@
       <div class="wizard-split">
         <div class="wizard-scroll-list wizard-choice-list">
           {{#each raceChoices as |race|}}
-          <button type="button" class="wizard-choice-button open-picker {{#if race.selected}}active{{/if}}" data-kind="race" data-id="{{race.key}}">
+          <button type="button" class="wizard-choice-button race-choice {{#if race.selected}}active{{/if}}" data-race="{{race.key}}">
             {{race.label}}
           </button>
           {{/each}}
@@ -74,35 +74,35 @@
         <input type="text" data-prop="classSearch" value="{{state.classSearch}}" placeholder="Type here to search classes" />
       </div>
       <div class="wizard-split">
-        <div class="wizard-scroll-list wizard-choice-list">
+        <div class="wizard-scroll-list">
           {{#each classChoicesForSelect as |c|}}
-          <button type="button" class="wizard-choice-button open-picker {{#if (cts-eq c.uuid ../state.classes.primary)}}active{{/if}}" data-kind="class" data-id="{{c.uuid}}">
+          <div class="class-choice wizard-choice-button {{#if (cts-eq c.uuid ../classListActiveUuid)}}active{{/if}}" data-uuid="{{c.uuid}}">
             <strong>{{c.name}}</strong>
             {{#unless c.available}}
-            <span class="notes" style="color:#c94c4c;"> (unavailable)</span>
+            <div class="notes" style="color:#c94c4c;">Unavailable: {{c.unavailableReason}}</div>
             {{/unless}}
-          </button>
+          </div>
           {{/each}}
         </div>
         <div class="wizard-detail-column">
-          <h4>Current selection</h4>
-          <div class="wizard-detail-body">
-            <p><strong>Primary:</strong> {{primaryClassLabel}} (level {{state.classLevels.primary}})</p>
+          <h4>{{#if activeClass}}{{activeClass.name}}{{else}}Select a class{{/if}}</h4>
+          <div class="wizard-detail-body">{{#if activeClass}}{{{activeClass.description}}}{{else}}<p class="notes">Choose a class from the list.</p>{{/if}}</div>
+          <div class="wizard-inline-actions flexcol" style="margin-top:8px;">
+            <button type="button" class="cts-btn set-primary-class">Set as Primary</button>
             {{#if allowGestalt}}
-            <p><strong>Secondary:</strong> {{secondaryClassLabel}} (level {{state.classLevels.secondary}})</p>
-            {{/if}}
-            <p class="notes">Click a class on the left to open the class browser.</p>
-            <div class="form-group">
-              <label>Primary Class Level</label>
-              <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
-            </div>
-            {{#if allowGestalt}}
-            <div class="form-group">
-              <label>Secondary Class Level</label>
-              <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
-            </div>
+            <button type="button" class="cts-btn secondary set-secondary-class" style="margin-top:6px;">Set as Secondary</button>
             {{/if}}
           </div>
+          <div class="form-group" style="margin-top:8px;">
+            <label>Primary Class Level</label>
+            <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
+          </div>
+          {{#if allowGestalt}}
+          <div class="form-group">
+            <label>Secondary Class Level</label>
+            <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
+          </div>
+          {{/if}}
         </div>
       </div>
       {{/if}}
@@ -112,7 +112,7 @@
       <div class="wizard-split">
         <div class="wizard-scroll-list wizard-choice-list wizard-grid-list">
           {{#each alignmentChoices as |align|}}
-          <button type="button" class="wizard-choice-button open-picker {{#if align.selected}}active{{/if}}" data-kind="alignment" data-id="{{align.key}}">
+          <button type="button" class="wizard-choice-button alignment-choice {{#if align.selected}}active{{/if}}" data-alignment="{{align.key}}">
             {{align.label}}
           </button>
           {{/each}}
@@ -177,21 +177,33 @@
         &nbsp;|&nbsp; {{secondaryClassLabel}} points: <strong>{{skillBudget.secondaryRemaining}}</strong> / {{skillBudget.secondary}}
         {{/if}}
       </p>
-      <div class="wizard-split">
-        <div class="wizard-scroll-list wizard-choice-list">
-          {{#each skillRows as |row|}}
-          <button type="button" class="wizard-choice-button open-picker" data-kind="skill" data-id="{{row.key}}">
-            <strong>{{row.label}}</strong>
-            <span class="notes"> — {{row.primaryRanks}}{{#if ../allowGestalt}} / {{row.secondaryRanks}}{{/if}} ranks (total {{row.total}})</span>
-          </button>
-          {{/each}}
+      <div class="wizard-skill-table-wrap">
+        <div class="flexrow" style="font-weight: bold; margin-bottom: 6px;">
+          <div style="flex: 2;">Skill</div>
+          <div style="flex: 1; text-align:center;">Total</div>
+          <div style="flex: 1; text-align:center;">{{primaryClassLabel}}</div>
+          {{#if allowGestalt}}<div style="flex: 1; text-align:center;">{{secondaryClassLabel}}</div>{{/if}}
+          <div style="flex: 0.7; text-align:center;">Ability</div>
         </div>
-        <div class="wizard-detail-column">
-          <h4>Skills</h4>
-          <div class="wizard-detail-body">
-            <p class="notes">Click a skill on the left to open the skill editor.</p>
+        {{#each skillRows as |row|}}
+        <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
+          <div style="flex: 2;">{{row.label}}</div>
+          <div style="flex: 1; text-align:center; font-weight:bold;">{{row.total}}</div>
+          <div style="flex: 1; text-align:center;">
+            <button type="button" class="skill-dec" data-which="primary" data-skill="{{row.key}}">-</button>
+            <span style="display:inline-block; min-width: 20px;">{{row.primaryRanks}}</span>
+            <button type="button" class="skill-inc" data-which="primary" data-skill="{{row.key}}">+</button>
           </div>
+          {{#if ../allowGestalt}}
+          <div style="flex: 1; text-align:center;">
+            <button type="button" class="skill-dec" data-which="secondary" data-skill="{{row.key}}">-</button>
+            <span style="display:inline-block; min-width: 20px;">{{row.secondaryRanks}}</span>
+            <button type="button" class="skill-inc" data-which="secondary" data-skill="{{row.key}}">+</button>
+          </div>
+          {{/if}}
+          <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>
         </div>
+        {{/each}}
       </div>
       {{/if}}
 
@@ -203,30 +215,53 @@
         </button>
       </div>
       <p class="notes">{{#if featsRemaining}}Choose feats.{{else}}No more feats may be added.{{/if}} Remaining: <strong>{{featsRemaining}}</strong> / {{featSlots}}</p>
-      <div class="form-group">
-        <label>Search</label>
-        <input type="text" data-prop="featSearch" value="{{state.featSearch}}" placeholder="Type here to search" />
-      </div>
-      <div class="form-group">
-        <label>Type</label>
-        <select data-prop="featTypeFilter">
-          <option value="all" {{#if (cts-eq state.featTypeFilter "all")}}selected{{/if}}>Everything</option>
-          {{#each featTypes as |type|}}
-          <option value="{{type}}" {{#if (cts-eq type ../state.featTypeFilter)}}selected{{/if}}>{{type}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="wizard-split">
-        <div class="wizard-scroll-list wizard-choice-list">
-          {{#each featChoices as |feat|}}
-          <button type="button" class="wizard-choice-button open-picker" data-kind="feat" data-id="{{feat.uuid}}">
-            <strong>{{feat.name}}</strong> <span class="notes">— {{feat.type}}</span>
-          </button>
-          {{/each}}
+      <div class="wizard-split wizard-feat-split">
+        <div class="wizard-feat-left">
+          <div class="form-group">
+            <label>Search</label>
+            <input type="text" data-prop="featSearch" value="{{state.featSearch}}" placeholder="Type here to search" />
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select data-prop="featTypeFilter">
+              <option value="all" {{#if (cts-eq state.featTypeFilter "all")}}selected{{/if}}>Everything</option>
+              {{#each featTypes as |type|}}
+              <option value="{{type}}" {{#if (cts-eq type ../state.featTypeFilter)}}selected{{/if}}>{{type}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="wizard-scroll-list">
+            {{#each featChoices as |feat|}}
+            <div class="feat-choice wizard-choice-button {{#if (cts-eq feat.uuid ../state.activeFeatUuid)}}active{{/if}}" data-uuid="{{feat.uuid}}">
+              <strong>{{feat.name}}</strong>
+              <span class="notes"> — {{feat.type}}</span>
+              {{#if ../showUnavailableOptions}}
+              {{#unless feat.prereqOk}}
+              <div class="notes" style="color:#c94c4c;">Prereq not met: {{feat.prereqReason}}</div>
+              {{/unless}}
+              {{/if}}
+            </div>
+            {{/each}}
+          </div>
         </div>
         <div class="wizard-detail-column">
-          <h4>Selected</h4>
+          <h4>{{#if activeFeat}}{{activeFeat.name}}{{else}}Select a feat{{/if}}</h4>
           <div class="wizard-detail-body">
+            {{#if activeFeat}}
+            {{{activeFeat.description}}}
+            {{#if activeFeat.prereqReason}}
+            <hr />
+            <p class="notes" style="color:#c94c4c; margin:0;">{{activeFeat.prereqReason}}</p>
+            {{/if}}
+            {{else}}
+            <p class="notes">Select a feat from the list.</p>
+            {{/if}}
+          </div>
+          <div class="wizard-inline-actions" style="margin-top:8px;">
+            <button type="button" class="cts-btn add-feat">Add</button>
+          </div>
+          <div style="margin-top:12px;">
+            <strong>Selected:</strong>
             {{#if selectedFeats.length}}
               {{#each selectedFeats as |feat|}}
               <div class="flexrow" style="align-items:center; margin-top:4px;">
@@ -235,9 +270,8 @@
               </div>
               {{/each}}
             {{else}}
-              <p class="notes">No feats selected yet.</p>
+              <div class="notes">No feats selected yet.</div>
             {{/if}}
-            <p class="notes" style="margin-top:8px;">Click a feat on the left to preview and add it in a popup.</p>
           </div>
         </div>
       </div>
@@ -258,21 +292,31 @@
         {{/each}}
       </p>
       {{/if}}
-      <div class="form-group">
-        <label>Spell Search</label>
-        <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
-      </div>
       <div class="wizard-split">
-        <div class="wizard-scroll-list wizard-choice-list">
-          {{#each availableSpells as |spell|}}
-          <button type="button" class="wizard-choice-button open-picker" data-kind="spell" data-id="{{spell.uuid}}">
-            <strong>{{spell.name}}</strong> <span class="notes">({{spell.spellLevel}})</span>
-          </button>
-          {{/each}}
+        <div class="wizard-detail-column" style="flex: 1 1 42%; min-width:0;">
+          <div class="form-group">
+            <label>Spell Search</label>
+            <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
+          </div>
+          <div class="wizard-scroll-list">
+            {{#each availableSpells as |spell|}}
+            <div class="spell-choice wizard-choice-button {{#if (cts-eq spell.uuid ../state.activeSpellUuid)}}active{{/if}}" data-uuid="{{spell.uuid}}">
+              <strong>{{spell.name}}</strong>
+              <span class="notes"> ({{spell.spellLevel}})</span>
+            </div>
+            {{/each}}
+          </div>
         </div>
-        <div class="wizard-detail-column">
-          <h4>Selected Spells</h4>
+        <div class="wizard-detail-column" style="flex: 1 1 58%; min-width:0;">
+          <h4>{{#if activeSpell}}{{activeSpell.name}}{{else}}Select a spell{{/if}}</h4>
           <div class="wizard-detail-body">
+            {{#if activeSpell}}{{{activeSpell.description}}}{{else}}<p class="notes">Choose a spell from the list.</p>{{/if}}
+          </div>
+          <div class="wizard-inline-actions" style="margin-top:8px;">
+            <button type="button" class="cts-btn add-spell">Add</button>
+          </div>
+          <div style="margin-top:12px;">
+            <strong>Selected Spells</strong>
             {{#if selectedSpells.length}}
               {{#each selectedSpells as |spell|}}
               <div class="flexrow" style="align-items:center; margin-top:4px;">
@@ -281,9 +325,8 @@
               </div>
               {{/each}}
             {{else}}
-              <p class="notes">No spells selected.</p>
+              <p class="notes" style="margin:6px 0 0;">No spells selected.</p>
             {{/if}}
-            <p class="notes" style="margin-top:8px;">Click a spell on the left to preview and add it in a popup.</p>
           </div>
         </div>
       </div>

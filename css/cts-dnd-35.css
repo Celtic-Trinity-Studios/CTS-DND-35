@@ -341,62 +341,19 @@
   text-align: center;
 }
 
-/* Pop-out two-pane picker (class / feat / spell / skill) */
-.cts-dnd-35.wizard-picker-popout .window-content {
-  background: #09090a;
-  color: #f3f3f3;
+.cts-dnd-35.wizard-classic .wizard-inline-actions .cts-btn {
+  width: auto;
+  display: inline-block;
+  align-self: flex-start;
 }
-.cts-dnd-35.wizard-picker-popout .wizard-picker-toolbar {
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #444;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-split {
-  min-height: 420px;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-list {
-  max-height: min(60vh, 520px);
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-item {
-  width: 100%;
-  text-align: left;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background: #151515;
-  color: #f0f0f0;
-  padding: 6px 10px;
-  margin-bottom: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-item.active {
-  border-color: #8a1f1f;
-  background: linear-gradient(180deg, #6b1010, #3a0808);
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-item:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-detail-body {
-  max-height: min(52vh, 480px);
-  overflow: auto;
-  background: #080808;
-  border: 1px solid #555;
-  border-radius: 6px;
+.cts-dnd-35.wizard-classic .wizard-skill-table-wrap {
+  max-height: min(52vh, 520px);
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #666;
+  border-radius: var(--cts-radius);
   padding: 8px;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-.cts-dnd-35.wizard-picker-popout .wizard-picker-actions .picker-action {
-  flex: 0 0 auto;
-  width: auto !important;
-  min-width: 0;
-  padding: 4px 14px !important;
-  font-size: 13px !important;
+  background: #080808;
 }
 
 @media (max-width: 980px) {

@@ -8,16 +8,6 @@ import {
   getSpellcastingProgression,
   evaluateClassAvailability
 } from "../helpers/progression-rules.mjs";
-import { WizardTwoPanePicker } from "./wizard-two-pane-picker.mjs";
-
-/** Escape for HTML attribute / text injection in picker toolbars */
-const escAttr = (v) =>
-  String(v ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
 const GENDER_DESCRIPTIONS = {
   male: "Gender is primarily aesthetic in D&D 3.5 and does not change class abilities or mechanical options.",
   female: "Gender is primarily aesthetic in D&D 3.5 and does not change class abilities or mechanical options."
@@ -201,8 +191,9 @@ export class CharacterWizard extends Application {
     if (this.state.classes.secondary && !selectableClassChoices.some((c) => c.uuid === this.state.classes.secondary && this._isClassAvailable(c).ok)) {
       this.state.classes.secondary = "";
     }
-    const activeClass = this.classChoices.find((c) => c.uuid === this.state.activeClassUuid) || null;
-    context.activeClass = activeClass;
+    const classPreviewUuid = this.state.activeClassUuid || this.state.classes.primary;
+    context.activeClass = classPreviewUuid ? this.classChoices.find((c) => c.uuid === classPreviewUuid) : null;
+    context.classListActiveUuid = classPreviewUuid || "";
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
     context.secondaryClassLabel = allowGestalt ? this._classLabel(this.state.classes.secondary) : "Secondary";
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
@@ -268,6 +259,14 @@ export class CharacterWizard extends Application {
     context.availableSpells = Array.from(allowedSpellMap.values())
       .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
       .slice(0, 200);
+    if (this.state.activeSpellUuid && !context.availableSpells.some((s) => s.uuid === this.state.activeSpellUuid)) {
+      this.state.activeSpellUuid = "";
+    }
+    context.activeSpell = this.state.activeSpellUuid
+      ? context.availableSpells.find((s) => s.uuid === this.state.activeSpellUuid) ||
+        this.spellChoices.find((s) => s.uuid === this.state.activeSpellUuid) ||
+        null
+      : null;
     context.selectedSpells = this.state.selectedSpellUuids
       .map((uuid) => allowedSpellMap.get(uuid) || this.spellChoices.find((s) => s.uuid === uuid))
       .filter(Boolean);
@@ -577,92 +576,6 @@ export class CharacterWizard extends Application {
     return list;
   }
 
-  _openPicker(kind, initialId) {
-    const spec = this._pickerSpec(kind);
-    if (!spec) return;
-    const dlg = new WizardTwoPanePicker(
-      foundry.utils.mergeObject(spec.options(this, initialId), {
-        parentWizard: this
-      })
-    );
-    dlg.render(true);
-  }
-
-  _pickerSpec(kind) {
-    const specs = {
-      gender: {
-        options: (wiz, initialId) => ({
-          title: "Select Gender",
-          initialId: initialId || wiz.state.basics.gender,
-          getContext: (sel) => wiz._pickerContextGender(sel),
-          onAction: (action, sel, dlg) =>
-            wiz._pickerActionSimpleApply(action, sel, dlg, (id) => {
-              if (id === "male" || id === "female") wiz.state.basics.gender = id;
-            })
-        })
-      },
-      race: {
-        options: (wiz, initialId) => ({
-          title: "Select Race",
-          initialId: initialId || wiz.state.basics.race,
-          getContext: (sel) => wiz._pickerContextRace(sel),
-          onAction: (action, sel, dlg) =>
-            wiz._pickerActionSimpleApply(action, sel, dlg, (id) => {
-              if (CTSDND35.races[id]) {
-                wiz.state.basics.race = id;
-                wiz.state.basics.size = CTSDND35.races[id].size;
-              }
-            })
-        })
-      },
-      alignment: {
-        options: (wiz, initialId) => ({
-          title: "Select Alignment",
-          initialId: initialId || wiz.state.basics.alignment,
-          getContext: (sel) => wiz._pickerContextAlignment(sel),
-          onAction: (action, sel, dlg) =>
-            wiz._pickerActionSimpleApply(action, sel, dlg, (id) => {
-              if (CTSDND35.alignments[id]) wiz.state.basics.alignment = id;
-            })
-        })
-      },
-      class: {
-        options: (wiz, initialId) => ({
-          title: "Select Class",
-          initialId: initialId || wiz.state.classes.primary || wiz.classChoices[0]?.uuid,
-          getContext: (sel) => wiz._pickerContextClass(sel),
-          onAction: (action, sel, dlg) => wiz._pickerActionClass(action, sel, dlg)
-        })
-      },
-      feat: {
-        options: (wiz, initialId) => ({
-          title: "Select Feat",
-          initialId: initialId || wiz.state.activeFeatUuid || wiz._filteredFeatsList(wiz._finalAbilitiesPlain(), getKnownFeatNames(wiz.actor), wiz.state.showUnavailable !== false)[0]?.uuid,
-          getContext: (sel) => wiz._pickerContextFeat(sel),
-          onAction: (action, sel, dlg) => wiz._pickerActionFeat(action, sel, dlg)
-        })
-      },
-      spell: {
-        options: (wiz, initialId) => ({
-          title: "Select Spell",
-          initialId: initialId || wiz.state.activeSpellUuid || "",
-          getContext: (sel) => wiz._pickerContextSpell(sel),
-          onAction: (action, sel, dlg) => wiz._pickerActionSpell(action, sel, dlg)
-        })
-      },
-      skill: {
-        options: (wiz, initialId) => ({
-          title: "Adjust Skill",
-          initialId: initialId || Object.keys(CTSDND35.skills)[0],
-          getContext: (sel) => wiz._pickerContextSkill(sel),
-          onAction: (action, sel, dlg) => wiz._pickerActionSkill(action, sel, dlg),
-          extraActivate: (html, dlg) => wiz._pickerBindSkillAdjust(html, dlg)
-        })
-      }
-    };
-    return specs[kind];
-  }
-
   _finalAbilitiesPlain() {
     const currentRace = CTSDND35.races[this.state.basics.race] || { abilities: {} };
     const out = {};
@@ -670,430 +583,6 @@ export class CharacterWizard extends Application {
       out[a] = (this.state.abilities[a] || 10) + (currentRace.abilities[a] || 0);
     }
     return out;
-  }
-
-  async _pickerContextGender(selectedId) {
-    const id = selectedId === "female" ? "female" : "male";
-    const items = ["male", "female"].map((key) => ({
-      id: key,
-      active: key === id,
-      html: `<strong>${key === "male" ? "Male" : "Female"}</strong>`
-    }));
-    return {
-      items,
-      detailTitle: id === "female" ? "Female Gender Selection" : "Male Gender Selection",
-      detailHtml: `<p>${GENDER_DESCRIPTIONS[id]}</p>`,
-      actions: [
-        { id: "apply", label: "OK", css: "" },
-        { id: "close", label: "Cancel", css: "secondary" }
-      ],
-      toolbar: null
-    };
-  }
-
-  async _pickerContextRace(selectedId) {
-    const id = selectedId && CTSDND35.races[selectedId] ? selectedId : "human";
-    const items = Object.keys(CTSDND35.races).map((key) => ({
-      id: key,
-      active: key === id,
-      html: `<strong>${CTSDND35.races[key].label}</strong>`
-    }));
-    const desc = RACE_DESCRIPTIONS[id] || "";
-    const r = CTSDND35.races[id];
-    const mods = r?.abilities || {};
-    const modStr = Object.keys(mods).length
-      ? Object.entries(mods).map(([k, v]) => `${k.toUpperCase()} ${v >= 0 ? `+${v}` : v}`).join(", ")
-      : "None";
-    return {
-      items,
-      detailTitle: r?.label || "Race",
-      detailHtml: `<p>${desc}</p><p><strong>Size:</strong> ${r?.size} | <strong>Speed:</strong> ${r?.speed}</p><p><strong>Ability Modifiers:</strong> ${modStr}</p>`,
-      actions: [
-        { id: "apply", label: "OK", css: "" },
-        { id: "close", label: "Cancel", css: "secondary" }
-      ],
-      toolbar: null
-    };
-  }
-
-  async _pickerContextAlignment(selectedId) {
-    const keys = Object.keys(CTSDND35.alignments);
-    const id = keys.includes(selectedId) ? selectedId : "tn";
-    const items = keys.map((key) => ({
-      id: key,
-      active: key === id,
-      html: `<strong>${CTSDND35.alignments[key]}</strong>`
-    }));
-    return {
-      items,
-      detailTitle: CTSDND35.alignments[id],
-      detailHtml: `<p>${ALIGNMENT_DESCRIPTIONS[id] || ""}</p>`,
-      actions: [
-        { id: "apply", label: "OK", css: "" },
-        { id: "close", label: "Cancel", css: "secondary" }
-      ],
-      toolbar: null
-    };
-  }
-
-  async _pickerContextClass(selectedId) {
-    const list = this._filteredClassesList();
-    const toolbar = `
-<div class="flexrow" style="gap:10px; flex-wrap:wrap; align-items:flex-end;">
-  <div class="form-group" style="flex:1; min-width:160px;">
-    <label>Search</label>
-    <input type="text" data-picker-sync="classSearch" value="${escAttr(this.state.classSearch)}" />
-  </div>
-  <button type="button" class="cts-btn secondary wizard-toggle-unavailable" data-picker-sync="toggleUnavailable">${this.state.showUnavailable !== false ? "Hide Unavailable" : "Show Unavailable"}</button>
-</div>`;
-    if (!list.length) {
-      return {
-        items: [],
-        detailTitle: "Class",
-        detailHtml: "<p>No classes match your filters.</p>",
-        actions: [{ id: "close", label: "Close", css: "secondary" }],
-        toolbar
-      };
-    }
-    const firstId = list[0]?.uuid || this.classChoices[0]?.uuid;
-    const id = list.some((c) => c.uuid === selectedId) ? selectedId : firstId;
-    const cls = this.classChoices.find((c) => c.uuid === id);
-    const items = list.map((c) => ({
-      id: c.uuid,
-      active: c.uuid === id,
-      disabled: !c.available,
-      html: `<strong>${c.name}</strong>${c.available ? "" : ` <span class="notes" style="color:#c94c4c;">(unavailable)</span>`}`
-    }));
-    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
-    const actions = [
-      { id: "set-primary", label: "Set as Primary", css: "", disabled: !cls || !this._isClassAvailable(cls).ok },
-      { id: "close", label: "Close", css: "secondary" }
-    ];
-    if (allowGestalt) {
-      actions.splice(1, 0, {
-        id: "set-secondary",
-        label: "Set as Secondary",
-        css: "secondary",
-        disabled: !cls || !this._isClassAvailable(cls).ok
-      });
-    }
-    return {
-      items,
-      detailTitle: cls?.name || "Class",
-      detailHtml: cls?.description ? String(cls.description) : "<p>No description.</p>",
-      actions,
-      toolbar
-    };
-  }
-
-  async _pickerContextFeat(selectedId) {
-    const finalAbilities = this._finalAbilitiesPlain();
-    const knownFeatNames = getKnownFeatNames(this.actor);
-    const showUnavailable = this.state.showUnavailable !== false;
-    const list = this._filteredFeatsList(finalAbilities, knownFeatNames, showUnavailable);
-    if (!list.length) {
-      return {
-        items: [],
-        detailTitle: "Feat",
-        detailHtml: "<p>No feats match your filters.</p>",
-        actions: [{ id: "close", label: "Close", css: "secondary" }],
-        toolbar: `<div class="flexrow" style="gap:10px; flex-wrap:wrap; align-items:flex-end;">
-  <div class="form-group" style="flex:1; min-width:140px;"><label>Search</label><input type="text" data-picker-sync="featSearch" value="${escAttr(this.state.featSearch)}" /></div>
-  <div class="form-group" style="flex:1; min-width:140px;"><label>Type</label><select data-picker-sync="featTypeFilter"><option value="all">Everything</option></select></div>
-  <button type="button" class="cts-btn secondary wizard-toggle-unavailable" data-picker-sync="toggleUnavailable">${showUnavailable ? "Hide Unavailable" : "Show Unavailable"}</button>
-</div>`
-      };
-    }
-    const first = list[0]?.uuid || "";
-    const id = list.some((f) => f.uuid === selectedId) ? selectedId : first;
-    const feat = list.find((f) => f.uuid === id) || list[0];
-    const featTypes = Array.from(new Set(this.featChoices.map((f) => f.type).filter(Boolean))).sort();
-    const typeOptions = [`<option value="all"${this.state.featTypeFilter === "all" ? " selected" : ""}>Everything</option>`]
-      .concat(featTypes.map((t) => `<option value="${escAttr(t)}"${this.state.featTypeFilter === t ? " selected" : ""}>${escAttr(t)}</option>`))
-      .join("");
-    const toolbar = `
-<div class="flexrow" style="gap:10px; flex-wrap:wrap; align-items:flex-end;">
-  <div class="form-group" style="flex:1; min-width:140px;">
-    <label>Search</label>
-    <input type="text" data-picker-sync="featSearch" value="${escAttr(this.state.featSearch)}" />
-  </div>
-  <div class="form-group" style="flex:1; min-width:140px;">
-    <label>Type</label>
-    <select data-picker-sync="featTypeFilter">${typeOptions}</select>
-  </div>
-  <button type="button" class="cts-btn secondary wizard-toggle-unavailable" data-picker-sync="toggleUnavailable">${showUnavailable ? "Hide Unavailable" : "Show Unavailable"}</button>
-</div>`;
-    const items = list.map((f) => ({
-      id: f.uuid,
-      active: f.uuid === id,
-      disabled: !f.prereqOk,
-      html: `<strong>${escAttr(f.name)}</strong> <span class="notes">— ${escAttr(f.type || "")}</span>`
-    }));
-    let detailHtml = feat?.description ? String(feat.description) : "";
-    if (feat?.prereqReason) {
-      detailHtml += `<hr/><p class="notes" style="color:#c94c4c;">${escAttr(feat.prereqReason)}</p>`;
-    }
-    const slotLimit = Math.max(1, Number(this.state.featSlots) || 1);
-    const atCap = this.state.selectedFeatUuids.length >= slotLimit;
-    const already = feat && this.state.selectedFeatUuids.includes(feat.uuid);
-    return {
-      items,
-      detailTitle: feat?.name || "Feat",
-      detailHtml: detailHtml || "<p>No description.</p>",
-      actions: [
-        {
-          id: "add-feat",
-          label: "Add",
-          css: "",
-          disabled: !feat || !feat.prereqOk || atCap || already
-        },
-        { id: "close", label: "Close", css: "secondary" }
-      ],
-      toolbar
-    };
-  }
-
-  async _pickerContextSpell(selectedId) {
-    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
-    const primaryClassDoc = this.state.classes.primary ? await fromUuid(this.state.classes.primary) : null;
-    const secondaryClassDoc = allowGestalt && this.state.classes.secondary ? await fromUuid(this.state.classes.secondary) : null;
-    const castingDocs = [primaryClassDoc, secondaryClassDoc].filter(Boolean);
-    const allowedSpellMap = new Map();
-    for (const classDoc of castingDocs) {
-      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
-      const maxLvl = this._maxSpellLevelForClass(classDoc, level || 0);
-      if (maxLvl < 0) continue;
-      for (const spell of this.spellChoices) {
-        if (spell.spellLevel > maxLvl) continue;
-        if (!this._spellMatchesClass(spell, classDoc.name)) continue;
-        allowedSpellMap.set(spell.uuid, spell);
-      }
-    }
-    const spellSearch = this.state.spellSearch.toLowerCase().trim();
-    const list = Array.from(allowedSpellMap.values())
-      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
-      .slice(0, 200);
-    const toolbar = `
-<div class="form-group">
-  <label>Spell Search</label>
-  <input type="text" data-picker-sync="spellSearch" value="${escAttr(this.state.spellSearch)}" placeholder="Search" />
-</div>`;
-    if (!list.length) {
-      return {
-        items: [],
-        detailTitle: "Spell",
-        detailHtml: "<p>No spells available for your classes, or none match your search.</p>",
-        actions: [{ id: "close", label: "Close", css: "secondary" }],
-        toolbar
-      };
-    }
-    const first = list[0]?.uuid || "";
-    const id = list.some((s) => s.uuid === selectedId) ? selectedId : first;
-    const spell = list.find((s) => s.uuid === id);
-    const items = list.map((s) => ({
-      id: s.uuid,
-      active: s.uuid === id,
-      html: `<strong>${escAttr(s.name)}</strong> <span class="notes">(${s.spellLevel})</span>`
-    }));
-    const spontaneousDocs = castingDocs.filter((d) => this._spellcastingModeForClass(d) === "spontaneous");
-    const caps = {};
-    for (const classDoc of spontaneousDocs) {
-      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
-      const byLvl = this._spellPickCapsByLevelForClass(classDoc, level || 0);
-      for (const [lvl, n] of Object.entries(byLvl)) caps[lvl] = (caps[lvl] || 0) + (Number(n) || 0);
-    }
-    const selectedByLevel = this._selectedSpellCountsByLevel();
-    const lvlKey = String(Number(spell?.spellLevel) || 0);
-    const levelCap = Number(caps[lvlKey]) || 0;
-    const spellPickCap = spontaneousDocs.reduce((sum, classDoc) => {
-      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
-      return sum + this._spellPickCapForClass(classDoc, level || 0);
-    }, 0);
-    const canAdd =
-      spell &&
-      !this.state.selectedSpellUuids.includes(spell.uuid) &&
-      levelCap > 0 &&
-      (selectedByLevel[lvlKey] || 0) < levelCap &&
-      (spellPickCap <= 0 || this.state.selectedSpellUuids.length < spellPickCap);
-    return {
-      items,
-      detailTitle: spell?.name || "Spell",
-      detailHtml: spell?.description ? String(spell.description) : "<p>No spells available for your classes.</p>",
-      actions: [
-        { id: "add-spell", label: "Add", css: "", disabled: !canAdd },
-        { id: "close", label: "Close", css: "secondary" }
-      ],
-      toolbar
-    };
-  }
-
-  async _pickerContextSkill(selectedId) {
-    const key = CTSDND35.skills[selectedId] ? selectedId : Object.keys(CTSDND35.skills)[0];
-    const skill = CTSDND35.skills[key];
-    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
-    const p = this.state.skillRanks.primary[key] || 0;
-    const s = allowGestalt ? (this.state.skillRanks.secondary[key] || 0) : 0;
-    const primaryIsClass = (this.classSkillMap[this.state.classes.primary] || []).includes(key);
-    const secondaryIsClass = (this.classSkillMap[this.state.classes.secondary] || []).includes(key);
-    const cap = getSkillRankCap(1, this._isClassSkillForSelected(key));
-    const items = Object.entries(CTSDND35.skills).map(([k, def]) => ({
-      id: k,
-      active: k === key,
-      html: `<strong>${escAttr(def.label)}</strong>`
-    }));
-    const detailHtml = `
-<p><strong>${escAttr(skill.label)}</strong> (${skill.ability.toUpperCase()})</p>
-<p class="notes">Rank cap at 1st level: ${cap}. Class skill: ${this._isClassSkillForSelected(key) ? "yes" : "no"}</p>
-<div class="flexrow" style="gap:12px; align-items:center; margin-top:8px;">
-  <span>${this._classLabel(this.state.classes.primary)}:</span>
-  <button type="button" class="skill-dec-pick" data-which="primary" data-skill="${key}">-</button>
-  <span>${p}</span>
-  <button type="button" class="skill-inc-pick" data-which="primary" data-skill="${key}">+</button>
-</div>
-${
-  allowGestalt
-    ? `<div class="flexrow" style="gap:12px; align-items:center; margin-top:8px;">
-  <span>${this._classLabel(this.state.classes.secondary)}:</span>
-  <button type="button" class="skill-dec-pick" data-which="secondary" data-skill="${key}">-</button>
-  <span>${s}</span>
-  <button type="button" class="skill-inc-pick" data-which="secondary" data-skill="${key}">+</button>
-</div>`
-    : ""
-}
-<p class="notes" style="margin-top:8px;">Primary next rank cost: ${getSkillPointCost(primaryIsClass, 1)} | Secondary: ${getSkillPointCost(secondaryIsClass, 1)}</p>`;
-    return {
-      items,
-      detailTitle: skill.label,
-      detailHtml,
-      actions: [{ id: "close", label: "Close", css: "secondary" }],
-      toolbar: null
-    };
-  }
-
-  _pickerBindSkillAdjust(html, dlg) {
-    const wiz = this;
-    const rerender = async () => {
-      await wiz.render();
-      await dlg.render();
-    };
-    html.find(".skill-inc-pick").click(async (ev) => {
-      ev.preventDefault();
-      const which = ev.currentTarget.dataset.which;
-      const skill = ev.currentTarget.dataset.skill;
-      if (!which || !skill) return;
-      if (which === "secondary" && !game.settings.get("CTS-DND-35", "enableGestalt")) return;
-      const classUuid = which === "primary" ? wiz.state.classes.primary : wiz.state.classes.secondary;
-      const classSkills = wiz.classSkillMap[classUuid] || [];
-      const nextCost = getSkillPointCost(classSkills.includes(skill), 1);
-      if (wiz._remainingSkillPoints(which) < nextCost) return;
-      const current = wiz.state.skillRanks[which][skill] || 0;
-      const other = which === "primary" ? (wiz.state.skillRanks.secondary[skill] || 0) : (wiz.state.skillRanks.primary[skill] || 0);
-      const cap = getSkillRankCap(1, wiz._isClassSkillForSelected(skill));
-      if (current + other >= cap) return;
-      wiz.state.skillRanks[which][skill] = current + 1;
-      await rerender();
-    });
-    html.find(".skill-dec-pick").click(async (ev) => {
-      ev.preventDefault();
-      const which = ev.currentTarget.dataset.which;
-      const skill = ev.currentTarget.dataset.skill;
-      if (!which || !skill) return;
-      if (which === "secondary" && !game.settings.get("CTS-DND-35", "enableGestalt")) return;
-      const current = wiz.state.skillRanks[which][skill] || 0;
-      wiz.state.skillRanks[which][skill] = Math.max(0, current - 1);
-      await rerender();
-    });
-  }
-
-  async _pickerActionSimpleApply(action, selectedId, dlg, applyFn) {
-    if (action === "close") {
-      dlg.close();
-      return;
-    }
-    if (action === "apply" && selectedId) {
-      applyFn(selectedId);
-      this.render();
-      dlg.close();
-    }
-  }
-
-  async _pickerActionClass(action, selectedId, dlg) {
-    if (action === "close") {
-      dlg.close();
-      return;
-    }
-    const choice = this.classChoices.find((c) => c.uuid === selectedId);
-    if (!choice || !this._isClassAvailable(choice).ok) return;
-    if (action === "set-primary") {
-      this.state.classes.primary = selectedId;
-      if (!this.state.classLevels.primary) this.state.classLevels.primary = 1;
-      this.state.activeClassUuid = selectedId;
-      this.render();
-      dlg.close();
-    } else if (action === "set-secondary") {
-      if (!game.settings.get("CTS-DND-35", "enableGestalt")) return;
-      this.state.classes.secondary = selectedId;
-      this.state.activeClassUuid = selectedId;
-      this.render();
-      dlg.close();
-    }
-  }
-
-  async _pickerActionFeat(action, selectedId, dlg) {
-    if (action === "close") {
-      dlg.close();
-      return;
-    }
-    if (action !== "add-feat") return;
-    const uuid = selectedId;
-    if (!uuid || this.state.selectedFeatUuids.includes(uuid)) return;
-    const feat = this.featChoices.find((f) => f.uuid === uuid);
-    if (feat) {
-      const finalAbilities = this._finalAbilitiesPlain();
-      const check = evaluateFeatPrerequisites({
-        prereqText: feat.prerequisites,
-        abilities: Object.fromEntries(Object.entries(finalAbilities).map(([k, v]) => [k, { value: v }])),
-        bab: this.actor.system?.attributes?.bab?.total || 0,
-        totalLevel: 1,
-        knownFeatNames: getKnownFeatNames(this.actor),
-        allFeatNames: this.featChoices.map((f) => f.name),
-        featName: feat.name,
-        actor: this.actor,
-        skillCatalog: CTSDND35.skills
-      });
-      if (!check.ok) return;
-    }
-    const slotLimit = Math.max(1, Number(this.state.featSlots) || 1);
-    if (this.state.selectedFeatUuids.length >= slotLimit) return;
-    this.state.selectedFeatUuids.push(uuid);
-    this.state.activeFeatUuid = uuid;
-    this.render();
-    await dlg.render();
-  }
-
-  async _pickerActionSpell(action, selectedId, dlg) {
-    if (action === "close") {
-      dlg.close();
-      return;
-    }
-    if (action !== "add-spell") return;
-    const uuid = selectedId;
-    if (!uuid || this.state.selectedSpellUuids.includes(uuid)) return;
-    const spell = this.spellChoices.find((s) => s.uuid === uuid);
-    const lvlKey = String(Number(spell?.spellLevel) || 0);
-    const selectedByLevel = this._selectedSpellCountsByLevel();
-    const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
-    if (levelCap <= 0) return;
-    if ((selectedByLevel[lvlKey] || 0) >= levelCap) return;
-    if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
-    this.state.selectedSpellUuids.push(uuid);
-    this.state.activeSpellUuid = uuid;
-    this.render();
-    await dlg.render();
-  }
-
-  async _pickerActionSkill(action, _selectedId, dlg) {
-    if (action === "close") dlg.close();
   }
 
   activateListeners(html) {
@@ -1107,14 +596,112 @@ ${
       this.render();
     });
 
-    html.find(".open-picker").click((ev) => {
+    html.find(".gender-choice").click((ev) => {
       ev.preventDefault();
-      const kind = ev.currentTarget.dataset.kind;
-      const id = ev.currentTarget.dataset.id || "";
-      if (!kind) return;
-      this._openPicker(kind, id);
+      const gender = ev.currentTarget.dataset.gender;
+      if (!gender) return;
+      this.state.basics.gender = gender;
+      this.render();
     });
-    
+
+    html.find(".race-choice").click((ev) => {
+      ev.preventDefault();
+      const race = ev.currentTarget.dataset.race;
+      if (!race || !CTSDND35.races[race]) return;
+      this.state.basics.race = race;
+      this.state.basics.size = CTSDND35.races[race].size;
+      this.render();
+    });
+
+    html.find(".alignment-choice").click((ev) => {
+      ev.preventDefault();
+      const alignment = ev.currentTarget.dataset.alignment;
+      if (!alignment || !CTSDND35.alignments[alignment]) return;
+      this.state.basics.alignment = alignment;
+      this.render();
+    });
+
+    html.find(".class-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeClassUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".set-primary-class").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeClassUuid;
+      if (!uuid) return;
+      const choice = this.classChoices.find((c) => c.uuid === uuid);
+      if (!choice || !this._isClassAvailable(choice).ok) return;
+      this.state.classes.primary = uuid;
+      if (!this.state.classLevels.primary) this.state.classLevels.primary = 1;
+      this.render();
+    });
+
+    html.find(".set-secondary-class").click((ev) => {
+      ev.preventDefault();
+      if (!game.settings.get("CTS-DND-35", "enableGestalt")) return;
+      const uuid = this.state.activeClassUuid;
+      if (!uuid) return;
+      const choice = this.classChoices.find((c) => c.uuid === uuid);
+      if (!choice || !this._isClassAvailable(choice).ok) return;
+      this.state.classes.secondary = uuid;
+      this.render();
+    });
+
+    html.find(".feat-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeFeatUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".add-feat").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeFeatUuid;
+      if (!uuid || this.state.selectedFeatUuids.includes(uuid)) return;
+      const feat = this.featChoices.find((f) => f.uuid === uuid);
+      if (feat) {
+        const finalAbilities = this._finalAbilitiesPlain();
+        const check = evaluateFeatPrerequisites({
+          prereqText: feat.prerequisites,
+          abilities: Object.fromEntries(Object.entries(finalAbilities).map(([k, v]) => [k, { value: v }])),
+          bab: this.actor.system?.attributes?.bab?.total || 0,
+          totalLevel: 1,
+          knownFeatNames: getKnownFeatNames(this.actor),
+          allFeatNames: this.featChoices.map((f) => f.name),
+          featName: feat.name,
+          actor: this.actor,
+          skillCatalog: CTSDND35.skills
+        });
+        if (!check.ok) return;
+      }
+      const slotLimit = Math.max(1, Number(this.state.featSlots) || 1);
+      if (this.state.selectedFeatUuids.length >= slotLimit) return;
+      this.state.selectedFeatUuids.push(uuid);
+      this.render();
+    });
+
+    html.find(".spell-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeSpellUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".add-spell").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeSpellUuid;
+      if (!uuid || this.state.selectedSpellUuids.includes(uuid)) return;
+      const spell = this.spellChoices.find((s) => s.uuid === uuid);
+      const lvlKey = String(Number(spell?.spellLevel) || 0);
+      const selectedByLevel = this._selectedSpellCountsByLevel();
+      const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
+      if (levelCap <= 0) return;
+      if ((selectedByLevel[lvlKey] || 0) >= levelCap) return;
+      if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
+      this.state.selectedSpellUuids.push(uuid);
+      this.render();
+    });
+
     // Input syncing
     html.find("input, select").change(ev => {
       const el = ev.currentTarget;
