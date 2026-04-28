@@ -160,6 +160,11 @@ export class LevelUpWizard extends Application {
     return 1;
   }
 
+  _requiresFeatSelection(pendingFeatures = []) {
+    if (this._isFeatLevel()) return true;
+    return pendingFeatures.some((f) => String(f.name || "").toLowerCase().includes("bonus feat"));
+  }
+
   async getData() {
     await this._loadClassChoices();
     await this._loadFeatChoices();
@@ -214,6 +219,7 @@ export class LevelUpWizard extends Application {
     });
     const classDoc = await this._classDocument();
     context.pendingFeatures = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
+    context.requiresFeatChoice = this._requiresFeatSelection(context.pendingFeatures);
     context.spellcastingPreview = getSpellcastingProgression(
       classDoc?.system,
       classDoc?.name || this._selectedClass()?.name || "",
@@ -294,8 +300,10 @@ export class LevelUpWizard extends Application {
       ui.notifications.warn("You have spent more skill points than available.");
       return;
     }
-    if (this._isFeatLevel() && !this.state.selectedFeatUuid) {
-      ui.notifications.warn("This level grants a feat. Please choose one.");
+    const classDoc = await fromUuid(this.state.selectedClassUuid);
+    const pendingFeatures = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
+    if (this._requiresFeatSelection(pendingFeatures) && !this.state.selectedFeatUuid) {
+      ui.notifications.warn("This level grants a feat choice. Please choose one.");
       return;
     }
     if (this.state.selectedFeatUuid) {
@@ -311,7 +319,6 @@ export class LevelUpWizard extends Application {
 
     const cls = this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid);
     if (!cls) return;
-    const classDoc = await fromUuid(cls.uuid);
     if (!classDoc) return;
 
     const existingClass = this.actor.items.find((i) => i.type === "class" && i.name.toLowerCase() === cls.name.toLowerCase());

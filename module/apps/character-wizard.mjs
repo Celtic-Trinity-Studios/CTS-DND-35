@@ -45,7 +45,8 @@ export class CharacterWizard extends Application {
       featSearch: "",
       featTypeFilter: "all",
       selectedFeatUuids: [],
-      activeFeatUuid: ""
+      activeFeatUuid: "",
+      featSlots: 1
     };
   }
 
@@ -165,7 +166,12 @@ export class CharacterWizard extends Application {
       .filter(Boolean);
     const active = this.featChoices.find((f) => f.uuid === this.state.activeFeatUuid);
     context.activeFeat = active ?? null;
-    context.featSlots = this.state.basics.race === "human" ? 2 : 1;
+    const baseFeatSlots = this.state.basics.race === "human" ? 2 : 1;
+    const bonusFeatSlots =
+      this._countBonusFeatGrants(context.primaryFeaturePreview) +
+      this._countBonusFeatGrants(context.secondaryFeaturePreview);
+    context.featSlots = baseFeatSlots + bonusFeatSlots;
+    this.state.featSlots = context.featSlots;
     context.featsRemaining = context.featSlots - this.state.selectedFeatUuids.length;
     
     return context;
@@ -328,6 +334,10 @@ export class CharacterWizard extends Application {
     return primary.includes(skillKey) || secondary.includes(skillKey);
   }
 
+  _countBonusFeatGrants(featureGrants = []) {
+    return featureGrants.filter((f) => String(f.name || "").toLowerCase().includes("bonus feat")).length;
+  }
+
   activateListeners(html) {
     super.activateListeners(html);
     
@@ -459,7 +469,7 @@ export class CharacterWizard extends Application {
         });
         if (!check.ok) return;
       }
-      const slotLimit = this.state.basics.race === "human" ? 2 : 1;
+      const slotLimit = Math.max(1, Number(this.state.featSlots) || 1);
       if (this.state.selectedFeatUuids.length >= slotLimit) return;
       this.state.selectedFeatUuids.push(uuid);
       this.render();
