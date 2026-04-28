@@ -198,11 +198,15 @@ export class CharacterWizard extends Application {
     context.selectedSpells = this.state.selectedSpellUuids
       .map((uuid) => allowedSpellMap.get(uuid) || this.spellChoices.find((s) => s.uuid === uuid))
       .filter(Boolean);
-    context.spellPickCap = castingDocs.reduce((sum, classDoc) => {
+    const spontaneousDocs = castingDocs.filter((d) => this._spellcastingModeForClass(d) === "spontaneous");
+    const preparedDocs = castingDocs.filter((d) => this._spellcastingModeForClass(d) === "prepared");
+    context.isSpontaneousCaster = spontaneousDocs.length > 0;
+    context.isPreparedCaster = preparedDocs.length > 0;
+    context.spellPickCap = spontaneousDocs.reduce((sum, classDoc) => {
       const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
       return sum + this._spellPickCapForClass(classDoc, level || 0);
     }, 0);
-    context.spellPickCapsByLevel = castingDocs.reduce((acc, classDoc) => {
+    context.spellPickCapsByLevel = spontaneousDocs.reduce((acc, classDoc) => {
       const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
       const caps = this._spellPickCapsByLevelForClass(classDoc, level || 0);
       for (const [lvl, n] of Object.entries(caps)) acc[lvl] = (acc[lvl] || 0) + (Number(n) || 0);
@@ -314,6 +318,14 @@ export class CharacterWizard extends Application {
       if (value > 0) caps[String(lvl)] = value;
     }
     return caps;
+  }
+
+  _spellcastingModeForClass(classDoc) {
+    const className = String(classDoc?.name || "").toLowerCase();
+    if (["sorcerer", "bard"].includes(className)) return "spontaneous";
+    const type = String(classDoc?.system?.spellcasting?.type || "").toLowerCase();
+    if (!type || type === "none") return "none";
+    return "prepared";
   }
 
   _selectedSpellCountsByLevel() {

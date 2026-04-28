@@ -162,6 +162,14 @@ export class LevelUpWizard extends Application {
     return String(cls?.spellcastingType || "").toLowerCase();
   }
 
+  _spellcastingModeForClass(classDoc) {
+    const className = String(classDoc?.name || this._selectedClass()?.name || "").toLowerCase();
+    if (["sorcerer", "bard"].includes(className)) return "spontaneous";
+    const type = String(classDoc?.system?.spellcasting?.type || this._spellcastingType() || "").toLowerCase();
+    if (!type || type === "none") return "none";
+    return "prepared";
+  }
+
   _maxSpellLevelAfterGain(classDoc) {
     const progression = classDoc?.system?.spellcasting?.progression || {};
     const row = progression?.[this._classLevelAfterGain()] || progression?.[String(this._classLevelAfterGain())] || {};
@@ -307,6 +315,10 @@ export class LevelUpWizard extends Application {
       };
     });
     const classDoc = await this._classDocument();
+    const spellcastingMode = this._spellcastingModeForClass(classDoc);
+    context.spellcastingMode = spellcastingMode;
+    context.isPreparedCaster = spellcastingMode === "prepared";
+    context.isSpontaneousCaster = spellcastingMode === "spontaneous";
     context.pendingFeatures = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
     context.requiresFeatChoice = this._requiresFeatSelection(context.pendingFeatures);
     context.spellcastingPreview = getSpellcastingProgression(
@@ -321,8 +333,8 @@ export class LevelUpWizard extends Application {
     context.maxSpellLevel = maxSpellLevel;
     const oldClassLevel = Math.max(0, this._classLevelAfterGain() - 1);
     const newClassLevel = this._classLevelAfterGain();
-    context.spellPickCap = this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel);
-    context.spellPickCapsByLevel = this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel);
+    context.spellPickCap = spellcastingMode === "spontaneous" ? this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel) : 0;
+    context.spellPickCapsByLevel = spellcastingMode === "spontaneous" ? this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel) : {};
     this.state.spellPickCapsByLevel = context.spellPickCapsByLevel;
     context.spellPickCount = this.state.selectedSpellUuids.length;
     context.spellPickCountByLevel = this._selectedSpellCountsByLevel();
@@ -410,13 +422,16 @@ export class LevelUpWizard extends Application {
       const oldClassLevel = Number(existingClass?.system?.level) || 0;
       const newClassLevel = oldClassLevel + 1;
       const classDoc = await fromUuid(this.state.selectedClassUuid);
-      const cap = this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel);
-      const capsByLevel = this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel);
+      const mode = this._spellcastingModeForClass(classDoc);
+      const cap = mode === "spontaneous" ? this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel) : 0;
+      const capsByLevel = mode === "spontaneous" ? this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel) : {};
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
       const lvlKey = String(Number(spell?.spellLevel) || 0);
       const currentByLevel = this._selectedSpellCountsByLevel();
-      if ((Number(capsByLevel[lvlKey]) || 0) <= 0) return;
-      if ((currentByLevel[lvlKey] || 0) >= (Number(capsByLevel[lvlKey]) || 0)) return;
+      if (mode === "spontaneous") {
+        if ((Number(capsByLevel[lvlKey]) || 0) <= 0) return;
+        if ((currentByLevel[lvlKey] || 0) >= (Number(capsByLevel[lvlKey]) || 0)) return;
+      }
       if (cap > 0 && this.state.selectedSpellUuids.length >= cap) return;
       this.state.selectedSpellUuids.push(uuid);
       this.render();
@@ -457,8 +472,9 @@ export class LevelUpWizard extends Application {
     }
     const previewOldClassLevel = Math.max(0, this._classLevelAfterGain() - 1);
     const newClassLevelPreview = this._classLevelAfterGain();
-    const spellPickCap = this._spellPickCapForLevel(classDoc, previewOldClassLevel, newClassLevelPreview);
-    const spellPickCapsByLevel = this._spellPickCapsByLevelForGain(classDoc, previewOldClassLevel, newClassLevelPreview);
+    const mode = this._spellcastingModeForClass(classDoc);
+    const spellPickCap = mode === "spontaneous" ? this._spellPickCapForLevel(classDoc, previewOldClassLevel, newClassLevelPreview) : 0;
+    const spellPickCapsByLevel = mode === "spontaneous" ? this._spellPickCapsByLevelForGain(classDoc, previewOldClassLevel, newClassLevelPreview) : {};
     const selectedByLevel = this._selectedSpellCountsByLevel();
     if (spellPickCap > 0 && this.state.selectedSpellUuids.length > spellPickCap) {
       ui.notifications.warn(`You may pick at most ${spellPickCap} new spells for this level.`);

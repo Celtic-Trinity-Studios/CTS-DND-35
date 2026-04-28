@@ -211,8 +211,13 @@
     </div>
     <hr />
     <h4 style="margin:8px 0 6px 0;">Starting Spells</h4>
-    <p class="notes">Picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}</p>
-    {{#if spellPickCapsByLevel}}
+    {{#if isSpontaneousCaster}}
+    <p class="notes">Known picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}</p>
+    {{/if}}
+    {{#if isPreparedCaster}}
+    <p class="notes">Prepared caster mode: spell picks are optional references (no strict known-spell cap).</p>
+    {{/if}}
+    {{#if isSpontaneousCaster}}
     <p class="notes" style="margin-top:2px;">
       {{#each spellPickCapsByLevel}}
         L{{@key}}: {{lookup ../spellPickCountByLevel @key}} / {{this}}&nbsp;

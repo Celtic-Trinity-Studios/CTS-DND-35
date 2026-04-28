@@ -125,9 +125,10 @@
     <hr />
     <p class="notes">
       Caster progression allows spells up to level <strong>{{maxSpellLevel}}</strong>.
-      Picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}.
+      {{#if isSpontaneousCaster}}Known picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}.{{/if}}
+      {{#if isPreparedCaster}}Prepared caster mode: picks are optional references (no strict known-spell cap).{{/if}}
     </p>
-    {{#if spellPickCapsByLevel}}
+    {{#if isSpontaneousCaster}}
     <p class="notes" style="margin-top:2px;">
       {{#each spellPickCapsByLevel}}
         L{{@key}}: {{lookup ../spellPickCountByLevel @key}} / {{this}}&nbsp;
