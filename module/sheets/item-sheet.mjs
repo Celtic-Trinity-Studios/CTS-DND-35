@@ -8,7 +8,7 @@ export class CTSDND35ItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["CTS-DND-35", "sheet", "item"],
+      classes: ["cts-dnd-35", "sheet", "item"],
       width: 520,
       height: 480,
       tabs: [

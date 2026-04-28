@@ -10,7 +10,7 @@ export class CTSDND35ActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["CTS-DND-35", "sheet", "actor"],
+      classes: ["cts-dnd-35", "sheet", "actor"],
       width: 720,
       height: 680,
       tabs: [
@@ -54,6 +54,25 @@ export class CTSDND35ActorSheet extends ActorSheet {
       context.system.details?.notes || "",
       { async: true }
     );
+
+    // Build skill list for the template
+    const skillList = [];
+    for (const [key, skillDef] of Object.entries(CTSDND35.skills)) {
+      const skillData = context.system.skills?.[key] || { ranks: 0, misc: 0, classSkill: false };
+      const abilityMod = context.system.abilities[skillDef.ability]?.mod || 0;
+      skillList.push({
+        key,
+        label: skillDef.label,
+        ability: skillDef.ability.toUpperCase(),
+        abilityMod,
+        ranks: skillData.ranks || 0,
+        misc: skillData.misc || 0,
+        total: skillData.total || 0,
+        classSkill: skillData.classSkill || false,
+        untrained: skillDef.untrained,
+      });
+    }
+    context.skillList = skillList;
 
     return context;
   }
@@ -143,6 +162,9 @@ export class CTSDND35ActorSheet extends ActorSheet {
       const item = this.actor.items.get(li.data("item-id"));
       if (item) item.roll(ev);
     });
+
+    // Rollable skill checks
+    html.on("click", ".skill-roll", this._onSkillRoll.bind(this));
   }
 
   /**
@@ -196,5 +218,21 @@ export class CTSDND35ActorSheet extends ActorSheet {
   async _onInitRoll(event) {
     event.preventDefault();
     return this.actor.rollInitiative({ createCombatants: true });
+  }
+
+  /**
+   * Handle skill check rolls.
+   */
+  async _onSkillRoll(event) {
+    event.preventDefault();
+    const skillKey = event.currentTarget.dataset.skill;
+    const skillDef = CTSDND35.skills[skillKey];
+    const skillData = this.actor.system.skills?.[skillKey];
+    if (!skillDef || !skillData) return;
+
+    return new Roll("1d20 + @total", { total: skillData.total }).toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: `${skillDef.label} Check`,
+    });
   }
 }

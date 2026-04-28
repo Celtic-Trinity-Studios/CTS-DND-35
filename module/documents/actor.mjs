@@ -3,6 +3,7 @@
  * Extends the base Actor class to implement system-specific logic.
  */
 
+import { CTSDND35 } from "../helpers/config.mjs";
 export class CTSDND35Actor extends Actor {
 
   /** @override */
@@ -34,6 +35,9 @@ export class CTSDND35Actor extends Actor {
 
     // Compute combat stats
     this._prepareCombatStats(systemData);
+
+    // Compute skill totals
+    this._prepareSkills(systemData);
   }
 
   /**
@@ -85,6 +89,22 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.grapple.total =
       (systemData.attributes.bab?.total || 0) +
       (systemData.abilities.str?.mod || 0);
+  }
+
+  /**
+   * Prepare skills: ensure all skills from config exist and compute totals.
+   */
+  _prepareSkills(systemData) {
+    if (!systemData.skills) systemData.skills = {};
+
+    for (const [key, skillDef] of Object.entries(CTSDND35.skills)) {
+      if (!systemData.skills[key]) {
+        systemData.skills[key] = { ranks: 0, misc: 0, classSkill: false };
+      }
+      const skill = systemData.skills[key];
+      const abilityMod = systemData.abilities[skillDef.ability]?.mod || 0;
+      skill.total = (skill.ranks || 0) + abilityMod + (skill.misc || 0);
+    }
   }
 
   /**

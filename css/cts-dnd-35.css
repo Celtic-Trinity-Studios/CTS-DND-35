@@ -384,3 +384,99 @@
 .cts-dnd-35 .mb-sm { margin-bottom: 4px; }
 .cts-dnd-35 .mb-md { margin-bottom: 8px; }
 .cts-dnd-35 .mb-lg { margin-bottom: 16px; }
+
+/* --- Scrollable Sheet Body --- */
+.cts-dnd-35 .sheet-body {
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* --- Skills List --- */
+.cts-dnd-35 .skills-list {
+  font-size: 12px;
+}
+
+.cts-dnd-35 .skills-list .skill-header {
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--cts-text-light);
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius) var(--cts-radius) 0 0;
+  padding: 4px 6px;
+}
+
+.cts-dnd-35 .skills-list .skill-header .skill-name-header {
+  flex: 1;
+}
+
+.cts-dnd-35 .skills-list .skill-col {
+  width: 40px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.cts-dnd-35 .skills-list .skill-row {
+  padding: 2px 6px;
+  border: 1px solid var(--cts-border);
+  border-top: none;
+  transition: background 0.1s ease;
+}
+
+.cts-dnd-35 .skills-list .skill-row:hover {
+  background: var(--cts-bg-dark);
+}
+
+.cts-dnd-35 .skills-list .skill-row:last-child {
+  border-radius: 0 0 var(--cts-radius) var(--cts-radius);
+}
+
+.cts-dnd-35 .skills-list .skill-row.class-skill {
+  background: rgba(123, 45, 38, 0.05);
+}
+
+.cts-dnd-35 .skills-list .skill-row.class-skill:hover {
+  background: rgba(123, 45, 38, 0.1);
+}
+
+.cts-dnd-35 .skills-list .skill-name {
+  flex: 1;
+  cursor: pointer;
+}
+
+.cts-dnd-35 .skills-list .skill-name:hover {
+  color: var(--cts-primary);
+}
+
+.cts-dnd-35 .skills-list .skill-star {
+  font-size: 8px;
+  color: var(--cts-accent);
+  margin-right: 4px;
+}
+
+.cts-dnd-35 .skills-list .skill-ability {
+  font-size: 10px;
+  color: var(--cts-text-light);
+  text-transform: uppercase;
+}
+
+.cts-dnd-35 .skills-list .skill-input {
+  width: 36px;
+  text-align: center;
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  font-size: 11px;
+  padding: 1px;
+  background: white;
+}
+
+.cts-dnd-35 .skills-list .skill-total {
+  font-weight: bold;
+  color: var(--cts-secondary);
+  cursor: pointer;
+}
+
+.cts-dnd-35 .skills-list .skill-total:hover {
+  color: var(--cts-primary);
+}

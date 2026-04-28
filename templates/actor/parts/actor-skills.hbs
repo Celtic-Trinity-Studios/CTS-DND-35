@@ -1,2 +1,24 @@
 {{!-- Skills Tab Partial --}}
-<p><em>Skills will be implemented here. The system supports custom skill lists via the template.json and actor data model.</em></p>
+<div class="skills-list">
+  <div class="skill-header flex-row">
+    <span class="skill-name-header flex-grow">Skill</span>
+    <span class="skill-col">Abi</span>
+    <span class="skill-col">Mod</span>
+    <span class="skill-col">Ranks</span>
+    <span class="skill-col">Misc</span>
+    <span class="skill-col">Total</span>
+  </div>
+  {{#each skillList}}
+  <div class="skill-row flex-row {{#if this.classSkill}}class-skill{{/if}}">
+    <span class="skill-name flex-grow rollable skill-roll" data-skill="{{this.key}}" title="Roll {{this.label}}">
+      {{#if this.classSkill}}<i class="fas fa-star skill-star"></i>{{/if}}
+      {{this.label}}
+    </span>
+    <span class="skill-col skill-ability">{{this.ability}}</span>
+    <span class="skill-col">{{cts-sign this.abilityMod}}</span>
+    <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.ranks" value="{{this.ranks}}" data-dtype="Number" />
+    <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.misc" value="{{this.misc}}" data-dtype="Number" />
+    <span class="skill-col skill-total rollable skill-roll" data-skill="{{this.key}}">{{cts-sign this.total}}</span>
+  </div>
+  {{/each}}
+</div>
