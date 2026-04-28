@@ -103,8 +103,9 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 .cts-dnd-35.wizard .wizard-step-head h3 {
   margin: 0;
@@ -112,9 +113,17 @@
   min-width: 0;
   line-height: 1.25;
 }
+.cts-dnd-35.wizard .wizard-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 4px 0 10px 0;
+}
 .cts-dnd-35.wizard .wizard-toggle-unavailable {
   flex: 0 0 auto;
   align-self: flex-start;
+  display: inline-flex !important;
+  width: auto !important;
   padding: 3px 10px !important;
   font-size: 12px !important;
   line-height: 1.25 !important;
