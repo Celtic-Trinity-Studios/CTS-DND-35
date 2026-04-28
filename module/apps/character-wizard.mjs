@@ -7,6 +7,7 @@ export class CharacterWizard extends Application {
     this.featChoices = [];
     this.classChoices = [];
     this.classSkillMap = {};
+    this._hydratedFromActor = false;
     this.state = {
       step: 1,
       basics: {
@@ -24,6 +25,10 @@ export class CharacterWizard extends Application {
       classes: {
         primary: "",
         secondary: ""
+      },
+      classLevels: {
+        primary: 1,
+        secondary: 0
       },
       skillRanks: {
         primary: this._initSkillRanks(),
@@ -49,6 +54,7 @@ export class CharacterWizard extends Application {
   }
 
   async getData() {
+    await this._hydrateFromActor();
     const context = super.getData() ?? {};
     context.actor = this.actor;
     context.state = this.state;
@@ -173,6 +179,77 @@ export class CharacterWizard extends Application {
     this.classSkillMap = Object.fromEntries(this.classChoices.map((c) => [c.uuid, c.classSkills]));
   }
 
+  _getRaceKeyFromActor() {
+    const actorRace = (this.actor.system?.details?.race || "").toLowerCase().trim();
+    if (!actorRace) return this.state.basics.race;
+    for (const [key, def] of Object.entries(CTSDND35.races)) {
+      if (def.label.toLowerCase() === actorRace) return key;
+    }
+    return this.state.basics.race;
+  }
+
+  async _hydrateFromActor() {
+    if (this._hydratedFromActor) return;
+
+    await this._loadClassChoices();
+    await this._loadFeatChoices();
+
+    const actorSystem = this.actor.system || {};
+    const raceKey = this._getRaceKeyFromActor();
+    this.state.basics = {
+      name: this.actor.name || "New Character",
+      race: raceKey,
+      alignment: actorSystem.details?.alignment || "tn",
+      deity: actorSystem.details?.deity || "",
+      size: actorSystem.traits?.size || CTSDND35.races[raceKey]?.size || "med"
+    };
+
+    for (const key of ["str", "dex", "con", "int", "wis", "cha"]) {
+      this.state.abilities[key] = Number(actorSystem.abilities?.[key]?.value) || this.state.abilities[key];
+    }
+
+    const classItems = this.actor.items
+      .filter((i) => i.type === "class")
+      .map((i) => ({ name: i.name, level: Number(i.system?.level) || 1 }))
+      .sort((a, b) => b.level - a.level);
+
+    const matchClassUuid = (name) => {
+      const hit = this.classChoices.find((c) => c.name.toLowerCase() === (name || "").toLowerCase());
+      return hit?.uuid || "";
+    };
+
+    if (classItems[0]) {
+      this.state.classes.primary = matchClassUuid(classItems[0].name);
+      this.state.classLevels.primary = classItems[0].level;
+    }
+    if (classItems[1]) {
+      this.state.classes.secondary = matchClassUuid(classItems[1].name);
+      this.state.classLevels.secondary = classItems[1].level;
+    }
+
+    for (const key of Object.keys(CTSDND35.skills)) {
+      this.state.skillRanks.primary[key] = Number(actorSystem.skills?.[key]?.ranks) || 0;
+      this.state.skillRanks.secondary[key] = 0;
+    }
+
+    const actorFeats = this.actor.items.filter((i) => i.type === "feat");
+    const selected = [];
+    for (const feat of actorFeats) {
+      const sourceUuid = feat.flags?.core?.sourceId;
+      const bySource = this.featChoices.find((f) => f.uuid === sourceUuid);
+      if (bySource) {
+        selected.push(bySource.uuid);
+        continue;
+      }
+      const byName = this.featChoices.find((f) => f.name.toLowerCase() === feat.name.toLowerCase());
+      if (byName) selected.push(byName.uuid);
+    }
+    this.state.selectedFeatUuids = [...new Set(selected)];
+    this.state.activeFeatUuid = this.state.selectedFeatUuids[0] || "";
+
+    this._hydratedFromActor = true;
+  }
+
   _computeClassSkillBudget(classUuid, intMod) {
     if (!classUuid) return 0;
     const cls = this.classChoices.find((c) => c.uuid === classUuid);
@@ -241,8 +318,13 @@ export class CharacterWizard extends Application {
           // leave "roll" alone until they click the button
         } else if (prop === "classes.primary") {
           this.state.classes.primary = el.value;
+          if (!this.state.classLevels.primary) this.state.classLevels.primary = 1;
         } else if (prop === "classes.secondary") {
           this.state.classes.secondary = el.value;
+        } else if (prop === "classLevels.primary") {
+          this.state.classLevels.primary = Math.max(1, parseInt(el.value) || 1);
+        } else if (prop === "classLevels.secondary") {
+          this.state.classLevels.secondary = Math.max(0, parseInt(el.value) || 0);
         } else if (prop === "featSearch") {
           this.state.featSearch = el.value;
         } else if (prop === "featTypeFilter") {
@@ -354,10 +436,33 @@ export class CharacterWizard extends Application {
 
     await this.actor.update(updates);
 
+    // Ensure selected class choices become actual class items with chosen levels.
+    const chosenClasses = [
+      { uuid: this.state.classes.primary, level: Math.max(1, this.state.classLevels.primary || 1) },
+      { uuid: this.state.classes.secondary, level: Math.max(1, this.state.classLevels.secondary || 0) }
+    ].filter((c) => c.uuid && c.level > 0);
+
+    for (const cls of chosenClasses) {
+      const classDoc = await fromUuid(cls.uuid);
+      if (!classDoc) continue;
+      const existing = this.actor.items.find((i) => i.type === "class" && i.name.toLowerCase() === classDoc.name.toLowerCase());
+      if (existing) {
+        await existing.update({ "system.level": cls.level });
+      } else {
+        const classData = classDoc.toObject();
+        classData.system = classData.system || {};
+        classData.system.level = cls.level;
+        await this.actor.createEmbeddedDocuments("Item", [classData]);
+      }
+    }
+
     const featItems = [];
+    const existingFeatNames = new Set(this.actor.items.filter((i) => i.type === "feat").map((i) => i.name.toLowerCase()));
     for (const uuid of this.state.selectedFeatUuids) {
       const featDoc = await fromUuid(uuid);
-      if (featDoc) featItems.push(featDoc.toObject());
+      if (!featDoc) continue;
+      if (existingFeatNames.has(featDoc.name.toLowerCase())) continue;
+      featItems.push(featDoc.toObject());
     }
     if (featItems.length) {
       await this.actor.createEmbeddedDocuments("Item", featItems);

@@ -74,6 +74,10 @@
       </select>
     </div>
     <div class="form-group">
+      <label>Primary Class Level</label>
+      <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
+    </div>
+    <div class="form-group">
       <label>Secondary Class (optional)</label>
       <select data-prop="classes.secondary">
         <option value="">-- None --</option>
@@ -81,6 +85,10 @@
         <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}}>{{c.name}}</option>
         {{/each}}
       </select>
+    </div>
+    <div class="form-group">
+      <label>Secondary Class Level</label>
+      <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
     </div>
 
     <p class="notes">
