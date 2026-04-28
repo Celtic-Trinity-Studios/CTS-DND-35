@@ -100,6 +100,24 @@
       {{secondaryClassLabel}} points: <strong>{{skillBudget.secondaryRemaining}}</strong> / {{skillBudget.secondary}}
       {{/if}}
     </p>
+    {{#if primaryFeaturePreview.length}}
+    <p class="notes" style="margin-bottom:4px;"><strong>{{primaryClassLabel}} feature grants</strong></p>
+    <ul style="max-height:80px; overflow-y:auto; margin-top:0;">
+      {{#each primaryFeaturePreview as |feat|}}
+      <li>{{feat.name}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+    {{#if allowGestalt}}
+      {{#if secondaryFeaturePreview.length}}
+      <p class="notes" style="margin-bottom:4px;"><strong>{{secondaryClassLabel}} feature grants</strong></p>
+      <ul style="max-height:80px; overflow-y:auto; margin-top:0;">
+        {{#each secondaryFeaturePreview as |feat|}}
+        <li>{{feat.name}}</li>
+        {{/each}}
+      </ul>
+      {{/if}}
+    {{/if}}
 
     <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
       <div class="flexrow" style="font-weight: bold; margin-bottom: 6px;">

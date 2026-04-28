@@ -48,6 +48,8 @@ export class CTSDND35Actor extends Actor {
     systemData.traits.size ??= "med";
     systemData.currency ??= { cp: 0, sp: 0, gp: 0, pp: 0 };
     systemData.skills ??= {};
+    systemData.spellcasting ??= {};
+    systemData.spellcasting.classes ??= {};
   }
 
   /**

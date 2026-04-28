@@ -36,6 +36,21 @@
       <button type="button" class="cts-btn secondary roll-hp" style="margin-left:8px;">Roll HP</button>
     </div>
     <p class="notes">Preview HP gain: <strong>{{hpGainPreview}}</strong></p>
+    {{#if pendingFeatures.length}}
+    <p class="notes" style="margin-bottom:4px;"><strong>Class Features Gained</strong></p>
+    <ul style="max-height:100px; overflow-y:auto; margin-top:0;">
+      {{#each pendingFeatures as |feat|}}
+      <li>{{feat.name}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+    {{#if spellcastingPreview}}
+    <p class="notes">
+      Spellcasting update: {{spellcastingPreview.data.className}} ({{spellcastingPreview.data.type}})
+      caster level {{spellcastingPreview.data.casterLevel}}
+      {{#if spellcastingPreview.data.ability}}using {{spellcastingPreview.data.ability}}{{/if}}.
+    </p>
+    {{/if}}
     {{/if}}
 
     {{#if isStep2}}

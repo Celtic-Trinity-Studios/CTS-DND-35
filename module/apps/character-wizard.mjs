@@ -1,5 +1,12 @@
 import { CTSDND35 } from "../helpers/config.mjs";
-import { evaluateFeatPrerequisites, getKnownFeatNames, getSkillPointCost, getSkillRankCap } from "../helpers/progression-rules.mjs";
+import {
+  evaluateFeatPrerequisites,
+  getClassFeatureGrants,
+  getKnownFeatNames,
+  getSkillPointCost,
+  getSkillRankCap,
+  getSpellcastingProgression
+} from "../helpers/progression-rules.mjs";
 
 export class CharacterWizard extends Application {
   constructor(actor, options = {}) {
@@ -125,6 +132,12 @@ export class CharacterWizard extends Application {
         total: totalRanks + abilityMod + classBonus
       };
     });
+    const primaryClassDoc = this.state.classes.primary ? await fromUuid(this.state.classes.primary) : null;
+    const secondaryClassDoc = allowGestalt && this.state.classes.secondary ? await fromUuid(this.state.classes.secondary) : null;
+    context.primaryFeaturePreview = getClassFeatureGrants(primaryClassDoc?.system, 0, this.state.classLevels.primary || 0);
+    context.secondaryFeaturePreview = allowGestalt
+      ? getClassFeatureGrants(secondaryClassDoc?.system, 0, this.state.classLevels.secondary || 0)
+      : [];
 
     await this._loadFeatChoices();
     const featSearch = this.state.featSearch.trim().toLowerCase();
@@ -487,6 +500,7 @@ export class CharacterWizard extends Application {
       "system.details.alignment": basics.alignment,
       "system.details.deity": basics.deity,
       "system.traits.size": basics.size,
+      "system.spellcasting.classes": foundry.utils.deepClone(this.actor.system?.spellcasting?.classes || {})
     };
 
     for (let a of ["str", "dex", "con", "int", "wis", "cha"]) {
@@ -509,6 +523,7 @@ export class CharacterWizard extends Application {
       { uuid: allowGestalt ? this.state.classes.secondary : "", level: allowGestalt ? Math.max(1, this.state.classLevels.secondary || 0) : 0 }
     ].filter((c) => c.uuid && c.level > 0);
 
+    const grantedFeatures = [];
     for (const cls of chosenClasses) {
       const classDoc = await fromUuid(cls.uuid);
       if (!classDoc) continue;
@@ -521,7 +536,13 @@ export class CharacterWizard extends Application {
         classData.system.level = cls.level;
         await this.actor.createEmbeddedDocuments("Item", [classData]);
       }
+      const spellcastingGain = getSpellcastingProgression(classDoc.system, classDoc.name, cls.level, this.actor.system?.spellcasting);
+      if (spellcastingGain) {
+        updates["system.spellcasting.classes"][spellcastingGain.key] = spellcastingGain.data;
+      }
+      grantedFeatures.push(...getClassFeatureGrants(classDoc.system, 0, cls.level).map((f) => ({ ...f, className: classDoc.name })));
     }
+    await this.actor.update({ "system.spellcasting.classes": updates["system.spellcasting.classes"] });
 
     const featItems = [];
     const existingFeatNames = new Set(this.actor.items.filter((i) => i.type === "feat").map((i) => i.name.toLowerCase()));
@@ -546,6 +567,23 @@ export class CharacterWizard extends Application {
     }
     if (featItems.length) {
       await this.actor.createEmbeddedDocuments("Item", featItems);
+    }
+    if (grantedFeatures.length) {
+      const existingFeatureNames = new Set(this.actor.items.filter((i) => i.type === "feature").map((i) => i.name.toLowerCase()));
+      const featureItems = grantedFeatures
+        .filter((f) => !existingFeatureNames.has(f.name.toLowerCase()))
+        .map((f) => ({
+          name: f.name,
+          type: "feature",
+          img: "icons/svg/book.svg",
+          system: {
+            description: `<p>Granted by ${f.className} at class level ${f.level}.</p>`,
+            source: f.className,
+            featureType: "class",
+            classSource: f.className
+          }
+        }));
+      if (featureItems.length) await this.actor.createEmbeddedDocuments("Item", featureItems);
     }
 
     this.actor.sheet?.render(true);

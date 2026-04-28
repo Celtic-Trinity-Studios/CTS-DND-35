@@ -1,5 +1,12 @@
 import { CTSDND35 } from "../helpers/config.mjs";
-import { evaluateFeatPrerequisites, getKnownFeatNames, getSkillPointCost, getSkillRankCap } from "../helpers/progression-rules.mjs";
+import {
+  evaluateFeatPrerequisites,
+  getClassFeatureGrants,
+  getKnownFeatNames,
+  getSkillPointCost,
+  getSkillRankCap,
+  getSpellcastingProgression
+} from "../helpers/progression-rules.mjs";
 
 export class LevelUpWizard extends Application {
   constructor(actor, options = {}) {
@@ -132,6 +139,16 @@ export class LevelUpWizard extends Application {
     return (Number(existing?.system?.level) || 0) + 1;
   }
 
+  _selectedClass() {
+    return this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid) || null;
+  }
+
+  async _classDocument() {
+    const cls = this._selectedClass();
+    if (!cls?.uuid) return null;
+    return fromUuid(cls.uuid);
+  }
+
   _hpGainForDisplay() {
     const cls = this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid);
     if (!cls) return 0;
@@ -195,6 +212,14 @@ export class LevelUpWizard extends Application {
         projectedTotal: projectedRanks + abilityMod + classBonus
       };
     });
+    const classDoc = await this._classDocument();
+    context.pendingFeatures = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
+    context.spellcastingPreview = getSpellcastingProgression(
+      classDoc?.system,
+      classDoc?.name || this._selectedClass()?.name || "",
+      this._classLevelAfterGain(),
+      this.actor.system?.spellcasting
+    );
     return context;
   }
 
@@ -286,18 +311,19 @@ export class LevelUpWizard extends Application {
 
     const cls = this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid);
     if (!cls) return;
+    const classDoc = await fromUuid(cls.uuid);
+    if (!classDoc) return;
 
     const existingClass = this.actor.items.find((i) => i.type === "class" && i.name.toLowerCase() === cls.name.toLowerCase());
+    const oldClassLevel = Number(existingClass?.system?.level) || 0;
+    const newClassLevel = oldClassLevel + 1;
     if (existingClass) {
-      await existingClass.update({ "system.level": (Number(existingClass.system?.level) || 0) + 1 });
+      await existingClass.update({ "system.level": newClassLevel });
     } else {
-      const classDoc = await fromUuid(cls.uuid);
-      if (classDoc) {
-        const data = classDoc.toObject();
-        data.system = data.system || {};
-        data.system.level = 1;
-        await this.actor.createEmbeddedDocuments("Item", [data]);
-      }
+      const data = classDoc.toObject();
+      data.system = data.system || {};
+      data.system.level = 1;
+      await this.actor.createEmbeddedDocuments("Item", [data]);
     }
 
     const hpGain = this._hpGainForDisplay();
@@ -305,12 +331,36 @@ export class LevelUpWizard extends Application {
     const hpMax = Number(this.actor.system?.attributes?.hp?.max) || 0;
     const updates = {
       "system.attributes.hp.max": hpMax + hpGain,
-      "system.attributes.hp.value": hpValue + hpGain
+      "system.attributes.hp.value": hpValue + hpGain,
+      "system.spellcasting.classes": foundry.utils.deepClone(this.actor.system?.spellcasting?.classes || {})
     };
     for (const [key, add] of Object.entries(this.state.skillRanks)) {
       updates[`system.skills.${key}.ranks`] = (Number(this.actor.system?.skills?.[key]?.ranks) || 0) + (Number(add) || 0);
     }
+    const spellcastingGain = getSpellcastingProgression(classDoc.system, classDoc.name, newClassLevel, this.actor.system?.spellcasting);
+    if (spellcastingGain) {
+      updates["system.spellcasting.classes"][spellcastingGain.key] = spellcastingGain.data;
+    }
     await this.actor.update(updates);
+
+    const pendingFeatures = getClassFeatureGrants(classDoc.system, oldClassLevel, newClassLevel);
+    if (pendingFeatures.length) {
+      const existingFeatureNames = new Set(this.actor.items.filter((i) => i.type === "feature").map((i) => i.name.toLowerCase()));
+      const newFeatures = pendingFeatures
+        .filter((f) => !existingFeatureNames.has(f.name.toLowerCase()))
+        .map((f) => ({
+          name: f.name,
+          type: "feature",
+          img: "icons/svg/book.svg",
+          system: {
+            description: `<p>Granted by ${classDoc.name} at class level ${f.level}.</p>`,
+            source: classDoc.name,
+            featureType: "class",
+            classSource: classDoc.name
+          }
+        }));
+      if (newFeatures.length) await this.actor.createEmbeddedDocuments("Item", newFeatures);
+    }
 
     if (this.state.selectedFeatUuid) {
       const featDoc = await fromUuid(this.state.selectedFeatUuid);

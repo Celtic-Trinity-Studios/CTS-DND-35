@@ -61,3 +61,95 @@ export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLev
 
   return { ok: reasons.length === 0, reasons };
 }
+
+function normalizeFeatureTable(rawFeatureData) {
+  if (!rawFeatureData) return {};
+  if (typeof rawFeatureData === "string") {
+    try {
+      return normalizeFeatureTable(JSON.parse(rawFeatureData));
+    } catch {
+      return {};
+    }
+  }
+  if (Array.isArray(rawFeatureData)) {
+    const table = {};
+    for (const row of rawFeatureData) {
+      if (!row) continue;
+      const level = Number(row.level) || Number(row.lvl) || 0;
+      if (!level) continue;
+      const entries = Array.isArray(row.features) ? row.features : [row.feature || row.name].filter(Boolean);
+      if (!entries.length) continue;
+      table[level] = [...(table[level] || []), ...entries.map((e) => String(e).trim()).filter(Boolean)];
+    }
+    return table;
+  }
+  if (typeof rawFeatureData === "object") {
+    const table = {};
+    for (const [k, v] of Object.entries(rawFeatureData)) {
+      const level = Number(k) || Number(v?.level) || 0;
+      if (!level) continue;
+      const entries = Array.isArray(v) ? v : Array.isArray(v?.features) ? v.features : [v?.feature || v?.name || v].filter(Boolean);
+      table[level] = entries.map((e) => String(e).trim()).filter(Boolean);
+    }
+    return table;
+  }
+  return {};
+}
+
+function slugify(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+export function getClassFeatureGrants(classSystem, fromLevel, toLevel) {
+  const start = Math.max(0, Number(fromLevel) || 0);
+  const end = Math.max(start, Number(toLevel) || 0);
+  const featureTable = normalizeFeatureTable(
+    classSystem?.featuresByLevel
+    || classSystem?.classFeaturesByLevel
+    || classSystem?.classFeatures
+    || classSystem?.features
+  );
+  const grants = [];
+  for (let level = start + 1; level <= end; level++) {
+    const entries = featureTable[level] || [];
+    for (const name of entries) {
+      grants.push({
+        name,
+        level,
+        key: `${slugify(name)}@${level}`
+      });
+    }
+  }
+  return grants;
+}
+
+export function getSpellcastingProgression(classSystem, className, classLevel, actorSpellcasting = {}) {
+  const spellcasting = classSystem?.spellcasting || {};
+  const type = String(spellcasting.type || "none").toLowerCase();
+  if (!type || type === "none") return null;
+
+  const key = slugify(className) || "class";
+  const level = Math.max(0, Number(classLevel) || 0);
+  const existing = actorSpellcasting?.classes?.[key] || {};
+  const progressionRaw = spellcasting.progression || spellcasting.spellsPerDayByLevel || {};
+  const progression = typeof progressionRaw === "string" ? (() => {
+    try { return JSON.parse(progressionRaw); } catch { return {}; }
+  })() : progressionRaw;
+  const levelRow = progression?.[level] || progression?.[String(level)] || {};
+
+  return {
+    key,
+    data: {
+      className,
+      type,
+      ability: spellcasting.ability || existing.ability || "",
+      classLevel: level,
+      casterLevel: level,
+      spellsPerDay: levelRow.spellsPerDay || levelRow.perDay || existing.spellsPerDay || {},
+      spellsKnown: levelRow.spellsKnown || levelRow.known || existing.spellsKnown || {}
+    }
+  };
+}
