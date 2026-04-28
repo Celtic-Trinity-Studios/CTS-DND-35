@@ -1,9 +1,9 @@
 <form class="cts-dnd-35 wizard" autocomplete="off" onsubmit="event.preventDefault();">
   <header class="wizard-header flexrow">
-    <div class="step-indicator {{#if isStep1}}active{{/if}}">1. Basics</div>
-    <div class="step-indicator {{#if isStep2}}active{{/if}}">2. Abilities</div>
-    <div class="step-indicator {{#if isStep3}}active{{/if}}">3. Skills</div>
-    <div class="step-indicator {{#if isStep4}}active{{/if}}">4. Feats</div>
+    <button type="button" class="step-indicator {{#if isStep1}}active{{/if}}" data-step="1">1. Basics</button>
+    <button type="button" class="step-indicator {{#if isStep2}}active{{/if}}" data-step="2">2. Abilities</button>
+    <button type="button" class="step-indicator {{#if isStep3}}active{{/if}}" data-step="3">3. Skills</button>
+    <button type="button" class="step-indicator {{#if isStep4}}active{{/if}}" data-step="4">4. Feats</button>
   </header>
 
   <div class="wizard-content">
@@ -174,23 +174,10 @@
   </div>
 
   <footer class="wizard-footer flexrow" style="gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid var(--cts-border-dark);">
-    {{#if isStep1}}
-    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
-    {{/if}}
-
-    {{#if isStep2}}
-    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
-    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
-    {{/if}}
-
-    {{#if isStep3}}
-    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
-    <button type="button" class="cts-btn next-step" style="flex: 1;">Next Step</button>
-    {{/if}}
-
     {{#if isStep4}}
-    <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;">Back</button>
     <button type="button" class="cts-btn apply-wizard" style="flex: 1;">Apply & Finish</button>
+    {{else}}
+    <p class="notes" style="margin:0; width: 100%; text-align: center;">Click the tabs above to move between steps.</p>
     {{/if}}
   </footer>
 </form>

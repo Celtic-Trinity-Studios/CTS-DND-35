@@ -58,26 +58,43 @@
 /* --- Wizard App --- */
 .cts-dnd-35.wizard .wizard-header {
   margin-bottom: 16px;
-  background: var(--cts-bg-dark);
-  border: 1px solid var(--cts-border-dark);
+  background: linear-gradient(180deg, #1c2f4a, #132338);
+  border: 1px solid #28466d;
   border-radius: var(--cts-radius);
   overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 .cts-dnd-35.wizard .step-indicator {
   flex: 1;
   text-align: center;
   padding: 8px;
   font-family: var(--cts-font-heading);
-  font-size: 18px;
-  color: var(--cts-text-light);
-  border-right: 1px solid var(--cts-border-dark);
+  font-size: 16px;
+  color: #a9bfd8;
+  border: none;
+  border-right: 1px solid #28466d;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 .cts-dnd-35.wizard .step-indicator:last-child {
   border-right: none;
 }
+.cts-dnd-35.wizard .step-indicator:hover {
+  background: rgba(67, 124, 181, 0.2);
+  color: #e6f0ff;
+}
 .cts-dnd-35.wizard .step-indicator.active {
-  background: var(--cts-primary);
-  color: white;
+  background: linear-gradient(180deg, #2f6ea2, #23537a);
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.cts-dnd-35.wizard .wizard-content {
+  border: 1px solid #d3d8df;
+  border-radius: var(--cts-radius);
+  background: linear-gradient(180deg, #f3f6fa, #e8edf4);
+  padding: 10px;
 }
 
 

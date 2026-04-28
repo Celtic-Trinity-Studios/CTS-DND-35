@@ -208,13 +208,11 @@ export class CharacterWizard extends Application {
   activateListeners(html) {
     super.activateListeners(html);
     
-    // Navigation
-    html.find(".next-step").click(ev => {
-      this.state.step = Math.min(4, this.state.step + 1);
-      this.render();
-    });
-    html.find(".prev-step").click(ev => {
-      this.state.step = Math.max(1, this.state.step - 1);
+    // Navigation via clickable tabs
+    html.find(".step-indicator").click((ev) => {
+      ev.preventDefault();
+      const step = Number(ev.currentTarget.dataset.step) || 1;
+      this.state.step = Math.min(4, Math.max(1, step));
       this.render();
     });
     
