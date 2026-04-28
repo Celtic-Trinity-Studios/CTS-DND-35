@@ -13,6 +13,7 @@ export class CharacterWizard extends Application {
     super(options);
     this.actor = actor;
     this.featChoices = [];
+    this.spellChoices = [];
     this.classChoices = [];
     this.classSkillMap = {};
     this._hydratedFromActor = false;
@@ -46,7 +47,9 @@ export class CharacterWizard extends Application {
       featTypeFilter: "all",
       selectedFeatUuids: [],
       activeFeatUuid: "",
-      featSlots: 1
+      featSlots: 1,
+      spellSearch: "",
+      selectedSpellUuids: []
     };
   }
 
@@ -64,6 +67,7 @@ export class CharacterWizard extends Application {
 
   async getData() {
     await this._hydrateFromActor();
+    await this._loadSpellChoices();
     const context = super.getData() ?? {};
     const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
     context.actor = this.actor;
@@ -173,6 +177,25 @@ export class CharacterWizard extends Application {
     context.featSlots = baseFeatSlots + bonusFeatSlots;
     this.state.featSlots = context.featSlots;
     context.featsRemaining = context.featSlots - this.state.selectedFeatUuids.length;
+    const spellSearch = this.state.spellSearch.toLowerCase().trim();
+    const castingDocs = [primaryClassDoc, secondaryClassDoc].filter(Boolean);
+    const allowedSpellMap = new Map();
+    for (const classDoc of castingDocs) {
+      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
+      const maxLvl = this._maxSpellLevelForClass(classDoc, level || 0);
+      if (maxLvl < 0) continue;
+      for (const spell of this.spellChoices) {
+        if (spell.spellLevel > maxLvl) continue;
+        if (!this._spellMatchesClass(spell, classDoc.name)) continue;
+        allowedSpellMap.set(spell.uuid, spell);
+      }
+    }
+    context.availableSpells = Array.from(allowedSpellMap.values())
+      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
+      .slice(0, 200);
+    context.selectedSpells = this.state.selectedSpellUuids
+      .map((uuid) => allowedSpellMap.get(uuid) || this.spellChoices.find((s) => s.uuid === uuid))
+      .filter(Boolean);
     
     return context;
   }
@@ -213,11 +236,49 @@ export class CharacterWizard extends Application {
         uuid: doc.uuid,
         name: doc.name,
         skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
-        classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : []
+        classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
+        spellcastingType: doc.system?.spellcasting?.type || "none"
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
 
     this.classSkillMap = Object.fromEntries(this.classChoices.map((c) => [c.uuid, c.classSkills]));
+  }
+
+  async _loadSpellChoices() {
+    if (this.spellChoices.length) return;
+    const pack = game.packs.get("CTS-DND-35.srd-spells");
+    if (!pack) return;
+    const docs = await pack.getDocuments();
+    this.spellChoices = docs
+      .map((doc) => ({
+        uuid: doc.uuid,
+        name: doc.name,
+        spellLevel: Number(doc.system?.spellLevel) || 0,
+        description: doc.system?.description || ""
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  _spellMatchesClass(spell, className) {
+    const desc = String(spell?.description || "");
+    if (!desc || !className) return false;
+    const classLower = className.toLowerCase();
+    const levelLineMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
+    const levelLine = String(levelLineMatch?.[1] || "").toLowerCase();
+    if (!levelLine) return false;
+    if (classLower === "wizard" || classLower === "sorcerer") return levelLine.includes("sorcerer/wizard");
+    return levelLine.includes(classLower);
+  }
+
+  _maxSpellLevelForClass(classDoc, classLevel) {
+    const progression = classDoc?.system?.spellcasting?.progression || {};
+    const row = progression?.[classLevel] || progression?.[String(classLevel)] || {};
+    const perDay = row?.spellsPerDay || {};
+    const levels = Object.entries(perDay)
+      .filter(([, n]) => Number(n) > 0)
+      .map(([lvl]) => Number(lvl))
+      .filter((n) => Number.isFinite(n));
+    return levels.length ? Math.max(...levels) : -1;
   }
 
   _getRaceKeyFromActor() {
@@ -385,6 +446,8 @@ export class CharacterWizard extends Application {
           this.state.featSearch = el.value;
         } else if (prop === "featTypeFilter") {
           this.state.featTypeFilter = el.value;
+        } else if (prop === "spellSearch") {
+          this.state.spellSearch = el.value;
         } else if (prop.startsWith("skills.")) {
           const [, which, key] = prop.split(".");
           this.state.skillRanks[which][key] = Math.max(0, parseInt(el.value) || 0);
@@ -479,6 +542,22 @@ export class CharacterWizard extends Application {
       ev.preventDefault();
       const uuid = ev.currentTarget.dataset.uuid;
       this.state.selectedFeatUuids = this.state.selectedFeatUuids.filter((u) => u !== uuid);
+      this.render();
+    });
+
+    html.find(".spell-choice").click((ev) => {
+      ev.preventDefault();
+      const uuid = ev.currentTarget.dataset.uuid;
+      if (!uuid) return;
+      if (this.state.selectedSpellUuids.includes(uuid)) return;
+      this.state.selectedSpellUuids.push(uuid);
+      this.render();
+    });
+
+    html.find(".remove-spell").click((ev) => {
+      ev.preventDefault();
+      const uuid = ev.currentTarget.dataset.uuid;
+      this.state.selectedSpellUuids = this.state.selectedSpellUuids.filter((u) => u !== uuid);
       this.render();
     });
   }
@@ -577,6 +656,17 @@ export class CharacterWizard extends Application {
     }
     if (featItems.length) {
       await this.actor.createEmbeddedDocuments("Item", featItems);
+    }
+    if (this.state.selectedSpellUuids.length) {
+      const existingSpellNames = new Set(this.actor.items.filter((i) => i.type === "spell").map((i) => i.name.toLowerCase()));
+      const spellItems = [];
+      for (const uuid of this.state.selectedSpellUuids) {
+        const spellDoc = await fromUuid(uuid);
+        if (!spellDoc) continue;
+        if (existingSpellNames.has(spellDoc.name.toLowerCase())) continue;
+        spellItems.push(spellDoc.toObject());
+      }
+      if (spellItems.length) await this.actor.createEmbeddedDocuments("Item", spellItems);
     }
     if (grantedFeatures.length) {
       const existingFeatureNames = new Set(this.actor.items.filter((i) => i.type === "feature").map((i) => i.name.toLowerCase()));

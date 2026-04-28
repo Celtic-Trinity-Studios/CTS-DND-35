@@ -89,7 +89,7 @@
     {{/if}}
 
     {{#if isStep3}}
-    <h3 style="margin-top:0;">Feat Selection</h3>
+    <h3 style="margin-top:0;">Feat & Spell Selection</h3>
     {{#if requiresFeatChoice}}
     <p class="notes">This level grants a feat choice. Choose one to continue.</p>
     {{else}}
@@ -119,6 +119,38 @@
           {{/if}}
         {{/if}}
       {{/each}}
+    {{/if}}
+
+    {{#if spellcastingPreview}}
+    <hr />
+    <p class="notes">Caster progression allows spells up to level <strong>{{maxSpellLevel}}</strong>. Select spells to add now (optional).</p>
+    <div class="form-group">
+      <label>Spell Search</label>
+      <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
+    </div>
+    <div class="flexrow" style="gap:8px;">
+      <div style="flex:1; max-height:190px; overflow-y:auto; border:1px solid var(--cts-border-dark);">
+        {{#each availableSpells as |spell|}}
+        <div class="spell-choice" data-uuid="{{spell.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
+          <strong>{{spell.name}}</strong>
+          <span class="notes"> ({{spell.spellLevel}})</span>
+        </div>
+        {{/each}}
+      </div>
+      <div style="flex:1; max-height:190px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+        <strong>Selected Spells</strong>
+        {{#if selectedSpells.length}}
+          {{#each selectedSpells as |spell|}}
+          <div class="flexrow" style="align-items:center; margin-top:4px;">
+            <span style="flex:1;">{{spell.name}} ({{spell.spellLevel}})</span>
+            <button type="button" class="remove-spell" data-uuid="{{spell.uuid}}">Remove</button>
+          </div>
+          {{/each}}
+        {{else}}
+        <p class="notes" style="margin:6px 0 0;">No spells selected.</p>
+        {{/if}}
+      </div>
+    </div>
     {{/if}}
     {{/if}}
   </div>
