@@ -5,7 +5,7 @@
 
 import { CTSDND35 } from "../helpers/config.mjs";
 
-export class CTSDND35ActorSheet extends ActorSheet {
+export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {

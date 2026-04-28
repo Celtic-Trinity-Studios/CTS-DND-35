@@ -5,7 +5,7 @@
  */
 
 export const preloadHandlebarsTemplates = async function () {
-  return loadTemplates([
+  return foundry.applications.handlebars.loadTemplates([
     // Actor partials
     "systems/CTS-DND-35/templates/actor/parts/actor-abilities.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-combat.hbs",

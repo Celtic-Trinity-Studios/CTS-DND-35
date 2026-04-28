@@ -3,7 +3,7 @@
  * Extends ItemSheet to display item data.
  */
 
-export class CTSDND35ItemSheet extends ItemSheet {
+export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
 
   /** @override */
   static get defaultOptions() {
