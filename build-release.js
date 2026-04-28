@@ -9,6 +9,9 @@ if (!fs.existsSync(outputDir)) {
 }
 
 const outputFile = path.join(outputDir, 'CTS-DND-35.zip');
+if (fs.existsSync(outputFile)) {
+    fs.unlinkSync(outputFile);
+}
 const output = fs.createWriteStream(outputFile);
 const archive = archiver('zip', {
     zlib: { level: 9 } // Max compression
@@ -37,8 +40,9 @@ archive.on('error', function(err) {
 
 archive.pipe(output);
 
-// Top level files to include
-const filesToInclude = ['system.json', 'template.json', 'README.md', 'LICENSE.txt', 'LICENSE'];
+// Top level files to include.
+// Intentionally exclude legacy template.json from release artifacts.
+const filesToInclude = ['system.json', 'README.md', 'LICENSE.txt', 'LICENSE'];
 filesToInclude.forEach(file => {
     if (fs.existsSync(path.join(__dirname, file))) {
         archive.file(path.join(__dirname, file), { name: file });
