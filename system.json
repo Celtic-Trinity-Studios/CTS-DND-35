@@ -473,5 +473,24 @@
         "primaryAttack": true
       }
     }
+  },
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "npc": {}
+    },
+    "Item": {
+      "weapon": {},
+      "armor": {},
+      "equipment": {},
+      "consumable": {},
+      "feat": {},
+      "feature": {},
+      "spell": {},
+      "class": {},
+      "race": {},
+      "buff": {},
+      "attack": {}
+    }
   }
 }
