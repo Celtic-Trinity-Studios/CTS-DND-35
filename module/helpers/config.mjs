@@ -8,51 +8,51 @@ export const CTSDND35 = {};
  * Ability score definitions
  */
 CTSDND35.abilities = {
-  str: "CTSDND35.AbilityStr",
-  dex: "CTSDND35.AbilityDex",
-  con: "CTSDND35.AbilityCon",
-  int: "CTSDND35.AbilityInt",
-  wis: "CTSDND35.AbilityWis",
-  cha: "CTSDND35.AbilityCha",
+  str: "Strength",
+  dex: "Dexterity",
+  con: "Constitution",
+  int: "Intelligence",
+  wis: "Wisdom",
+  cha: "Charisma",
 };
 
 CTSDND35.abilityAbbreviations = {
-  str: "CTSDND35.AbilityStrAbbr",
-  dex: "CTSDND35.AbilityDexAbbr",
-  con: "CTSDND35.AbilityConAbbr",
-  int: "CTSDND35.AbilityIntAbbr",
-  wis: "CTSDND35.AbilityWisAbbr",
-  cha: "CTSDND35.AbilityChaAbbr",
+  str: "STR",
+  dex: "DEX",
+  con: "CON",
+  int: "INT",
+  wis: "WIS",
+  cha: "CHA",
 };
 
 /**
  * Saving throw definitions
  */
 CTSDND35.saves = {
-  fort: "CTSDND35.SaveFort",
-  ref: "CTSDND35.SaveRef",
-  will: "CTSDND35.SaveWill",
+  fort: "Fortitude",
+  ref: "Reflex",
+  will: "Will",
 };
 
 CTSDND35.saveAbbreviations = {
-  fort: "CTSDND35.SaveFortAbbr",
-  ref: "CTSDND35.SaveRefAbbr",
-  will: "CTSDND35.SaveWillAbbr",
+  fort: "FORT",
+  ref: "REF",
+  will: "WILL",
 };
 
 /**
  * Size categories
  */
 CTSDND35.sizes = {
-  fine: "CTSDND35.SizeFine",
-  dim: "CTSDND35.SizeDiminutive",
-  tiny: "CTSDND35.SizeTiny",
-  sm: "CTSDND35.sizesmall",
-  med: "CTSDND35.SizeMedium",
-  lg: "CTSDND35.SizeLarge",
-  huge: "CTSDND35.SizeHuge",
-  grg: "CTSDND35.SizeGargantuan",
-  col: "CTSDND35.SizeColossal",
+  fine: "Fine",
+  dim: "Diminutive",
+  tiny: "Tiny",
+  sm: "Small",
+  med: "Medium",
+  lg: "Large",
+  huge: "Huge",
+  grg: "Gargantuan",
+  col: "Colossal",
 };
 
 /**

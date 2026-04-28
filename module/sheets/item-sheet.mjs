@@ -37,7 +37,7 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
     context.flags = itemData.flags;
 
     // Enrich description HTML
-    context.enrichedDescription = await TextEditor.enrichHTML(
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       context.system.description || "",
       { async: true }
     );

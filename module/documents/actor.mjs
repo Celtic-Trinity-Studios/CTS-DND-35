@@ -6,17 +6,6 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 export class CTSDND35Actor extends Actor {
 
-  /** @override */
-  prepareData() {
-    // Call parent prepareData which calls prepareBaseData and prepareDerivedData
-    super.prepareData();
-  }
-
-  /** @override */
-  prepareBaseData() {
-    // Data modifications that should happen before items are prepared
-  }
-
   /**
    * @override
    * Compute derived data after items and effects are applied.

@@ -45,11 +45,12 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     context.items = this._organizeItems(context);
 
     // Enrich biography HTML
-    context.enrichedBiography = await TextEditor.enrichHTML(
+    const enricher = foundry.applications.ux.TextEditor.implementation;
+    context.enrichedBiography = await enricher.enrichHTML(
       context.system.details?.biography || "",
       { async: true }
     );
-    context.enrichedNotes = await TextEditor.enrichHTML(
+    context.enrichedNotes = await enricher.enrichHTML(
       context.system.details?.notes || "",
       { async: true }
     );
