@@ -60,24 +60,74 @@ export class CTSDND35Actor extends Actor {
   }
 
   /**
-   * Calculate saving throws, initiative, AC, and other combat stats.
+   * Calculate saving throws, initiative, AC, BAB, grapple from items and abilities.
    */
   _prepareCombatStats(systemData) {
+    // --- Saving Throws ---
     const saves = systemData.attributes.savingThrows;
     for (const [key, save] of Object.entries(saves)) {
       const abilityMod = systemData.abilities[save.ability]?.mod || 0;
-      save.total = save.base + abilityMod + (save.bonus || 0);
+      save.total = (save.base || 0) + abilityMod + (save.bonus || 0);
     }
 
-    // Initiative
+    // --- BAB from class items ---
+    let totalBAB = 0;
+    const classItems = this.items.filter(i => i.type === "class");
+    for (const cls of classItems) {
+      const level = cls.system.level || 0;
+      const progression = cls.system.bab || "med";
+      const table = CTSDND35.babProgression[progression] || CTSDND35.babProgression.med;
+      totalBAB += (table[level - 1] || 0);
+    }
+    systemData.attributes.bab.total = totalBAB;
+
+    // --- Size modifier ---
+    const sizeKey = systemData.traits?.size || "med";
+    const sizeMods = CTSDND35.sizeMods[sizeKey] || CTSDND35.sizeMods.med;
+
+    // --- AC Calculation ---
+    const dexMod = systemData.abilities.dex?.mod || 0;
+    const naturalArmor = systemData.attributes.ac.naturalArmor || 0;
+
+    // Sum armor and shield bonuses from equipped items
+    let armorBonus = 0;
+    let shieldBonus = 0;
+    let lowestMaxDex = Infinity;
+    const armorItems = this.items.filter(i => i.type === "armor");
+    for (const armor of armorItems) {
+      if (!armor.system.equipped) continue;
+      const bonus = (armor.system.acBonus || 0) + (armor.system.enhancement || 0);
+      if (armor.system.armorType === "shield") {
+        shieldBonus += bonus;
+      } else {
+        armorBonus += bonus;
+      }
+      // Track max DEX cap from armor
+      if (armor.system.maxDex != null && armor.system.maxDex < lowestMaxDex) {
+        lowestMaxDex = armor.system.maxDex;
+      }
+    }
+
+    // Cap DEX mod by armor's max dex bonus
+    const effectiveDex = lowestMaxDex < Infinity ? Math.min(dexMod, lowestMaxDex) : dexMod;
+
+    // AC = 10 + armor + shield + DEX (capped) + size + natural armor
+    systemData.attributes.ac.normal = 10 + armorBonus + shieldBonus + effectiveDex + sizeMods.attack + naturalArmor;
+    // Touch AC = 10 + DEX + size (no armor, shield, or natural)
+    systemData.attributes.ac.touch = 10 + effectiveDex + sizeMods.attack;
+    // Flat-Footed AC = 10 + armor + shield + size + natural (no DEX)
+    systemData.attributes.ac.flatFooted = 10 + armorBonus + shieldBonus + sizeMods.attack + naturalArmor;
+
+    // --- Initiative ---
     systemData.attributes.init.total =
       (systemData.abilities.dex?.mod || 0) +
       (systemData.attributes.init.bonus || 0);
 
-    // Grapple = BAB + STR mod + size mod (placeholder for size)
+    // --- Grapple = BAB + STR mod + size grapple mod ---
     systemData.attributes.grapple.total =
-      (systemData.attributes.bab?.total || 0) +
-      (systemData.abilities.str?.mod || 0);
+      totalBAB +
+      (systemData.abilities.str?.mod || 0) +
+      (sizeMods.grapple || 0);
   }
 
   /**
