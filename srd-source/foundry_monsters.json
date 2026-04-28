@@ -1,5 +1,6 @@
 [
   {
+    "_id": "qHYtHYsGTiOhTTRF",
     "name": "Anaxim",
     "type": "npc",
     "system": {
@@ -18,6 +19,7 @@
     }
   },
   {
+    "_id": "5AP4e1F8Pt4x7fXj",
     "name": "Atropal",
     "type": "npc",
     "system": {
@@ -36,6 +38,7 @@
     }
   },
   {
+    "_id": "oHkOKBsVQgw4EVRA",
     "name": "Chichimec",
     "type": "npc",
     "system": {
@@ -54,6 +57,7 @@
     }
   },
   {
+    "_id": "bP5yjIc6i6h8KLJt",
     "name": "Dream Larva",
     "type": "npc",
     "system": {
@@ -72,6 +76,7 @@
     }
   },
   {
+    "_id": "SLxmPgikpsdHyFGI",
     "name": "Hecatoncheires",
     "type": "npc",
     "system": {
@@ -90,6 +95,7 @@
     }
   },
   {
+    "_id": "RCcfOMSH6XPP5qhf",
     "name": "Infernal",
     "type": "npc",
     "system": {
@@ -108,6 +114,7 @@
     }
   },
   {
+    "_id": "EpfJUDwQrzH4ERBI",
     "name": "Phaethon",
     "type": "npc",
     "system": {
@@ -126,6 +133,7 @@
     }
   },
   {
+    "_id": "EmCrVgH0GfD3mPQy",
     "name": "Phane",
     "type": "npc",
     "system": {
@@ -144,6 +152,7 @@
     }
   },
   {
+    "_id": "R67pfWyv07OTOQ5V",
     "name": "Xixecal",
     "type": "npc",
     "system": {
@@ -162,6 +171,7 @@
     }
   },
   {
+    "_id": "s81VqmhsCIEtSc13",
     "name": "Behemoth Eagle",
     "type": "npc",
     "system": {
@@ -180,6 +190,7 @@
     }
   },
   {
+    "_id": "pOD3M8JsOjp50wN8",
     "name": "Behemoth Gorilla",
     "type": "npc",
     "system": {
@@ -198,6 +209,7 @@
     }
   },
   {
+    "_id": "lTTV3gZBx6KfuQi4",
     "name": "Brachyurus",
     "type": "npc",
     "system": {
@@ -216,6 +228,7 @@
     }
   },
   {
+    "_id": "gE009882XXD2kD5u",
     "name": "Stone Colossus",
     "type": "npc",
     "system": {
@@ -234,6 +247,7 @@
     }
   },
   {
+    "_id": "VQwvGz77eGigI8uj",
     "name": "Flesh Colossus",
     "type": "npc",
     "system": {
@@ -252,6 +266,7 @@
     }
   },
   {
+    "_id": "T4Ab1ye8U085ttYl",
     "name": "Iron Colossus",
     "type": "npc",
     "system": {
@@ -270,6 +285,7 @@
     }
   },
   {
+    "_id": "OXo6M0SvljtV8Vpa",
     "name": "Demilich",
     "type": "npc",
     "system": {
@@ -288,6 +304,7 @@
     }
   },
   {
+    "_id": "Rpbh9KqEjyhKcQQL",
     "name": "Devastation Centipede",
     "type": "npc",
     "system": {
@@ -306,6 +323,7 @@
     }
   },
   {
+    "_id": "iFeXVnG7KHuFa6ou",
     "name": "Devastation Spider",
     "type": "npc",
     "system": {
@@ -324,6 +342,7 @@
     }
   },
   {
+    "_id": "4XbcQS2eX3EDsNWd",
     "name": "Devastation Scorpion",
     "type": "npc",
     "system": {
@@ -342,6 +361,7 @@
     }
   },
   {
+    "_id": "vMMcsetGtVqSqwJB",
     "name": "Devastation Beetle",
     "type": "npc",
     "system": {
@@ -360,6 +380,7 @@
     }
   },
   {
+    "_id": "N13yKzNuJ9psqFAM",
     "name": "Force Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -378,6 +399,7 @@
     }
   },
   {
+    "_id": "G03Tbi9IfJtxPsWd",
     "name": "Force Dragon, Very young",
     "type": "npc",
     "system": {
@@ -396,6 +418,7 @@
     }
   },
   {
+    "_id": "QpaVhjcQVhAnrnB8",
     "name": "Force Dragon, Young",
     "type": "npc",
     "system": {
@@ -414,6 +437,7 @@
     }
   },
   {
+    "_id": "YLHQDmgrq75v4xap",
     "name": "Force Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -432,6 +456,7 @@
     }
   },
   {
+    "_id": "1mvpBut9rdpH9yKE",
     "name": "Force Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -450,6 +475,7 @@
     }
   },
   {
+    "_id": "CYyROI5PVOhUmRW6",
     "name": "Force Dragon, Adult",
     "type": "npc",
     "system": {
@@ -468,6 +494,7 @@
     }
   },
   {
+    "_id": "v2ePJjPr6H9loBbK",
     "name": "Force Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -486,6 +513,7 @@
     }
   },
   {
+    "_id": "Gp14znjLNV93iMUK",
     "name": "Force Dragon, Old",
     "type": "npc",
     "system": {
@@ -504,6 +532,7 @@
     }
   },
   {
+    "_id": "LWJlhUZ2jjCG62um",
     "name": "Force Dragon, Very old",
     "type": "npc",
     "system": {
@@ -522,6 +551,7 @@
     }
   },
   {
+    "_id": "iR2q3fSlBJK9PZyE",
     "name": "Force Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -540,6 +570,7 @@
     }
   },
   {
+    "_id": "ucjMUdG60DZoWWhA",
     "name": "Force Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -558,6 +589,7 @@
     }
   },
   {
+    "_id": "cyn2DXxd1m0bqWMs",
     "name": "Force Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -576,6 +608,7 @@
     }
   },
   {
+    "_id": "piPf2XWsAysb8ISb",
     "name": "Prismatic Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -594,6 +627,7 @@
     }
   },
   {
+    "_id": "tlddK1P3eBcqAi1x",
     "name": "Prismatic Dragon, Very young",
     "type": "npc",
     "system": {
@@ -612,6 +646,7 @@
     }
   },
   {
+    "_id": "TEAFlJax82xmYUG7",
     "name": "Prismatic Dragon, Young",
     "type": "npc",
     "system": {
@@ -630,6 +665,7 @@
     }
   },
   {
+    "_id": "kCL2ffEmPsNuk58p",
     "name": "Prismatic Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -648,6 +684,7 @@
     }
   },
   {
+    "_id": "jqSkn3iDUTRLWhSc",
     "name": "Prismatic Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -666,6 +703,7 @@
     }
   },
   {
+    "_id": "98g4dYGebjMvjrF4",
     "name": "Prismatic Dragon, Adult",
     "type": "npc",
     "system": {
@@ -684,6 +722,7 @@
     }
   },
   {
+    "_id": "H6rxNGNnOmS1aZFi",
     "name": "Prismatic Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -702,6 +741,7 @@
     }
   },
   {
+    "_id": "mjpKSeEtt74pAWwB",
     "name": "Prismatic Dragon, Old",
     "type": "npc",
     "system": {
@@ -720,6 +760,7 @@
     }
   },
   {
+    "_id": "LWHxU9DHPtjCZX63",
     "name": "Prismatic Dragon, Very old",
     "type": "npc",
     "system": {
@@ -738,6 +779,7 @@
     }
   },
   {
+    "_id": "4XCp805NCMoEaZI1",
     "name": "Prismatic Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -756,6 +798,7 @@
     }
   },
   {
+    "_id": "Yftx01BRDEb7Lu1w",
     "name": "Prismatic Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -774,6 +817,7 @@
     }
   },
   {
+    "_id": "J1EXurFG2wF8QPy8",
     "name": "Prismatic Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -792,6 +836,7 @@
     }
   },
   {
+    "_id": "eCBjB9ayg8YjsZFR",
     "name": "Air Elemental, Primal",
     "type": "npc",
     "system": {
@@ -810,6 +855,7 @@
     }
   },
   {
+    "_id": "CjIZ1UcKXi9v13AM",
     "name": "Earth Elemental, Primal",
     "type": "npc",
     "system": {
@@ -828,6 +874,7 @@
     }
   },
   {
+    "_id": "RKLRQHWkNuDTWKZ8",
     "name": "Fire Elemental, Primal",
     "type": "npc",
     "system": {
@@ -846,6 +893,7 @@
     }
   },
   {
+    "_id": "QVggKoZ1ZFsWigDK",
     "name": "Water Elemental, Primal",
     "type": "npc",
     "system": {
@@ -864,6 +912,7 @@
     }
   },
   {
+    "_id": "qEvtcAPwBnNymLVL",
     "name": "Genius Loci",
     "type": "npc",
     "system": {
@@ -882,6 +931,7 @@
     }
   },
   {
+    "_id": "5w9mfKGKynTSn9Zd",
     "name": "Gibbering Orb",
     "type": "npc",
     "system": {
@@ -900,6 +950,7 @@
     }
   },
   {
+    "_id": "Rct7KgFYCWk50RFQ",
     "name": "Gloom",
     "type": "npc",
     "system": {
@@ -918,6 +969,7 @@
     }
   },
   {
+    "_id": "WRlnY2glogOiXjxK",
     "name": "Mithral Golem",
     "type": "npc",
     "system": {
@@ -936,6 +988,7 @@
     }
   },
   {
+    "_id": "ifV8PFZN3oBemA9X",
     "name": "Adamantine Golem",
     "type": "npc",
     "system": {
@@ -954,6 +1007,7 @@
     }
   },
   {
+    "_id": "4ZI97YKFA7NzvAIq",
     "name": "Ha-Naga",
     "type": "npc",
     "system": {
@@ -972,6 +1026,7 @@
     }
   },
   {
+    "_id": "eS4LXW6VoOtAAMY4",
     "name": "Hagunemnon",
     "type": "npc",
     "system": {
@@ -990,6 +1045,7 @@
     }
   },
   {
+    "_id": "3q57GuCR9QEg7j2Y",
     "name": "Hoary Hunter",
     "type": "npc",
     "system": {
@@ -1008,6 +1064,7 @@
     }
   },
   {
+    "_id": "v64q4ijJVJpMeJGJ",
     "name": "Hoary Steed",
     "type": "npc",
     "system": {
@@ -1026,6 +1083,7 @@
     }
   },
   {
+    "_id": "kLwNdgmyixHuOphc",
     "name": "Hunefer",
     "type": "npc",
     "system": {
@@ -1044,6 +1102,7 @@
     }
   },
   {
+    "_id": "Hby0oB1cOxbSnXfo",
     "name": "Lavawight",
     "type": "npc",
     "system": {
@@ -1062,6 +1121,7 @@
     }
   },
   {
+    "_id": "e3g2wzN1l8iaT1xr",
     "name": "Legendary Bear",
     "type": "npc",
     "system": {
@@ -1080,6 +1140,7 @@
     }
   },
   {
+    "_id": "nS3njl1RKsfKIm2a",
     "name": "Legendary Tiger",
     "type": "npc",
     "system": {
@@ -1098,6 +1159,7 @@
     }
   },
   {
+    "_id": "AID5h9qdRoKpGRrP",
     "name": "Leshay",
     "type": "npc",
     "system": {
@@ -1116,6 +1178,7 @@
     }
   },
   {
+    "_id": "VKEe2PfETqZtFf9J",
     "name": "Living Vault",
     "type": "npc",
     "system": {
@@ -1134,6 +1197,7 @@
     }
   },
   {
+    "_id": "Uir65Q3bl97B56cU",
     "name": "Mercane",
     "type": "npc",
     "system": {
@@ -1152,6 +1216,7 @@
     }
   },
   {
+    "_id": "r0TqdVPznjqYUp3I",
     "name": "Mu Spore",
     "type": "npc",
     "system": {
@@ -1170,6 +1235,7 @@
     }
   },
   {
+    "_id": "J5F9gETgsTHx5zQ7",
     "name": "Neh-Thalggu",
     "type": "npc",
     "system": {
@@ -1188,6 +1254,7 @@
     }
   },
   {
+    "_id": "zsk21f35Vtcafwq2",
     "name": "Prismasaurus",
     "type": "npc",
     "system": {
@@ -1206,6 +1273,7 @@
     }
   },
   {
+    "_id": "LTLbGnOYGCJkSNyz",
     "name": "Pseudonatural Troll",
     "type": "npc",
     "system": {
@@ -1224,6 +1292,7 @@
     }
   },
   {
+    "_id": "9fq14ZUAqALiPI0I",
     "name": "Ruin Swarm",
     "type": "npc",
     "system": {
@@ -1242,6 +1311,7 @@
     }
   },
   {
+    "_id": "ElhYmQFPxXlqyivP",
     "name": "Shadow of the Void",
     "type": "npc",
     "system": {
@@ -1260,6 +1330,7 @@
     }
   },
   {
+    "_id": "x8mM5hsVQtrACgh4",
     "name": "Shape of Fire",
     "type": "npc",
     "system": {
@@ -1278,6 +1349,7 @@
     }
   },
   {
+    "_id": "k0Dr0a1MNVUb2T6T",
     "name": "Sirrush",
     "type": "npc",
     "system": {
@@ -1296,6 +1368,7 @@
     }
   },
   {
+    "_id": "DV1VrDTsv7k5fRlj",
     "name": "Three-Headed Sirrush",
     "type": "npc",
     "system": {
@@ -1314,6 +1387,7 @@
     }
   },
   {
+    "_id": "qph5U5jcEMFHnuYS",
     "name": "Tayellah",
     "type": "npc",
     "system": {
@@ -1332,6 +1406,7 @@
     }
   },
   {
+    "_id": "ZKxd2z76qbeihV1C",
     "name": "Thorciasid",
     "type": "npc",
     "system": {
@@ -1350,6 +1425,7 @@
     }
   },
   {
+    "_id": "tlBTBhFESN80h3Hk",
     "name": "Titan, Elder",
     "type": "npc",
     "system": {
@@ -1368,6 +1444,7 @@
     }
   },
   {
+    "_id": "k1cGrAM4HH6O10sM",
     "name": "Treant, Elder",
     "type": "npc",
     "system": {
@@ -1386,6 +1463,7 @@
     }
   },
   {
+    "_id": "eXw95ueJdnE8rfLj",
     "name": "Umbral Blot",
     "type": "npc",
     "system": {
@@ -1404,6 +1482,7 @@
     }
   },
   {
+    "_id": "Zn2QnGxtl88Zcdu3",
     "name": "Uvuudaum",
     "type": "npc",
     "system": {
@@ -1422,6 +1501,7 @@
     }
   },
   {
+    "_id": "ETccK5JgxbnmBHGG",
     "name": "Vermiurge",
     "type": "npc",
     "system": {
@@ -1440,6 +1520,7 @@
     }
   },
   {
+    "_id": "Go8JBkuOwPVSiqnj",
     "name": "Winterwight",
     "type": "npc",
     "system": {
@@ -1458,6 +1539,7 @@
     }
   },
   {
+    "_id": "CnNDlnelA6qoXWhe",
     "name": "Worm that Walks",
     "type": "npc",
     "system": {
@@ -1476,6 +1558,7 @@
     }
   },
   {
+    "_id": "4gTOWbrBkPumKG2h",
     "name": "Ape",
     "type": "npc",
     "system": {
@@ -1494,6 +1577,7 @@
     }
   },
   {
+    "_id": "vLcSjCMCVNjvfjXD",
     "name": "Baboon",
     "type": "npc",
     "system": {
@@ -1512,6 +1596,7 @@
     }
   },
   {
+    "_id": "zx2xw1uRMmE0PeEB",
     "name": "Badger",
     "type": "npc",
     "system": {
@@ -1530,6 +1615,7 @@
     }
   },
   {
+    "_id": "I9k23l0ycNV1LWHt",
     "name": "Bat",
     "type": "npc",
     "system": {
@@ -1548,6 +1634,7 @@
     }
   },
   {
+    "_id": "Epel7IMW0ZgydQ5m",
     "name": "Bear, Black",
     "type": "npc",
     "system": {
@@ -1566,6 +1653,7 @@
     }
   },
   {
+    "_id": "M2lnDkhpuwHt37ki",
     "name": "Bear, Brown",
     "type": "npc",
     "system": {
@@ -1584,6 +1672,7 @@
     }
   },
   {
+    "_id": "AX1mxNtrSlTTNQLI",
     "name": "Bear, Polar",
     "type": "npc",
     "system": {
@@ -1602,6 +1691,7 @@
     }
   },
   {
+    "_id": "A3RwJNJY6rsuUXUH",
     "name": "Bison",
     "type": "npc",
     "system": {
@@ -1620,6 +1710,7 @@
     }
   },
   {
+    "_id": "QIfwnrGEimbSeTDo",
     "name": "Boar",
     "type": "npc",
     "system": {
@@ -1638,6 +1729,7 @@
     }
   },
   {
+    "_id": "qKdcljL07oBCFlnl",
     "name": "Camel",
     "type": "npc",
     "system": {
@@ -1656,6 +1748,7 @@
     }
   },
   {
+    "_id": "UGjHT1vgY3B8m7hz",
     "name": "Cat",
     "type": "npc",
     "system": {
@@ -1674,6 +1767,7 @@
     }
   },
   {
+    "_id": "lKcomMDt0HFAMAh0",
     "name": "Cheetah",
     "type": "npc",
     "system": {
@@ -1692,6 +1786,7 @@
     }
   },
   {
+    "_id": "LVDXaDZa3kCKjYQh",
     "name": "Crocodile",
     "type": "npc",
     "system": {
@@ -1710,6 +1805,7 @@
     }
   },
   {
+    "_id": "Lo7lDGfqtPMsQUj5",
     "name": "Crocodile, Giant",
     "type": "npc",
     "system": {
@@ -1728,6 +1824,7 @@
     }
   },
   {
+    "_id": "iQff8Y8RE79Xn8dy",
     "name": "Dog",
     "type": "npc",
     "system": {
@@ -1746,6 +1843,7 @@
     }
   },
   {
+    "_id": "Y7q12MJvRsMSLAXv",
     "name": "Dog, Riding",
     "type": "npc",
     "system": {
@@ -1764,6 +1862,7 @@
     }
   },
   {
+    "_id": "8dKW0IHXfFXYck8y",
     "name": "Donkey",
     "type": "npc",
     "system": {
@@ -1782,6 +1881,7 @@
     }
   },
   {
+    "_id": "FsROsBWM6qBkN8JS",
     "name": "Eagle",
     "type": "npc",
     "system": {
@@ -1800,6 +1900,7 @@
     }
   },
   {
+    "_id": "dDGwJbkUkaq5yN6y",
     "name": "Elephant",
     "type": "npc",
     "system": {
@@ -1818,6 +1919,7 @@
     }
   },
   {
+    "_id": "I7ai2qEJRHYMnlLp",
     "name": "Hawk",
     "type": "npc",
     "system": {
@@ -1836,6 +1938,7 @@
     }
   },
   {
+    "_id": "IRJVbLaMw7oCSpJz",
     "name": "Horse, Heavy",
     "type": "npc",
     "system": {
@@ -1854,6 +1957,7 @@
     }
   },
   {
+    "_id": "01EHccuZEDUrE83V",
     "name": "Horse, Light",
     "type": "npc",
     "system": {
@@ -1872,6 +1976,7 @@
     }
   },
   {
+    "_id": "ZKlIbx7zMPlPFuzd",
     "name": "Warhorse, Heavy",
     "type": "npc",
     "system": {
@@ -1890,6 +1995,7 @@
     }
   },
   {
+    "_id": "scUoKt9IJ8xhXJfl",
     "name": "Warhorse, Light",
     "type": "npc",
     "system": {
@@ -1908,6 +2014,7 @@
     }
   },
   {
+    "_id": "XLOAicmUyVrIglLn",
     "name": "Hyena",
     "type": "npc",
     "system": {
@@ -1926,6 +2033,7 @@
     }
   },
   {
+    "_id": "6OWwFrWdUTQbu1Bd",
     "name": "Leopard",
     "type": "npc",
     "system": {
@@ -1944,6 +2052,7 @@
     }
   },
   {
+    "_id": "u0hwrdq1clWik4vU",
     "name": "Lion",
     "type": "npc",
     "system": {
@@ -1962,6 +2071,7 @@
     }
   },
   {
+    "_id": "onLSMVamEgnAlm42",
     "name": "Lizard",
     "type": "npc",
     "system": {
@@ -1980,6 +2090,7 @@
     }
   },
   {
+    "_id": "6iqYqX6yqDGQbbq4",
     "name": "Lizard, Monitor",
     "type": "npc",
     "system": {
@@ -1998,6 +2109,7 @@
     }
   },
   {
+    "_id": "RmZ7b9YmEZh7ElXN",
     "name": "Manta Ray",
     "type": "npc",
     "system": {
@@ -2016,6 +2128,7 @@
     }
   },
   {
+    "_id": "FpjGrpzPEZzHp7y0",
     "name": "Monkey",
     "type": "npc",
     "system": {
@@ -2034,6 +2147,7 @@
     }
   },
   {
+    "_id": "CF7nIOfzyGY9jPEs",
     "name": "Mule",
     "type": "npc",
     "system": {
@@ -2052,6 +2166,7 @@
     }
   },
   {
+    "_id": "HtIiQrnSIvRuSWje",
     "name": "Octopus",
     "type": "npc",
     "system": {
@@ -2070,6 +2185,7 @@
     }
   },
   {
+    "_id": "7W90qUCyUalKaazy",
     "name": "Octopus, Giant",
     "type": "npc",
     "system": {
@@ -2088,6 +2204,7 @@
     }
   },
   {
+    "_id": "22fuUxJ611uu1qQu",
     "name": "Owl",
     "type": "npc",
     "system": {
@@ -2106,6 +2223,7 @@
     }
   },
   {
+    "_id": "ncWVZENxEXwGcFrf",
     "name": "Pony",
     "type": "npc",
     "system": {
@@ -2124,6 +2242,7 @@
     }
   },
   {
+    "_id": "16XBAVUs2JOeU4gf",
     "name": "Pony, War",
     "type": "npc",
     "system": {
@@ -2142,6 +2261,7 @@
     }
   },
   {
+    "_id": "bd8nCtDEOc9vozn8",
     "name": "Porpoise",
     "type": "npc",
     "system": {
@@ -2160,6 +2280,7 @@
     }
   },
   {
+    "_id": "liqx958m3cjOvSWC",
     "name": "Rat",
     "type": "npc",
     "system": {
@@ -2178,6 +2299,7 @@
     }
   },
   {
+    "_id": "mQymPqjCd2GEXS2U",
     "name": "Raven",
     "type": "npc",
     "system": {
@@ -2196,6 +2318,7 @@
     }
   },
   {
+    "_id": "77jfian7Og8WbN0v",
     "name": "Rhinoceros",
     "type": "npc",
     "system": {
@@ -2214,6 +2337,7 @@
     }
   },
   {
+    "_id": "SWqQpyH2gjaL6P4G",
     "name": "Shark, Medium",
     "type": "npc",
     "system": {
@@ -2232,6 +2356,7 @@
     }
   },
   {
+    "_id": "TIsVExGjkaGFz27Y",
     "name": "Shark, Large",
     "type": "npc",
     "system": {
@@ -2250,6 +2375,7 @@
     }
   },
   {
+    "_id": "FTMQACbjDFVYdzhs",
     "name": "Shark, Huge",
     "type": "npc",
     "system": {
@@ -2268,6 +2394,7 @@
     }
   },
   {
+    "_id": "5LGXWstoXk9aEuqA",
     "name": "Constrictor Snake",
     "type": "npc",
     "system": {
@@ -2286,6 +2413,7 @@
     }
   },
   {
+    "_id": "SrXWtM5rhbqBtzMr",
     "name": "Constrictor Snake, Giant",
     "type": "npc",
     "system": {
@@ -2304,6 +2432,7 @@
     }
   },
   {
+    "_id": "I5Md2BXuycaA50x5",
     "name": "Snake, Tiny Viper",
     "type": "npc",
     "system": {
@@ -2322,6 +2451,7 @@
     }
   },
   {
+    "_id": "eYmcgNJXcH5quGIN",
     "name": "Snake, Small Viper",
     "type": "npc",
     "system": {
@@ -2340,6 +2470,7 @@
     }
   },
   {
+    "_id": "fvBuOnnXFDuhBVAs",
     "name": "Snake, Medium Viper",
     "type": "npc",
     "system": {
@@ -2358,6 +2489,7 @@
     }
   },
   {
+    "_id": "6XbPBphk7R5inGKa",
     "name": "Snake, Large Viper",
     "type": "npc",
     "system": {
@@ -2376,6 +2508,7 @@
     }
   },
   {
+    "_id": "wXC8FmTA6eJfUDJF",
     "name": "Snake, Huge Viper",
     "type": "npc",
     "system": {
@@ -2394,6 +2527,7 @@
     }
   },
   {
+    "_id": "ow9JEeP1YY2v2iFZ",
     "name": "Squid",
     "type": "npc",
     "system": {
@@ -2412,6 +2546,7 @@
     }
   },
   {
+    "_id": "mhvyEiCtn46de0OS",
     "name": "Squid, Giant",
     "type": "npc",
     "system": {
@@ -2430,6 +2565,7 @@
     }
   },
   {
+    "_id": "2JovyT8PiFg0OPaM",
     "name": "Tiger",
     "type": "npc",
     "system": {
@@ -2448,6 +2584,7 @@
     }
   },
   {
+    "_id": "zi8hc1rohdVLiuzb",
     "name": "Toad",
     "type": "npc",
     "system": {
@@ -2466,6 +2603,7 @@
     }
   },
   {
+    "_id": "ixkSIM4FGCWz7Lta",
     "name": "Weasel",
     "type": "npc",
     "system": {
@@ -2484,6 +2622,7 @@
     }
   },
   {
+    "_id": "D5YjKuHjNpSZXMzk",
     "name": "Baleen Whale",
     "type": "npc",
     "system": {
@@ -2502,6 +2641,7 @@
     }
   },
   {
+    "_id": "FsQtoK3GCOUvKw6A",
     "name": "Cachalot Whale",
     "type": "npc",
     "system": {
@@ -2520,6 +2660,7 @@
     }
   },
   {
+    "_id": "yGOaot7X3k1Pvpf0",
     "name": "Orca",
     "type": "npc",
     "system": {
@@ -2538,6 +2679,7 @@
     }
   },
   {
+    "_id": "dlHnhBFvyvYQIwmz",
     "name": "Wolf",
     "type": "npc",
     "system": {
@@ -2556,6 +2698,7 @@
     }
   },
   {
+    "_id": "uDsgQJms1Dmhqanw",
     "name": "Wolverine",
     "type": "npc",
     "system": {
@@ -2574,6 +2717,7 @@
     }
   },
   {
+    "_id": "1qy9czUra655feRa",
     "name": "Barghest",
     "type": "npc",
     "system": {
@@ -2592,6 +2736,7 @@
     }
   },
   {
+    "_id": "cuJiHbjUrmxSlA4V",
     "name": "Greater Barghest",
     "type": "npc",
     "system": {
@@ -2610,6 +2755,7 @@
     }
   },
   {
+    "_id": "FEjGFWIifB3f3h8I",
     "name": "Basilisk",
     "type": "npc",
     "system": {
@@ -2628,6 +2774,7 @@
     }
   },
   {
+    "_id": "4U1c8wl3n9ka6PZD",
     "name": "Abyssal Greater Basilisk",
     "type": "npc",
     "system": {
@@ -2646,6 +2793,7 @@
     }
   },
   {
+    "_id": "67TLHQ26CRAy9Pna",
     "name": "Behir",
     "type": "npc",
     "system": {
@@ -2664,6 +2812,7 @@
     }
   },
   {
+    "_id": "FNXCLMfuU6j9kz9u",
     "name": "Belker",
     "type": "npc",
     "system": {
@@ -2682,6 +2831,7 @@
     }
   },
   {
+    "_id": "QqLmOPUGPr8IkGX4",
     "name": "Blink Dog",
     "type": "npc",
     "system": {
@@ -2700,6 +2850,7 @@
     }
   },
   {
+    "_id": "ulqE4rx8QSs0EsGX",
     "name": "Bodak",
     "type": "npc",
     "system": {
@@ -2718,6 +2869,7 @@
     }
   },
   {
+    "_id": "fdcCZFYI9tiZsJ9l",
     "name": "Bralani",
     "type": "npc",
     "system": {
@@ -2736,6 +2888,7 @@
     }
   },
   {
+    "_id": "k63AOtDDkIQ0urBz",
     "name": "Bugbear",
     "type": "npc",
     "system": {
@@ -2754,6 +2907,7 @@
     }
   },
   {
+    "_id": "6HpSYJEKm57wCQin",
     "name": "Bulette",
     "type": "npc",
     "system": {
@@ -2772,6 +2926,7 @@
     }
   },
   {
+    "_id": "gzpdPKHzX5ueiicU",
     "name": "Centaur",
     "type": "npc",
     "system": {
@@ -2790,6 +2945,7 @@
     }
   },
   {
+    "_id": "gRWXrcdIkvfNnwO8",
     "name": "Chaos Beast",
     "type": "npc",
     "system": {
@@ -2808,6 +2964,7 @@
     }
   },
   {
+    "_id": "S89pMZcvUD6oABOQ",
     "name": "Chimera",
     "type": "npc",
     "system": {
@@ -2826,6 +2983,7 @@
     }
   },
   {
+    "_id": "9E30UqlkVDeY2NhD",
     "name": "Choker",
     "type": "npc",
     "system": {
@@ -2844,6 +3002,7 @@
     }
   },
   {
+    "_id": "1xd8Caq1JNcRfnWB",
     "name": "Chuul",
     "type": "npc",
     "system": {
@@ -2862,6 +3021,7 @@
     }
   },
   {
+    "_id": "YoLSiWrXPwnPGlvH",
     "name": "Cloaker",
     "type": "npc",
     "system": {
@@ -2880,6 +3040,7 @@
     }
   },
   {
+    "_id": "OJh4ypmhuh2I8JaA",
     "name": "Cockatrice",
     "type": "npc",
     "system": {
@@ -2898,6 +3059,7 @@
     }
   },
   {
+    "_id": "o7lI76JcebhEJYaK",
     "name": "Couatl",
     "type": "npc",
     "system": {
@@ -2916,6 +3078,7 @@
     }
   },
   {
+    "_id": "N3kPyTTnKN3JnXPz",
     "name": "Darkmantle",
     "type": "npc",
     "system": {
@@ -2934,6 +3097,7 @@
     }
   },
   {
+    "_id": "ftSul8ruHsERTSSp",
     "name": "Delver",
     "type": "npc",
     "system": {
@@ -2952,6 +3116,7 @@
     }
   },
   {
+    "_id": "JZvTuL3a3OFgpcYz",
     "name": "Babau",
     "type": "npc",
     "system": {
@@ -2970,6 +3135,7 @@
     }
   },
   {
+    "_id": "AnNj60XzJY7sDKTc",
     "name": "Balor",
     "type": "npc",
     "system": {
@@ -2988,6 +3154,7 @@
     }
   },
   {
+    "_id": "kQP9UsWYFgiklb9M",
     "name": "Bebilith",
     "type": "npc",
     "system": {
@@ -3006,6 +3173,7 @@
     }
   },
   {
+    "_id": "ojUw67mzlVoGCDS6",
     "name": "Dretch",
     "type": "npc",
     "system": {
@@ -3024,6 +3192,7 @@
     }
   },
   {
+    "_id": "xMOiDk7EQGowrQCs",
     "name": "Glabrezu",
     "type": "npc",
     "system": {
@@ -3042,6 +3211,7 @@
     }
   },
   {
+    "_id": "iRtScPhzppkb8rS4",
     "name": "Hezrou",
     "type": "npc",
     "system": {
@@ -3060,6 +3230,7 @@
     }
   },
   {
+    "_id": "nbkk9Kl4piq2LLIm",
     "name": "Marilith",
     "type": "npc",
     "system": {
@@ -3078,6 +3249,7 @@
     }
   },
   {
+    "_id": "ogUNqjX6tL4m8FjU",
     "name": "Nalfeshnee",
     "type": "npc",
     "system": {
@@ -3096,6 +3268,7 @@
     }
   },
   {
+    "_id": "dFbQuUR76RX4y8ZW",
     "name": "Quasit",
     "type": "npc",
     "system": {
@@ -3114,6 +3287,7 @@
     }
   },
   {
+    "_id": "haPSkAhQf2Q9DZHj",
     "name": "Retriever",
     "type": "npc",
     "system": {
@@ -3132,6 +3306,7 @@
     }
   },
   {
+    "_id": "bJ64QuMrQzfp1rGv",
     "name": "Succubus",
     "type": "npc",
     "system": {
@@ -3150,6 +3325,7 @@
     }
   },
   {
+    "_id": "eHn5kjw3TQdmFixC",
     "name": "Vrock",
     "type": "npc",
     "system": {
@@ -3168,6 +3344,7 @@
     }
   },
   {
+    "_id": "FaeqQg4Q0ZsbLQlm",
     "name": "Derro",
     "type": "npc",
     "system": {
@@ -3186,6 +3363,7 @@
     }
   },
   {
+    "_id": "awR4RRaotA1ix10b",
     "name": "Destrachan",
     "type": "npc",
     "system": {
@@ -3204,6 +3382,7 @@
     }
   },
   {
+    "_id": "zRIDliCJx5GLaoNq",
     "name": "Barbed Devil",
     "type": "npc",
     "system": {
@@ -3222,6 +3401,7 @@
     }
   },
   {
+    "_id": "DDy9REsAbXUxFyid",
     "name": "Bearded Devil",
     "type": "npc",
     "system": {
@@ -3240,6 +3420,7 @@
     }
   },
   {
+    "_id": "VEPEnonErvp5gNvz",
     "name": "Bone Devil",
     "type": "npc",
     "system": {
@@ -3258,6 +3439,7 @@
     }
   },
   {
+    "_id": "n0dHajFMK7VkfCO3",
     "name": "Chain Devil",
     "type": "npc",
     "system": {
@@ -3276,6 +3458,7 @@
     }
   },
   {
+    "_id": "OcBJDBBqDkyws4aj",
     "name": "Erinyes",
     "type": "npc",
     "system": {
@@ -3294,6 +3477,7 @@
     }
   },
   {
+    "_id": "bYD69Xh1KfPHwVa5",
     "name": "Hellcat",
     "type": "npc",
     "system": {
@@ -3312,6 +3496,7 @@
     }
   },
   {
+    "_id": "ZKusjrh5TdigrE6Z",
     "name": "Horned Devil",
     "type": "npc",
     "system": {
@@ -3330,6 +3515,7 @@
     }
   },
   {
+    "_id": "bJPNUat4HPLq3ciq",
     "name": "Ice Devil",
     "type": "npc",
     "system": {
@@ -3348,6 +3534,7 @@
     }
   },
   {
+    "_id": "VP9aWuMg2Um07MJn",
     "name": "Imp",
     "type": "npc",
     "system": {
@@ -3366,6 +3553,7 @@
     }
   },
   {
+    "_id": "BmRNt5BWSfJX8zoW",
     "name": "Pit Fiend",
     "type": "npc",
     "system": {
@@ -3384,6 +3572,7 @@
     }
   },
   {
+    "_id": "jUzV7WYW9T9ThZ7a",
     "name": "Devourer",
     "type": "npc",
     "system": {
@@ -3402,6 +3591,7 @@
     }
   },
   {
+    "_id": "y6MRPqP6Ylp36QXf",
     "name": "Digester",
     "type": "npc",
     "system": {
@@ -3420,6 +3610,7 @@
     }
   },
   {
+    "_id": "fcFxl9emhY1ZAIv4",
     "name": "Deinonychus",
     "type": "npc",
     "system": {
@@ -3438,6 +3629,7 @@
     }
   },
   {
+    "_id": "a4WD74o083EbbBFR",
     "name": "Elasmosaurus",
     "type": "npc",
     "system": {
@@ -3456,6 +3648,7 @@
     }
   },
   {
+    "_id": "TUNH1fSSKPvwZMXE",
     "name": "Megaraptor",
     "type": "npc",
     "system": {
@@ -3474,6 +3667,7 @@
     }
   },
   {
+    "_id": "tetalNiogZmTv8kU",
     "name": "Triceratops",
     "type": "npc",
     "system": {
@@ -3492,6 +3686,7 @@
     }
   },
   {
+    "_id": "2erZtdBE8jAMbabf",
     "name": "Tyrannosaurus",
     "type": "npc",
     "system": {
@@ -3510,6 +3705,7 @@
     }
   },
   {
+    "_id": "Ma28efQxH7Kt5qQy",
     "name": "Dire Ape",
     "type": "npc",
     "system": {
@@ -3528,6 +3724,7 @@
     }
   },
   {
+    "_id": "lwG7tG5Pmcpuoova",
     "name": "Dire Badger",
     "type": "npc",
     "system": {
@@ -3546,6 +3743,7 @@
     }
   },
   {
+    "_id": "xjWkyNdqdLjDltZo",
     "name": "Dire Bat",
     "type": "npc",
     "system": {
@@ -3564,6 +3762,7 @@
     }
   },
   {
+    "_id": "opL9cdyNmntA1lMR",
     "name": "Dire Bear",
     "type": "npc",
     "system": {
@@ -3582,6 +3781,7 @@
     }
   },
   {
+    "_id": "WMmVnEdoSTCHDndX",
     "name": "Dire Boar",
     "type": "npc",
     "system": {
@@ -3600,6 +3800,7 @@
     }
   },
   {
+    "_id": "EkkNvrWFaklcux58",
     "name": "Dire Lion",
     "type": "npc",
     "system": {
@@ -3618,6 +3819,7 @@
     }
   },
   {
+    "_id": "O7m7XVo4Nk8ZQti6",
     "name": "Dire Rat",
     "type": "npc",
     "system": {
@@ -3636,6 +3838,7 @@
     }
   },
   {
+    "_id": "5fZrR4iIqkM0DPZI",
     "name": "Dire Shark",
     "type": "npc",
     "system": {
@@ -3654,6 +3857,7 @@
     }
   },
   {
+    "_id": "Z2QHymZ0neV6753P",
     "name": "Dire Tiger",
     "type": "npc",
     "system": {
@@ -3672,6 +3876,7 @@
     }
   },
   {
+    "_id": "UvkeqfJR360uT2nm",
     "name": "Dire Weasel",
     "type": "npc",
     "system": {
@@ -3690,6 +3895,7 @@
     }
   },
   {
+    "_id": "IwEfcCo17j5ZOwkZ",
     "name": "Dire Wolf",
     "type": "npc",
     "system": {
@@ -3708,6 +3914,7 @@
     }
   },
   {
+    "_id": "ng2zFdq9j5KwXBiP",
     "name": "Dire Wolverine",
     "type": "npc",
     "system": {
@@ -3726,6 +3933,7 @@
     }
   },
   {
+    "_id": "f5UknENZGBxViBI7",
     "name": "Doppelganger",
     "type": "npc",
     "system": {
@@ -3744,6 +3952,7 @@
     }
   },
   {
+    "_id": "mS4t2OQbGYfFFgDX",
     "name": "Black Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -3762,6 +3971,7 @@
     }
   },
   {
+    "_id": "hGiRicImNVeBTaR1",
     "name": "Black Dragon, Very young",
     "type": "npc",
     "system": {
@@ -3780,6 +3990,7 @@
     }
   },
   {
+    "_id": "idw8toXvwQiPa9lP",
     "name": "Black Dragon, Young",
     "type": "npc",
     "system": {
@@ -3798,6 +4009,7 @@
     }
   },
   {
+    "_id": "0em2qXJD3YFSadIV",
     "name": "Black Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -3816,6 +4028,7 @@
     }
   },
   {
+    "_id": "2gkGiEDtxbtBAHin",
     "name": "Black Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -3834,6 +4047,7 @@
     }
   },
   {
+    "_id": "HznFmrO23wtVAJaT",
     "name": "Black Dragon, Adult",
     "type": "npc",
     "system": {
@@ -3852,6 +4066,7 @@
     }
   },
   {
+    "_id": "junnDfwJm4DLmAMb",
     "name": "Black Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -3870,6 +4085,7 @@
     }
   },
   {
+    "_id": "QMzt46T9KofxWYSs",
     "name": "Black Dragon, Old",
     "type": "npc",
     "system": {
@@ -3888,6 +4104,7 @@
     }
   },
   {
+    "_id": "l7OjKqwnnyjaExwj",
     "name": "Black Dragon, Very old",
     "type": "npc",
     "system": {
@@ -3906,6 +4123,7 @@
     }
   },
   {
+    "_id": "XmvBWcEQFXDuuIXq",
     "name": "Black Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -3924,6 +4142,7 @@
     }
   },
   {
+    "_id": "Ah1SauzalmrtAUux",
     "name": "Black Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -3942,6 +4161,7 @@
     }
   },
   {
+    "_id": "OXFgobqcT0xNJj7J",
     "name": "Black Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -3960,6 +4180,7 @@
     }
   },
   {
+    "_id": "iwhOb1HIGRRIJhXQ",
     "name": "Blue Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -3978,6 +4199,7 @@
     }
   },
   {
+    "_id": "CEGhMv3BuXWstyZC",
     "name": "Blue Dragon, Very young",
     "type": "npc",
     "system": {
@@ -3996,6 +4218,7 @@
     }
   },
   {
+    "_id": "6nGeZQ1okqexC944",
     "name": "Blue Dragon, Young",
     "type": "npc",
     "system": {
@@ -4014,6 +4237,7 @@
     }
   },
   {
+    "_id": "WEpcghonRgNHeidE",
     "name": "Blue Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -4032,6 +4256,7 @@
     }
   },
   {
+    "_id": "nXuyuOOK8ti4P43W",
     "name": "Blue Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -4050,6 +4275,7 @@
     }
   },
   {
+    "_id": "00AgzxyNPr4vgzS9",
     "name": "Blue Dragon, Adult",
     "type": "npc",
     "system": {
@@ -4068,6 +4294,7 @@
     }
   },
   {
+    "_id": "VtEwUxdzrpfdStOi",
     "name": "Blue Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -4086,6 +4313,7 @@
     }
   },
   {
+    "_id": "nw6P9kFoq6ZA61Eo",
     "name": "Blue Dragon, Old",
     "type": "npc",
     "system": {
@@ -4104,6 +4332,7 @@
     }
   },
   {
+    "_id": "OwzXHM4U74mupiLH",
     "name": "Blue Dragon, Very old",
     "type": "npc",
     "system": {
@@ -4122,6 +4351,7 @@
     }
   },
   {
+    "_id": "n13sWOsxQlYwTijX",
     "name": "Blue Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -4140,6 +4370,7 @@
     }
   },
   {
+    "_id": "ntqGYUhIPk7KHzpN",
     "name": "Blue Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -4158,6 +4389,7 @@
     }
   },
   {
+    "_id": "F6eqjvqfnndZtoZA",
     "name": "Blue Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -4176,6 +4408,7 @@
     }
   },
   {
+    "_id": "qvLqN3j1fV528bDz",
     "name": "Green Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -4194,6 +4427,7 @@
     }
   },
   {
+    "_id": "OKo6VbHrLt699STV",
     "name": "Green Dragon, Very young",
     "type": "npc",
     "system": {
@@ -4212,6 +4446,7 @@
     }
   },
   {
+    "_id": "0aOw12eLUskTpzpt",
     "name": "Green Dragon, Young",
     "type": "npc",
     "system": {
@@ -4230,6 +4465,7 @@
     }
   },
   {
+    "_id": "juenhweQtrbgSWYV",
     "name": "Green Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -4248,6 +4484,7 @@
     }
   },
   {
+    "_id": "hGNcsJN9SufYs89c",
     "name": "Green Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -4266,6 +4503,7 @@
     }
   },
   {
+    "_id": "a59FB8Gbb1m4bhNF",
     "name": "Green Dragon, Adult",
     "type": "npc",
     "system": {
@@ -4284,6 +4522,7 @@
     }
   },
   {
+    "_id": "WECQyOoVakKYlkpt",
     "name": "Green Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -4302,6 +4541,7 @@
     }
   },
   {
+    "_id": "27SsFvL8dagPYy2M",
     "name": "Green Dragon, Old",
     "type": "npc",
     "system": {
@@ -4320,6 +4560,7 @@
     }
   },
   {
+    "_id": "lg6d9ZRLAaWzeDJj",
     "name": "Green Dragon, Very old",
     "type": "npc",
     "system": {
@@ -4338,6 +4579,7 @@
     }
   },
   {
+    "_id": "xczbQnysrszBe3Yk",
     "name": "Green Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -4356,6 +4598,7 @@
     }
   },
   {
+    "_id": "c79TEi7ezDbwH2wD",
     "name": "Green Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -4374,6 +4617,7 @@
     }
   },
   {
+    "_id": "YShZKkpxy1Xwe5sM",
     "name": "Green Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -4392,6 +4636,7 @@
     }
   },
   {
+    "_id": "OldIbRed4wSlKR1T",
     "name": "Red Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -4410,6 +4655,7 @@
     }
   },
   {
+    "_id": "JKGaX1w43dNC3dqR",
     "name": "Red Dragon, Very young",
     "type": "npc",
     "system": {
@@ -4428,6 +4674,7 @@
     }
   },
   {
+    "_id": "9Nm2QmFOJcH1rXTe",
     "name": "Red Dragon, Young",
     "type": "npc",
     "system": {
@@ -4446,6 +4693,7 @@
     }
   },
   {
+    "_id": "lPgYANHwDPSziWOq",
     "name": "Red Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -4464,6 +4712,7 @@
     }
   },
   {
+    "_id": "koY2wzOgT8F6YiLS",
     "name": "Red Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -4482,6 +4731,7 @@
     }
   },
   {
+    "_id": "EZE62GjCONfQ4rEM",
     "name": "Red Dragon, Adult",
     "type": "npc",
     "system": {
@@ -4500,6 +4750,7 @@
     }
   },
   {
+    "_id": "0BtlsEQ7iRmPLKnG",
     "name": "Red Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -4518,6 +4769,7 @@
     }
   },
   {
+    "_id": "vQcenroMzinVHZTu",
     "name": "Red Dragon, Old",
     "type": "npc",
     "system": {
@@ -4536,6 +4788,7 @@
     }
   },
   {
+    "_id": "IZvy2ChpJL0PcoZv",
     "name": "Red Dragon, Very old",
     "type": "npc",
     "system": {
@@ -4554,6 +4807,7 @@
     }
   },
   {
+    "_id": "F7r2kX6aiylxUPCQ",
     "name": "Red Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -4572,6 +4826,7 @@
     }
   },
   {
+    "_id": "Cpa6oRPmaSf8dpee",
     "name": "Red Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -4590,6 +4845,7 @@
     }
   },
   {
+    "_id": "eQiQ5OPJk34etuVU",
     "name": "Red Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -4608,6 +4864,7 @@
     }
   },
   {
+    "_id": "RfGeLUmVzq861Id0",
     "name": "White Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -4626,6 +4883,7 @@
     }
   },
   {
+    "_id": "EO76cPaLjYd15uwA",
     "name": "White Dragon, Very young",
     "type": "npc",
     "system": {
@@ -4644,6 +4902,7 @@
     }
   },
   {
+    "_id": "4IKk47WMM0eHMgMn",
     "name": "White Dragon, Young",
     "type": "npc",
     "system": {
@@ -4662,6 +4921,7 @@
     }
   },
   {
+    "_id": "CVzDSm3IadvuBkYp",
     "name": "White Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -4680,6 +4940,7 @@
     }
   },
   {
+    "_id": "OPczIyZcK60s0Bth",
     "name": "White Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -4698,6 +4959,7 @@
     }
   },
   {
+    "_id": "MTlQMITOZOSvy0LM",
     "name": "White Dragon, Adult",
     "type": "npc",
     "system": {
@@ -4716,6 +4978,7 @@
     }
   },
   {
+    "_id": "jE2ucNr8QmITD5eZ",
     "name": "White Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -4734,6 +4997,7 @@
     }
   },
   {
+    "_id": "m9r3IL5TKm3g78LM",
     "name": "White Dragon, Old",
     "type": "npc",
     "system": {
@@ -4752,6 +5016,7 @@
     }
   },
   {
+    "_id": "Y7YqtJSFOVOyq3pr",
     "name": "White Dragon, Very old",
     "type": "npc",
     "system": {
@@ -4770,6 +5035,7 @@
     }
   },
   {
+    "_id": "FuUOOEGYwE7so6Nn",
     "name": "White Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -4788,6 +5054,7 @@
     }
   },
   {
+    "_id": "vJfCD0AkU5B5qic3",
     "name": "White Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -4806,6 +5073,7 @@
     }
   },
   {
+    "_id": "PFTsUX5zPrH1Wkgy",
     "name": "White Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -4824,6 +5092,7 @@
     }
   },
   {
+    "_id": "0UtBJG8v08KMc3YD",
     "name": "Brass Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -4842,6 +5111,7 @@
     }
   },
   {
+    "_id": "CjWlCmBhiFTqfysj",
     "name": "Brass Dragon, Very young",
     "type": "npc",
     "system": {
@@ -4860,6 +5130,7 @@
     }
   },
   {
+    "_id": "kS2yg4lTzX87LeWb",
     "name": "Brass Dragon, Young",
     "type": "npc",
     "system": {
@@ -4878,6 +5149,7 @@
     }
   },
   {
+    "_id": "KFUCTgusJa5tZLgD",
     "name": "Brass Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -4896,6 +5168,7 @@
     }
   },
   {
+    "_id": "9gghNhavTYoFQ0rL",
     "name": "Brass Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -4914,6 +5187,7 @@
     }
   },
   {
+    "_id": "z1pOLfe9ey69RL1i",
     "name": "Brass Dragon, Adult",
     "type": "npc",
     "system": {
@@ -4932,6 +5206,7 @@
     }
   },
   {
+    "_id": "fQIkzLK5UOA9BSU2",
     "name": "Brass Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -4950,6 +5225,7 @@
     }
   },
   {
+    "_id": "rGGA8A17U9sQL1VO",
     "name": "Brass Dragon, Old",
     "type": "npc",
     "system": {
@@ -4968,6 +5244,7 @@
     }
   },
   {
+    "_id": "Tl5xa49xkUVfi1Ub",
     "name": "Brass Dragon, Very old",
     "type": "npc",
     "system": {
@@ -4986,6 +5263,7 @@
     }
   },
   {
+    "_id": "ZBYPQO8g9NTJgIJL",
     "name": "Brass Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -5004,6 +5282,7 @@
     }
   },
   {
+    "_id": "1eCi6GzDcNCC8IMJ",
     "name": "Brass Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -5022,6 +5301,7 @@
     }
   },
   {
+    "_id": "AuEiA9rkRTs7V5C0",
     "name": "Brass Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -5040,6 +5320,7 @@
     }
   },
   {
+    "_id": "XU232IciI8Sd1Ku5",
     "name": "Bronze Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -5058,6 +5339,7 @@
     }
   },
   {
+    "_id": "sm2K6BzZWsB8y6oQ",
     "name": "Bronze Dragon, Very young",
     "type": "npc",
     "system": {
@@ -5076,6 +5358,7 @@
     }
   },
   {
+    "_id": "ZPSh7rccLOBET4qS",
     "name": "Bronze Dragon, Young",
     "type": "npc",
     "system": {
@@ -5094,6 +5377,7 @@
     }
   },
   {
+    "_id": "G6DwkWGgU5YKlDmV",
     "name": "Bronze Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -5112,6 +5396,7 @@
     }
   },
   {
+    "_id": "3DULKmNZ0V93yUNX",
     "name": "Bronze Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -5130,6 +5415,7 @@
     }
   },
   {
+    "_id": "ilKqIuHvqiBsBa21",
     "name": "Bronze Dragon, Adult",
     "type": "npc",
     "system": {
@@ -5148,6 +5434,7 @@
     }
   },
   {
+    "_id": "5mTtFNmv0nDInwE0",
     "name": "Bronze Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -5166,6 +5453,7 @@
     }
   },
   {
+    "_id": "KHsaO4m9WamWKYhs",
     "name": "Bronze Dragon, Old",
     "type": "npc",
     "system": {
@@ -5184,6 +5472,7 @@
     }
   },
   {
+    "_id": "NE0H8rH47qBWJUJZ",
     "name": "Bronze Dragon, Very old",
     "type": "npc",
     "system": {
@@ -5202,6 +5491,7 @@
     }
   },
   {
+    "_id": "MI3PVliTUW36bt1j",
     "name": "Bronze Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -5220,6 +5510,7 @@
     }
   },
   {
+    "_id": "0gnkxC5XNOHFl8k0",
     "name": "Bronze Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -5238,6 +5529,7 @@
     }
   },
   {
+    "_id": "xJuTsIAbgX0DHtI9",
     "name": "Bronze Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -5256,6 +5548,7 @@
     }
   },
   {
+    "_id": "M1fie4OAquR9YkOL",
     "name": "Copper Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -5274,6 +5567,7 @@
     }
   },
   {
+    "_id": "8vw2ramcQpol1gQE",
     "name": "Copper Dragon, Very young",
     "type": "npc",
     "system": {
@@ -5292,6 +5586,7 @@
     }
   },
   {
+    "_id": "ZM7u6ODriXl9CLMO",
     "name": "Copper Dragon, Young",
     "type": "npc",
     "system": {
@@ -5310,6 +5605,7 @@
     }
   },
   {
+    "_id": "ncX1vXRFqTjDkNAb",
     "name": "Copper Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -5328,6 +5624,7 @@
     }
   },
   {
+    "_id": "yuecwmJDWRmkR1bq",
     "name": "Copper Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -5346,6 +5643,7 @@
     }
   },
   {
+    "_id": "zir9oBFyC9aroAfM",
     "name": "Copper Dragon, Adult",
     "type": "npc",
     "system": {
@@ -5364,6 +5662,7 @@
     }
   },
   {
+    "_id": "oMEBvw4MX6KNjdb3",
     "name": "Copper Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -5382,6 +5681,7 @@
     }
   },
   {
+    "_id": "5Z63qt9YkRLgulbG",
     "name": "Copper Dragon, Old",
     "type": "npc",
     "system": {
@@ -5400,6 +5700,7 @@
     }
   },
   {
+    "_id": "ldSQ6qXyEuWj8L4q",
     "name": "Copper Dragon, Very old",
     "type": "npc",
     "system": {
@@ -5418,6 +5719,7 @@
     }
   },
   {
+    "_id": "y0fpZJ4sKgvJlOuM",
     "name": "Copper Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -5436,6 +5738,7 @@
     }
   },
   {
+    "_id": "nZrPcVvfVya2TNsH",
     "name": "Copper Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -5454,6 +5757,7 @@
     }
   },
   {
+    "_id": "zDgyf9dz1rB2WPMI",
     "name": "Copper Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -5472,6 +5776,7 @@
     }
   },
   {
+    "_id": "zul4paNbve17eg6q",
     "name": "Gold Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -5490,6 +5795,7 @@
     }
   },
   {
+    "_id": "l9aFZP5qfs2r8hSZ",
     "name": "Gold Dragon, Very young",
     "type": "npc",
     "system": {
@@ -5508,6 +5814,7 @@
     }
   },
   {
+    "_id": "fTR7AP4EQWZa5aOB",
     "name": "Gold Dragon, Young",
     "type": "npc",
     "system": {
@@ -5526,6 +5833,7 @@
     }
   },
   {
+    "_id": "SvUCMpZgFtojsaDf",
     "name": "Gold Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -5544,6 +5852,7 @@
     }
   },
   {
+    "_id": "sukWUHm3V6SnufpP",
     "name": "Gold Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -5562,6 +5871,7 @@
     }
   },
   {
+    "_id": "9Z4yA10PEQSXdI0M",
     "name": "Gold Dragon, Adult",
     "type": "npc",
     "system": {
@@ -5580,6 +5890,7 @@
     }
   },
   {
+    "_id": "Z88vhiCzeF3r09de",
     "name": "Gold Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -5598,6 +5909,7 @@
     }
   },
   {
+    "_id": "630u4azuLL25yhAn",
     "name": "Gold Dragon, Old",
     "type": "npc",
     "system": {
@@ -5616,6 +5928,7 @@
     }
   },
   {
+    "_id": "QFrYgDQPK5tMhvmp",
     "name": "Gold Dragon, Very old",
     "type": "npc",
     "system": {
@@ -5634,6 +5947,7 @@
     }
   },
   {
+    "_id": "kbRfPoS53E8E1cbM",
     "name": "Gold Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -5652,6 +5966,7 @@
     }
   },
   {
+    "_id": "E8DJU0Zyrk8WgAgg",
     "name": "Gold Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -5670,6 +5985,7 @@
     }
   },
   {
+    "_id": "bfiZIRy8tD75IfKR",
     "name": "Gold Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -5688,6 +6004,7 @@
     }
   },
   {
+    "_id": "LYoYferVn3i7XEL6",
     "name": "Silver Dragon, Wyrmling",
     "type": "npc",
     "system": {
@@ -5706,6 +6023,7 @@
     }
   },
   {
+    "_id": "yk7GqTa99prOL06A",
     "name": "Silver Dragon, Very young",
     "type": "npc",
     "system": {
@@ -5724,6 +6042,7 @@
     }
   },
   {
+    "_id": "h4t0AgqXjznqJKwt",
     "name": "Silver Dragon, Young",
     "type": "npc",
     "system": {
@@ -5742,6 +6061,7 @@
     }
   },
   {
+    "_id": "QLaXoA1fLmVimMmh",
     "name": "Silver Dragon, Juvenile",
     "type": "npc",
     "system": {
@@ -5760,6 +6080,7 @@
     }
   },
   {
+    "_id": "hsJ3OsS1RYn1iSx5",
     "name": "Silver Dragon, Young adult",
     "type": "npc",
     "system": {
@@ -5778,6 +6099,7 @@
     }
   },
   {
+    "_id": "uab1vnNxmu7QSrWq",
     "name": "Silver Dragon, Adult",
     "type": "npc",
     "system": {
@@ -5796,6 +6118,7 @@
     }
   },
   {
+    "_id": "rIjVuRD7aCYZdpJJ",
     "name": "Silver Dragon, Mature adult",
     "type": "npc",
     "system": {
@@ -5814,6 +6137,7 @@
     }
   },
   {
+    "_id": "mqGbrboYemriiWgi",
     "name": "Silver Dragon, Old",
     "type": "npc",
     "system": {
@@ -5832,6 +6156,7 @@
     }
   },
   {
+    "_id": "YHc17s4VxPLnLERn",
     "name": "Silver Dragon, Very old",
     "type": "npc",
     "system": {
@@ -5850,6 +6175,7 @@
     }
   },
   {
+    "_id": "QWD5FJYPCqy2ZRlO",
     "name": "Silver Dragon, Ancient",
     "type": "npc",
     "system": {
@@ -5868,6 +6194,7 @@
     }
   },
   {
+    "_id": "C2ZUx6F9xH5SzzyE",
     "name": "Silver Dragon, Wyrm",
     "type": "npc",
     "system": {
@@ -5886,6 +6213,7 @@
     }
   },
   {
+    "_id": "qmzaYG2iUCCJj6O4",
     "name": "Silver Dragon, Great wyrm",
     "type": "npc",
     "system": {
@@ -5904,6 +6232,7 @@
     }
   },
   {
+    "_id": "JPOYtjUULfGXWSOU",
     "name": "Dragon Turtle",
     "type": "npc",
     "system": {
@@ -5922,6 +6251,7 @@
     }
   },
   {
+    "_id": "JZOZdu7ZiWyosFN7",
     "name": "Dragonne",
     "type": "npc",
     "system": {
@@ -5940,6 +6270,7 @@
     }
   },
   {
+    "_id": "GfeDDyvhZ1grvZLR",
     "name": "Drider",
     "type": "npc",
     "system": {
@@ -5958,6 +6289,7 @@
     }
   },
   {
+    "_id": "plx2uoFSJnzty0cC",
     "name": "Dryad",
     "type": "npc",
     "system": {
@@ -5976,6 +6308,7 @@
     }
   },
   {
+    "_id": "lZf7lDK4SRUfHbvB",
     "name": "Dwarf, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -5994,6 +6327,7 @@
     }
   },
   {
+    "_id": "tjeE6hNTaFlq6Rl1",
     "name": "Duergar, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -6012,6 +6346,7 @@
     }
   },
   {
+    "_id": "cp5aqsadUYsqqzRI",
     "name": "Eagle, Giant",
     "type": "npc",
     "system": {
@@ -6030,6 +6365,7 @@
     }
   },
   {
+    "_id": "kOVesH7qs01AiQQK",
     "name": "Air Elemental, Small",
     "type": "npc",
     "system": {
@@ -6048,6 +6384,7 @@
     }
   },
   {
+    "_id": "IGSjHmXDa7jAinx5",
     "name": "Air Elemental, Medium",
     "type": "npc",
     "system": {
@@ -6066,6 +6403,7 @@
     }
   },
   {
+    "_id": "thoWMShwSdbCY7Ma",
     "name": "Air Elemental, Large",
     "type": "npc",
     "system": {
@@ -6084,6 +6422,7 @@
     }
   },
   {
+    "_id": "Ra2dL9750fQ8KJLx",
     "name": "Air Elemental, Huge",
     "type": "npc",
     "system": {
@@ -6102,6 +6441,7 @@
     }
   },
   {
+    "_id": "EQkiiuaNfGGaKQcP",
     "name": "Air Elemental, Greater",
     "type": "npc",
     "system": {
@@ -6120,6 +6460,7 @@
     }
   },
   {
+    "_id": "vWzoPe47v4vwkv2B",
     "name": "Air Elemental, Elder",
     "type": "npc",
     "system": {
@@ -6138,6 +6479,7 @@
     }
   },
   {
+    "_id": "qn9eMDSjjyUqDmzm",
     "name": "Earth Elemental, Small",
     "type": "npc",
     "system": {
@@ -6156,6 +6498,7 @@
     }
   },
   {
+    "_id": "viCNzUZwFKuv4lZM",
     "name": "Earth Elemental, Medium",
     "type": "npc",
     "system": {
@@ -6174,6 +6517,7 @@
     }
   },
   {
+    "_id": "TQ95w6bWP7p2w3k0",
     "name": "Earth Elemental, Large",
     "type": "npc",
     "system": {
@@ -6192,6 +6536,7 @@
     }
   },
   {
+    "_id": "L5E3PWstL9KawtH7",
     "name": "Earth Elemental, Huge",
     "type": "npc",
     "system": {
@@ -6210,6 +6555,7 @@
     }
   },
   {
+    "_id": "kMlycaqab7L1ITws",
     "name": "Earth Elemental, Greater",
     "type": "npc",
     "system": {
@@ -6228,6 +6574,7 @@
     }
   },
   {
+    "_id": "T1MkUAyJmVGW6HfY",
     "name": "Earth Elemental, Elder",
     "type": "npc",
     "system": {
@@ -6246,6 +6593,7 @@
     }
   },
   {
+    "_id": "4ykC8DBQ1l7rKpkk",
     "name": "Fire Elemental, Small",
     "type": "npc",
     "system": {
@@ -6264,6 +6612,7 @@
     }
   },
   {
+    "_id": "B7nAJWa1PCPgj2mk",
     "name": "Fire Elemental, Medium",
     "type": "npc",
     "system": {
@@ -6282,6 +6631,7 @@
     }
   },
   {
+    "_id": "124BBDOD2JtqjDwP",
     "name": "Fire Elemental, Large",
     "type": "npc",
     "system": {
@@ -6300,6 +6650,7 @@
     }
   },
   {
+    "_id": "6qkSXXhrWv9UmrOj",
     "name": "Fire Elemental, Huge",
     "type": "npc",
     "system": {
@@ -6318,6 +6669,7 @@
     }
   },
   {
+    "_id": "WEJAIyFJrkJ0Sg5g",
     "name": "Fire Elemental, Greater",
     "type": "npc",
     "system": {
@@ -6336,6 +6688,7 @@
     }
   },
   {
+    "_id": "E6TzzqykLRNbEOo9",
     "name": "Fire Elemental, Elder",
     "type": "npc",
     "system": {
@@ -6354,6 +6707,7 @@
     }
   },
   {
+    "_id": "hgopiUIxFoDnBglR",
     "name": "Water Elemental, Small",
     "type": "npc",
     "system": {
@@ -6372,6 +6726,7 @@
     }
   },
   {
+    "_id": "Vt5jHP5KlBbJ6En4",
     "name": "Water Elemental, Medium",
     "type": "npc",
     "system": {
@@ -6390,6 +6745,7 @@
     }
   },
   {
+    "_id": "5D8QRQGm3P9zbCMD",
     "name": "Water Elemental, Large",
     "type": "npc",
     "system": {
@@ -6408,6 +6764,7 @@
     }
   },
   {
+    "_id": "and7RNFUqicNa92u",
     "name": "Water Elemental, Huge",
     "type": "npc",
     "system": {
@@ -6426,6 +6783,7 @@
     }
   },
   {
+    "_id": "RXAMp3n86PI3Ljt4",
     "name": "Water Elemental, Greater",
     "type": "npc",
     "system": {
@@ -6444,6 +6802,7 @@
     }
   },
   {
+    "_id": "Dr1aXonSfse5yxfy",
     "name": "Water Elemental, Elder",
     "type": "npc",
     "system": {
@@ -6462,6 +6821,7 @@
     }
   },
   {
+    "_id": "7fXySo7oP7THnHAU",
     "name": "Elf, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -6480,6 +6840,7 @@
     }
   },
   {
+    "_id": "ma3Gn1yYiPEPtNor",
     "name": "Drow, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -6498,6 +6859,7 @@
     }
   },
   {
+    "_id": "rMgqsU0WeTIhugy1",
     "name": "Ethereal Filcher",
     "type": "npc",
     "system": {
@@ -6516,6 +6878,7 @@
     }
   },
   {
+    "_id": "bdQCbaqYYA8NxOxP",
     "name": "Ethereal Marauder",
     "type": "npc",
     "system": {
@@ -6534,6 +6897,7 @@
     }
   },
   {
+    "_id": "0IknFHrDcgzluzex",
     "name": "Ettercap",
     "type": "npc",
     "system": {
@@ -6552,6 +6916,7 @@
     }
   },
   {
+    "_id": "0RrM3VPbJYjJf9qr",
     "name": "Ettin",
     "type": "npc",
     "system": {
@@ -6570,6 +6935,7 @@
     }
   },
   {
+    "_id": "A7BxDpXz3WBVz1fm",
     "name": "Formian Worker",
     "type": "npc",
     "system": {
@@ -6588,6 +6954,7 @@
     }
   },
   {
+    "_id": "Hv8xVsKxB7jaBjji",
     "name": "Formian Warrior",
     "type": "npc",
     "system": {
@@ -6606,6 +6973,7 @@
     }
   },
   {
+    "_id": "uqhB5KUPJwpBlahO",
     "name": "Formian Taskmaster",
     "type": "npc",
     "system": {
@@ -6624,6 +6992,7 @@
     }
   },
   {
+    "_id": "uiRaNU5xhWCx2RIU",
     "name": "Formian Myrmarch",
     "type": "npc",
     "system": {
@@ -6642,6 +7011,7 @@
     }
   },
   {
+    "_id": "16NvMsVKkLzbloWw",
     "name": "Formian Queen",
     "type": "npc",
     "system": {
@@ -6660,6 +7030,7 @@
     }
   },
   {
+    "_id": "hdVpJ8RbiIKyuwMg",
     "name": "Frost Worm",
     "type": "npc",
     "system": {
@@ -6678,6 +7049,7 @@
     }
   },
   {
+    "_id": "KIrzUx5Dz7Pnfsnc",
     "name": "Shrieker",
     "type": "npc",
     "system": {
@@ -6696,6 +7068,7 @@
     }
   },
   {
+    "_id": "W6lpCr9FyBAyvUHB",
     "name": "Violet Fungus",
     "type": "npc",
     "system": {
@@ -6714,6 +7087,7 @@
     }
   },
   {
+    "_id": "epnyau1JSVYNdLSR",
     "name": "Gargoyle",
     "type": "npc",
     "system": {
@@ -6732,6 +7106,7 @@
     }
   },
   {
+    "_id": "1XBgZeCKCp7BJFev",
     "name": "Djinni",
     "type": "npc",
     "system": {
@@ -6750,6 +7125,7 @@
     }
   },
   {
+    "_id": "iT78ufaA6QEupQPj",
     "name": "Efreeti",
     "type": "npc",
     "system": {
@@ -6768,6 +7144,7 @@
     }
   },
   {
+    "_id": "mr9jBmrq1lEfhPHB",
     "name": "Janni",
     "type": "npc",
     "system": {
@@ -6786,6 +7163,7 @@
     }
   },
   {
+    "_id": "92CXGeGJrVNs3yNB",
     "name": "Ghaele",
     "type": "npc",
     "system": {
@@ -6804,6 +7182,7 @@
     }
   },
   {
+    "_id": "DWZoCSI2M9h9Xvbk",
     "name": "Ghoul",
     "type": "npc",
     "system": {
@@ -6822,6 +7201,7 @@
     }
   },
   {
+    "_id": "6KR8sEUv9u4AvJzp",
     "name": "Ghast",
     "type": "npc",
     "system": {
@@ -6840,6 +7220,7 @@
     }
   },
   {
+    "_id": "VQelfiy9ek0YoCrn",
     "name": "Cloud Giant",
     "type": "npc",
     "system": {
@@ -6858,6 +7239,7 @@
     }
   },
   {
+    "_id": "th8lS2mS7RkjK6QF",
     "name": "Fire Giant",
     "type": "npc",
     "system": {
@@ -6876,6 +7258,7 @@
     }
   },
   {
+    "_id": "qnLhoL1FfPaKQ9oc",
     "name": "Frost Giant",
     "type": "npc",
     "system": {
@@ -6894,6 +7277,7 @@
     }
   },
   {
+    "_id": "OBwQyaHbzaFFUAjO",
     "name": "Frost Giant Jarl, 8th-Level Blackguard",
     "type": "npc",
     "system": {
@@ -6912,6 +7296,7 @@
     }
   },
   {
+    "_id": "LyfB2XgeC06yMs6z",
     "name": "Hill Giant",
     "type": "npc",
     "system": {
@@ -6930,6 +7315,7 @@
     }
   },
   {
+    "_id": "4nJBDLgCEBhPKFYA",
     "name": "Stone Giant",
     "type": "npc",
     "system": {
@@ -6948,6 +7334,7 @@
     }
   },
   {
+    "_id": "t9WMbw9DJfXcmQe0",
     "name": "Storm Giant",
     "type": "npc",
     "system": {
@@ -6966,6 +7353,7 @@
     }
   },
   {
+    "_id": "XfCBbTbvOIV6fk7u",
     "name": "Gibbering Mouther",
     "type": "npc",
     "system": {
@@ -6984,6 +7372,7 @@
     }
   },
   {
+    "_id": "JAXBQE4UBXb08qEa",
     "name": "Girallon",
     "type": "npc",
     "system": {
@@ -7002,6 +7391,7 @@
     }
   },
   {
+    "_id": "ymsRO2VFd1yXZTar",
     "name": "Gnoll",
     "type": "npc",
     "system": {
@@ -7020,6 +7410,7 @@
     }
   },
   {
+    "_id": "q6bkq5OzWQ84zHyY",
     "name": "Gnome, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -7038,6 +7429,7 @@
     }
   },
   {
+    "_id": "5UmU6sWdzlTotQaD",
     "name": "Svirfneblin, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -7056,6 +7448,7 @@
     }
   },
   {
+    "_id": "c8p7pjFuKr9Srd7b",
     "name": "Goblin, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -7074,6 +7467,7 @@
     }
   },
   {
+    "_id": "VKJUgCdBdm57TwHp",
     "name": "Clay Golem",
     "type": "npc",
     "system": {
@@ -7092,6 +7486,7 @@
     }
   },
   {
+    "_id": "raYtT5A6ui1Lu5Xi",
     "name": "Flesh Golem",
     "type": "npc",
     "system": {
@@ -7110,6 +7505,7 @@
     }
   },
   {
+    "_id": "HSb2qGwEJAWIuZ8V",
     "name": "Iron Golem",
     "type": "npc",
     "system": {
@@ -7128,6 +7524,7 @@
     }
   },
   {
+    "_id": "ZUyChpcD1ZIKSFHL",
     "name": "Stone Golem",
     "type": "npc",
     "system": {
@@ -7146,6 +7543,7 @@
     }
   },
   {
+    "_id": "57LdRSoTFsIBZ21g",
     "name": "Greater Stone Golem",
     "type": "npc",
     "system": {
@@ -7164,6 +7562,7 @@
     }
   },
   {
+    "_id": "X6d3m6bwkxCTcEKj",
     "name": "Gorgon",
     "type": "npc",
     "system": {
@@ -7182,6 +7581,7 @@
     }
   },
   {
+    "_id": "wLCrYEJDyH8dKkyO",
     "name": "Gray Render",
     "type": "npc",
     "system": {
@@ -7200,6 +7600,7 @@
     }
   },
   {
+    "_id": "M4talJ6WbdbI8c8u",
     "name": "Grick",
     "type": "npc",
     "system": {
@@ -7218,6 +7619,7 @@
     }
   },
   {
+    "_id": "TFTJ1T2Sfsz60hrm",
     "name": "Griffon",
     "type": "npc",
     "system": {
@@ -7236,6 +7638,7 @@
     }
   },
   {
+    "_id": "o1k9mkn8weGrbbqg",
     "name": "Grimlock",
     "type": "npc",
     "system": {
@@ -7254,6 +7657,7 @@
     }
   },
   {
+    "_id": "ZI1L9hQOvBOatep8",
     "name": "Annis",
     "type": "npc",
     "system": {
@@ -7272,6 +7676,7 @@
     }
   },
   {
+    "_id": "V0AHl5bgGNt9gTKj",
     "name": "Green Hag",
     "type": "npc",
     "system": {
@@ -7290,6 +7695,7 @@
     }
   },
   {
+    "_id": "uqgHFgaGOmdM9tmX",
     "name": "Sea Hag",
     "type": "npc",
     "system": {
@@ -7308,6 +7714,7 @@
     }
   },
   {
+    "_id": "tfStH7HeHkjs7oJh",
     "name": "Halfling, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -7326,6 +7733,7 @@
     }
   },
   {
+    "_id": "bnXJ6IfjHsIs0Hhe",
     "name": "Harpy",
     "type": "npc",
     "system": {
@@ -7344,6 +7752,7 @@
     }
   },
   {
+    "_id": "yVV3ntzJfQjEs1NT",
     "name": "Harpy Archer, 7th-Level Fighter",
     "type": "npc",
     "system": {
@@ -7362,6 +7771,7 @@
     }
   },
   {
+    "_id": "tHnBQ3A5ysPvWwUh",
     "name": "Hellhound",
     "type": "npc",
     "system": {
@@ -7380,6 +7790,7 @@
     }
   },
   {
+    "_id": "CPr9QfDstU5Lc9bO",
     "name": "Nessian Warhound",
     "type": "npc",
     "system": {
@@ -7398,6 +7809,7 @@
     }
   },
   {
+    "_id": "cNVE9CHbom2eu7sS",
     "name": "Hippogriff",
     "type": "npc",
     "system": {
@@ -7416,6 +7828,7 @@
     }
   },
   {
+    "_id": "t7vUHW80BfVmmKwv",
     "name": "Hobgoblin, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -7434,6 +7847,7 @@
     }
   },
   {
+    "_id": "PFuJFCrw2gIdEgpH",
     "name": "Homunculus",
     "type": "npc",
     "system": {
@@ -7452,6 +7866,7 @@
     }
   },
   {
+    "_id": "yEWuBEiUenBTMRjz",
     "name": "Howler",
     "type": "npc",
     "system": {
@@ -7470,6 +7885,7 @@
     }
   },
   {
+    "_id": "tJwVyurTiS9AwjHD",
     "name": "Five-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7488,6 +7904,7 @@
     }
   },
   {
+    "_id": "MPHmLJV7uruKprFA",
     "name": "Six-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7506,6 +7923,7 @@
     }
   },
   {
+    "_id": "ohKXoYIs8MYFH87o",
     "name": "Seven-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7524,6 +7942,7 @@
     }
   },
   {
+    "_id": "1bAn96opXTjFwSOG",
     "name": "Eight-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7542,6 +7961,7 @@
     }
   },
   {
+    "_id": "P3V0aTXidBSJGzez",
     "name": "Nine-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7560,6 +7980,7 @@
     }
   },
   {
+    "_id": "Fjg2yggrtcddKDkn",
     "name": "Ten-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7578,6 +7999,7 @@
     }
   },
   {
+    "_id": "RKOjgiiQ81W6uuPD",
     "name": "Eleven-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7596,6 +8018,7 @@
     }
   },
   {
+    "_id": "DU3D2E8wGjtcDTdf",
     "name": "Twelve-Headed Hydra",
     "type": "npc",
     "system": {
@@ -7614,6 +8037,7 @@
     }
   },
   {
+    "_id": "6LVr44EUvoW5Jjw9",
     "name": "Marut",
     "type": "npc",
     "system": {
@@ -7632,6 +8056,7 @@
     }
   },
   {
+    "_id": "GymgUhJT8jGHc9Zo",
     "name": "Zelekhut",
     "type": "npc",
     "system": {
@@ -7650,6 +8075,7 @@
     }
   },
   {
+    "_id": "Crjr6sumaQ4FWj1P",
     "name": "Invisible Stalker",
     "type": "npc",
     "system": {
@@ -7668,6 +8094,7 @@
     }
   },
   {
+    "_id": "IlK5bIncnIMPiNOe",
     "name": "Aboleth",
     "type": "npc",
     "system": {
@@ -7686,6 +8113,7 @@
     }
   },
   {
+    "_id": "PJVLSZ3X56qkFTHq",
     "name": "Aboleth Mage, 10th-Level Wizard",
     "type": "npc",
     "system": {
@@ -7704,6 +8132,7 @@
     }
   },
   {
+    "_id": "ekn42yAeR5exjyTZ",
     "name": "Achaierai",
     "type": "npc",
     "system": {
@@ -7722,6 +8151,7 @@
     }
   },
   {
+    "_id": "3QKYAxqAkrzw0FXi",
     "name": "Allip",
     "type": "npc",
     "system": {
@@ -7740,6 +8170,7 @@
     }
   },
   {
+    "_id": "Y5FliGs40DfkcGSU",
     "name": "Angel, Astral Deva",
     "type": "npc",
     "system": {
@@ -7758,6 +8189,7 @@
     }
   },
   {
+    "_id": "oqqTLqj7AbT4hGCn",
     "name": "Angel, Planetar",
     "type": "npc",
     "system": {
@@ -7776,6 +8208,7 @@
     }
   },
   {
+    "_id": "Wm86XYSEdnQYdGHY",
     "name": "Angel, Solar",
     "type": "npc",
     "system": {
@@ -7794,6 +8227,7 @@
     }
   },
   {
+    "_id": "dD77Y8yxDROlOhez",
     "name": "Animated Object, Tiny",
     "type": "npc",
     "system": {
@@ -7812,6 +8246,7 @@
     }
   },
   {
+    "_id": "gjosSNP6za9Dv3Zc",
     "name": "Animated Object, Small",
     "type": "npc",
     "system": {
@@ -7830,6 +8265,7 @@
     }
   },
   {
+    "_id": "vhsNLQZpVcUWZjMv",
     "name": "Animated Object, Medium",
     "type": "npc",
     "system": {
@@ -7848,6 +8284,7 @@
     }
   },
   {
+    "_id": "Dn4qoU5PzzZaphyi",
     "name": "Animated Object, Large",
     "type": "npc",
     "system": {
@@ -7866,6 +8303,7 @@
     }
   },
   {
+    "_id": "Y3bRVrjdv9ebvIWK",
     "name": "Animated Object, Huge",
     "type": "npc",
     "system": {
@@ -7884,6 +8322,7 @@
     }
   },
   {
+    "_id": "5EaVn3cFmTNMFKnx",
     "name": "Animated Object, Gargantuan",
     "type": "npc",
     "system": {
@@ -7902,6 +8341,7 @@
     }
   },
   {
+    "_id": "EdOSzRPcj0n1Pxcr",
     "name": "Animated Object, Colossal",
     "type": "npc",
     "system": {
@@ -7920,6 +8360,7 @@
     }
   },
   {
+    "_id": "ah3CphVIrfCh5mdT",
     "name": "Ankheg",
     "type": "npc",
     "system": {
@@ -7938,6 +8379,7 @@
     }
   },
   {
+    "_id": "Fc36iS36vGczdwdS",
     "name": "Aranea",
     "type": "npc",
     "system": {
@@ -7956,6 +8398,7 @@
     }
   },
   {
+    "_id": "RuqTPa0xqtv8V4pk",
     "name": "Lantern Archon",
     "type": "npc",
     "system": {
@@ -7974,6 +8417,7 @@
     }
   },
   {
+    "_id": "iQk9lJX4ql55OSEB",
     "name": "Hound Archon",
     "type": "npc",
     "system": {
@@ -7992,6 +8436,7 @@
     }
   },
   {
+    "_id": "Xc4ZKl6UaZaTJm0n",
     "name": "Hound Archon Hero, 11th-Level Paladin",
     "type": "npc",
     "system": {
@@ -8010,6 +8455,7 @@
     }
   },
   {
+    "_id": "L2ZSmaF7Gxvy2Req",
     "name": "Trumpet Archon",
     "type": "npc",
     "system": {
@@ -8028,6 +8474,7 @@
     }
   },
   {
+    "_id": "5aWY7SseRz8ikkYb",
     "name": "Juvenile Arrowhawk",
     "type": "npc",
     "system": {
@@ -8046,6 +8493,7 @@
     }
   },
   {
+    "_id": "ty2ZDXH0iiJJppKA",
     "name": "Adult Arrowhawk",
     "type": "npc",
     "system": {
@@ -8064,6 +8512,7 @@
     }
   },
   {
+    "_id": "RatMh5gztNDA7U4H",
     "name": "Elder Arrowhawk",
     "type": "npc",
     "system": {
@@ -8082,6 +8531,7 @@
     }
   },
   {
+    "_id": "ixYBotuvB1WW0qXJ",
     "name": "Assassin Vine",
     "type": "npc",
     "system": {
@@ -8100,6 +8550,7 @@
     }
   },
   {
+    "_id": "O8DpqncNUEAJTF5K",
     "name": "Athach",
     "type": "npc",
     "system": {
@@ -8118,6 +8569,7 @@
     }
   },
   {
+    "_id": "9HAosr5HJBYRQ2kX",
     "name": "Avoral",
     "type": "npc",
     "system": {
@@ -8136,6 +8588,7 @@
     }
   },
   {
+    "_id": "68qHvDdZakdmqvUu",
     "name": "Azer",
     "type": "npc",
     "system": {
@@ -8154,6 +8607,7 @@
     }
   },
   {
+    "_id": "znAD8OCvJSE9xYtQ",
     "name": "Kobold, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -8172,6 +8626,7 @@
     }
   },
   {
+    "_id": "pbrkzFan980UTxRM",
     "name": "Kraken",
     "type": "npc",
     "system": {
@@ -8190,6 +8645,7 @@
     }
   },
   {
+    "_id": "hsS7lr4XoBHI29Xl",
     "name": "Krenshar",
     "type": "npc",
     "system": {
@@ -8208,6 +8664,7 @@
     }
   },
   {
+    "_id": "4FFRX9CktCoCm0c9",
     "name": "Lamia",
     "type": "npc",
     "system": {
@@ -8226,6 +8683,7 @@
     }
   },
   {
+    "_id": "cyC3qufabTKxIdtO",
     "name": "Lammasu",
     "type": "npc",
     "system": {
@@ -8244,6 +8702,7 @@
     }
   },
   {
+    "_id": "fKIq5kK059pp5jW0",
     "name": "Golden Protector (Celestial Half-Dragon Lammasu)",
     "type": "npc",
     "system": {
@@ -8262,6 +8721,7 @@
     }
   },
   {
+    "_id": "r7fUl6aNvOUDfc5I",
     "name": "Leonal",
     "type": "npc",
     "system": {
@@ -8280,6 +8740,7 @@
     }
   },
   {
+    "_id": "pwa5M5nKnbV3BDju",
     "name": "Lillend",
     "type": "npc",
     "system": {
@@ -8298,6 +8759,7 @@
     }
   },
   {
+    "_id": "scqquP5EFNdlAFBw",
     "name": "Lizardfolk",
     "type": "npc",
     "system": {
@@ -8316,6 +8778,7 @@
     }
   },
   {
+    "_id": "fM8o8jcFpuh5I4SN",
     "name": "Locathah",
     "type": "npc",
     "system": {
@@ -8334,6 +8797,7 @@
     }
   },
   {
+    "_id": "vsjMrZ30M0RDEkel",
     "name": "Werebear, Human Form",
     "type": "npc",
     "system": {
@@ -8352,6 +8816,7 @@
     }
   },
   {
+    "_id": "EHnVzUsdWQtFBlNQ",
     "name": "Werebear, Bear Form",
     "type": "npc",
     "system": {
@@ -8370,6 +8835,7 @@
     }
   },
   {
+    "_id": "Y3CSgjmj9ep7Wz5F",
     "name": "Werebear, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8388,6 +8854,7 @@
     }
   },
   {
+    "_id": "Z0MO1OYoDx2F1VvZ",
     "name": "Wereboar, Human Form",
     "type": "npc",
     "system": {
@@ -8406,6 +8873,7 @@
     }
   },
   {
+    "_id": "MiCCgedMt8CRXKrg",
     "name": "Wereboar, Boar Form",
     "type": "npc",
     "system": {
@@ -8424,6 +8892,7 @@
     }
   },
   {
+    "_id": "7yGQ4zCWxMWyoOR5",
     "name": "Wereboar, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8442,6 +8911,7 @@
     }
   },
   {
+    "_id": "VJPGVB1uau1R6ijk",
     "name": "Wererat, Human Form",
     "type": "npc",
     "system": {
@@ -8460,6 +8930,7 @@
     }
   },
   {
+    "_id": "pcKJ3ifmt3B8AaBM",
     "name": "Wererat, Dire Rat Form",
     "type": "npc",
     "system": {
@@ -8478,6 +8949,7 @@
     }
   },
   {
+    "_id": "mAZGRmYnCX1ry2fV",
     "name": "Wererat, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8496,6 +8968,7 @@
     }
   },
   {
+    "_id": "t3NHTmzQaSlM9jNh",
     "name": "Weretiger, Human Form",
     "type": "npc",
     "system": {
@@ -8514,6 +8987,7 @@
     }
   },
   {
+    "_id": "YEVreQUezyIWlDrE",
     "name": "Weretiger, Tiger Form",
     "type": "npc",
     "system": {
@@ -8532,6 +9006,7 @@
     }
   },
   {
+    "_id": "ddFWe4YBsjGfDXNm",
     "name": "Weretiger, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8550,6 +9025,7 @@
     }
   },
   {
+    "_id": "lS6ySEsA0kT9xnHa",
     "name": "Werewolf, Human Form",
     "type": "npc",
     "system": {
@@ -8568,6 +9044,7 @@
     }
   },
   {
+    "_id": "I47q0pu6o8GdCBQs",
     "name": "Werewolf, Wolf Form",
     "type": "npc",
     "system": {
@@ -8586,6 +9063,7 @@
     }
   },
   {
+    "_id": "y251OrL89N9aelFm",
     "name": "Werewolf, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8604,6 +9082,7 @@
     }
   },
   {
+    "_id": "IrayTcbRcOBsW0kQ",
     "name": "Werewolf Lord, Human Form",
     "type": "npc",
     "system": {
@@ -8622,6 +9101,7 @@
     }
   },
   {
+    "_id": "hqvZyLSv8fszt7Cf",
     "name": "Werewolf Lord, Dire Wolf Form",
     "type": "npc",
     "system": {
@@ -8640,6 +9120,7 @@
     }
   },
   {
+    "_id": "nK2tkSDR6pO3iViG",
     "name": "Werewolf Lord, Hybrid Form",
     "type": "npc",
     "system": {
@@ -8658,6 +9139,7 @@
     }
   },
   {
+    "_id": "epUobhPstlQ957zC",
     "name": "Hill Giant Dire Wereboar Giant Form",
     "type": "npc",
     "system": {
@@ -8676,6 +9158,7 @@
     }
   },
   {
+    "_id": "FMjAXoyIfKRknY03",
     "name": "Hill Giant Dire Wereboar Dire Boar Form",
     "type": "npc",
     "system": {
@@ -8694,6 +9177,7 @@
     }
   },
   {
+    "_id": "ioF3WAEZ0B9W831J",
     "name": "Hill Giant Dire Wereboar Hybrid Boar Form",
     "type": "npc",
     "system": {
@@ -8712,6 +9196,7 @@
     }
   },
   {
+    "_id": "7atdsChdYQUWDCDA",
     "name": "Magmin",
     "type": "npc",
     "system": {
@@ -8730,6 +9215,7 @@
     }
   },
   {
+    "_id": "Jrpsjz22YgFlMrPI",
     "name": "Manticore",
     "type": "npc",
     "system": {
@@ -8748,6 +9234,7 @@
     }
   },
   {
+    "_id": "Mr1MQWQADxO6hoaB",
     "name": "Medusa",
     "type": "npc",
     "system": {
@@ -8766,6 +9253,7 @@
     }
   },
   {
+    "_id": "BghDN4V7R3DgwdCz",
     "name": "Air Mephit",
     "type": "npc",
     "system": {
@@ -8784,6 +9272,7 @@
     }
   },
   {
+    "_id": "APVegUtlRAtlPlUw",
     "name": "Dust Mephit",
     "type": "npc",
     "system": {
@@ -8802,6 +9291,7 @@
     }
   },
   {
+    "_id": "ZquG15ZKujhz0qed",
     "name": "Earth Mephit",
     "type": "npc",
     "system": {
@@ -8820,6 +9310,7 @@
     }
   },
   {
+    "_id": "af8iHnRkuxS8n6Yy",
     "name": "Fire Mephit",
     "type": "npc",
     "system": {
@@ -8838,6 +9329,7 @@
     }
   },
   {
+    "_id": "ZSPG90ayz3z7DQvJ",
     "name": "Ice Mephit",
     "type": "npc",
     "system": {
@@ -8856,6 +9348,7 @@
     }
   },
   {
+    "_id": "NsEbQLmpbobSSXzp",
     "name": "Magma Mephit",
     "type": "npc",
     "system": {
@@ -8874,6 +9367,7 @@
     }
   },
   {
+    "_id": "fkXE89l5rUIkTqAj",
     "name": "Ooze Mephit",
     "type": "npc",
     "system": {
@@ -8892,6 +9386,7 @@
     }
   },
   {
+    "_id": "Md266AwUBTFHSrJE",
     "name": "Salt Mephit",
     "type": "npc",
     "system": {
@@ -8910,6 +9405,7 @@
     }
   },
   {
+    "_id": "PNQagOlxYaKvBjM8",
     "name": "Steam Mephit",
     "type": "npc",
     "system": {
@@ -8928,6 +9424,7 @@
     }
   },
   {
+    "_id": "pwb5Of29wK7x6Ssq",
     "name": "Water Mephit",
     "type": "npc",
     "system": {
@@ -8946,6 +9443,7 @@
     }
   },
   {
+    "_id": "F5gpJF84Lbua4y9L",
     "name": "Merfolk, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -8964,6 +9462,7 @@
     }
   },
   {
+    "_id": "62lWqrL1t7jns8dI",
     "name": "Mimic",
     "type": "npc",
     "system": {
@@ -8982,6 +9481,7 @@
     }
   },
   {
+    "_id": "EsqanYpVBrQYSIA9",
     "name": "Minotaur",
     "type": "npc",
     "system": {
@@ -9000,6 +9500,7 @@
     }
   },
   {
+    "_id": "n42Dt36lIcAQEjuQ",
     "name": "Mohrg",
     "type": "npc",
     "system": {
@@ -9018,6 +9519,7 @@
     }
   },
   {
+    "_id": "KWpPuVaEToZ9cpoc",
     "name": "Mummy",
     "type": "npc",
     "system": {
@@ -9036,6 +9538,7 @@
     }
   },
   {
+    "_id": "ozWIussd0dOl8wXC",
     "name": "Mummy Lord, 10th-Level Cleric",
     "type": "npc",
     "system": {
@@ -9054,6 +9557,7 @@
     }
   },
   {
+    "_id": "WyfXH5gtz2mPf1Mj",
     "name": "Dark Naga",
     "type": "npc",
     "system": {
@@ -9072,6 +9576,7 @@
     }
   },
   {
+    "_id": "ziP1axqmQIayvp1I",
     "name": "Guardian Naga",
     "type": "npc",
     "system": {
@@ -9090,6 +9595,7 @@
     }
   },
   {
+    "_id": "TWVUajZv9eym8Icy",
     "name": "Spirit Naga",
     "type": "npc",
     "system": {
@@ -9108,6 +9614,7 @@
     }
   },
   {
+    "_id": "8MpKuVBSLufIYVqg",
     "name": "Water Naga",
     "type": "npc",
     "system": {
@@ -9126,6 +9633,7 @@
     }
   },
   {
+    "_id": "KZs49FrFOBHrV8qR",
     "name": "Night Hag",
     "type": "npc",
     "system": {
@@ -9144,6 +9652,7 @@
     }
   },
   {
+    "_id": "XJh3i8CQfKZaQQsG",
     "name": "Nightmare",
     "type": "npc",
     "system": {
@@ -9162,6 +9671,7 @@
     }
   },
   {
+    "_id": "A33UpjkS5nFBFJzg",
     "name": "Nightmare, Cauchemar",
     "type": "npc",
     "system": {
@@ -9180,6 +9690,7 @@
     }
   },
   {
+    "_id": "e2FxGPOJJBXguagS",
     "name": "Nightcrawler",
     "type": "npc",
     "system": {
@@ -9198,6 +9709,7 @@
     }
   },
   {
+    "_id": "9BJ9MpHlxrDv5STI",
     "name": "Nightwalker",
     "type": "npc",
     "system": {
@@ -9216,6 +9728,7 @@
     }
   },
   {
+    "_id": "9RFB8YXIYukp814M",
     "name": "Nightwing",
     "type": "npc",
     "system": {
@@ -9234,6 +9747,7 @@
     }
   },
   {
+    "_id": "dQsdMk4xq8bZwIzW",
     "name": "Nymph",
     "type": "npc",
     "system": {
@@ -9252,6 +9766,7 @@
     }
   },
   {
+    "_id": "wF2cRfmthADzQo0S",
     "name": "Ogre",
     "type": "npc",
     "system": {
@@ -9270,6 +9785,7 @@
     }
   },
   {
+    "_id": "tnWTyhOkvI57vkq5",
     "name": "Ogre, 4th-Level Barbarian",
     "type": "npc",
     "system": {
@@ -9288,6 +9804,7 @@
     }
   },
   {
+    "_id": "R2e2W5avNh1lRE9Q",
     "name": "Ogre Mage",
     "type": "npc",
     "system": {
@@ -9306,6 +9823,7 @@
     }
   },
   {
+    "_id": "b3MPeohNSoQtHGhi",
     "name": "Black Pudding",
     "type": "npc",
     "system": {
@@ -9324,6 +9842,7 @@
     }
   },
   {
+    "_id": "hNTtc1UoXCrVVUEs",
     "name": "Elder Black Pudding",
     "type": "npc",
     "system": {
@@ -9342,6 +9861,7 @@
     }
   },
   {
+    "_id": "w3Tba8T5pbfuHnD7",
     "name": "Gelatinous Cube",
     "type": "npc",
     "system": {
@@ -9360,6 +9880,7 @@
     }
   },
   {
+    "_id": "5Yv6ctQiLZyZFAen",
     "name": "Gray Ooze",
     "type": "npc",
     "system": {
@@ -9378,6 +9899,7 @@
     }
   },
   {
+    "_id": "ey8i35EOzyuSwug5",
     "name": "Ochre Jelly",
     "type": "npc",
     "system": {
@@ -9396,6 +9918,7 @@
     }
   },
   {
+    "_id": "fDR4wMcB7fZT25fY",
     "name": "Orc, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -9414,6 +9937,7 @@
     }
   },
   {
+    "_id": "LSa9Iee9DBpoQ6DX",
     "name": "Otyugh",
     "type": "npc",
     "system": {
@@ -9432,6 +9956,7 @@
     }
   },
   {
+    "_id": "P4zX5lB0djczj2gN",
     "name": "Owl, Giant",
     "type": "npc",
     "system": {
@@ -9450,6 +9975,7 @@
     }
   },
   {
+    "_id": "DkirYf6FDYShgyg6",
     "name": "Owlbear",
     "type": "npc",
     "system": {
@@ -9468,6 +9994,7 @@
     }
   },
   {
+    "_id": "7bYhGGxwVmOQyQlr",
     "name": "Pegasus",
     "type": "npc",
     "system": {
@@ -9486,6 +10013,7 @@
     }
   },
   {
+    "_id": "6hFmtxkA405pDRpz",
     "name": "Phantom Fungus",
     "type": "npc",
     "system": {
@@ -9504,6 +10032,7 @@
     }
   },
   {
+    "_id": "R09oeDOg9jEkWLJc",
     "name": "Phase Spider",
     "type": "npc",
     "system": {
@@ -9522,6 +10051,7 @@
     }
   },
   {
+    "_id": "MqGyI7a5Q3rJQaG9",
     "name": "Phasm",
     "type": "npc",
     "system": {
@@ -9540,6 +10070,7 @@
     }
   },
   {
+    "_id": "YgRrPRdQeOSWMNpp",
     "name": "Aasimar, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -9558,6 +10089,7 @@
     }
   },
   {
+    "_id": "kFxts4GxP4g1Sqx5",
     "name": "Tiefling, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -9576,6 +10108,7 @@
     }
   },
   {
+    "_id": "0VCYAexmUDrIx0BT",
     "name": "Pseudodragon",
     "type": "npc",
     "system": {
@@ -9594,6 +10127,7 @@
     }
   },
   {
+    "_id": "8T0je9TuYNN5PYxV",
     "name": "Purple Worm",
     "type": "npc",
     "system": {
@@ -9612,6 +10146,7 @@
     }
   },
   {
+    "_id": "F4qkQ1KxCiUBwjZX",
     "name": "Rakshasa",
     "type": "npc",
     "system": {
@@ -9630,6 +10165,7 @@
     }
   },
   {
+    "_id": "KXm0yoTiAvWd12cl",
     "name": "Rast",
     "type": "npc",
     "system": {
@@ -9648,6 +10184,7 @@
     }
   },
   {
+    "_id": "YidHIzBuy0jHkRX4",
     "name": "Ravid",
     "type": "npc",
     "system": {
@@ -9666,6 +10203,7 @@
     }
   },
   {
+    "_id": "gZQnGEz1NgH5H810",
     "name": "Remorhaz",
     "type": "npc",
     "system": {
@@ -9684,6 +10222,7 @@
     }
   },
   {
+    "_id": "qvXUQERJiKgF7zBy",
     "name": "Roc",
     "type": "npc",
     "system": {
@@ -9702,6 +10241,7 @@
     }
   },
   {
+    "_id": "C8ovfWSVSWgF4REF",
     "name": "Roper",
     "type": "npc",
     "system": {
@@ -9720,6 +10260,7 @@
     }
   },
   {
+    "_id": "1gzymFmrDnd8Ns6Q",
     "name": "Rust Monster",
     "type": "npc",
     "system": {
@@ -9738,6 +10279,7 @@
     }
   },
   {
+    "_id": "EIXHJylILMVM763t",
     "name": "Sahuagin",
     "type": "npc",
     "system": {
@@ -9756,6 +10298,7 @@
     }
   },
   {
+    "_id": "VToUdkzyAPl1J3io",
     "name": "Flamebrother Salamander",
     "type": "npc",
     "system": {
@@ -9774,6 +10317,7 @@
     }
   },
   {
+    "_id": "GdpEMxdHvTyZtttF",
     "name": "Average Salamander",
     "type": "npc",
     "system": {
@@ -9792,6 +10336,7 @@
     }
   },
   {
+    "_id": "j9omEe8ygf2JuSz8",
     "name": "Noble Salamander",
     "type": "npc",
     "system": {
@@ -9810,6 +10355,7 @@
     }
   },
   {
+    "_id": "1eWdgrAFAz8XoMux",
     "name": "Satyr",
     "type": "npc",
     "system": {
@@ -9828,6 +10374,7 @@
     }
   },
   {
+    "_id": "eUIe36hkfupY2jZG",
     "name": "Sea Cat",
     "type": "npc",
     "system": {
@@ -9846,6 +10393,7 @@
     }
   },
   {
+    "_id": "dfUMmWAM5vlR0Pfw",
     "name": "Shadow",
     "type": "npc",
     "system": {
@@ -9864,6 +10412,7 @@
     }
   },
   {
+    "_id": "dyUFCph17zr3YHF4",
     "name": "Greater Shadow",
     "type": "npc",
     "system": {
@@ -9882,6 +10431,7 @@
     }
   },
   {
+    "_id": "LCcgwcxOtB7lJAxC",
     "name": "Shadow Mastiff",
     "type": "npc",
     "system": {
@@ -9900,6 +10450,7 @@
     }
   },
   {
+    "_id": "SVk2Ql4cKcl1BiQA",
     "name": "Shambling Mound",
     "type": "npc",
     "system": {
@@ -9918,6 +10469,7 @@
     }
   },
   {
+    "_id": "NcoEAV8FrINZ3gkM",
     "name": "Shield Guardian",
     "type": "npc",
     "system": {
@@ -9936,6 +10488,7 @@
     }
   },
   {
+    "_id": "nWpMSJSf8JNmGrbH",
     "name": "Shocker Lizard",
     "type": "npc",
     "system": {
@@ -9954,6 +10507,7 @@
     }
   },
   {
+    "_id": "zuRteTAQ6qX1UcVh",
     "name": "Human Warrior Skeleton",
     "type": "npc",
     "system": {
@@ -9972,6 +10526,7 @@
     }
   },
   {
+    "_id": "3hJ4zEvx3uoWhtQ2",
     "name": "Wolf Skeleton",
     "type": "npc",
     "system": {
@@ -9990,6 +10545,7 @@
     }
   },
   {
+    "_id": "7OLCpTJugcaRrB60",
     "name": "Owlbear Skeleton",
     "type": "npc",
     "system": {
@@ -10008,6 +10564,7 @@
     }
   },
   {
+    "_id": "93MwFtT7PsxNoZDI",
     "name": "Troll Skeleton",
     "type": "npc",
     "system": {
@@ -10026,6 +10583,7 @@
     }
   },
   {
+    "_id": "saiGC5FGC9gCAdMN",
     "name": "Chimera Skeleton",
     "type": "npc",
     "system": {
@@ -10044,6 +10602,7 @@
     }
   },
   {
+    "_id": "iyyxLQgk8MlmQ83f",
     "name": "Ettin Skeleton",
     "type": "npc",
     "system": {
@@ -10062,6 +10621,7 @@
     }
   },
   {
+    "_id": "FS3jETdfXvB8PMo9",
     "name": "Advanced Megaraptor Skeleton",
     "type": "npc",
     "system": {
@@ -10080,6 +10640,7 @@
     }
   },
   {
+    "_id": "lnXKFGdsxfTns4nx",
     "name": "Cloud Giant Skeleton",
     "type": "npc",
     "system": {
@@ -10098,6 +10659,7 @@
     }
   },
   {
+    "_id": "6B8TOG6YKFSRR8P4",
     "name": "Young Adult Red Dragon Skeleton",
     "type": "npc",
     "system": {
@@ -10116,6 +10678,7 @@
     }
   },
   {
+    "_id": "JeJJh4nwDr6AaZog",
     "name": "Skum",
     "type": "npc",
     "system": {
@@ -10134,6 +10697,7 @@
     }
   },
   {
+    "_id": "0VIP8DVPT8lGohnV",
     "name": "Spectre",
     "type": "npc",
     "system": {
@@ -10152,6 +10716,7 @@
     }
   },
   {
+    "_id": "oG7vYJowJCqY3SQJ",
     "name": "Androsphinx",
     "type": "npc",
     "system": {
@@ -10170,6 +10735,7 @@
     }
   },
   {
+    "_id": "CZpqaCyaoJsY7MTm",
     "name": "Criosphinx",
     "type": "npc",
     "system": {
@@ -10188,6 +10754,7 @@
     }
   },
   {
+    "_id": "welTxeY00LD8dniL",
     "name": "Gynosphinx",
     "type": "npc",
     "system": {
@@ -10206,6 +10773,7 @@
     }
   },
   {
+    "_id": "9jgvcVPdmtgvYXtr",
     "name": "Hieracosphinx",
     "type": "npc",
     "system": {
@@ -10224,6 +10792,7 @@
     }
   },
   {
+    "_id": "zu5rtATotnDq74MF",
     "name": "Spider Eater",
     "type": "npc",
     "system": {
@@ -10242,6 +10811,7 @@
     }
   },
   {
+    "_id": "dBi2KWL29mfzVhhe",
     "name": "Grig",
     "type": "npc",
     "system": {
@@ -10260,6 +10830,7 @@
     }
   },
   {
+    "_id": "BQ2LWulgAfz2E68Q",
     "name": "Nixie",
     "type": "npc",
     "system": {
@@ -10278,6 +10849,7 @@
     }
   },
   {
+    "_id": "7yZncLwMCpi5YXcA",
     "name": "Pixie",
     "type": "npc",
     "system": {
@@ -10296,6 +10868,7 @@
     }
   },
   {
+    "_id": "HJlCpED9TB9QPCjR",
     "name": "Stirge",
     "type": "npc",
     "system": {
@@ -10314,6 +10887,7 @@
     }
   },
   {
+    "_id": "7mbh9FOKczHZSPEG",
     "name": "Bat Swarm",
     "type": "npc",
     "system": {
@@ -10332,6 +10906,7 @@
     }
   },
   {
+    "_id": "juUlyhgBamFwslWG",
     "name": "Centipede Swarm",
     "type": "npc",
     "system": {
@@ -10350,6 +10925,7 @@
     }
   },
   {
+    "_id": "fC015beYkZHjfEck",
     "name": "Hellwasp Swarm",
     "type": "npc",
     "system": {
@@ -10368,6 +10944,7 @@
     }
   },
   {
+    "_id": "Wra6NqzhvUVIUP9s",
     "name": "Locust Swarm",
     "type": "npc",
     "system": {
@@ -10386,6 +10963,7 @@
     }
   },
   {
+    "_id": "JaB78to8c2KTpZ5h",
     "name": "Rat Swarm",
     "type": "npc",
     "system": {
@@ -10404,6 +10982,7 @@
     }
   },
   {
+    "_id": "Ki5oqr5makOFXpqH",
     "name": "Spider Swarm",
     "type": "npc",
     "system": {
@@ -10422,6 +11001,7 @@
     }
   },
   {
+    "_id": "MWUFDevXqhxCCU3c",
     "name": "Tarrasque",
     "type": "npc",
     "system": {
@@ -10440,6 +11020,7 @@
     }
   },
   {
+    "_id": "UpTBcuGZFtq8m5Sz",
     "name": "Tendriculos",
     "type": "npc",
     "system": {
@@ -10458,6 +11039,7 @@
     }
   },
   {
+    "_id": "5rN70rdXDV39LjD5",
     "name": "Thoqqua",
     "type": "npc",
     "system": {
@@ -10476,6 +11058,7 @@
     }
   },
   {
+    "_id": "vhEYebB8i53my8zQ",
     "name": "Titan",
     "type": "npc",
     "system": {
@@ -10494,6 +11077,7 @@
     }
   },
   {
+    "_id": "tyjPMq001PD33nuc",
     "name": "Juvenile Tojanida",
     "type": "npc",
     "system": {
@@ -10512,6 +11096,7 @@
     }
   },
   {
+    "_id": "9re0lF0FHhmYpYbp",
     "name": "Adult Tojanida",
     "type": "npc",
     "system": {
@@ -10530,6 +11115,7 @@
     }
   },
   {
+    "_id": "RiybJ74fyMPKdbKC",
     "name": "Elder Tojanida",
     "type": "npc",
     "system": {
@@ -10548,6 +11134,7 @@
     }
   },
   {
+    "_id": "4Ryk0D9flfBj2C1f",
     "name": "Treant",
     "type": "npc",
     "system": {
@@ -10566,6 +11153,7 @@
     }
   },
   {
+    "_id": "EuskBV973anhT94q",
     "name": "Triton",
     "type": "npc",
     "system": {
@@ -10584,6 +11172,7 @@
     }
   },
   {
+    "_id": "d0a82j2s48doo8kK",
     "name": "Troglodyte",
     "type": "npc",
     "system": {
@@ -10602,6 +11191,7 @@
     }
   },
   {
+    "_id": "mC0FcXzarGcBrKun",
     "name": "Troll",
     "type": "npc",
     "system": {
@@ -10620,6 +11210,7 @@
     }
   },
   {
+    "_id": "nwKrVhZzyt9rBmBb",
     "name": "Troll Hunter, 6th-Level Ranger",
     "type": "npc",
     "system": {
@@ -10638,6 +11229,7 @@
     }
   },
   {
+    "_id": "lDibc43LleTTlTpb",
     "name": "Unicorn",
     "type": "npc",
     "system": {
@@ -10656,6 +11248,7 @@
     }
   },
   {
+    "_id": "VoAZKR3qptKuuSAc",
     "name": "Celestial Charger, 7th-Level Cleric",
     "type": "npc",
     "system": {
@@ -10674,6 +11267,7 @@
     }
   },
   {
+    "_id": "Z3n0v0mXPCQWv4Zw",
     "name": "Vampire Spawn",
     "type": "npc",
     "system": {
@@ -10692,6 +11286,7 @@
     }
   },
   {
+    "_id": "HxmVzTzGb7ZPDAqi",
     "name": "Vargouille",
     "type": "npc",
     "system": {
@@ -10710,6 +11305,7 @@
     }
   },
   {
+    "_id": "aJYvq7EvIQJtkT2Q",
     "name": "Wight",
     "type": "npc",
     "system": {
@@ -10728,6 +11324,7 @@
     }
   },
   {
+    "_id": "nhSyMvUHFFJmjVyo",
     "name": "Will-O'-Wisp",
     "type": "npc",
     "system": {
@@ -10746,6 +11343,7 @@
     }
   },
   {
+    "_id": "azR36k56v8pI7NJo",
     "name": "Winter Wolf",
     "type": "npc",
     "system": {
@@ -10764,6 +11362,7 @@
     }
   },
   {
+    "_id": "ZpSW4MjwKErQJcHF",
     "name": "Worg",
     "type": "npc",
     "system": {
@@ -10782,6 +11381,7 @@
     }
   },
   {
+    "_id": "UbUPgJgcnXpafeRs",
     "name": "Wraith",
     "type": "npc",
     "system": {
@@ -10800,6 +11400,7 @@
     }
   },
   {
+    "_id": "KaUY5jMNcTNBjSbl",
     "name": "Dread Wraith",
     "type": "npc",
     "system": {
@@ -10818,6 +11419,7 @@
     }
   },
   {
+    "_id": "C1lHU2bQHh8TVEls",
     "name": "Wyvern",
     "type": "npc",
     "system": {
@@ -10836,6 +11438,7 @@
     }
   },
   {
+    "_id": "dXfbNWe3kwjmQA58",
     "name": "Xill",
     "type": "npc",
     "system": {
@@ -10854,6 +11457,7 @@
     }
   },
   {
+    "_id": "7KSvnqdNeetzzFAp",
     "name": "Minor Xorn",
     "type": "npc",
     "system": {
@@ -10872,6 +11476,7 @@
     }
   },
   {
+    "_id": "BySL9b22CkLAqivQ",
     "name": "Average Xorn",
     "type": "npc",
     "system": {
@@ -10890,6 +11495,7 @@
     }
   },
   {
+    "_id": "u7TDrNY6LKW9XSsy",
     "name": "Elder Xorn",
     "type": "npc",
     "system": {
@@ -10908,6 +11514,7 @@
     }
   },
   {
+    "_id": "UYGyudtTr6DMbIEz",
     "name": "Yeth Hound",
     "type": "npc",
     "system": {
@@ -10926,6 +11533,7 @@
     }
   },
   {
+    "_id": "NprKInLGvqfYHTOx",
     "name": "Yrthak",
     "type": "npc",
     "system": {
@@ -10944,6 +11552,7 @@
     }
   },
   {
+    "_id": "vlrbjFdbqLAnNo7G",
     "name": "Kobold Zombie",
     "type": "npc",
     "system": {
@@ -10962,6 +11571,7 @@
     }
   },
   {
+    "_id": "zPy7Pm1aoJyDPNyX",
     "name": "Human Commoner Zombie",
     "type": "npc",
     "system": {
@@ -10980,6 +11590,7 @@
     }
   },
   {
+    "_id": "rjaSS8ig9U98FA08",
     "name": "Troglodyte Zombie",
     "type": "npc",
     "system": {
@@ -10998,6 +11609,7 @@
     }
   },
   {
+    "_id": "fWSs2bfVk7CSnXt6",
     "name": "Bugbear Zombie",
     "type": "npc",
     "system": {
@@ -11016,6 +11628,7 @@
     }
   },
   {
+    "_id": "oWedqDMTmzu8vdZa",
     "name": "Ogre Zombie",
     "type": "npc",
     "system": {
@@ -11034,6 +11647,7 @@
     }
   },
   {
+    "_id": "wgEsygOzSI9KK4SE",
     "name": "Minotaur Zombie",
     "type": "npc",
     "system": {
@@ -11052,6 +11666,7 @@
     }
   },
   {
+    "_id": "fNrOfx5SY7dNkRVr",
     "name": "Wyvern Zombie",
     "type": "npc",
     "system": {
@@ -11070,6 +11685,7 @@
     }
   },
   {
+    "_id": "C2v0lcCVbuJyehxx",
     "name": "Gray Render Zombie",
     "type": "npc",
     "system": {
@@ -11088,6 +11704,7 @@
     }
   },
   {
+    "_id": "L9ITTAKFfKt02Tob",
     "name": "Giant Ant, Worker",
     "type": "npc",
     "system": {
@@ -11106,6 +11723,7 @@
     }
   },
   {
+    "_id": "wIYkV62cR5j5CudY",
     "name": "Giant Ant, Soldier",
     "type": "npc",
     "system": {
@@ -11124,6 +11742,7 @@
     }
   },
   {
+    "_id": "9LenkLzo8CLMLDL2",
     "name": "Giant Ant, Queen",
     "type": "npc",
     "system": {
@@ -11142,6 +11761,7 @@
     }
   },
   {
+    "_id": "gChTANrUDhDHyyJ4",
     "name": "Giant Bee",
     "type": "npc",
     "system": {
@@ -11160,6 +11780,7 @@
     }
   },
   {
+    "_id": "LtPeL0NNZJOL0dUl",
     "name": "Giant Bombardier Beetle",
     "type": "npc",
     "system": {
@@ -11178,6 +11799,7 @@
     }
   },
   {
+    "_id": "KEmJmWV0aA83J0dr",
     "name": "Giant Fire Beetle",
     "type": "npc",
     "system": {
@@ -11196,6 +11818,7 @@
     }
   },
   {
+    "_id": "6HgdnFcf3vsPVU2I",
     "name": "Giant Stag Beetle",
     "type": "npc",
     "system": {
@@ -11214,6 +11837,7 @@
     }
   },
   {
+    "_id": "jd7dQvtBh34338uq",
     "name": "Giant Praying Mantis",
     "type": "npc",
     "system": {
@@ -11232,6 +11856,7 @@
     }
   },
   {
+    "_id": "F9XTyNYGRpiMofPL",
     "name": "Giant Wasp",
     "type": "npc",
     "system": {
@@ -11250,6 +11875,7 @@
     }
   },
   {
+    "_id": "LeQhPWOZtQpxeAbw",
     "name": "Monstrous Centipede, Tiny",
     "type": "npc",
     "system": {
@@ -11268,6 +11894,7 @@
     }
   },
   {
+    "_id": "xnIMzMXlhAPqLeNz",
     "name": "Monstrous Centipede, Small",
     "type": "npc",
     "system": {
@@ -11286,6 +11913,7 @@
     }
   },
   {
+    "_id": "2GXKrizri6FPyEcP",
     "name": "Monstrous Centipede, Medium",
     "type": "npc",
     "system": {
@@ -11304,6 +11932,7 @@
     }
   },
   {
+    "_id": "X3dYaxjaZFb54IDY",
     "name": "Monstrous Centipede, Large",
     "type": "npc",
     "system": {
@@ -11322,6 +11951,7 @@
     }
   },
   {
+    "_id": "81RESvX7JBdOS2ET",
     "name": "Monstrous Centipede, Huge",
     "type": "npc",
     "system": {
@@ -11340,6 +11970,7 @@
     }
   },
   {
+    "_id": "AUfH67rpnKX8j9nW",
     "name": "Monstrous Centipede, Gargantuan",
     "type": "npc",
     "system": {
@@ -11358,6 +11989,7 @@
     }
   },
   {
+    "_id": "Ll4UVIisT6owQDwp",
     "name": "Monstrous Centipede, Colossal",
     "type": "npc",
     "system": {
@@ -11376,6 +12008,7 @@
     }
   },
   {
+    "_id": "7reou3oYa3nLDeQU",
     "name": "Monstrous Scorpion, Tiny",
     "type": "npc",
     "system": {
@@ -11394,6 +12027,7 @@
     }
   },
   {
+    "_id": "A7BcDqbCREEqSX1M",
     "name": "Monstrous Scorpion, Small",
     "type": "npc",
     "system": {
@@ -11412,6 +12046,7 @@
     }
   },
   {
+    "_id": "S1R606R2nU5OvvaF",
     "name": "Monstrous Scorpion, Medium",
     "type": "npc",
     "system": {
@@ -11430,6 +12065,7 @@
     }
   },
   {
+    "_id": "rls1sonFKZn7s0rT",
     "name": "Monstrous Scorpion, Large",
     "type": "npc",
     "system": {
@@ -11448,6 +12084,7 @@
     }
   },
   {
+    "_id": "nXR4ISxPMBCBFU8I",
     "name": "Monstrous Scorpion, Huge",
     "type": "npc",
     "system": {
@@ -11466,6 +12103,7 @@
     }
   },
   {
+    "_id": "pzbkEjTuKeVJmBLZ",
     "name": "Monstrous Scorpion, Gargantuan",
     "type": "npc",
     "system": {
@@ -11484,6 +12122,7 @@
     }
   },
   {
+    "_id": "w3g0ejDKtZO65xMl",
     "name": "Monstrous Scorpion, Colossal",
     "type": "npc",
     "system": {
@@ -11502,6 +12141,7 @@
     }
   },
   {
+    "_id": "9oNskdlc7k3JYhKo",
     "name": "Monstrous Spider, Tiny",
     "type": "npc",
     "system": {
@@ -11520,6 +12160,7 @@
     }
   },
   {
+    "_id": "EkLMTjFcgnZVR8vz",
     "name": "Monstrous Spider, Small",
     "type": "npc",
     "system": {
@@ -11538,6 +12179,7 @@
     }
   },
   {
+    "_id": "EdZEOmorNNEzHPHM",
     "name": "Monstrous Spider, Medium",
     "type": "npc",
     "system": {
@@ -11556,6 +12198,7 @@
     }
   },
   {
+    "_id": "KjdjBPaFNzaVhLgv",
     "name": "Monstrous Spider, Large",
     "type": "npc",
     "system": {
@@ -11574,6 +12217,7 @@
     }
   },
   {
+    "_id": "a6QPR1uTSAQLsPw8",
     "name": "Monstrous Spider, Huge",
     "type": "npc",
     "system": {
@@ -11592,6 +12236,7 @@
     }
   },
   {
+    "_id": "wQcQF6POiRezC8Ci",
     "name": "Monstrous Spider, Gargantuan",
     "type": "npc",
     "system": {
@@ -11610,6 +12255,7 @@
     }
   },
   {
+    "_id": "C3QvbJMrknv6Ji52",
     "name": "Monstrous Spider, Colossal",
     "type": "npc",
     "system": {
@@ -11628,6 +12274,7 @@
     }
   },
   {
+    "_id": "AEwPCSkM6HhnjNzr",
     "name": "Aboleth, Psionic",
     "type": "npc",
     "system": {
@@ -11646,6 +12293,7 @@
     }
   },
   {
+    "_id": "wffYN6U0xggu4zps",
     "name": "1st-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11664,6 +12312,7 @@
     }
   },
   {
+    "_id": "lIzSLQaJPH2avaXO",
     "name": "2nd-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11682,6 +12331,7 @@
     }
   },
   {
+    "_id": "ZUyqlYvocvMmycuL",
     "name": "3rd-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11700,6 +12350,7 @@
     }
   },
   {
+    "_id": "exCCWZjagO4gXTLq",
     "name": "4th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11718,6 +12369,7 @@
     }
   },
   {
+    "_id": "aPisxMQ6EatwauEX",
     "name": "5th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11736,6 +12388,7 @@
     }
   },
   {
+    "_id": "D4ilsLcRS12vsY5g",
     "name": "6th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11754,6 +12407,7 @@
     }
   },
   {
+    "_id": "eKPCVqpa6vPhrSXk",
     "name": "7th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11772,6 +12426,7 @@
     }
   },
   {
+    "_id": "RbbKv22OMfVwqG6H",
     "name": "8th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11790,6 +12445,7 @@
     }
   },
   {
+    "_id": "dvTmNrUFClfC7290",
     "name": "9th-Level Astral Construct",
     "type": "npc",
     "system": {
@@ -11808,6 +12464,7 @@
     }
   },
   {
+    "_id": "WQcHRU3KWZw5kK7r",
     "name": "Blue, 1st-Level Psion (Telepath)",
     "type": "npc",
     "system": {
@@ -11826,6 +12483,7 @@
     }
   },
   {
+    "_id": "D7ltTQO1pOl5ff6X",
     "name": "Brain Mole",
     "type": "npc",
     "system": {
@@ -11844,6 +12502,7 @@
     }
   },
   {
+    "_id": "06FVQLOmWdK2NJIM",
     "name": "Caller in Darkness",
     "type": "npc",
     "system": {
@@ -11862,6 +12521,7 @@
     }
   },
   {
+    "_id": "BLQkLfho8sALE5nk",
     "name": "Cerebrilith",
     "type": "npc",
     "system": {
@@ -11880,6 +12540,7 @@
     }
   },
   {
+    "_id": "nniHudPZ0y6wuHS3",
     "name": "Couatl, Psionic",
     "type": "npc",
     "system": {
@@ -11898,6 +12559,7 @@
     }
   },
   {
+    "_id": "6vhCfraB12XQktbz",
     "name": "Crysmal",
     "type": "npc",
     "system": {
@@ -11916,6 +12578,7 @@
     }
   },
   {
+    "_id": "KggD0LmvVTJPgWuU",
     "name": "Dromite, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -11934,6 +12597,7 @@
     }
   },
   {
+    "_id": "fhLeQI13jDrqMTQ1",
     "name": "Elan, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -11952,6 +12616,7 @@
     }
   },
   {
+    "_id": "8FkWFUE96WKhxFOp",
     "name": "Folugub",
     "type": "npc",
     "system": {
@@ -11970,6 +12635,7 @@
     }
   },
   {
+    "_id": "Mp078mBNdN3sDHeo",
     "name": "Gray Glutton",
     "type": "npc",
     "system": {
@@ -11988,6 +12654,7 @@
     }
   },
   {
+    "_id": "PiBwxGk8JphtoYlb",
     "name": "Half-Giant, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -12006,6 +12673,7 @@
     }
   },
   {
+    "_id": "9GYwABY2H4BzrEER",
     "name": "Intellect Devourer",
     "type": "npc",
     "system": {
@@ -12024,6 +12692,7 @@
     }
   },
   {
+    "_id": "W1qVkpvaXF2rOUgN",
     "name": "Maenad, 1st-Level Warrior",
     "type": "npc",
     "system": {
@@ -12042,6 +12711,7 @@
     }
   },
   {
+    "_id": "2Hk3kz6lAOE5Rw0Q",
     "name": "Neothelid",
     "type": "npc",
     "system": {
@@ -12060,6 +12730,7 @@
     }
   },
   {
+    "_id": "ECF4pXVglDoiw5sh",
     "name": "Phthisic",
     "type": "npc",
     "system": {
@@ -12078,6 +12749,7 @@
     }
   },
   {
+    "_id": "f8s5eHkiVHIoD2Gl",
     "name": "Psicrystal",
     "type": "npc",
     "system": {
@@ -12096,6 +12768,7 @@
     }
   },
   {
+    "_id": "h4SouSJ3APXhYTwe",
     "name": "Psion-Killer",
     "type": "npc",
     "system": {
@@ -12114,6 +12787,7 @@
     }
   },
   {
+    "_id": "68UsVf10Chy5si1F",
     "name": "Puppeteer",
     "type": "npc",
     "system": {
@@ -12132,6 +12806,7 @@
     }
   },
   {
+    "_id": "K7ZQAuM2O26i7vXi",
     "name": "Puppeteer, Flesh Harrower",
     "type": "npc",
     "system": {
@@ -12150,6 +12825,7 @@
     }
   },
   {
+    "_id": "l5CZ1JDJaJumzr07",
     "name": "Temporal Filcher",
     "type": "npc",
     "system": {
@@ -12168,6 +12844,7 @@
     }
   },
   {
+    "_id": "gMRb8YuPGDJSlkmU",
     "name": "Thought Eater",
     "type": "npc",
     "system": {
@@ -12186,6 +12863,7 @@
     }
   },
   {
+    "_id": "eeFKQHBFEZGvabQP",
     "name": "Thought Slayer",
     "type": "npc",
     "system": {
@@ -12204,6 +12882,7 @@
     }
   },
   {
+    "_id": "6M4uhJqE9e35O9sC",
     "name": "Udoroot",
     "type": "npc",
     "system": {
@@ -12222,6 +12901,7 @@
     }
   },
   {
+    "_id": "hfSZlkIfJ2bNys87",
     "name": "Unbodied",
     "type": "npc",
     "system": {
@@ -12240,6 +12920,7 @@
     }
   },
   {
+    "_id": "F13yfJJRTAcGDTku",
     "name": "Xeph, 1st-Level Warrior",
     "type": "npc",
     "system": {

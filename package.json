@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:spells": "fvtt package pack -n srd-spells --in ./packs --out ./packs",
-    "build:feats": "fvtt package pack -n srd-feats --in ./packs --out ./packs",
-    "build:monsters": "fvtt package pack -n srd-monsters --in ./packs --out ./packs",
-    "build:packs": "npm run build:spells && npm run build:feats && npm run build:monsters",
+    "build:spells": "node packLocal.js",
+    "build:feats": "echo",
+    "build:monsters": "echo",
+    "build:packs": "node packLocal.js",
     "release": "npm run build:packs && node build-release.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35#readme",
   "devDependencies": {
     "@foundryvtt/foundryvtt-cli": "^3.0.3",
-    "archiver": "^7.0.1"
+    "archiver": "^7.0.1",
+    "classic-level": "^3.0.0"
   }
 }

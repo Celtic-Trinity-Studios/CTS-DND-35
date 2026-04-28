@@ -1,5 +1,6 @@
 [
   {
+    "_id": "ZooIMSoA0vSzys6f",
     "name": "Blindsight, 5-Ft. Radius",
     "type": "feat",
     "system": {
@@ -9,6 +10,7 @@
     }
   },
   {
+    "_id": "uCPUu0akposvzKax",
     "name": "Disguise Spell",
     "type": "feat",
     "system": {
@@ -18,6 +20,7 @@
     }
   },
   {
+    "_id": "zq1JBjXL46awNrpS",
     "name": "Divine Might",
     "type": "feat",
     "system": {
@@ -27,6 +30,7 @@
     }
   },
   {
+    "_id": "rIqpcw1jIl2BGlSM",
     "name": "Divine Vengeance",
     "type": "feat",
     "system": {
@@ -36,6 +40,7 @@
     }
   },
   {
+    "_id": "ZCZBNNEJ1kngk7Li",
     "name": "Energy Substitution",
     "type": "feat",
     "system": {
@@ -45,6 +50,7 @@
     }
   },
   {
+    "_id": "bV7tzb4j9ohqVKoi",
     "name": "Extra Music",
     "type": "feat",
     "system": {
@@ -54,6 +60,7 @@
     }
   },
   {
+    "_id": "AOFcOvB1kHlX1riB",
     "name": "Eyes in the Back of Your Head",
     "type": "feat",
     "system": {
@@ -63,6 +70,7 @@
     }
   },
   {
+    "_id": "BcndrgN6Dxrpgq5n",
     "name": "Fleet of Foot",
     "type": "feat",
     "system": {
@@ -72,6 +80,7 @@
     }
   },
   {
+    "_id": "bzNcJLmln22qk8uc",
     "name": "Hold the Line",
     "type": "feat",
     "system": {
@@ -81,6 +90,7 @@
     }
   },
   {
+    "_id": "PEkizX6abeRvy67a",
     "name": "Jack of all Trades",
     "type": "feat",
     "system": {
@@ -90,6 +100,7 @@
     }
   },
   {
+    "_id": "dOAw6VWY2XP6Qva2",
     "name": "Knock-Down",
     "type": "feat",
     "system": {
@@ -99,6 +110,7 @@
     }
   },
   {
+    "_id": "9q6kT0G9qNXnbaV2",
     "name": "Persistent Spell",
     "type": "feat",
     "system": {
@@ -108,6 +120,7 @@
     }
   },
   {
+    "_id": "xIncFyZl27XcjfjA",
     "name": "Plant Control",
     "type": "feat",
     "system": {
@@ -117,6 +130,7 @@
     }
   },
   {
+    "_id": "4Ib42N9W1gjGtLpu",
     "name": "Plant Defiance",
     "type": "feat",
     "system": {
@@ -126,6 +140,7 @@
     }
   },
   {
+    "_id": "VWkHo6cDH7BaUVsL",
     "name": "Power Critical",
     "type": "feat",
     "system": {
@@ -135,6 +150,7 @@
     }
   },
   {
+    "_id": "JyGb8foGzU6xaSEC",
     "name": "Reach Spell",
     "type": "feat",
     "system": {
@@ -144,6 +160,7 @@
     }
   },
   {
+    "_id": "CZJJUtoi2KF26Kyg",
     "name": "Repeat Spell",
     "type": "feat",
     "system": {
@@ -153,6 +170,7 @@
     }
   },
   {
+    "_id": "lQLWYNf7PRkZ7qBx",
     "name": "Sacred Spell",
     "type": "feat",
     "system": {
@@ -162,6 +180,7 @@
     }
   },
   {
+    "_id": "FKCrHelbM6hmjTHb",
     "name": "Sharp-Shooting",
     "type": "feat",
     "system": {
@@ -171,6 +190,7 @@
     }
   },
   {
+    "_id": "vqwMVa0sYrv8IBWo",
     "name": "Subdual Substitution",
     "type": "feat",
     "system": {
@@ -180,6 +200,7 @@
     }
   },
   {
+    "_id": "NWbUiwAo2kiWUVu0",
     "name": "Superior Expertise",
     "type": "feat",
     "system": {
@@ -189,6 +210,7 @@
     }
   },
   {
+    "_id": "Nszgouof50xm0GD4",
     "name": "Additional Magic Item Space",
     "type": "feat",
     "system": {
@@ -198,6 +220,7 @@
     }
   },
   {
+    "_id": "iXhT1ffYcQJ76Yjo",
     "name": "Armor Skin",
     "type": "feat",
     "system": {
@@ -207,6 +230,7 @@
     }
   },
   {
+    "_id": "z1jk75vSSh5DiY29",
     "name": "Augmented Alchemy",
     "type": "feat",
     "system": {
@@ -216,6 +240,7 @@
     }
   },
   {
+    "_id": "E2Oa2A5tICjV8Ks1",
     "name": "Automatic Quicken Spell",
     "type": "feat",
     "system": {
@@ -225,6 +250,7 @@
     }
   },
   {
+    "_id": "5nBnTAqPKuhRr0li",
     "name": "Automatic Silent Spell",
     "type": "feat",
     "system": {
@@ -234,6 +260,7 @@
     }
   },
   {
+    "_id": "K26oyvcl0iNYBDSv",
     "name": "Automatic Still Spell",
     "type": "feat",
     "system": {
@@ -243,6 +270,7 @@
     }
   },
   {
+    "_id": "qeifBpKe2MIMatxX",
     "name": "Bane of Enemies",
     "type": "feat",
     "system": {
@@ -252,6 +280,7 @@
     }
   },
   {
+    "_id": "YQqSVjmoGai9cipx",
     "name": "Blinding Speed",
     "type": "feat",
     "system": {
@@ -261,6 +290,7 @@
     }
   },
   {
+    "_id": "rSbzk1k8oIcm8bGA",
     "name": "Bonus Domain",
     "type": "feat",
     "system": {
@@ -270,6 +300,7 @@
     }
   },
   {
+    "_id": "VCoEV7Qy1QOXNhu2",
     "name": "Bulwark of Defense",
     "type": "feat",
     "system": {
@@ -279,6 +310,7 @@
     }
   },
   {
+    "_id": "Lby1WXysFN3kyQLd",
     "name": "Chaotic Rage",
     "type": "feat",
     "system": {
@@ -288,6 +320,7 @@
     }
   },
   {
+    "_id": "MQozVA73KuKZQi4D",
     "name": "Colossal Wild Shape",
     "type": "feat",
     "system": {
@@ -297,6 +330,7 @@
     }
   },
   {
+    "_id": "3StfiCAfiH4h4BC2",
     "name": "Combat Archery",
     "type": "feat",
     "system": {
@@ -306,6 +340,7 @@
     }
   },
   {
+    "_id": "tElPyUYj6oflNNQm",
     "name": "Craft Epic Magic Arms and Armor",
     "type": "feat",
     "system": {
@@ -315,6 +350,7 @@
     }
   },
   {
+    "_id": "8lTXxAO1Wp6lVMPp",
     "name": "Craft Epic Rod",
     "type": "feat",
     "system": {
@@ -324,6 +360,7 @@
     }
   },
   {
+    "_id": "mDVjlh9AKBHrV8VA",
     "name": "Craft Epic Staff",
     "type": "feat",
     "system": {
@@ -333,6 +370,7 @@
     }
   },
   {
+    "_id": "MbiXJcl55XMcKgFU",
     "name": "Craft Epic Wondrous Item",
     "type": "feat",
     "system": {
@@ -342,6 +380,7 @@
     }
   },
   {
+    "_id": "28zx6gBBOb3AOEk5",
     "name": "Damage Reduction",
     "type": "feat",
     "system": {
@@ -351,6 +390,7 @@
     }
   },
   {
+    "_id": "Gf7WcbvYkR47ssSl",
     "name": "Deafening Song",
     "type": "feat",
     "system": {
@@ -360,6 +400,7 @@
     }
   },
   {
+    "_id": "hxg8vyvdUMXMnmwv",
     "name": "Death of Enemies",
     "type": "feat",
     "system": {
@@ -369,6 +410,7 @@
     }
   },
   {
+    "_id": "1WCqsaVMv9Nlv5zu",
     "name": "Devastating Critical",
     "type": "feat",
     "system": {
@@ -378,6 +420,7 @@
     }
   },
   {
+    "_id": "JdOX4JpoGPhTFBoZ",
     "name": "Dexterous Fortitude",
     "type": "feat",
     "system": {
@@ -387,6 +430,7 @@
     }
   },
   {
+    "_id": "0sH0my47jWgxYfFT",
     "name": "Dexterous Will",
     "type": "feat",
     "system": {
@@ -396,6 +440,7 @@
     }
   },
   {
+    "_id": "i3rBHfc0bCwOuJVq",
     "name": "Diminutive Wild Shape",
     "type": "feat",
     "system": {
@@ -405,6 +450,7 @@
     }
   },
   {
+    "_id": "ha1BmS1QUNSFRwqk",
     "name": "Dire Charge",
     "type": "feat",
     "system": {
@@ -414,6 +460,7 @@
     }
   },
   {
+    "_id": "XDxXT3Da7KOfgrZD",
     "name": "Distant Shot",
     "type": "feat",
     "system": {
@@ -423,6 +470,7 @@
     }
   },
   {
+    "_id": "n5H2vyXeYxGxSCRH",
     "name": "Dragon Wild Shape",
     "type": "feat",
     "system": {
@@ -432,6 +480,7 @@
     }
   },
   {
+    "_id": "2Gcgrxdl1jsoTkUY",
     "name": "Efficient Item Creation",
     "type": "feat",
     "system": {
@@ -441,6 +490,7 @@
     }
   },
   {
+    "_id": "H5OQ4gUwXM5979GP",
     "name": "Energy Resistance",
     "type": "feat",
     "system": {
@@ -450,6 +500,7 @@
     }
   },
   {
+    "_id": "BxeKJZlAORlrqw21",
     "name": "Enhance Spell",
     "type": "feat",
     "system": {
@@ -459,6 +510,7 @@
     }
   },
   {
+    "_id": "3eRTwXoKhVOJGzNC",
     "name": "Epic Dodge",
     "type": "feat",
     "system": {
@@ -468,6 +520,7 @@
     }
   },
   {
+    "_id": "ggcKgpQni4RvmG7t",
     "name": "Epic Endurance",
     "type": "feat",
     "system": {
@@ -477,6 +530,7 @@
     }
   },
   {
+    "_id": "249PwQQ6yh13UTcE",
     "name": "Epic Expanded Knowledge",
     "type": "feat",
     "system": {
@@ -486,6 +540,7 @@
     }
   },
   {
+    "_id": "FbGHnaHSuvX7BK74",
     "name": "Epic Fortitude",
     "type": "feat",
     "system": {
@@ -495,6 +550,7 @@
     }
   },
   {
+    "_id": "yqMTagnKpgK2K9CB",
     "name": "Epic Inspiration",
     "type": "feat",
     "system": {
@@ -504,6 +560,7 @@
     }
   },
   {
+    "_id": "j4CO6kW0zoqljxU6",
     "name": "Epic Leadership",
     "type": "feat",
     "system": {
@@ -513,6 +570,7 @@
     }
   },
   {
+    "_id": "sDhbO5LneZwAkNJK",
     "name": "Epic Prowess",
     "type": "feat",
     "system": {
@@ -522,6 +580,7 @@
     }
   },
   {
+    "_id": "S28aigmDdB3I1EVo",
     "name": "Epic Psionic Focus",
     "type": "feat",
     "system": {
@@ -531,6 +590,7 @@
     }
   },
   {
+    "_id": "wg1iVRZJMudrEnJd",
     "name": "Epic Reflexes",
     "type": "feat",
     "system": {
@@ -540,6 +600,7 @@
     }
   },
   {
+    "_id": "pUAi3kSF1ZEcxIQu",
     "name": "Epic Reputation",
     "type": "feat",
     "system": {
@@ -549,6 +610,7 @@
     }
   },
   {
+    "_id": "prDHCy7faSE3dLXM",
     "name": "Epic Skill Focus",
     "type": "feat",
     "system": {
@@ -558,6 +620,7 @@
     }
   },
   {
+    "_id": "vKLc3MzYVv3apq3U",
     "name": "Epic Speed",
     "type": "feat",
     "system": {
@@ -567,6 +630,7 @@
     }
   },
   {
+    "_id": "baS88LVGqDRH5M4m",
     "name": "Epic Spell Focus",
     "type": "feat",
     "system": {
@@ -576,6 +640,7 @@
     }
   },
   {
+    "_id": "pxAP7NgvyyK4gavs",
     "name": "Epic Spell Penetration",
     "type": "feat",
     "system": {
@@ -585,6 +650,7 @@
     }
   },
   {
+    "_id": "YiCdPS8qytFlbWKq",
     "name": "Epic Spellcasting",
     "type": "feat",
     "system": {
@@ -594,6 +660,7 @@
     }
   },
   {
+    "_id": "AkvaqmoXOiojsKAI",
     "name": "Epic Toughness",
     "type": "feat",
     "system": {
@@ -603,6 +670,7 @@
     }
   },
   {
+    "_id": "XbSud0Ncwg17Zrn9",
     "name": "Epic Weapon Focus",
     "type": "feat",
     "system": {
@@ -612,6 +680,7 @@
     }
   },
   {
+    "_id": "deylAAURFiglTb6X",
     "name": "Epic Weapon Specialization",
     "type": "feat",
     "system": {
@@ -621,6 +690,7 @@
     }
   },
   {
+    "_id": "K6WRwXzn1pJF0fri",
     "name": "Epic Will",
     "type": "feat",
     "system": {
@@ -630,6 +700,7 @@
     }
   },
   {
+    "_id": "v1sXdKMO2VIzdIRn",
     "name": "Exceptional Deflection",
     "type": "feat",
     "system": {
@@ -639,6 +710,7 @@
     }
   },
   {
+    "_id": "sMNGnE18oRESyAGS",
     "name": "Extended Life Span",
     "type": "feat",
     "system": {
@@ -648,6 +720,7 @@
     }
   },
   {
+    "_id": "KtdmmNP77h1956GH",
     "name": "Familiar Spell",
     "type": "feat",
     "system": {
@@ -657,6 +730,7 @@
     }
   },
   {
+    "_id": "CCtkxrkE4TagVQkV",
     "name": "Fast Healing",
     "type": "feat",
     "system": {
@@ -666,6 +740,7 @@
     }
   },
   {
+    "_id": "GEah5PcdPhEi9StL",
     "name": "Fine Wild Shape",
     "type": "feat",
     "system": {
@@ -675,6 +750,7 @@
     }
   },
   {
+    "_id": "wHiXWazLZPlA1Pv7",
     "name": "Forge Epic Ring",
     "type": "feat",
     "system": {
@@ -684,6 +760,7 @@
     }
   },
   {
+    "_id": "rQ3oWP2KYimTaqRJ",
     "name": "Gargantuan Wild Shape",
     "type": "feat",
     "system": {
@@ -693,6 +770,7 @@
     }
   },
   {
+    "_id": "kovaTQkznAw2iOHg",
     "name": "Great Charisma",
     "type": "feat",
     "system": {
@@ -702,6 +780,7 @@
     }
   },
   {
+    "_id": "NtlEM6aSopZMpJr8",
     "name": "Great Constitution",
     "type": "feat",
     "system": {
@@ -711,6 +790,7 @@
     }
   },
   {
+    "_id": "KrG1HQ1HPUXmhHru",
     "name": "Great Dexterity",
     "type": "feat",
     "system": {
@@ -720,6 +800,7 @@
     }
   },
   {
+    "_id": "KRcMjUsPI8DxsU0Y",
     "name": "Great Intelligence",
     "type": "feat",
     "system": {
@@ -729,6 +810,7 @@
     }
   },
   {
+    "_id": "4XTWW80BqIU3ku3m",
     "name": "Great Smiting",
     "type": "feat",
     "system": {
@@ -738,6 +820,7 @@
     }
   },
   {
+    "_id": "pkUPLLrolpxprdO2",
     "name": "Great Strength",
     "type": "feat",
     "system": {
@@ -747,6 +830,7 @@
     }
   },
   {
+    "_id": "MUxKlAH4QA1XVOcf",
     "name": "Great Wisdom",
     "type": "feat",
     "system": {
@@ -756,6 +840,7 @@
     }
   },
   {
+    "_id": "YRsxUChvLbF7NWZR",
     "name": "Group Inspiration",
     "type": "feat",
     "system": {
@@ -765,6 +850,7 @@
     }
   },
   {
+    "_id": "69U3EjO5MUQ6CL6L",
     "name": "Hindering Song",
     "type": "feat",
     "system": {
@@ -774,6 +860,7 @@
     }
   },
   {
+    "_id": "mCceA5Sqw3KKdZz2",
     "name": "Holy Strike",
     "type": "feat",
     "system": {
@@ -783,6 +870,7 @@
     }
   },
   {
+    "_id": "bgjsHjRlhyovccuO",
     "name": "Ignore Material Components",
     "type": "feat",
     "system": {
@@ -792,6 +880,7 @@
     }
   },
   {
+    "_id": "vEhTismE3pdguYnb",
     "name": "Improved Alignment-Based Casting",
     "type": "feat",
     "system": {
@@ -801,6 +890,7 @@
     }
   },
   {
+    "_id": "N9XDY6Lv85VSJnEa",
     "name": "Improved Arrow of Death",
     "type": "feat",
     "system": {
@@ -810,6 +900,7 @@
     }
   },
   {
+    "_id": "IgS23Jzt16c4WIid",
     "name": "Improved Aura of Courage",
     "type": "feat",
     "system": {
@@ -819,6 +910,7 @@
     }
   },
   {
+    "_id": "LON3vKN4BRVnfcAp",
     "name": "Improved Aura of Despair",
     "type": "feat",
     "system": {
@@ -828,6 +920,7 @@
     }
   },
   {
+    "_id": "0oychJ3zqnHtMcYY",
     "name": "Improved Combat Casting",
     "type": "feat",
     "system": {
@@ -837,6 +930,7 @@
     }
   },
   {
+    "_id": "hGgvielI8BtNbbbJ",
     "name": "Improved Combat Reflexes",
     "type": "feat",
     "system": {
@@ -846,6 +940,7 @@
     }
   },
   {
+    "_id": "S9GIrau4VMr67pcf",
     "name": "Improved Darkvision",
     "type": "feat",
     "system": {
@@ -855,6 +950,7 @@
     }
   },
   {
+    "_id": "y7dPwN72C1YpOftz",
     "name": "Improved Death Attack",
     "type": "feat",
     "system": {
@@ -864,6 +960,7 @@
     }
   },
   {
+    "_id": "DAs3bbVFiogr8yWa",
     "name": "Improved Elemental Wild Shape",
     "type": "feat",
     "system": {
@@ -873,6 +970,7 @@
     }
   },
   {
+    "_id": "VEN99TvQ1ZdQ8CxN",
     "name": "Improved Favored Enemy",
     "type": "feat",
     "system": {
@@ -882,6 +980,7 @@
     }
   },
   {
+    "_id": "ZjiWPdrfgTb6q4Rx",
     "name": "Improved Heighten Spell",
     "type": "feat",
     "system": {
@@ -891,6 +990,7 @@
     }
   },
   {
+    "_id": "KiESWfxvVn0wgbrc",
     "name": "Improved Ki Strike",
     "type": "feat",
     "system": {
@@ -900,6 +1000,7 @@
     }
   },
   {
+    "_id": "hix6NXU6jkK8vB3r",
     "name": "Improved Low-Light Vision",
     "type": "feat",
     "system": {
@@ -909,6 +1010,7 @@
     }
   },
   {
+    "_id": "bEvCVvQhS62gg7ae",
     "name": "Improved Manifestation",
     "type": "feat",
     "system": {
@@ -918,6 +1020,7 @@
     }
   },
   {
+    "_id": "Zr09vxmUJBY7k0n3",
     "name": "Improved Manyshot",
     "type": "feat",
     "system": {
@@ -927,6 +1030,7 @@
     }
   },
   {
+    "_id": "3EztudcKNzQy15Lv",
     "name": "Improved Metamagic",
     "type": "feat",
     "system": {
@@ -936,6 +1040,7 @@
     }
   },
   {
+    "_id": "aX6vh7DN8IrstHAX",
     "name": "Improved Metapsionics",
     "type": "feat",
     "system": {
@@ -945,6 +1050,7 @@
     }
   },
   {
+    "_id": "iT00XyjhSTJitpjc",
     "name": "Improved Sneak Attack",
     "type": "feat",
     "system": {
@@ -954,6 +1060,7 @@
     }
   },
   {
+    "_id": "HNoHhaoW7xWyM4Gp",
     "name": "Improved Spell Capacity",
     "type": "feat",
     "system": {
@@ -963,6 +1070,7 @@
     }
   },
   {
+    "_id": "i6cgZt0U2r3CHKOQ",
     "name": "Improved Spell Resistance",
     "type": "feat",
     "system": {
@@ -972,6 +1080,7 @@
     }
   },
   {
+    "_id": "k9ShTBabNk7GOiDF",
     "name": "Improved Stunning Fist",
     "type": "feat",
     "system": {
@@ -981,6 +1090,7 @@
     }
   },
   {
+    "_id": "SMdHsBocBNCwQDDb",
     "name": "Improved Whirlwind Attack",
     "type": "feat",
     "system": {
@@ -990,6 +1100,7 @@
     }
   },
   {
+    "_id": "YTbzRSxQi4wC6ZJZ",
     "name": "Incite Rage",
     "type": "feat",
     "system": {
@@ -999,6 +1110,7 @@
     }
   },
   {
+    "_id": "u1qr6rdXA4BBQxhJ",
     "name": "Infinite Deflection",
     "type": "feat",
     "system": {
@@ -1008,6 +1120,7 @@
     }
   },
   {
+    "_id": "CePWd8FFg8TeMvjs",
     "name": "Inspire Excellence",
     "type": "feat",
     "system": {
@@ -1017,6 +1130,7 @@
     }
   },
   {
+    "_id": "OlFGlXXgX0TN3Wuy",
     "name": "Instant Reload",
     "type": "feat",
     "system": {
@@ -1026,6 +1140,7 @@
     }
   },
   {
+    "_id": "tkJgfD7YCcgLxiyC",
     "name": "Intensify Spell",
     "type": "feat",
     "system": {
@@ -1035,6 +1150,7 @@
     }
   },
   {
+    "_id": "fpxVrxHHOp09fRlU",
     "name": "Keen Strike",
     "type": "feat",
     "system": {
@@ -1044,6 +1160,7 @@
     }
   },
   {
+    "_id": "JONFLQFbXsEGAh9Z",
     "name": "Lasting Inspiration",
     "type": "feat",
     "system": {
@@ -1053,6 +1170,7 @@
     }
   },
   {
+    "_id": "NaCQSAEwm1bPP1cU",
     "name": "Legendary Climber",
     "type": "feat",
     "system": {
@@ -1062,6 +1180,7 @@
     }
   },
   {
+    "_id": "OIjMetLFQqGaellC",
     "name": "Legendary Commander",
     "type": "feat",
     "system": {
@@ -1071,6 +1190,7 @@
     }
   },
   {
+    "_id": "sFkCaMgk6dgEGokV",
     "name": "Legendary Leaper",
     "type": "feat",
     "system": {
@@ -1080,6 +1200,7 @@
     }
   },
   {
+    "_id": "a8bmm2kCGOdysWSu",
     "name": "Legendary Rider",
     "type": "feat",
     "system": {
@@ -1089,6 +1210,7 @@
     }
   },
   {
+    "_id": "jyjzzt7XyYXMJonu",
     "name": "Legendary Tracker",
     "type": "feat",
     "system": {
@@ -1098,6 +1220,7 @@
     }
   },
   {
+    "_id": "Syqm8P81pKKHk39C",
     "name": "Legendary Wrestler",
     "type": "feat",
     "system": {
@@ -1107,6 +1230,7 @@
     }
   },
   {
+    "_id": "yMKR5ZL31K0xJ21h",
     "name": "Lingering Damage",
     "type": "feat",
     "system": {
@@ -1116,6 +1240,7 @@
     }
   },
   {
+    "_id": "EWA4rNI0jQZsJTvx",
     "name": "Magical Beast Companion",
     "type": "feat",
     "system": {
@@ -1125,6 +1250,7 @@
     }
   },
   {
+    "_id": "rpS6XQoVNecSDc7x",
     "name": "Magical Beast Wild Shape",
     "type": "feat",
     "system": {
@@ -1134,6 +1260,7 @@
     }
   },
   {
+    "_id": "uycbUkHl725y65h6",
     "name": "Master Staff",
     "type": "feat",
     "system": {
@@ -1143,6 +1270,7 @@
     }
   },
   {
+    "_id": "O8jAeJDCtmxU4hb4",
     "name": "Master Wand",
     "type": "feat",
     "system": {
@@ -1152,6 +1280,7 @@
     }
   },
   {
+    "_id": "iCZCZt8ySUKyci8q",
     "name": "Mighty Rage",
     "type": "feat",
     "system": {
@@ -1161,6 +1290,7 @@
     }
   },
   {
+    "_id": "3LsBJgjKhA79Djb8",
     "name": "Mobile Defense",
     "type": "feat",
     "system": {
@@ -1170,6 +1300,7 @@
     }
   },
   {
+    "_id": "WLWCtzinGBuOtUO5",
     "name": "Multispell",
     "type": "feat",
     "system": {
@@ -1179,6 +1310,7 @@
     }
   },
   {
+    "_id": "Ds4sPxWq8n4PmG2i",
     "name": "Multiweapon Rend",
     "type": "feat",
     "system": {
@@ -1188,6 +1320,7 @@
     }
   },
   {
+    "_id": "AHeZEqQgj2fP7h9O",
     "name": "Music of the Gods",
     "type": "feat",
     "system": {
@@ -1197,6 +1330,7 @@
     }
   },
   {
+    "_id": "UUoSRmsSCbo7g7Ti",
     "name": "Negative Energy Burst",
     "type": "feat",
     "system": {
@@ -1206,6 +1340,7 @@
     }
   },
   {
+    "_id": "uAJlynX9atgQq0pg",
     "name": "Overwhelming Critical",
     "type": "feat",
     "system": {
@@ -1215,6 +1350,7 @@
     }
   },
   {
+    "_id": "rhyYejL0FX1lqBBG",
     "name": "Penetrate Damage Reduction",
     "type": "feat",
     "system": {
@@ -1224,6 +1360,7 @@
     }
   },
   {
+    "_id": "8nWKhlW0BQmGE8dq",
     "name": "Perfect Health",
     "type": "feat",
     "system": {
@@ -1233,6 +1370,7 @@
     }
   },
   {
+    "_id": "ihm4WIOSdX2XUFS1",
     "name": "Perfect Multiweapon Fighting",
     "type": "feat",
     "system": {
@@ -1242,6 +1380,7 @@
     }
   },
   {
+    "_id": "kPxqsruKXWdnsCbA",
     "name": "Perfect Two-Weapon Fighting",
     "type": "feat",
     "system": {
@@ -1251,6 +1390,7 @@
     }
   },
   {
+    "_id": "LtQdrqziXAMBrIXT",
     "name": "Permanent Emanation",
     "type": "feat",
     "system": {
@@ -1260,6 +1400,7 @@
     }
   },
   {
+    "_id": "oEYAmQzPNidolE0V",
     "name": "Planar Turning",
     "type": "feat",
     "system": {
@@ -1269,6 +1410,7 @@
     }
   },
   {
+    "_id": "Qz300AHxWcXS3uEB",
     "name": "Plant Wild Shape",
     "type": "feat",
     "system": {
@@ -1278,6 +1420,7 @@
     }
   },
   {
+    "_id": "cO5jRHysN5kz314U",
     "name": "Polyglot",
     "type": "feat",
     "system": {
@@ -1287,6 +1430,7 @@
     }
   },
   {
+    "_id": "BBy460znL6ET9BUw",
     "name": "Positive Energy Aura",
     "type": "feat",
     "system": {
@@ -1296,6 +1440,7 @@
     }
   },
   {
+    "_id": "uBcq89TRshG5XFcC",
     "name": "Power Knowledge",
     "type": "feat",
     "system": {
@@ -1305,6 +1450,7 @@
     }
   },
   {
+    "_id": "CPbBFUt5T8hBl59J",
     "name": "Psicrystal Power",
     "type": "feat",
     "system": {
@@ -1314,6 +1460,7 @@
     }
   },
   {
+    "_id": "TjEG2gk2D4VBNMm3",
     "name": "Ranged Inspiration",
     "type": "feat",
     "system": {
@@ -1323,6 +1470,7 @@
     }
   },
   {
+    "_id": "MEl1eW4ev9dDnkEu",
     "name": "Rapid Inspiration",
     "type": "feat",
     "system": {
@@ -1332,6 +1480,7 @@
     }
   },
   {
+    "_id": "bADUoLy2wWCOea8g",
     "name": "Reactive Countersong",
     "type": "feat",
     "system": {
@@ -1341,6 +1490,7 @@
     }
   },
   {
+    "_id": "yG9UAz73WSezSB4Z",
     "name": "Reflect Arrows",
     "type": "feat",
     "system": {
@@ -1350,6 +1500,7 @@
     }
   },
   {
+    "_id": "AZgtCeo18Boiw1uk",
     "name": "Righteous Strike",
     "type": "feat",
     "system": {
@@ -1359,6 +1510,7 @@
     }
   },
   {
+    "_id": "vHhoCwSGXhaBydaB",
     "name": "Ruinous Rage",
     "type": "feat",
     "system": {
@@ -1368,6 +1520,7 @@
     }
   },
   {
+    "_id": "gUyOYwVp47fd42lZ",
     "name": "Scribe Epic Scroll",
     "type": "feat",
     "system": {
@@ -1377,6 +1530,7 @@
     }
   },
   {
+    "_id": "0LZhexCw12x7a9Zt",
     "name": "Self-Concealment",
     "type": "feat",
     "system": {
@@ -1386,6 +1540,7 @@
     }
   },
   {
+    "_id": "tY1p3gET6Co7FpSf",
     "name": "Shattering Strike",
     "type": "feat",
     "system": {
@@ -1395,6 +1550,7 @@
     }
   },
   {
+    "_id": "aAaMKLDiGMWGAuIz",
     "name": "Sneak Attack of Opportunity",
     "type": "feat",
     "system": {
@@ -1404,6 +1560,7 @@
     }
   },
   {
+    "_id": "8D3rOsoiRQrBtd63",
     "name": "Spectral Strike",
     "type": "feat",
     "system": {
@@ -1413,6 +1570,7 @@
     }
   },
   {
+    "_id": "dKlb6rqx1U4x9h7e",
     "name": "Spell Knowledge",
     "type": "feat",
     "system": {
@@ -1422,6 +1580,7 @@
     }
   },
   {
+    "_id": "IdH6jOD2oObmonZ3",
     "name": "Spell Opportunity",
     "type": "feat",
     "system": {
@@ -1431,6 +1590,7 @@
     }
   },
   {
+    "_id": "ZZSrYhby0G336HoU",
     "name": "Spell Stowaway",
     "type": "feat",
     "system": {
@@ -1440,6 +1600,7 @@
     }
   },
   {
+    "_id": "wsId4VxJGiBSw9Iy",
     "name": "Spellcasting Harrier",
     "type": "feat",
     "system": {
@@ -1449,6 +1610,7 @@
     }
   },
   {
+    "_id": "zlepPbaVz5o724NT",
     "name": "Spontaneous Domain Access",
     "type": "feat",
     "system": {
@@ -1458,6 +1620,7 @@
     }
   },
   {
+    "_id": "ktBzU2Mhku0c6lPV",
     "name": "Spontaneous Spell",
     "type": "feat",
     "system": {
@@ -1467,6 +1630,7 @@
     }
   },
   {
+    "_id": "tws2DksQjVogYOD7",
     "name": "Storm of Throws",
     "type": "feat",
     "system": {
@@ -1476,6 +1640,7 @@
     }
   },
   {
+    "_id": "QLvzG7h6YKYRNGqc",
     "name": "Superior Initiative",
     "type": "feat",
     "system": {
@@ -1485,6 +1650,7 @@
     }
   },
   {
+    "_id": "K9eIln8Zs5m89KZV",
     "name": "Swarm of Arrows",
     "type": "feat",
     "system": {
@@ -1494,6 +1660,7 @@
     }
   },
   {
+    "_id": "KYbxzXjikc5HVDbr",
     "name": "Terrifying Rage",
     "type": "feat",
     "system": {
@@ -1503,6 +1670,7 @@
     }
   },
   {
+    "_id": "8KL5tH3xU1NVC2GK",
     "name": "Tenacious Magic",
     "type": "feat",
     "system": {
@@ -1512,6 +1680,7 @@
     }
   },
   {
+    "_id": "h6UAApaUCuoUsf7B",
     "name": "Thundering Rage",
     "type": "feat",
     "system": {
@@ -1521,6 +1690,7 @@
     }
   },
   {
+    "_id": "wzmcMpQE8crVClmO",
     "name": "Trap Sense",
     "type": "feat",
     "system": {
@@ -1530,6 +1700,7 @@
     }
   },
   {
+    "_id": "lPcBKeUHRiUrLkTN",
     "name": "Two-Weapon Rend",
     "type": "feat",
     "system": {
@@ -1539,6 +1710,7 @@
     }
   },
   {
+    "_id": "1IeO9P99NVIcHR56",
     "name": "Uncanny Accuracy",
     "type": "feat",
     "system": {
@@ -1548,6 +1720,7 @@
     }
   },
   {
+    "_id": "tbaYg3glAgD5vn9b",
     "name": "Undead Mastery",
     "type": "feat",
     "system": {
@@ -1557,6 +1730,7 @@
     }
   },
   {
+    "_id": "2AxI6NvtNnHbpsbP",
     "name": "Unholy Strike",
     "type": "feat",
     "system": {
@@ -1566,6 +1740,7 @@
     }
   },
   {
+    "_id": "xCrsnCZjeGjAMhk1",
     "name": "Vermin Wild Shape",
     "type": "feat",
     "system": {
@@ -1575,6 +1750,7 @@
     }
   },
   {
+    "_id": "M8GQF4MX08gQlhhs",
     "name": "Vorpal Strike",
     "type": "feat",
     "system": {
@@ -1584,6 +1760,7 @@
     }
   },
   {
+    "_id": "1AH0FFGGtWmb1tDq",
     "name": "Widen Aura of Courage",
     "type": "feat",
     "system": {
@@ -1593,6 +1770,7 @@
     }
   },
   {
+    "_id": "t0JAFU5v7d52j3aH",
     "name": "Widen Aura of Despair",
     "type": "feat",
     "system": {
@@ -1602,6 +1780,7 @@
     }
   },
   {
+    "_id": "2Hf4Rfb3OGpiceHl",
     "name": "Zone of Animation",
     "type": "feat",
     "system": {
@@ -1611,6 +1790,7 @@
     }
   },
   {
+    "_id": "AArPsAUOYewggt8X",
     "name": "Greater Multiweapon Fighting",
     "type": "feat",
     "system": {
@@ -1620,6 +1800,7 @@
     }
   },
   {
+    "_id": "ijigloccxhxhfmlo",
     "name": "Improved Flyby Attack",
     "type": "feat",
     "system": {
@@ -1629,6 +1810,7 @@
     }
   },
   {
+    "_id": "n7QEPns4WP2NxDa6",
     "name": "Improved Multiattack",
     "type": "feat",
     "system": {
@@ -1638,6 +1820,7 @@
     }
   },
   {
+    "_id": "gd0j2FPYbpG3lafm",
     "name": "Improved Multiweapon Fighting",
     "type": "feat",
     "system": {
@@ -1647,6 +1830,7 @@
     }
   },
   {
+    "_id": "G9ezAL5zYgy4mJJO",
     "name": "Feat Name",
     "type": "feat",
     "system": {
@@ -1656,6 +1840,7 @@
     }
   },
   {
+    "_id": "l0ljg8waK2jRIGw1",
     "name": "Acrobatic",
     "type": "feat",
     "system": {
@@ -1665,6 +1850,7 @@
     }
   },
   {
+    "_id": "p9FqZPLxheyqliHI",
     "name": "Agile",
     "type": "feat",
     "system": {
@@ -1674,6 +1860,7 @@
     }
   },
   {
+    "_id": "vcumgRp69YE1Rcil",
     "name": "Alertness",
     "type": "feat",
     "system": {
@@ -1683,6 +1870,7 @@
     }
   },
   {
+    "_id": "pKTXXxnStp4EA2ol",
     "name": "Animal Affinity",
     "type": "feat",
     "system": {
@@ -1692,6 +1880,7 @@
     }
   },
   {
+    "_id": "3MlyhjksYzMpkkZM",
     "name": "Armor Proficiency (Heavy)",
     "type": "feat",
     "system": {
@@ -1701,6 +1890,7 @@
     }
   },
   {
+    "_id": "4C3evSGxm0FvDIsC",
     "name": "Armor Proficiency (Light)",
     "type": "feat",
     "system": {
@@ -1710,6 +1900,7 @@
     }
   },
   {
+    "_id": "6O2U2YTqKGU4S0GB",
     "name": "Armor Proficiency (Medium)",
     "type": "feat",
     "system": {
@@ -1719,6 +1910,7 @@
     }
   },
   {
+    "_id": "V3GZqUW2u1AZ9IGN",
     "name": "Athletic",
     "type": "feat",
     "system": {
@@ -1728,6 +1920,7 @@
     }
   },
   {
+    "_id": "XqvL3Gx6txNkV2Im",
     "name": "Augment Summoning",
     "type": "feat",
     "system": {
@@ -1737,6 +1930,7 @@
     }
   },
   {
+    "_id": "85u00waAUsIEty90",
     "name": "Blind-Fight",
     "type": "feat",
     "system": {
@@ -1746,6 +1940,7 @@
     }
   },
   {
+    "_id": "ilRk99AJHZnVq4Pr",
     "name": "Brew Potion",
     "type": "feat",
     "system": {
@@ -1755,6 +1950,7 @@
     }
   },
   {
+    "_id": "ZuKnZ0RF6lc9T0F5",
     "name": "Cleave",
     "type": "feat",
     "system": {
@@ -1764,6 +1960,7 @@
     }
   },
   {
+    "_id": "PMelb3GLnBEmbHni",
     "name": "Combat Casting",
     "type": "feat",
     "system": {
@@ -1773,6 +1970,7 @@
     }
   },
   {
+    "_id": "vkolDPPamEEsyPN8",
     "name": "Combat Expertise",
     "type": "feat",
     "system": {
@@ -1782,6 +1980,7 @@
     }
   },
   {
+    "_id": "qgUYQSrmYTz1j7Sx",
     "name": "Combat Reflexes",
     "type": "feat",
     "system": {
@@ -1791,6 +1990,7 @@
     }
   },
   {
+    "_id": "UXc4l6cJLN7IfD06",
     "name": "Craft Magic Arms and Armor",
     "type": "feat",
     "system": {
@@ -1800,6 +2000,7 @@
     }
   },
   {
+    "_id": "YRLuMcK32LC0WJTX",
     "name": "Craft Rod",
     "type": "feat",
     "system": {
@@ -1809,6 +2010,7 @@
     }
   },
   {
+    "_id": "ZtrGWSeCTKJkYJr6",
     "name": "Craft Staff",
     "type": "feat",
     "system": {
@@ -1818,6 +2020,7 @@
     }
   },
   {
+    "_id": "OMD3o5ifSSxDGYrZ",
     "name": "Craft Wand",
     "type": "feat",
     "system": {
@@ -1827,6 +2030,7 @@
     }
   },
   {
+    "_id": "oWrDbNP2q1PzsqLR",
     "name": "Craft Wondrous Item",
     "type": "feat",
     "system": {
@@ -1836,6 +2040,7 @@
     }
   },
   {
+    "_id": "gfGpswf3Y6zW6Cwi",
     "name": "Deceitful",
     "type": "feat",
     "system": {
@@ -1845,6 +2050,7 @@
     }
   },
   {
+    "_id": "Fpx0kY1YMnManZEq",
     "name": "Deflect Arrows",
     "type": "feat",
     "system": {
@@ -1854,6 +2060,7 @@
     }
   },
   {
+    "_id": "Hd9UxXDjHcK6ob0x",
     "name": "Deft Hands",
     "type": "feat",
     "system": {
@@ -1863,6 +2070,7 @@
     }
   },
   {
+    "_id": "hRMba4KYTM5ATUkC",
     "name": "Diehard",
     "type": "feat",
     "system": {
@@ -1872,6 +2080,7 @@
     }
   },
   {
+    "_id": "NllPUPAfIYFfrVkY",
     "name": "Diligent",
     "type": "feat",
     "system": {
@@ -1881,6 +2090,7 @@
     }
   },
   {
+    "_id": "ZhODkXFm4Hvvcrkg",
     "name": "Dodge",
     "type": "feat",
     "system": {
@@ -1890,6 +2100,7 @@
     }
   },
   {
+    "_id": "8DOkK1fyS0GgIeYF",
     "name": "Empower Spell",
     "type": "feat",
     "system": {
@@ -1899,6 +2110,7 @@
     }
   },
   {
+    "_id": "2G3qS6UZrNyRQCGy",
     "name": "Endurance",
     "type": "feat",
     "system": {
@@ -1908,6 +2120,7 @@
     }
   },
   {
+    "_id": "Laux40l6wUlPAQdb",
     "name": "Enlarge Spell",
     "type": "feat",
     "system": {
@@ -1917,6 +2130,7 @@
     }
   },
   {
+    "_id": "aPVX64A7S9OHgi0X",
     "name": "Eschew Materials",
     "type": "feat",
     "system": {
@@ -1926,6 +2140,7 @@
     }
   },
   {
+    "_id": "rlDtUpfL1sd6w3IQ",
     "name": "Exotic Weapon Proficiency",
     "type": "feat",
     "system": {
@@ -1935,6 +2150,7 @@
     }
   },
   {
+    "_id": "8YOeoFCUL37FAntj",
     "name": "Extend Spell",
     "type": "feat",
     "system": {
@@ -1944,6 +2160,7 @@
     }
   },
   {
+    "_id": "MM5cOG7JrdeIOLMA",
     "name": "Extra Turning",
     "type": "feat",
     "system": {
@@ -1953,6 +2170,7 @@
     }
   },
   {
+    "_id": "QBKHvFfEmKFawfch",
     "name": "Far Shot",
     "type": "feat",
     "system": {
@@ -1962,6 +2180,7 @@
     }
   },
   {
+    "_id": "24vAl51VeaxvFAZl",
     "name": "Forge Ring",
     "type": "feat",
     "system": {
@@ -1971,6 +2190,7 @@
     }
   },
   {
+    "_id": "DYMcApWwrpr2YPBp",
     "name": "Great Cleave",
     "type": "feat",
     "system": {
@@ -1980,6 +2200,7 @@
     }
   },
   {
+    "_id": "f9od9Z9Q7v95JLfF",
     "name": "Great Fortitude",
     "type": "feat",
     "system": {
@@ -1989,6 +2210,7 @@
     }
   },
   {
+    "_id": "Ro0CGc98lQEPFqBv",
     "name": "Greater Spell Focus",
     "type": "feat",
     "system": {
@@ -1998,6 +2220,7 @@
     }
   },
   {
+    "_id": "AQxOyRHStGXJxsDr",
     "name": "Greater Spell Penetration",
     "type": "feat",
     "system": {
@@ -2007,6 +2230,7 @@
     }
   },
   {
+    "_id": "87fJK9Kx3xxEoCJF",
     "name": "Greater Two-Weapon Fighting",
     "type": "feat",
     "system": {
@@ -2016,6 +2240,7 @@
     }
   },
   {
+    "_id": "28Dko718llo2ah0r",
     "name": "Greater Weapon Focus",
     "type": "feat",
     "system": {
@@ -2025,6 +2250,7 @@
     }
   },
   {
+    "_id": "wuM54dU7gxMnQkAw",
     "name": "Greater Weapon Specialization",
     "type": "feat",
     "system": {
@@ -2034,6 +2260,7 @@
     }
   },
   {
+    "_id": "Ai82hS5WiVE41YQS",
     "name": "Heighten Spell",
     "type": "feat",
     "system": {
@@ -2043,6 +2270,7 @@
     }
   },
   {
+    "_id": "ZXT4vOLE9W8KzMEY",
     "name": "Improved Bull Rush",
     "type": "feat",
     "system": {
@@ -2052,6 +2280,7 @@
     }
   },
   {
+    "_id": "hK7StVuT660qMWwL",
     "name": "Improved Counterspell",
     "type": "feat",
     "system": {
@@ -2061,6 +2290,7 @@
     }
   },
   {
+    "_id": "zpyJh7bhB6I3SDPz",
     "name": "Improved Critical",
     "type": "feat",
     "system": {
@@ -2070,6 +2300,7 @@
     }
   },
   {
+    "_id": "1Zd2yLTETIpmCR0q",
     "name": "Improved Disarm",
     "type": "feat",
     "system": {
@@ -2079,6 +2310,7 @@
     }
   },
   {
+    "_id": "6ZRYXNePeAQGwvnV",
     "name": "Improved Familiar",
     "type": "feat",
     "system": {
@@ -2088,6 +2320,7 @@
     }
   },
   {
+    "_id": "ZRJ1FAJwFOqD1Spp",
     "name": "Improved Feint",
     "type": "feat",
     "system": {
@@ -2097,6 +2330,7 @@
     }
   },
   {
+    "_id": "tgpfOaI2VVC5N1Xk",
     "name": "Improved Grapple",
     "type": "feat",
     "system": {
@@ -2106,6 +2340,7 @@
     }
   },
   {
+    "_id": "xsseBlGKxdN7AwGr",
     "name": "Improved Initiative",
     "type": "feat",
     "system": {
@@ -2115,6 +2350,7 @@
     }
   },
   {
+    "_id": "hIX8RhK9SHDLqC7l",
     "name": "Improved Overrun",
     "type": "feat",
     "system": {
@@ -2124,6 +2360,7 @@
     }
   },
   {
+    "_id": "fuopdnmH3ks1CRYV",
     "name": "Improved Precise Shot",
     "type": "feat",
     "system": {
@@ -2133,6 +2370,7 @@
     }
   },
   {
+    "_id": "YtWiGCssFocGRvxx",
     "name": "Improved Shield Bash",
     "type": "feat",
     "system": {
@@ -2142,6 +2380,7 @@
     }
   },
   {
+    "_id": "71VnQEcqEK3HKYap",
     "name": "Improved Sunder",
     "type": "feat",
     "system": {
@@ -2151,6 +2390,7 @@
     }
   },
   {
+    "_id": "nbyeFqBVZelq70wt",
     "name": "Improved Trip",
     "type": "feat",
     "system": {
@@ -2160,6 +2400,7 @@
     }
   },
   {
+    "_id": "eANK7DCXgAQ4nSWk",
     "name": "Improved Turning",
     "type": "feat",
     "system": {
@@ -2169,6 +2410,7 @@
     }
   },
   {
+    "_id": "W1v7Kpuvl8XmDdos",
     "name": "Improved Two-Weapon Fighting",
     "type": "feat",
     "system": {
@@ -2178,6 +2420,7 @@
     }
   },
   {
+    "_id": "09a6iwnxBv0KvbCP",
     "name": "Improved Unarmed Strike",
     "type": "feat",
     "system": {
@@ -2187,6 +2430,7 @@
     }
   },
   {
+    "_id": "2bTdR5Z45jN55QU4",
     "name": "Investigator",
     "type": "feat",
     "system": {
@@ -2196,6 +2440,7 @@
     }
   },
   {
+    "_id": "IaMScmSaUW40boe5",
     "name": "Iron Will",
     "type": "feat",
     "system": {
@@ -2205,6 +2450,7 @@
     }
   },
   {
+    "_id": "ZOYqvanSS20moYje",
     "name": "Leadership",
     "type": "feat",
     "system": {
@@ -2214,6 +2460,7 @@
     }
   },
   {
+    "_id": "KJCEgX6Nt79Cgf3D",
     "name": "Lightning Reflexes",
     "type": "feat",
     "system": {
@@ -2223,6 +2470,7 @@
     }
   },
   {
+    "_id": "l5x3BAWXxMneYPms",
     "name": "Magical Aptitude",
     "type": "feat",
     "system": {
@@ -2232,6 +2480,7 @@
     }
   },
   {
+    "_id": "hQhsSwT2bM1mKZzJ",
     "name": "Manyshot",
     "type": "feat",
     "system": {
@@ -2241,6 +2490,7 @@
     }
   },
   {
+    "_id": "pzLMuT0qO9dIHnJY",
     "name": "Martial Weapon Proficiency",
     "type": "feat",
     "system": {
@@ -2250,6 +2500,7 @@
     }
   },
   {
+    "_id": "v7GpmHmzgbJJh9cL",
     "name": "Maximize Spell",
     "type": "feat",
     "system": {
@@ -2259,6 +2510,7 @@
     }
   },
   {
+    "_id": "kJQsgsMZCTcnelou",
     "name": "Mobility",
     "type": "feat",
     "system": {
@@ -2268,6 +2520,7 @@
     }
   },
   {
+    "_id": "uCi2J4IR7ruufjXa",
     "name": "Mounted Archery",
     "type": "feat",
     "system": {
@@ -2277,6 +2530,7 @@
     }
   },
   {
+    "_id": "ISACHdKZ1m0hvalB",
     "name": "Mounted Combat",
     "type": "feat",
     "system": {
@@ -2286,6 +2540,7 @@
     }
   },
   {
+    "_id": "k1BTOujEW7cbY252",
     "name": "Natural Spell",
     "type": "feat",
     "system": {
@@ -2295,6 +2550,7 @@
     }
   },
   {
+    "_id": "4XJUOUPGTHE7RaZW",
     "name": "Negotiator",
     "type": "feat",
     "system": {
@@ -2304,6 +2560,7 @@
     }
   },
   {
+    "_id": "t6CAdUcXXTQHokS6",
     "name": "Nimble Fingers",
     "type": "feat",
     "system": {
@@ -2313,6 +2570,7 @@
     }
   },
   {
+    "_id": "GDLYGlJGW3ulay7w",
     "name": "Persuasive",
     "type": "feat",
     "system": {
@@ -2322,6 +2580,7 @@
     }
   },
   {
+    "_id": "UXxgD4Zvk40FZh2s",
     "name": "Point Blank Shot",
     "type": "feat",
     "system": {
@@ -2331,6 +2590,7 @@
     }
   },
   {
+    "_id": "ttvXmkWCgziLcVuC",
     "name": "Power Attack",
     "type": "feat",
     "system": {
@@ -2340,6 +2600,7 @@
     }
   },
   {
+    "_id": "ANNsHyZCsroMWHzs",
     "name": "Precise Shot",
     "type": "feat",
     "system": {
@@ -2349,6 +2610,7 @@
     }
   },
   {
+    "_id": "d9lci86hFxJ9XzTO",
     "name": "Quick Draw",
     "type": "feat",
     "system": {
@@ -2358,6 +2620,7 @@
     }
   },
   {
+    "_id": "oqUJhYBYTBflo9TE",
     "name": "Quicken Spell",
     "type": "feat",
     "system": {
@@ -2367,6 +2630,7 @@
     }
   },
   {
+    "_id": "gI8yu4DgEYgWyc4N",
     "name": "Rapid Reload",
     "type": "feat",
     "system": {
@@ -2376,6 +2640,7 @@
     }
   },
   {
+    "_id": "3UUyRr5hw7PCopGi",
     "name": "Rapid Shot",
     "type": "feat",
     "system": {
@@ -2385,6 +2650,7 @@
     }
   },
   {
+    "_id": "C3SgqTFfbSvqyE9e",
     "name": "Ride-by Attack",
     "type": "feat",
     "system": {
@@ -2394,6 +2660,7 @@
     }
   },
   {
+    "_id": "URtCTjMQXtzHXT01",
     "name": "Run",
     "type": "feat",
     "system": {
@@ -2403,6 +2670,7 @@
     }
   },
   {
+    "_id": "pxTRhj8bOnqnOl7s",
     "name": "Scribe Scroll",
     "type": "feat",
     "system": {
@@ -2412,6 +2680,7 @@
     }
   },
   {
+    "_id": "Bd1uIIHVveIiYzYJ",
     "name": "Self-Sufficient",
     "type": "feat",
     "system": {
@@ -2421,6 +2690,7 @@
     }
   },
   {
+    "_id": "BdUgWj4GYzNdkKh9",
     "name": "Shield Proficiency",
     "type": "feat",
     "system": {
@@ -2430,6 +2700,7 @@
     }
   },
   {
+    "_id": "HTbwdXbZcI2CdE26",
     "name": "Shot on the Run",
     "type": "feat",
     "system": {
@@ -2439,6 +2710,7 @@
     }
   },
   {
+    "_id": "vHiWesK44oTBMIZ7",
     "name": "Silent Spell",
     "type": "feat",
     "system": {
@@ -2448,6 +2720,7 @@
     }
   },
   {
+    "_id": "3HZbTxYzeaq1LXcJ",
     "name": "Simple Weapon Proficiency",
     "type": "feat",
     "system": {
@@ -2457,6 +2730,7 @@
     }
   },
   {
+    "_id": "lobsAkQrXJMtkWA3",
     "name": "Skill Focus",
     "type": "feat",
     "system": {
@@ -2466,6 +2740,7 @@
     }
   },
   {
+    "_id": "yD6JCyAcexefzNSZ",
     "name": "Snatch Arrows",
     "type": "feat",
     "system": {
@@ -2475,6 +2750,7 @@
     }
   },
   {
+    "_id": "aS3kFCJ8tcnZ5lWJ",
     "name": "Spell Focus",
     "type": "feat",
     "system": {
@@ -2484,6 +2760,7 @@
     }
   },
   {
+    "_id": "bHwnBbNQkYswWVJ9",
     "name": "Spell Mastery",
     "type": "feat",
     "system": {
@@ -2493,6 +2770,7 @@
     }
   },
   {
+    "_id": "bYyha1z9LhuYkZbR",
     "name": "Spell Penetration",
     "type": "feat",
     "system": {
@@ -2502,6 +2780,7 @@
     }
   },
   {
+    "_id": "vMG4ySiKietqUAjk",
     "name": "Spirited Charge",
     "type": "feat",
     "system": {
@@ -2511,6 +2790,7 @@
     }
   },
   {
+    "_id": "uS5KX7TLmS6atIBF",
     "name": "Spring Attack",
     "type": "feat",
     "system": {
@@ -2520,6 +2800,7 @@
     }
   },
   {
+    "_id": "h2R7FteJYZ5ETfdu",
     "name": "Stealthy",
     "type": "feat",
     "system": {
@@ -2529,6 +2810,7 @@
     }
   },
   {
+    "_id": "i6vJ0lXdmZbsHXsD",
     "name": "Still Spell",
     "type": "feat",
     "system": {
@@ -2538,6 +2820,7 @@
     }
   },
   {
+    "_id": "O4ww433ZBASzNrFa",
     "name": "Stunning Fist",
     "type": "feat",
     "system": {
@@ -2547,6 +2830,7 @@
     }
   },
   {
+    "_id": "az37AyYyhxkC0nxN",
     "name": "Toughness",
     "type": "feat",
     "system": {
@@ -2556,6 +2840,7 @@
     }
   },
   {
+    "_id": "6GydHrKbKmpyKixD",
     "name": "Tower Shield Proficiency",
     "type": "feat",
     "system": {
@@ -2565,6 +2850,7 @@
     }
   },
   {
+    "_id": "fGipzaLn0KKfGVqv",
     "name": "Track",
     "type": "feat",
     "system": {
@@ -2574,6 +2860,7 @@
     }
   },
   {
+    "_id": "fiCcxVfzgIp5TlSX",
     "name": "Trample",
     "type": "feat",
     "system": {
@@ -2583,6 +2870,7 @@
     }
   },
   {
+    "_id": "uxioQ9vehvcvT1sR",
     "name": "Two-Weapon Defense",
     "type": "feat",
     "system": {
@@ -2592,6 +2880,7 @@
     }
   },
   {
+    "_id": "CUPgnxSCX9cVgoKP",
     "name": "Two-Weapon Fighting",
     "type": "feat",
     "system": {
@@ -2601,6 +2890,7 @@
     }
   },
   {
+    "_id": "eBx5ZiHqZ4A3INX0",
     "name": "Weapon Finesse",
     "type": "feat",
     "system": {
@@ -2610,6 +2900,7 @@
     }
   },
   {
+    "_id": "Cfnegsa5ze5mkpbv",
     "name": "Weapon Focus",
     "type": "feat",
     "system": {
@@ -2619,6 +2910,7 @@
     }
   },
   {
+    "_id": "VLHmduNTm6peTHcM",
     "name": "Weapon Specialization",
     "type": "feat",
     "system": {
@@ -2628,6 +2920,7 @@
     }
   },
   {
+    "_id": "KRpgtohYwIkncE10",
     "name": "Whirlwind Attack",
     "type": "feat",
     "system": {
@@ -2637,6 +2930,7 @@
     }
   },
   {
+    "_id": "psjTJFf6lSOYOQ2a",
     "name": "Widen Spell",
     "type": "feat",
     "system": {
@@ -2646,6 +2940,7 @@
     }
   },
   {
+    "_id": "UAkyOz1WDnGoPMfW",
     "name": "Ability Focus",
     "type": "feat",
     "system": {
@@ -2655,6 +2950,7 @@
     }
   },
   {
+    "_id": "CS1udYj9PKYRpv8l",
     "name": "Awesome Blow",
     "type": "feat",
     "system": {
@@ -2664,6 +2960,7 @@
     }
   },
   {
+    "_id": "U2I4OPeCc43pexjp",
     "name": "Craft Construct",
     "type": "feat",
     "system": {
@@ -2673,6 +2970,7 @@
     }
   },
   {
+    "_id": "37ZlOzLnzLX5gEQu",
     "name": "Empower Spell-Like Ability",
     "type": "feat",
     "system": {
@@ -2682,6 +2980,7 @@
     }
   },
   {
+    "_id": "uK2T1TtEhTQO3qdU",
     "name": "Flyby Attack",
     "type": "feat",
     "system": {
@@ -2691,6 +2990,7 @@
     }
   },
   {
+    "_id": "Zr9leO4iED5FzUk4",
     "name": "Hover",
     "type": "feat",
     "system": {
@@ -2700,6 +3000,7 @@
     }
   },
   {
+    "_id": "HgnRKu7XksIP7NtG",
     "name": "Improved Natural Armor",
     "type": "feat",
     "system": {
@@ -2709,6 +3010,7 @@
     }
   },
   {
+    "_id": "wEoLOJoobigsr4RS",
     "name": "Improved Natural Attack",
     "type": "feat",
     "system": {
@@ -2718,6 +3020,7 @@
     }
   },
   {
+    "_id": "C0FLJY1iw82t6Dt7",
     "name": "Multiattack",
     "type": "feat",
     "system": {
@@ -2727,6 +3030,7 @@
     }
   },
   {
+    "_id": "rdPVFar3MdXIADPS",
     "name": "Multiweapon Fighting",
     "type": "feat",
     "system": {
@@ -2736,6 +3040,7 @@
     }
   },
   {
+    "_id": "KR4XSXQ1dwtt7H68",
     "name": "Quicken Spell-Like Ability",
     "type": "feat",
     "system": {
@@ -2745,6 +3050,7 @@
     }
   },
   {
+    "_id": "rp9t3RQM3dczi4d6",
     "name": "Snatch",
     "type": "feat",
     "system": {
@@ -2754,6 +3060,7 @@
     }
   },
   {
+    "_id": "xDgPcapCQuBVDioW",
     "name": "Wingover",
     "type": "feat",
     "system": {
@@ -2763,6 +3070,7 @@
     }
   },
   {
+    "_id": "vBZNQYvkcJUDWJ85",
     "name": "Aligned Attack",
     "type": "feat",
     "system": {
@@ -2772,6 +3080,7 @@
     }
   },
   {
+    "_id": "yp1mMnhT0a3cJyNm",
     "name": "Antipsionic Magic",
     "type": "feat",
     "system": {
@@ -2781,6 +3090,7 @@
     }
   },
   {
+    "_id": "XxtFoN6vgVyl6FYZ",
     "name": "Autonomous",
     "type": "feat",
     "system": {
@@ -2790,6 +3100,7 @@
     }
   },
   {
+    "_id": "2adhHycmDpQBDU33",
     "name": "Body Fuel",
     "type": "feat",
     "system": {
@@ -2799,6 +3110,7 @@
     }
   },
   {
+    "_id": "GxKNODyULTYzqqtz",
     "name": "Boost Construct",
     "type": "feat",
     "system": {
@@ -2808,6 +3120,7 @@
     }
   },
   {
+    "_id": "17AIeGo5VQoVQdM5",
     "name": "Burrowing Power",
     "type": "feat",
     "system": {
@@ -2817,6 +3130,7 @@
     }
   },
   {
+    "_id": "3mTngTRdBMJPcQCZ",
     "name": "Chain Power",
     "type": "feat",
     "system": {
@@ -2826,6 +3140,7 @@
     }
   },
   {
+    "_id": "aCvaJqsVqXbVw27S",
     "name": "Chaotic Mind",
     "type": "feat",
     "system": {
@@ -2835,6 +3150,7 @@
     }
   },
   {
+    "_id": "5Qh0B3J4b0UndchK",
     "name": "Cloak Dance",
     "type": "feat",
     "system": {
@@ -2844,6 +3160,7 @@
     }
   },
   {
+    "_id": "n9sB7W3FTxrQSh6I",
     "name": "Closed Mind",
     "type": "feat",
     "system": {
@@ -2853,6 +3170,7 @@
     }
   },
   {
+    "_id": "TLak3ZoCXfGBIYao",
     "name": "Combat Manifestation",
     "type": "feat",
     "system": {
@@ -2862,6 +3180,7 @@
     }
   },
   {
+    "_id": "UjYlNW9A2RItB3c6",
     "name": "Craft Cognizance Crystal",
     "type": "feat",
     "system": {
@@ -2871,6 +3190,7 @@
     }
   },
   {
+    "_id": "EBdoc4yuYScDnRrI",
     "name": "Craft Dorje",
     "type": "feat",
     "system": {
@@ -2880,6 +3200,7 @@
     }
   },
   {
+    "_id": "RpWkCn3ScLMmxat1",
     "name": "Craft Psicrown",
     "type": "feat",
     "system": {
@@ -2889,6 +3210,7 @@
     }
   },
   {
+    "_id": "b6PrdToDCR6k9Avq",
     "name": "Craft Psionic Arms and Armor",
     "type": "feat",
     "system": {
@@ -2898,6 +3220,7 @@
     }
   },
   {
+    "_id": "GpvdaxDwnXhosKO8",
     "name": "Craft Psionic Construct",
     "type": "feat",
     "system": {
@@ -2907,6 +3230,7 @@
     }
   },
   {
+    "_id": "hVu86B9OqwjC9ozI",
     "name": "Craft Universal Item",
     "type": "feat",
     "system": {
@@ -2916,6 +3240,7 @@
     }
   },
   {
+    "_id": "JqOJoyIHEly2fQh7",
     "name": "Deadly Precision",
     "type": "feat",
     "system": {
@@ -2925,6 +3250,7 @@
     }
   },
   {
+    "_id": "JzRNvQ82K0tKLl0J",
     "name": "Deep Impact",
     "type": "feat",
     "system": {
@@ -2934,6 +3260,7 @@
     }
   },
   {
+    "_id": "CiAd0u2u4Rr1snwz",
     "name": "Delay Power",
     "type": "feat",
     "system": {
@@ -2943,6 +3270,7 @@
     }
   },
   {
+    "_id": "rNBfM8Wowv4lOieL",
     "name": "Empower Power",
     "type": "feat",
     "system": {
@@ -2952,6 +3280,7 @@
     }
   },
   {
+    "_id": "cYtpeJXOIGnuPu7y",
     "name": "Enlarge Power",
     "type": "feat",
     "system": {
@@ -2961,6 +3290,7 @@
     }
   },
   {
+    "_id": "ycw3SGjfjFdhN8iV",
     "name": "Expanded Knowledge",
     "type": "feat",
     "system": {
@@ -2970,6 +3300,7 @@
     }
   },
   {
+    "_id": "nRknxiIBVI7ZC7ZN",
     "name": "Extend Power",
     "type": "feat",
     "system": {
@@ -2979,6 +3310,7 @@
     }
   },
   {
+    "_id": "NGZjqogtttDnsUqU",
     "name": "Fell Shot",
     "type": "feat",
     "system": {
@@ -2988,6 +3320,7 @@
     }
   },
   {
+    "_id": "YmfEPDFlOpjekeEP",
     "name": "Focused Sunder",
     "type": "feat",
     "system": {
@@ -2997,6 +3330,7 @@
     }
   },
   {
+    "_id": "gd7RCkTkmALuiFOJ",
     "name": "Force of Will",
     "type": "feat",
     "system": {
@@ -3006,6 +3340,7 @@
     }
   },
   {
+    "_id": "oCMuIWTODbVp2MBM",
     "name": "Ghost Attack",
     "type": "feat",
     "system": {
@@ -3015,6 +3350,7 @@
     }
   },
   {
+    "_id": "HySOtlJu2wlSpXiK",
     "name": "Greater Manyshot",
     "type": "feat",
     "system": {
@@ -3024,6 +3360,7 @@
     }
   },
   {
+    "_id": "bATv65oAWB6gEjwT",
     "name": "Greater Power Penetration",
     "type": "feat",
     "system": {
@@ -3033,6 +3370,7 @@
     }
   },
   {
+    "_id": "1lEC3mTof8DPLvYg",
     "name": "Greater Power Specialization",
     "type": "feat",
     "system": {
@@ -3042,6 +3380,7 @@
     }
   },
   {
+    "_id": "zLzSyVUrRFLk4P0N",
     "name": "Greater Psionic Endowment",
     "type": "feat",
     "system": {
@@ -3051,6 +3390,7 @@
     }
   },
   {
+    "_id": "QtjmztpTUR2RkELY",
     "name": "Greater Psionic Fist",
     "type": "feat",
     "system": {
@@ -3060,6 +3400,7 @@
     }
   },
   {
+    "_id": "iFSoMy9U0gE1qmNP",
     "name": "Greater Psionic Shot",
     "type": "feat",
     "system": {
@@ -3069,6 +3410,7 @@
     }
   },
   {
+    "_id": "zge0yiudTLIt3uOX",
     "name": "Greater Psionic Weapon",
     "type": "feat",
     "system": {
@@ -3078,6 +3420,7 @@
     }
   },
   {
+    "_id": "mP6ytqWJlxbMzT2F",
     "name": "Hostile Mind",
     "type": "feat",
     "system": {
@@ -3087,6 +3430,7 @@
     }
   },
   {
+    "_id": "Z1zfIEcsC2CquMzK",
     "name": "Imprint Stone",
     "type": "feat",
     "system": {
@@ -3096,6 +3440,7 @@
     }
   },
   {
+    "_id": "0UDlQVHXVeLCekz4",
     "name": "Improved Psicrystal",
     "type": "feat",
     "system": {
@@ -3105,6 +3450,7 @@
     }
   },
   {
+    "_id": "mIbwtBO2a08T4VaD",
     "name": "Inquisitor",
     "type": "feat",
     "system": {
@@ -3114,6 +3460,7 @@
     }
   },
   {
+    "_id": "GKyDruHr60ZKyedH",
     "name": "Maximize Power",
     "type": "feat",
     "system": {
@@ -3123,6 +3470,7 @@
     }
   },
   {
+    "_id": "qcEOHHsxbq8YUo4n",
     "name": "Mental Leap",
     "type": "feat",
     "system": {
@@ -3132,6 +3480,7 @@
     }
   },
   {
+    "_id": "6OvbkeUTwxNF6cOK",
     "name": "Mental Resistance",
     "type": "feat",
     "system": {
@@ -3141,6 +3490,7 @@
     }
   },
   {
+    "_id": "ztiGs6ppXDsdZ9QB",
     "name": "Metamorphic Transfer",
     "type": "feat",
     "system": {
@@ -3150,6 +3500,7 @@
     }
   },
   {
+    "_id": "fixwyHl4Hklowvmh",
     "name": "Mind Over Body",
     "type": "feat",
     "system": {
@@ -3159,6 +3510,7 @@
     }
   },
   {
+    "_id": "kzB1fv8TEbe8DCvS",
     "name": "Narrow Mind",
     "type": "feat",
     "system": {
@@ -3168,6 +3520,7 @@
     }
   },
   {
+    "_id": "X3qEpNTS9qSRg8zV",
     "name": "Open Minded",
     "type": "feat",
     "system": {
@@ -3177,6 +3530,7 @@
     }
   },
   {
+    "_id": "DBRYUiQ5WH3aZVrC",
     "name": "Opportunity Power",
     "type": "feat",
     "system": {
@@ -3186,6 +3540,7 @@
     }
   },
   {
+    "_id": "V0iD01B2LqfyMqPx",
     "name": "Overchannel",
     "type": "feat",
     "system": {
@@ -3195,6 +3550,7 @@
     }
   },
   {
+    "_id": "tNTEVbgD3b1JTo4W",
     "name": "Power Penetration",
     "type": "feat",
     "system": {
@@ -3204,6 +3560,7 @@
     }
   },
   {
+    "_id": "V5izHAaDcmrSCxDr",
     "name": "Power Specialization",
     "type": "feat",
     "system": {
@@ -3213,6 +3570,7 @@
     }
   },
   {
+    "_id": "T5AOYI5WC1GmFbMu",
     "name": "Psicrystal Affinity",
     "type": "feat",
     "system": {
@@ -3222,6 +3580,7 @@
     }
   },
   {
+    "_id": "PWWa7MpFcalTNxpM",
     "name": "Psicrystal Containment",
     "type": "feat",
     "system": {
@@ -3231,6 +3590,7 @@
     }
   },
   {
+    "_id": "TPjSXeLW7ESVtHWW",
     "name": "Psionic Affinity",
     "type": "feat",
     "system": {
@@ -3240,6 +3600,7 @@
     }
   },
   {
+    "_id": "BHqKvCspJ1CFs5go",
     "name": "Psionic Body",
     "type": "feat",
     "system": {
@@ -3249,6 +3610,7 @@
     }
   },
   {
+    "_id": "HzdWUtPE3LwKGSIp",
     "name": "Psionic Charge",
     "type": "feat",
     "system": {
@@ -3258,6 +3620,7 @@
     }
   },
   {
+    "_id": "dh3PaHye2XSj6U96",
     "name": "Psionic Dodge",
     "type": "feat",
     "system": {
@@ -3267,6 +3630,7 @@
     }
   },
   {
+    "_id": "V4axzS0wu4nZD2fs",
     "name": "Psionic Endowment",
     "type": "feat",
     "system": {
@@ -3276,6 +3640,7 @@
     }
   },
   {
+    "_id": "BUd48VwqFhcg8E4m",
     "name": "Psionic Fist",
     "type": "feat",
     "system": {
@@ -3285,6 +3650,7 @@
     }
   },
   {
+    "_id": "nRPRV7s0zT30shkZ",
     "name": "Psionic Hole",
     "type": "feat",
     "system": {
@@ -3294,6 +3660,7 @@
     }
   },
   {
+    "_id": "qBvNC3fud7cwZlwm",
     "name": "Psionic Meditation",
     "type": "feat",
     "system": {
@@ -3303,6 +3670,7 @@
     }
   },
   {
+    "_id": "aqD2F7SSDb9mA9A3",
     "name": "Psionic Shot",
     "type": "feat",
     "system": {
@@ -3312,6 +3680,7 @@
     }
   },
   {
+    "_id": "stAfeb5x7zM5QkpG",
     "name": "Psionic Talent",
     "type": "feat",
     "system": {
@@ -3321,6 +3690,7 @@
     }
   },
   {
+    "_id": "NL5CarAtEf1j1Sem",
     "name": "Psionic Weapon",
     "type": "feat",
     "system": {
@@ -3330,6 +3700,7 @@
     }
   },
   {
+    "_id": "5976dLljC5dcq6I1",
     "name": "Quicken Power",
     "type": "feat",
     "system": {
@@ -3339,6 +3710,7 @@
     }
   },
   {
+    "_id": "GgWQrGF5nYH5R3ny",
     "name": "Rapid Metabolism",
     "type": "feat",
     "system": {
@@ -3348,6 +3720,7 @@
     }
   },
   {
+    "_id": "qYHOzchtg0pCbP2W",
     "name": "Reckless Offense",
     "type": "feat",
     "system": {
@@ -3357,6 +3730,7 @@
     }
   },
   {
+    "_id": "U5ZyxEgS99NWzFI5",
     "name": "Return Shot",
     "type": "feat",
     "system": {
@@ -3366,6 +3740,7 @@
     }
   },
   {
+    "_id": "aD6hfxQSP5btERh1",
     "name": "Scribe Tattoo",
     "type": "feat",
     "system": {
@@ -3375,6 +3750,7 @@
     }
   },
   {
+    "_id": "UCPFPuaVh4dBB4Z8",
     "name": "Sidestep Charge",
     "type": "feat",
     "system": {
@@ -3384,6 +3760,7 @@
     }
   },
   {
+    "_id": "Q4eWeFdoQ5CH1cU7",
     "name": "Speed of Thought",
     "type": "feat",
     "system": {
@@ -3393,6 +3770,7 @@
     }
   },
   {
+    "_id": "WL3pVOIqUQOxP7Pb",
     "name": "Split Psionic Ray",
     "type": "feat",
     "system": {
@@ -3402,6 +3780,7 @@
     }
   },
   {
+    "_id": "6fgwlVOvb1FW19dX",
     "name": "Stand Still",
     "type": "feat",
     "system": {
@@ -3411,6 +3790,7 @@
     }
   },
   {
+    "_id": "rXCksk2Io0bGIkRp",
     "name": "Talented",
     "type": "feat",
     "system": {
@@ -3420,6 +3800,7 @@
     }
   },
   {
+    "_id": "T8Xs54Li226vq5Fv",
     "name": "Twin Power",
     "type": "feat",
     "system": {
@@ -3429,6 +3810,7 @@
     }
   },
   {
+    "_id": "KpjWkHZVcuujdBvM",
     "name": "Unavoidable Strike",
     "type": "feat",
     "system": {
@@ -3438,6 +3820,7 @@
     }
   },
   {
+    "_id": "Ke4fb9s6DByiSh3m",
     "name": "Unconditional Power",
     "type": "feat",
     "system": {
@@ -3447,6 +3830,7 @@
     }
   },
   {
+    "_id": "Tj2JFRdikTOLJPdt",
     "name": "Up the Walls",
     "type": "feat",
     "system": {
@@ -3456,6 +3840,7 @@
     }
   },
   {
+    "_id": "qquVnsfvY5jRwGUu",
     "name": "Widen Power",
     "type": "feat",
     "system": {
@@ -3465,6 +3850,7 @@
     }
   },
   {
+    "_id": "OYhSyICj297nx1TS",
     "name": "Wild Talent",
     "type": "feat",
     "system": {
@@ -3474,6 +3860,7 @@
     }
   },
   {
+    "_id": "4ut6wBtrEt3KEqWQ",
     "name": "Wounding Attack",
     "type": "feat",
     "system": {
