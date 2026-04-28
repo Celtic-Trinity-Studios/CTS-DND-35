@@ -48,6 +48,8 @@
         <div style="flex: 0.7; text-align:center;">Curr</div>
         <div style="flex: 1; text-align:center;">Add</div>
         <div style="flex: 0.7; text-align:center;">Ability</div>
+        <div style="flex: 0.7; text-align:center;">Cap</div>
+        <div style="flex: 0.6; text-align:center;">Cost</div>
         <div style="flex: 0.9; text-align:center;">Total</div>
       </div>
       {{#each skillRows as |row|}}
@@ -63,6 +65,8 @@
           <button type="button" class="skill-inc" data-skill="{{row.key}}">+</button>
         </div>
         <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>
+        <div style="flex: 0.7; text-align:center;">{{row.rankCap}}</div>
+        <div style="flex: 0.6; text-align:center;">{{row.pointCost}}</div>
         <div style="flex: 0.9; text-align:center; font-weight: bold;">{{cts-sign row.projectedTotal}}</div>
       </div>
       {{/each}}
@@ -86,10 +90,21 @@
       <select data-prop="selectedFeatUuid">
         <option value="">-- None --</option>
         {{#each featChoices as |feat|}}
-        <option value="{{feat.uuid}}" {{#if (cts-eq feat.uuid ../state.selectedFeatUuid)}}selected{{/if}}>{{feat.name}} ({{feat.type}})</option>
+        <option value="{{feat.uuid}}" {{#if (cts-eq feat.uuid ../state.selectedFeatUuid)}}selected{{/if}} {{#if (cts-eq feat.prereqOk false)}}disabled{{/if}}>
+          {{feat.name}} ({{feat.type}}){{#if (cts-eq feat.prereqOk false)}} - unmet prereq{{/if}}
+        </option>
         {{/each}}
       </select>
     </div>
+    {{#if state.selectedFeatUuid}}
+      {{#each featChoices as |feat|}}
+        {{#if (cts-eq feat.uuid ../state.selectedFeatUuid)}}
+          {{#if (cts-eq feat.prereqOk false)}}
+          <p class="notes" style="color: var(--cts-danger);">Missing prerequisites: {{feat.prereqReason}}</p>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+    {{/if}}
     {{/if}}
   </div>
 

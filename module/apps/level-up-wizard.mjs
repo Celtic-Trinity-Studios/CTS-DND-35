@@ -59,7 +59,8 @@ export class LevelUpWizard extends Application {
     this.featChoices = docs.map((doc) => ({
       uuid: doc.uuid,
       name: doc.name,
-      type: doc.system?.featType || "General"
+      type: doc.system?.featType || "General",
+      prerequisites: doc.system?.prerequisites || ""
     })).sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -82,12 +83,84 @@ export class LevelUpWizard extends Application {
     return Math.max(1, cls.skillRanksPerLevel + this._intMod() + humanBonus);
   }
 
+  _isClassSkill(skillKey) {
+    const selectedClassSkills = this.classSkillMap[this.state.selectedClassUuid] || [];
+    return selectedClassSkills.includes(skillKey);
+  }
+
+  _skillPointCostFor(skillKey, rankDelta) {
+    return this._isClassSkill(skillKey) ? rankDelta : rankDelta * 2;
+  }
+
+  _skillRankCap(skillKey) {
+    const nextLevel = this._nextLevel();
+    if (this._isClassSkill(skillKey)) return nextLevel + 3;
+    return Math.floor((nextLevel + 3) / 2);
+  }
+
   _skillSpent() {
-    return Object.values(this.state.skillRanks).reduce((sum, n) => sum + (Number(n) || 0), 0);
+    let spent = 0;
+    for (const [key, ranks] of Object.entries(this.state.skillRanks)) {
+      spent += this._skillPointCostFor(key, Number(ranks) || 0);
+    }
+    return spent;
   }
 
   _isFeatLevel() {
     return this._nextLevel() % 3 === 0;
+  }
+
+  _getCurrentFeatNames() {
+    return new Set(this.actor.items.filter((i) => i.type === "feat").map((i) => i.name.toLowerCase()));
+  }
+
+  _evaluateFeatPrerequisites(feat) {
+    const prereqText = String(feat.prerequisites || "").trim();
+    if (!prereqText) return { ok: true, reasons: [] };
+
+    const reasons = [];
+    const text = prereqText.toLowerCase();
+    const abilities = this.actor.system?.abilities || {};
+
+    const abilityMatchers = [
+      ["str", /\bstr(?:ength)?\s*([0-9]{1,2})\b/i],
+      ["dex", /\bdex(?:terity)?\s*([0-9]{1,2})\b/i],
+      ["con", /\bcon(?:stitution)?\s*([0-9]{1,2})\b/i],
+      ["int", /\bint(?:elligence)?\s*([0-9]{1,2})\b/i],
+      ["wis", /\bwis(?:dom)?\s*([0-9]{1,2})\b/i],
+      ["cha", /\bcha(?:risma)?\s*([0-9]{1,2})\b/i]
+    ];
+    for (const [key, rx] of abilityMatchers) {
+      const m = prereqText.match(rx);
+      if (!m) continue;
+      const need = Number(m[1]) || 0;
+      const have = Number(abilities[key]?.value) || 0;
+      if (have < need) reasons.push(`${key.toUpperCase()} ${need}+ required`);
+    }
+
+    const babMatch = prereqText.match(/(?:base attack bonus|bab)\s*\+?\s*([0-9]+)/i);
+    if (babMatch) {
+      const needBab = Number(babMatch[1]) || 0;
+      const haveBab = Number(this.actor.system?.attributes?.bab?.total) || 0;
+      if (haveBab < needBab) reasons.push(`BAB +${needBab} required`);
+    }
+
+    const levelMatch = prereqText.match(/(?:character level|level)\s*([0-9]+)/i);
+    if (levelMatch) {
+      const needLvl = Number(levelMatch[1]) || 0;
+      const haveLvl = this._nextLevel();
+      if (haveLvl < needLvl) reasons.push(`Level ${needLvl}+ required`);
+    }
+
+    const currentFeatNames = this._getCurrentFeatNames();
+    for (const known of this.featChoices) {
+      const knownName = known.name.toLowerCase();
+      if (!knownName || knownName === feat.name.toLowerCase()) continue;
+      if (!text.includes(knownName)) continue;
+      if (!currentFeatNames.has(knownName)) reasons.push(`Requires feat: ${known.name}`);
+    }
+
+    return { ok: reasons.length === 0, reasons };
   }
 
   _classLevelAfterGain() {
@@ -133,13 +206,19 @@ export class LevelUpWizard extends Application {
     context.skillPointSpent = spent;
     context.skillPointRemaining = budget - spent;
     context.isFeatLevel = this._isFeatLevel();
-    context.featChoices = this.featChoices.filter((f) => !featSearch || f.name.toLowerCase().includes(featSearch));
+    context.featChoices = this.featChoices
+      .filter((f) => !featSearch || f.name.toLowerCase().includes(featSearch))
+      .map((f) => {
+        const check = this._evaluateFeatPrerequisites(f);
+        return { ...f, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
+      });
     context.selectedClassSkills = new Set(selectedClassSkills);
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, def]) => {
       const currentRanks = Number(this.actor.system?.skills?.[key]?.ranks) || 0;
       const addRanks = Number(this.state.skillRanks[key]) || 0;
       const abilityMod = this.actor.system?.abilities?.[def.ability]?.mod || 0;
       const isClassSkill = selectedClassSkills.includes(key);
+      const rankCap = this._skillRankCap(key);
       const projectedRanks = currentRanks + addRanks;
       const classBonus = projectedRanks >= 1 && isClassSkill ? 3 : 0;
       return {
@@ -149,6 +228,8 @@ export class LevelUpWizard extends Application {
         currentRanks,
         addRanks,
         isClassSkill,
+        rankCap,
+        pointCost: this._skillPointCostFor(key, 1),
         projectedTotal: projectedRanks + abilityMod + classBonus
       };
     });
@@ -181,8 +262,13 @@ export class LevelUpWizard extends Application {
       ev.preventDefault();
       const key = ev.currentTarget.dataset.skill;
       if (!key) return;
-      if (this._skillSpent() >= this._skillPointBudget()) return;
-      this.state.skillRanks[key] = (this.state.skillRanks[key] || 0) + 1;
+      const curr = Number(this.state.skillRanks[key]) || 0;
+      const currentRanks = Number(this.actor.system?.skills?.[key]?.ranks) || 0;
+      const cap = this._skillRankCap(key);
+      if (currentRanks + curr >= cap) return;
+      const nextCost = this._skillPointCostFor(key, 1);
+      if (this._skillSpent() + nextCost > this._skillPointBudget()) return;
+      this.state.skillRanks[key] = curr + 1;
       this.render();
     });
 
@@ -224,6 +310,16 @@ export class LevelUpWizard extends Application {
     if (this._isFeatLevel() && !this.state.selectedFeatUuid) {
       ui.notifications.warn("This level grants a feat. Please choose one.");
       return;
+    }
+    if (this.state.selectedFeatUuid) {
+      const selectedFeat = this.featChoices.find((f) => f.uuid === this.state.selectedFeatUuid);
+      if (selectedFeat) {
+        const check = this._evaluateFeatPrerequisites(selectedFeat);
+        if (!check.ok) {
+          ui.notifications.warn(`Feat prerequisites not met: ${check.reasons.join(", ")}`);
+          return;
+        }
+      }
     }
 
     const cls = this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid);
