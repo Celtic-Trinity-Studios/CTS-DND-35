@@ -1,0 +1,25 @@
+<div class="cts-dnd-35 wizard-picker-popout">
+  {{#if toolbar}}
+  <div class="wizard-picker-toolbar">
+    {{{toolbar}}}
+  </div>
+  {{/if}}
+  <div class="wizard-split wizard-picker-split">
+    <div class="wizard-scroll-list wizard-picker-list">
+      {{#each items as |item|}}
+      <button type="button" class="wizard-picker-item {{#if item.active}}active{{/if}}" data-id="{{item.id}}" {{#if item.disabled}}disabled{{/if}}">
+        {{{item.html}}}
+      </button>
+      {{/each}}
+    </div>
+    <div class="wizard-detail-column">
+      <h4>{{detailTitle}}</h4>
+      <div class="wizard-detail-body">{{{detailHtml}}}</div>
+      <div class="wizard-picker-actions">
+        {{#each actions as |a|}}
+        <button type="button" class="picker-action cts-btn {{a.css}}" data-action="{{a.id}}" {{#if a.disabled}}disabled{{/if}}">{{a.label}}</button>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
