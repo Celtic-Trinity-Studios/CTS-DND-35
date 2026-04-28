@@ -1,0 +1,10 @@
+{
+  "_id": "66wgkA0NJVchybJN",
+  "name": "Eyes in the Back of Your Head",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Eyes in the Back of Your Head' level='3'><p><h3>Eyes in the Back of Your Head [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Base attack bonus +3, Wis 19.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Attackers do not gain the usual +2 attack bonus when flanking you. This feat grants no effect whenever you are attacked without benefit of your Dexterity modifier to AC, such as when you are flat-footed or when you are the target of a rogue's sneak attack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Base attack bonus +3, Wis 19."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "n1iVrM2Fg791OZF1",
+  "name": "Deep Slumber",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Deep Slumber' level='5'><p><h5>Deep Slumber</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 3, Sorcerer/Wizard 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr></table><p>This spell functions like <i>sleep</i>,  except that it affects 10 HD of creatures.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A pinch of fine sand, rose petals, or a live cricket.",
+    "castingTime": "1 round",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

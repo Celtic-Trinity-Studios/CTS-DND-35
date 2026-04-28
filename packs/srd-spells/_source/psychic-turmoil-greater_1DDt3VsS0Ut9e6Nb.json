@@ -1,0 +1,22 @@
+{
+  "_id": "1DDt3VsS0Ut9e6Nb",
+  "name": "Psychic Turmoil, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Psychic Turmoil, Greater' level='5'><p><h5>Psychic Turmoil, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 7, Sorcerer/Wizard 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level<br/></td></tr></table><p>As <i>psychic turmoil</i>,  except you gain 1 temporary hit point for each power point the spell takes from a psionic creature. The temporary hit points last for 1 hour.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "Five playing cards, which are torn in half when the spell is cast.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

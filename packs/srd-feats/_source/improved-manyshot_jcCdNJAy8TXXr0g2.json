@@ -1,0 +1,10 @@
+{
+  "_id": "jcCdNJAy8TXXr0g2",
+  "name": "Improved Manyshot",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Manyshot' level='3'><p><h3>Improved Manyshot [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 19, base attack bonus +21, Many-shot, Point Blank Shot, Rapid Shot</p>\n</div><div topic='Benefits' level='8'><p><b>Benefits:</b> As Manyshot, but the number of arrows the character can fire is limited only by his or her base attack bonus (two arrows, plus one arrow for every 5 points of base attack bonus above +6).</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> Regardless of the number of arrows the character fires, he or she only applies precision-based damage (such as sneak attack damage or the ranger's favored enemy bonus) once. If the character scores a critical hit, only one of the arrows deals critical damage (character's choice); all others deal normal damage.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> With the Manyshot feat, the character is limited to a maximum of four arrows fired (when the character's base attack bonus is +16 or higher).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 19, base attack bonus +21, Many-shot, Point Blank Shot, Rapid Shot"
+  }
+}

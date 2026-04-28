@@ -1,0 +1,22 @@
+{
+  "_id": "oiUR4relgSlbLxcB",
+  "name": "Summon Instrument",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Summon Instrument' level='5'><p><h5>Summon Instrument</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Summoning)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 0<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 round<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>0 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>One summoned handheld musical instrument<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell summons one handheld musical instrument of your choice. This instrument appears in your hands or at your feet (your choice). The instrument is typical for its type. Only one instrument appears per casting, and it will play only for you. You can't summon an instrument too large to be held in two hands.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 round",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

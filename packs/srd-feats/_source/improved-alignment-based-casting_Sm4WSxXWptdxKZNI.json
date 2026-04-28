@@ -1,0 +1,10 @@
+{
+  "_id": "Sm4WSxXWptdxKZNI",
+  "name": "Improved Alignment-Based Casting",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Alignment-Based Casting' level='3'><p><h3>Improved Alignment-Based Casting [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Access to domain of Chaos, Evil, Good, or Law, alignment must match domain chosen, ability to cast 9th-level divine spells.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Select an alignment-based domain (Chaos, Evil, Good, or Law) to which the character has access. The character casts spells with that alignment descriptor at +3 caster level.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> This benefit overrides (does not stack with) the granted powers of the Chaos, Evil, Good, and Law domains. A character may select this feat multiple times. Its effects do not stack. Each time a character takes the feat, it applies to a different alignment-based domain to which the character has access.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Access to domain of Chaos, Evil, Good, or Law, alignment must match domain chosen, ability to cast 9th-level divine spells."
+  }
+}

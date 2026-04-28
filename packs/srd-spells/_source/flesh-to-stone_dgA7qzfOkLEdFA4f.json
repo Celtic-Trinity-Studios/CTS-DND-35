@@ -1,0 +1,22 @@
+{
+  "_id": "dgA7qzfOkLEdFA4f",
+  "name": "Flesh to Stone",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Flesh to Stone' level='5'><p><h5>Flesh to Stone</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>The subject, along with all its carried gear, turns into a mindless, inert statue. If the statue resulting from this spell is broken or damaged, the subject (if ever returned to its original state) has similar damage or deformities. The creature is not dead, but it does not seem to be alive either when viewed with spells such as <i>deathwatch</i>.</p><p>Only creatures made of flesh are affected by this spell.</p><p><i>Material Component:</i> Lime, water, and earth.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "Lime, water, and earth.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

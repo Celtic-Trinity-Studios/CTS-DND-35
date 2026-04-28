@@ -1,0 +1,22 @@
+{
+  "_id": "UJgBKLGmwY8tKC0o",
+  "name": "Shield",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Shield' level='5'><p><h5>Shield</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration [Force]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Personal<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level (D)<br/></td></tr></table><p><i>Shield</i> creates an invisible, tower shield-sized mobile disk of force that hovers in front of you. It negates <i>magic missile</i> attacks directed at you. The disk also provides a +4 shield bonus to AC. This bonus applies against incorporeal touch attacks, since it is a force effect. The <i>Shield</i> has no armor check penalty or arcane spell failure chance. Unlike with a normal tower shield, you can't use the <i>Shield</i> spell for cover.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Force"
+  }
+}

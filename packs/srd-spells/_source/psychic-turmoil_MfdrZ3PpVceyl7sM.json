@@ -1,0 +1,22 @@
+{
+  "_id": "MfdrZ3PpVceyl7sM",
+  "name": "Psychic Turmoil",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Psychic Turmoil' level='5'><p><h5>Psychic Turmoil</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 5, Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>40-ft. -radius emanation centered on a point in space<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will partial; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>With this spell, you create an invisible field that leeches away the power points of psionic characters standing within the emanation. Nonpsionic characters are unaffected.</p><p>When the spell is cast and at the beginning of each of your subsequent turns, psionic creatures within the area of the <i>psychic turmoil</i> lose 1 power point per manifester level they have. Characters who succeed on a Will save when they first come into contact with the emanation lose only half as many power points (round down) each round. Characters get only one save attempt against any particular <i>psychic turmoil</i> effect, even if they leave the spell's area and later return.</p><p><i>Material Component:</i> Five playing cards, which are torn in half when the spell is cast.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "Five playing cards, which are torn in half when the spell is cast.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

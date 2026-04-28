@@ -1,0 +1,10 @@
+{
+  "_id": "l3ZvNF8G5jPBIozS",
+  "name": "Rapid Reload",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Rapid Reload' level='3'><p><h3>Rapid Reload [General]</h3></p><p>Choose a type of crossbow (hand, light, or heavy).</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Weapon Proficiency (crossbow type chosen).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The time required for you to reload your chosen type of crossbow is reduced to a free action (for a hand or light crossbow) or a move action (for a heavy crossbow). Reloading a crossbow still provokes an attack of opportunity.</p><p>If you have selected this feat for hand crossbow or light crossbow, you may fire that weapon as many times in a full attack action as you could attack if you were using a bow.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> A character without this feat needs a move action to reload a hand or light crossbow, or a full-round action to reload a heavy crossbow.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can gain Rapid Reload multiple times. Each time you take the feat, it applies to a new type of crossbow.</p><p>A fighter may select Rapid Reload as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Weapon Proficiency (crossbow type chosen)."
+  }
+}

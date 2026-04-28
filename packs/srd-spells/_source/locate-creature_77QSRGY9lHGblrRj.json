@@ -1,0 +1,22 @@
+{
+  "_id": "77QSRGY9lHGblrRj",
+  "name": "Locate Creature",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Locate Creature' level='5'><p><h5>Locate Creature</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>10 min./level<br/></td></tr></table><p>This spell functions like <i>locate object</i>,  except this spell locates a known or familiar creature.</p><p>You slowly turn and sense when you are facing in the direction of the creature to be located, provided it is within range. You also know in which direction the creature is moving, if any.</p><p>The spell can locate a creature of a specific kind or a specific creature known to you. It cannot find a creature of a certain type. To find a kind of creature, you must have seen such a creature up close (within 30 feet) at least once.</p><p>Running water blocks the spell. It cannot detect objects. It can be fooled by <i>mislead</i>, <i>nondetection</i>, and <i>polymorph</i> spells.</p><p><i>Material Component:</i> A bit of fur from a bloodhound.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A bit of fur from a bloodhound.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

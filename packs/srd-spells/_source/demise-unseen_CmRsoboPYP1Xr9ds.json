@@ -1,0 +1,22 @@
+{
+  "_id": "CmRsoboPYP1Xr9ds",
+  "name": "Demise Unseen",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Demise Unseen' level='5'><p><h5>Demise Unseen</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Necromancy (Death, Evil), Illusion (Figment)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>80<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>300 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One creature of up to 80 HD<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fort negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>738,000 gp; 15 days; 29,520 XP. Seeds: Slay (DC 25), animate dead (DC 23), delude (DC 14). Factors: change undead type to ghoul (-10 DC), apply to all five senses (+8 DC), 1-action casting time (+20 DC).<br/></td></tr></table><p>The character instantly slays a single target and at the same moment animate the body so that it appears that nothing has happened to the creature. The target's companions (if any) do not immediately realize what has transpired. The target receives a Fortitude saving throw to survive the attack. If the save fails, the target remains in its exact position with no apparent ill effects. In reality, it is now a ghoul under the character's control. The target's companions notice nothing unusual about the state of the target until they interact with it, at which time each companion receives a Will saving throw to notice discrepancies. The ghoul serves the character indefinitely. The character cannot exceed the normal limit for controlling undead through use of this spell, but other means that allow the character to exceed the normal limit for controlled undead work just as well with undead created with <i>demise unseen</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Necromancy, Illusion (Figment)",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

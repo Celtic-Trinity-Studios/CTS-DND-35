@@ -1,0 +1,22 @@
+{
+  "_id": "IJvWUDMgxPr2693S",
+  "name": "Displacement",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Displacement' level='5'><p><h5>Displacement</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Glamer)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 3, Sorcerer/Wizard 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates (harmless)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (harmless)<br/></td></tr></table><p>The subject of this spell appears to be about 2 feet away from its true location. The creature benefits from a 50% miss chance as if it had total concealment. However, unlike actual total concealment, <i>displacement</i> does not prevent enemies from targeting the creature normally. <i>True seeing</i> reveals its true location.</p><p><i>Material Component:</i> A small strip of leather twisted into a loop.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": false,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A small strip of leather twisted into a loop.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

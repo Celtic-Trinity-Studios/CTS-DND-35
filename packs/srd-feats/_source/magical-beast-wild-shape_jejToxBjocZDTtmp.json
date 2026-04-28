@@ -1,0 +1,10 @@
+{
+  "_id": "jejToxBjocZDTtmp",
+  "name": "Magical Beast Wild Shape",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Magical Beast Wild Shape' level='3'><p><h3>Magical Beast Wild Shape [Wild] [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 25, Knowledge (nature) 27 ranks, <i>wild shape</i> 6/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can use his or her normal <i>wild shape</i> ability to take the form of a magical beast. The size limitation is the same as the character's limitation on animal size. The character gains all supernatural abilities of the magical beast whose form he or she takes.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Wild, Epic",
+    "prerequisites": "Wis 25, Knowledge (nature) 27 ranks, wild shape 6/day."
+  }
+}

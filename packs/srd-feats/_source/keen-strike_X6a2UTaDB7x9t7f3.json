@@ -1,0 +1,10 @@
+{
+  "_id": "X6a2UTaDB7x9t7f3",
+  "name": "Keen Strike",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Keen Strike' level='3'><p><h3>Keen Strike [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 23, Wis 23, Improved Critical (unarmed strike), Improved Unarmed Strike, Stunning fist, <i>ki</i> strike (adamantine).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's unarmed strike has a critical threat range of 18-20 and deals slashing damage (at the character's option any attack can deal bludgeoning damage, but cannot then take advantage of the enhanced threat range). This ability doesn't stack with other abilities that expand that character's unarmed strike's threat range.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Str 23, Wis 23, Improved Critical (unarmed strike), Improved Unarmed Strike, Stunning fist, ki strike (adamantine)."
+  }
+}

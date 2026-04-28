@@ -1,0 +1,10 @@
+{
+  "_id": "A9XkKQ0XgpiDPjEa",
+  "name": "Legendary Climber",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Legendary Climber' level='3'><p><h3>Legendary Climber [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 21, Balance 12 ranks, Climb 24 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can ignore any check penalties applied for accelerated climbing or rapid climbing.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, a character takes a -5 penalty on Climb checks when attempting to cover his or her full speed in climbing distance in a round, or a -20 penalty when attempting to cover twice his or her speed in climbing distance in a round.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 21, Balance 12 ranks, Climb 24 ranks."
+  }
+}

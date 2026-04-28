@@ -1,0 +1,22 @@
+{
+  "_id": "m0Hw3OEOhapTV9Mf",
+  "name": "Fire Trap",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Fire Trap' level='5'><p><h5>Fire Trap</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration [Fire]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 2, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Object touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Permanent until discharged (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Reflex half; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p><i>fire trap</i> creates a fiery explosion when an intruder opens the item that the trap protects. A <i>fire trap</i> can ward any object that can be opened and closed.</p><p>When casting <i>fire trap</i>,  you select a point on the object as the spell's center. When someone other than you opens the object, a fiery explosion fills the area within a 5-foot radius around the spell's center. The flames deal 1d4 points of fire damage +1 point per caster level (maximum +20). The item protected by the trap is not harmed by this explosion.</p><p>A <i>fire trapped</i> item cannot have a second closure or warding spell placed on it.</p><p>A <i>knock</i> spell does not bypass a <i>fire trap</i>.  An unsuccessful <i>dispel magic</i> spell does not detonate the spell.</p><p>Underwater, this ward deals half damage and creates a large cloud of steam.</p><p>You can use the <i>fire trapped</i> object without discharging it, as can any individual to whom the object was specifically attuned when cast. Attuning a <i>fire trapped</i> object to an individual usually involves setting a password that you can share with friends.</p><p><i>Note:</i> Magic traps such as <i>fire trap</i> are hard to detect and disable. A rogue (only) can use the Search skill to find a <i>fire trap</i> and Disable Device to thwart it. The DC in each case is 25 + spell level (DC 27 for a druid's <i>fire trap</i> or DC 29 for the arcane version).</p><p><i>Material Component:</i> A half-pound of gold dust (cost 25 gp) sprinkled on the warded object.</p><p/>\n</div>\n    ",
+    "spellLevel": 2,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A half-pound of gold dust (cost 25 gp) sprinkled on the warded object.",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Fire"
+  }
+}

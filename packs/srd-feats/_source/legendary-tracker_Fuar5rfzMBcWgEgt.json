@@ -1,0 +1,10 @@
+{
+  "_id": "Fuar5rfzMBcWgEgt",
+  "name": "Legendary Tracker",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Legendary Tracker' level='3'><p><h3>Legendary Tracker [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 25, Track, Knowledge (nature) 30 ranks, Survival 30 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can track creatures across water, under-water, or through the air. This adds the surfaces of water, underwater, and air to the list of surfaces found under the Track feat:</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Surface</b><br/></td> <td><b>DC</b> <br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Water<br/></td>\n<td>60<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Underwater<br/></td>\n<td>80<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Air<br/></td>\n<td>120<br/></td>\n\n</tr>\n</table><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Wis 25, Track, Knowledge (nature) 30 ranks, Survival 30 ranks."
+  }
+}

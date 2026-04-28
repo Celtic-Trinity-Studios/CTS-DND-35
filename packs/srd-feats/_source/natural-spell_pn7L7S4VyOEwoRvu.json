@@ -1,0 +1,10 @@
+{
+  "_id": "pn7L7S4VyOEwoRvu",
+  "name": "Natural Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Natural Spell' level='3'><p><h3>Natural Spell [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 13, wild shape ability.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can complete the verbal and somatic components of spells while in a wild shape. You substitute various noises and gestures for the normal verbal and somatic components of a spell.</p><p>You can also use any material components or focuses you possess, even if such items are melded within your current form. This feat does not permit the use of magic items while you are in a form that could not ordinarily use them, and you do not gain the ability to speak while in a wild shape.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Wis 13, wild shape ability."
+  }
+}

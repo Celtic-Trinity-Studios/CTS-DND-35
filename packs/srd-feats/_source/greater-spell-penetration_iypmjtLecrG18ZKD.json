@@ -1,0 +1,10 @@
+{
+  "_id": "iypmjtLecrG18ZKD",
+  "name": "Greater Spell Penetration",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Greater Spell Penetration' level='3'><p><h3>Greater Spell Penetration [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Spell Penetration.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You get a +2 bonus on caster level checks (1d20 + caster level) made to overcome a creature's spell resistance. This bonus stacks with the one from Spell Penetration.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Spell Penetration."
+  }
+}

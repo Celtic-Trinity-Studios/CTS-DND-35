@@ -1,0 +1,22 @@
+{
+  "_id": "r6ywmAgn3CKlAOWN",
+  "name": "Plane Shift",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Plane Shift' level='5'><p><h5>Plane Shift</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Teleportation)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 5, Sorcerer/Wizard 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Creature touched, or up to eight willing creatures joining hands<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You move yourself or some other creature to another plane of existence or alternate dimension. If several willing persons link hands in a circle, as many as eight can be affected by the <i>plane shift</i> at the same time. Precise accuracy as to a particular arrival location on the intended plane is nigh impossible. From the Material Plane, you can reach any other plane, though you appear 5 to 500 miles (5d%) from your intended destination.</p><p><i>Note: Plane shift</i> transports creatures instantaneously and then ends. The creatures need to find other means if they are to travel back.</p><p><i>Focus:</i> A small, forked metal rod. The size and metal type dictates to which plane of existence or alternate dimension the spell sends the affected creatures.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

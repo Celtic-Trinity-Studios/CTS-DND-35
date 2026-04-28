@@ -1,0 +1,10 @@
+{
+  "_id": "aeRuPf0rVAhcHNwt",
+  "name": "Power Specialization",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Power Specialization' level='3'><p><h3>Power Specialization [Psionic]</h3></p><p>You deal more damage with your powers.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Weapon Focus (ray), manifester level 4th.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> With rays and ranged touch attack powers that deal damage, you deal an extra 2 points of damage. If you expend your psionic focus when you manifest a ray or a ranged touch attack power that deals damage, you add your key ability bonus to the damage (instead of adding 2).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Weapon Focus (ray), manifester level 4th."
+  }
+}

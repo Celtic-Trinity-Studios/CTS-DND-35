@@ -1,0 +1,10 @@
+{
+  "_id": "y3iIXSuj1EsxMQT9",
+  "name": "Psicrystal Affinity",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psicrystal Affinity' level='3'><p><h3>Psicrystal Affinity [Psionic]</h3></p><p>You have created a psicrystal.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Manifester level 1st.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> This feat allows you to gain a psicrystal.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Manifester level 1st."
+  }
+}

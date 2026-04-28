@@ -1,0 +1,10 @@
+{
+  "_id": "uYy4C3pGCo089Dzj",
+  "name": "Wingover",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Wingover' level='3'><p><h3>Wingover [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Fly speed.</p>\n</div><div topic='Benefits' level='8'><p><b>Benefits:</b> A flying creature with this feat can change direction quickly once each round as a free action. This feat allows it to turn up to 180 degrees regardless of its maneuverability, in addition to any other turns it is normally allowed. A creature cannot gain altitude during a round when it executes a wingover, but it can dive.</p><p>The change of direction consumes 10 feet of flying movement.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Fly speed."
+  }
+}

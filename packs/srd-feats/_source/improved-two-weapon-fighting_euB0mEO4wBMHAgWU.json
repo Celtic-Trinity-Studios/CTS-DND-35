@@ -1,0 +1,10 @@
+{
+  "_id": "euB0mEO4wBMHAgWU",
+  "name": "Improved Two-Weapon Fighting",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Two-Weapon Fighting' level='3'><p><h3>Improved Two-Weapon Fighting [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 17, Two-Weapon Fighting, base attack bonus +6.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> In addition to the standard single extra attack you get with an off-hand weapon, you get a second attack with it, albeit at a -5 penalty.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, you can only get a single extra attack with an off-hand weapon.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Improved Two-Weapon Fighting as one of his fighter bonus feats.</p><p>A 6th-level ranger who has chosen the two-weapon combat style is treated as having Improved Two-Weapon Fighting, even if he does not have the prerequisites for it, but only when he is wearing light or no armor.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 17, Two-Weapon Fighting, base attack bonus +6."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "oZ3iTgvFgpLxAwSb",
+  "name": "Hallucinatory Terrain",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Hallucinatory Terrain' level='5'><p><h5>Hallucinatory Terrain</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Glamer)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Long (400 ft. + 40 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>One 30-ft. cube/level (S)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>2 hours/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will disbelief (if interacted with)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You make natural terrain look, sound, and smell like some other sort of natural terrain. Structures, equipment, and creatures within the area are not hidden or changed in appearance.</p><p><i>Material Component:</i> A stone, a twig, and a bit of green plant.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A stone, a twig, and a bit of green plant.",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

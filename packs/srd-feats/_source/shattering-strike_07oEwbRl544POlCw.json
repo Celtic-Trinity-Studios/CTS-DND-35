@@ -1,0 +1,10 @@
+{
+  "_id": "07oEwbRl544POlCw",
+  "name": "Shattering Strike",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Shattering Strike' level='3'><p><h3>Shattering Strike [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Epic Weapon Focus (unarmed strike), Weapon Focus (unarmed strike), Concentration 25 ranks, <i>ki</i> strike (adamantine).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When using an unarmed strike to attempt to break an object with sudden force (rather than by dealing normal damage), make a Concentration check rather than a Strength check. The break DC remains the same. Using Shattering Strike is a full-round action that incurs attacks of opportunity. The character can't use Shattering Strike to escape bonds (unless he or she is so bound as to allow the character to make an unarmed strike against his or her bindings).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Epic Weapon Focus (unarmed strike), Weapon Focus (unarmed strike), Concentration 25 ranks, ki strike (adamantine)."
+  }
+}

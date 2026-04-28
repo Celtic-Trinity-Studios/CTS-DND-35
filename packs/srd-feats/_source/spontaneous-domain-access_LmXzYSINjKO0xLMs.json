@@ -1,0 +1,10 @@
+{
+  "_id": "LmXzYSINjKO0xLMs",
+  "name": "Spontaneous Domain Access",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Spontaneous Domain Access' level='3'><p><h3>Spontaneous Domain Access [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 25, Spellcraft 30 ranks, ability to cast 9th-level divine spells.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Select a domain the character has access to. The character may spontaneously convert any prepared cleric spell (except a domain spell) into a domain spell of the same level in the selected domain, just as a cleric channels energy to convert spells into <i>cure</i> spells.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Each time a character takes the feat, it applies to a different domain.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Wis 25, Spellcraft 30 ranks, ability to cast 9th-level divine spells."
+  }
+}

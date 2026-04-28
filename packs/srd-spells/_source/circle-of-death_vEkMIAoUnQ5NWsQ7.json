@@ -1,0 +1,22 @@
+{
+  "_id": "vEkMIAoUnQ5NWsQ7",
+  "name": "Circle of Death",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Circle of Death' level='5'><p><h5>Circle of Death</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Necromancy [Death]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>Several living creatures within a 40-ft. -radius burst<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>A <i>circle of death</i> snuffs out the life force of living creatures, killing them instantly.</p><p>The spell slays 1d4 HD worth of living creatures per caster level (maximum 20d4). Creatures with the fewest HD are affected first; among creatures with equal HD, those who are closest to the burst's point of origin are affected first. No creature of 9 or more HD can be affected, and Hit Dice that are not sufficient to affect a creature are wasted.</p><p><i>Material Component:</i> The powder of a crushed black pearl with a minimum value of 500 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Necromancy",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "The powder of a crushed black pearl with a minimum value of 500 gp.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Death"
+  }
+}

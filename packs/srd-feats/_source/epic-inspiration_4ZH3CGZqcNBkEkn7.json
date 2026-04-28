@@ -1,0 +1,10 @@
+{
+  "_id": "4ZH3CGZqcNBkEkn7",
+  "name": "Epic Inspiration",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Epic Inspiration' level='3'><p><h3>Epic Inspiration [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Cha 25, Perform 30 ranks, bardic music class feature.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> All competence bonuses, dodge bonuses, and morale bonuses granted by the character's bardic music ability increase by +1.  If you have the inspire greatness bardic music ability, it grants one additional bonus HD.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Its effects stack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Cha 25, Perform 30 ranks, bardic music class feature."
+  }
+}

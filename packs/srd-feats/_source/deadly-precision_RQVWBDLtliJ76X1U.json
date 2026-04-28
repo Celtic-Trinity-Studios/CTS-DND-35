@@ -1,0 +1,10 @@
+{
+  "_id": "RQVWBDLtliJ76X1U",
+  "name": "Deadly Precision",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Deadly Precision' level='3'><p><h3>Deadly Precision [General]</h3></p><p>You empty your mind of all distracting emotion, becoming an instrument of deadly precision.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Dex 15, base attack bonus +5.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You have deadly accuracy with your sneak attacks. You can reroll any result of 1 on your sneak attack's extra damage dice. You must keep the result of the reroll, even if it is another 1.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 15, base attack bonus +5."
+  }
+}

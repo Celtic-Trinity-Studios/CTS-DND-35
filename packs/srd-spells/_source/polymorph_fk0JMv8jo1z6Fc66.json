@@ -1,0 +1,22 @@
+{
+  "_id": "fk0JMv8jo1z6Fc66",
+  "name": "Polymorph",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Polymorph' level='5'><p><h5>Polymorph</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Willing living creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell functions like <i>alter self</i>,  except that you change the willing subject into another form of living creature. The new form may be of the same type as the subject or any of the following types: aberration, animal, dragon, fey, giant, humanoid, magical beast, monstrous humanoid, ooze, plant, or vermin. The assumed form can't have more Hit Dice than your caster level (or the subject's HD, whichever is lower), to a maximum of 15 HD at 15th level. You can't cause a subject to assume a form smaller than Fine, nor can you cause a subject to assume an incorporeal or gaseous form. The subject's creature type and subtype (if any) change to match the new form.</p><p>Upon changing, the subject regains lost hit points as if it had rested for a night (though this healing does not restore temporary ability damage and provide other benefits of resting; and changing back does not heal the subject further). If slain, the subject reverts to its original form, though it remains dead.</p><p>The subject gains the Strength, Dexterity, and Constitution scores of the new form but retains its own Intelligence, Wisdom, and Charisma scores. It also gains all extraordinary special attacks possessed by the form but does not gain the extraordinary special qualities possessed by the new form or any supernatural or spell-like abilities.</p><p>Incorporeal or gaseous creatures are immune to being <i>polymorphed</i>, and a creature with the shapechanger subtype can revert to its natural form as a standard action.</p><p><i>Material Component:</i> An empty cocoon.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "An empty cocoon.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

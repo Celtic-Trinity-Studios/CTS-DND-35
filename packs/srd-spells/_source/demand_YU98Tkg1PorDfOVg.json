@@ -1,0 +1,22 @@
+{
+  "_id": "YU98Tkg1PorDfOVg",
+  "name": "Demand",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Demand' level='5'><p><h5>Demand</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will partial<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>This spell functions like <i>sending</i>,  but the message can also contain a <i>suggestion</i> (see the <i>suggestion</i> spell), which the subject does its best to carry out. A successful Will save negates the <i>suggestion</i> effect but not the contact itself. The <i>demand</i>,  if received, is understood even if the subject's Intelligence score is as low as 1. If the message is impossible or meaningless according to the circumstances that exist for the subject at the time the <i>demand</i> is issued, the message is understood but the <i>suggestion</i> is ineffective.</p><p>The <i>demand</i>'s message to the creature must be twenty-five words or less, including the <i>suggestion</i>. The creature can also give a short reply immediately.</p><p><i>Material Component:</i> A short piece of copper wire and some small part of the subject-a hair, a bit of nail, or the like.</p><p/>\n</div>\n    ",
+    "spellLevel": 8,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "A short piece of copper wire and some small part of the subject-a hair, a bit of nail, or the like.",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

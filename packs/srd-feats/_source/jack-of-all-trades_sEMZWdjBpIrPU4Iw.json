@@ -1,0 +1,10 @@
+{
+  "_id": "sEMZWdjBpIrPU4Iw",
+  "name": "Jack of all Trades",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Jack of all Trades' level='3'><p><h3>Jack of all Trades [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> You must be at least 6th level.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can use any skill untrained, even those that normally require training.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "You must be at least 6th level."
+  }
+}

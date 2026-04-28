@@ -1,0 +1,10 @@
+{
+  "_id": "1Q04VESB9gLebzGY",
+  "name": "Mounted Combat",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Mounted Combat' level='3'><p><h3>Mounted Combat [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Ride 1 rank.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Once per round when your mount is hit in combat, you may attempt a Ride check (as a reaction) to negate the hit. The hit is negated if your Ride check result is greater than the opponent's attack roll. (Essentially, the Ride check result becomes the mount's Armor Class if it's higher than the mount's regular AC.)</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Mounted Combat as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Ride 1 rank."
+  }
+}

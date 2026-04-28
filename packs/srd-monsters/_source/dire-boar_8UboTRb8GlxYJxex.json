@@ -1,0 +1,19 @@
+{
+  "_id": "8UboTRb8GlxYJxex",
+  "name": "Dire Boar",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Dire Boar' level='3'><p><h3>Dire Boar</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Dire Boar</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Large Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>7d8+21 (52 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+0<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>40 ft. (8 squares)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>15 (-1 size, +6 natural), touch 9, flat-footed 15<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+5/+17<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Gore +12 melee (1d8+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Gore +12 melee (1d8+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Ferocity<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +8, Ref +5, Will +8<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 27, Dex 10, Con 17, Int 2, Wis 13, Cha 8<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Listen +8, Spot +8<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Endurance, Iron Will<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate forests<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary or herd (5-8)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>8-16 HD (Large); 17-21 HD (Huge)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>Dire boars are omnivorous and spend most of their time rooting around, much as ordinary pigs do. They viciously attack anything that approaches them, however.</p><p>Dire boars grow up to 12 feet long and weigh as much as 2,000 pounds.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>A dire boar charges its opponent, trying to rip the target open with its tusks.</p><div topic='Ferocity' level='8'><p><b>Ferocity (Ex):</b> A dire boar is such a tenacious combatant that it continues to fight without penalty even while disabled or dying.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 4,
+      "environment": "Temperate forests",
+      "organization": "Solitary or herd (5-8)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Large",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

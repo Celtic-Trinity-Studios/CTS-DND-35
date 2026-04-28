@@ -1,0 +1,22 @@
+{
+  "_id": "aDGvMu6KzzvPTZUm",
+  "name": "Animate Objects",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Animate Objects' level='5'><p><h5>Animate Objects</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Chaos 6, Cleric 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>One Small object per caster level; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You imbue inanimate objects with mobility and a semblance of life. Each such animated object then immediately attacks whomever or whatever you initially designate.</p><p>An animated object can be of any nonmagical material. You may animate one Small or smaller object or an equivalent number of larger objects per caster level. A Medium object counts as two Small or smaller objects, a Large object as four, a Huge object as eight, a Gargantuan object as sixteen, and a Colossal object as thirty-two. You can change the designated target or targets as a move action, as if directing an active spell.</p><p>This spell cannot animate objects carried or worn by a creature.</p><p><i>Animate objects</i> can be made permanent with a <i>permanency</i> spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

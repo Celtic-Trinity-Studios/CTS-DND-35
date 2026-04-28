@@ -1,0 +1,22 @@
+{
+  "_id": "7m6TlVPAnoI49TEG",
+  "name": "Permanent Image",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Permanent Image' level='5'><p><h5>Permanent Image</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Figment)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Figment that cannot extend beyond a 20-ft. cube + one 10-ft. cube/level (S)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Permanent (D)<br/></td></tr></table><p>This spell functions like <i>silent image</i>,  except that the figment includes visual, auditory, olfactory, and thermal elements, and the spell is permanent. By concentrating, you can move the image within the limits of the range, but it is static while you are not concentrating.</p><p><i>Material Component:</i> A bit of fleece plus powdered jade worth 100 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "A bit of fleece plus powdered jade worth 100 gp.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

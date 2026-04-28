@@ -1,0 +1,10 @@
+{
+  "_id": "RhtC1usX7tOacvbV",
+  "name": "Master Staff",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Master Staff' level='3'><p><h3>Master Staff [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Craft Staff, Spellcraft 15 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When the character activates a staff, he or she can substitute a spell slot instead of using a charge. The spell slot must be one the character ahs not used for the day, though the character may lose a prepared spell to emulate a wand charge (the character may not lose prepared spells from his or her school of specialty, if any). The spell slot lost must be equal to or higher in level than the specific spell stored in the staff, including any level-increasing metamagic enhancements. A character cannot emulate a charge for a staff function that does not match a specific spell.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Craft Staff, Spellcraft 15 ranks."
+  }
+}

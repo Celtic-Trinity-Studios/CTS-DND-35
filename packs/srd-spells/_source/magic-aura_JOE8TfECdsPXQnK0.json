@@ -1,0 +1,22 @@
+{
+  "_id": "JOE8TfECdsPXQnK0",
+  "name": "Magic Aura",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Magic Aura' level='5'><p><h5>Magic Aura</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Glamer)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 1, Magic 1, Sorcerer/Wizard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One touched object weighing up to 5 lb./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>One day/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You alter an item's aura so that it registers to <i>detect</i> spells (and spells with similar capabilities) as though it were nonmagical, or a magic item of a kind you specify, or the subject of a spell you specify.</p><p>If the object bearing <i>magic aura</i> has <i>identify</i> cast on it or is similarly examined, the examiner recognizes that the aura is false and detects the object's actual qualities if he succeeds on a Will save. Otherwise, he believes the aura and no amount of testing reveals what the true magic is.</p><p>If the targeted item's own aura is exceptionally powerful (if it is an artifact, for instance), <i>magic aura</i> doesn't work.</p><p><i>Note:</i> A magic weapon, shield, or suit of armor must be a masterwork item, so a sword of average make, for example, looks suspicious if it has a magical aura.</p><p><i>Focus:</i> A small square of silk that must be passed over the object that receives the aura.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

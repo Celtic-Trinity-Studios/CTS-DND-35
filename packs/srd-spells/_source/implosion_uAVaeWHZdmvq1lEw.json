@@ -1,0 +1,22 @@
+{
+  "_id": "uAVaeWHZdmvq1lEw",
+  "name": "Implosion",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Implosion' level='5'><p><h5>Implosion</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 9, Destruction 9<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>One corporeal creature/round<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Concentration (up to 4 rounds)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You create a destructive resonance in a corporeal creature's body. For each round you concentrate, you cause one creature to collapse in on itself, killing it. (This effect, being instantaneous, cannot be dispelled.)</p><p>You can target a particular creature only once with each casting of the spell.</p><p><i>Implosion</i> has no effect on creatures in gaseous form or on incorporeal creatures.</p><p/>\n</div>\n    ",
+    "spellLevel": 9,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "4yT4UgiSCmo0nf4g",
+  "name": "Phase Door",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Phase Door' level='5'><p><h5>Phase Door</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Creation)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7, Travel 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>0 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Ethereal 5 ft. by 8 ft. opening, 10 ft. deep + 5 ft. deep per three levels<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>One usage per two levels<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell creates an ethereal passage through wooden, plaster, or stone walls, but not other materials. The <i>phase door</i> is invisible and inaccessible to all creatures except you, and only you can use the passage. You disappear when you enter the <i>phase door</i> and appear when you exit. If you desire, you can take one other creature (Medium or smaller) through the door. This counts as two uses of the door. The door does not allow light, sound, or spell effects through it, nor can you see through it without using it. Thus, the spell can provide an escape route, though certain creatures, such as phase spiders, can follow with ease. A <i>gem of true seeing</i> or similar magic reveals the presence of a <i>phase door</i> but does not allow its use.</p><p>A <i>phase door</i> is subject to <i>dispel magic</i>. If anyone is within the passage when it is dispelled, he is harmlessly ejected just as if he were inside a <i>passwall</i> effect.</p><p>You can allow other creatures to use the <i>phase door</i> by setting some triggering condition for the door. Such conditions can be as simple or elaborate as you desire. They can be based on a creature's name, identity, or alignment, but otherwise must be based on observable actions or qualities. Intangibles such as level, class, Hit Dice, and hit points don't qualify.</p><p><i>phase door</i> can be made permanent with a <i>permanency</i> spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": false,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

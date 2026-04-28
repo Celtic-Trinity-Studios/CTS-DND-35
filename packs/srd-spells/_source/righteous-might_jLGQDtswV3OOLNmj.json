@@ -1,0 +1,22 @@
+{
+  "_id": "jLGQDtswV3OOLNmj",
+  "name": "Righteous Might",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Righteous Might' level='5'><p><h5>Righteous Might</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 5, Strength 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Personal<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr></table><p>Your height immediately doubles, and your weight increases by a factor of eight. This increase changes your size category to the next larger one, and you gain a +8 size bonus to Strength and a +4 size bonus to Constitution. You gain a +4 enhancement bonus to your natural armor. You gain damage reduction 5/evil (if you normally channel positive energy) or damage reduction 5/good (if you normally channel negative energy). At 12th level this damage reduction becomes 10/evil or 10/good, and at 15th level it becomes 15/evil or 15/good (the maximum). Your size modifier for AC and attacks changes as appropriate to your new size category. This spell doesn't change your speed.  Determine space and reach as appropriate to your new size.</p><p>If insufficient room is available for the desired growth, you attain the maximum possible size and may make a Strength check (using your increased Strength) to burst any enclosures in the process. If you fail, you are constrained without harm by the materials enclosing you- the spell cannot crush you by increasing your size.</p><p>All equipment you wear or carry is similarly enlarged by the spell. Melee and projectile weapons deal more damage. Other magical properties are not affected by this spell. Any enlarged item that leaves your possession (including a projectile or thrown weapon) instantly returns to its normal size. This means that thrown weapons deal their normal damage (projectiles deal damage based on the size of the weapon that fired them).</p><p>Multiple magical effects that increase size do not stack.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

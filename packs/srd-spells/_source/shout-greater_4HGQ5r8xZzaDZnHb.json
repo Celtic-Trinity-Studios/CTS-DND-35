@@ -1,0 +1,22 @@
+{
+  "_id": "4HGQ5r8xZzaDZnHb",
+  "name": "Shout, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Shout, Greater' level='5'><p><h5>Shout, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Sonic]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Sorcerer/Wizard 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>60 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude partial or Reflex negates (object); see text<br/></td></tr></table><p>This spell functions like <i>shout</i>,  except that the cone deals 10d6 points of sonic damage (or 1d6 points of sonic damage per caster level, maximum 20d6, against exposed brittle or crystalline objects or crystalline creatures). It also causes creatures to be stunned for 1 round and deafened for 4d6 rounds. A creature in the area of the cone can negate the stunning and halve both the damage and the duration of the deafness with a successful Fortitude save. A creature holding vulnerable objects can attempt a Reflex save to negate the damage to those objects.</p><p><i>Arcane Focus:</i> A small metal or ivory horn.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Sonic"
+  }
+}

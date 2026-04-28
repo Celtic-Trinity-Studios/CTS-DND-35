@@ -1,0 +1,10 @@
+{
+  "_id": "sSFVnLRRySolOLQe",
+  "name": "Improved Bull Rush",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Bull Rush' level='3'><p><h3>Improved Bull Rush [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 13, Power Attack.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When you perform a bull rush you do not provoke an attack of opportunity from the defender. You also gain a +4 bonus on the opposed Strength check you make to push back the defender.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Improved Bull Rush as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Str 13, Power Attack."
+  }
+}

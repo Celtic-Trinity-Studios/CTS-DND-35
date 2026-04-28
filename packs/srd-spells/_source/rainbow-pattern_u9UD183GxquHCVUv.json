@@ -1,0 +1,22 @@
+{
+  "_id": "u9UD183GxquHCVUv",
+  "name": "Rainbow Pattern",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Rainbow Pattern' level='5'><p><h5>Rainbow Pattern</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Pattern) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V (Brd only), S, M, F; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Colorful lights with a 20-ft. -radius spread<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Concentration +1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>A glowing, rainbow-hued pattern of interweaving colors fascinates those within it. <i>Rainbow pattern</i> fascinates a maximum of 24 Hit Dice of creatures. Creatures with the fewest HD are affected first. Among creatures with equal HD, those who are closest to the spell's point of origin are affected first. An affected creature that fails its saves is fascinated by the pattern.</p><p>With a simple gesture (a free action), you can make the rainbow pattern move up to 30 feet per round (moving its effective point of origin). All fascinated creatures follow the moving rainbow of light, trying to get or remain within the effect. Fascinated creatures who are restrained and removed from the pattern still try to follow it. If the pattern leads its subjects into a dangerous area each fascinated creature gets a second save. If the view of the lights is completely blocked creatures who can't see them are no longer affected.</p><p>The spell does not affect sightless creatures.</p><p><i>Verbal Component:</i> A wizard or sorcerer need not utter a sound to cast this spell, but a bard must sing, play music, or recite a rhyme as a verbal component.</p><p><i>Material Component:</i> A piece of phosphor.</p><p><i>Focus:</i> A crystal prism.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "A piece of phosphor.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

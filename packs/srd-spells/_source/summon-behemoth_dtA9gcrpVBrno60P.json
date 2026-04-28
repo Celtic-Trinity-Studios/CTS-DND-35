@@ -1,0 +1,22 @@
+{
+  "_id": "dtA9gcrpVBrno60P",
+  "name": "Summon Behemoth",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Summon Behemoth' level='5'><p><h5>Summon Behemoth</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Summoning)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>72<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>75 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Summoned creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>20 rounds (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>648,000 gp; 13 days; 25,920 XP. Seed: summon (DC 14). Factors: summon CR 21 creature (DC +38), 1-action casting time (+20 DC).<br/></td></tr></table><p>The character can summon a behemoth to attack his or her enemies. It appears where the character designates and acts immediately, on the character's turn. It attacks the character's opponents to the best of its ability. If the character can communicate with the creature, he or she can direct it not to attack, to attack particular enemies, or to perform other actions. Summoned creatures act normally on the last round of the spell and disappear at the end of their turn.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

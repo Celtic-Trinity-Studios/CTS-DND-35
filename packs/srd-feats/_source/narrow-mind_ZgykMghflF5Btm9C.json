@@ -1,0 +1,10 @@
+{
+  "_id": "ZgykMghflF5Btm9C",
+  "name": "Narrow Mind",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Narrow Mind' level='3'><p><h3>Narrow Mind [Psionic]</h3></p><p>Your ability to concentrate is as keen as an arrowhead, allowing you to gain your psionic focus even in the most turbulent situations.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Wis 13.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You gain a +4 bonus on Concentration checks you make to become psionically focused.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Wis 13."
+  }
+}

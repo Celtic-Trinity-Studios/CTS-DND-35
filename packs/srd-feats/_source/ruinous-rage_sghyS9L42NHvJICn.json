@@ -1,0 +1,10 @@
+{
+  "_id": "sghyS9L42NHvJICn",
+  "name": "Ruinous Rage",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Ruinous Rage' level='3'><p><h3>Ruinous Rage [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 25, Improved Sunder, Power Attack, rage 5/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> While in a rage, the character ignores the hardness of any object he or she strikes. Also, double the character's Strength bonus for the purposes of any Strength check made to break an object with sudden force rather than by dealing normal damage (including bursting bindings, such as ropes or manacles).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Str 25, Improved Sunder, Power Attack, rage 5/day."
+  }
+}

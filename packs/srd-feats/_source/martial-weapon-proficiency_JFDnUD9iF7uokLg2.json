@@ -1,0 +1,10 @@
+{
+  "_id": "JFDnUD9iF7uokLg2",
+  "name": "Martial Weapon Proficiency",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Martial Weapon Proficiency' level='3'><p><h3>Martial Weapon Proficiency [General]</h3></p><p>Choose a type of martial weapon. You understand how to use that type of martial weapon in combat.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> You make attack rolls with the selected weapon normally.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> When using a weapon with which you are not proficient, you take a -4 penalty on attack rolls.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> Barbarians, fighters, paladins, and rangers are proficient with all martial weapons. They need not select this feat.</p><p>You can gain Martial Weapon Proficiency multiple times. Each time you take the feat, it applies to a new type of weapon.</p><p>A cleric who chooses the War domain automatically gains the Martial Weapon Proficiency feat related to his deity's favored weapon as a bonus feat, if the weapon is a martial one. He need not select it.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

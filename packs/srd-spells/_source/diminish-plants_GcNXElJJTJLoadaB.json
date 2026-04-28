@@ -1,0 +1,22 @@
+{
+  "_id": "GcNXElJJTJLoadaB",
+  "name": "Diminish Plants",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Diminish Plants' level='5'><p><h5>Diminish Plants</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 3, Ranger 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target or Area:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell has two versions.</p><p><i>Prune Growth:</i> This version causes normal vegetation within long range (400 feet + 40 feet per level) to shrink to about one-third of their normal size, becoming untangled and less bushy. The affected vegetation appears to have been carefully pruned and trimmed.</p><p>At your option, the area can be a 100- foot-radius circle, a 150-foot-radius semicircle, or a 200-foot-radius quarter-circle.</p><p>You may also designate portions of the area that are not affected.</p><p><i>Stunt Growth:</i> This version targets normal plants within a range of 1/2 mile, reducing their potential productivity over the course of the following year to one third below normal.</p><p><i>Diminish plants</i> counters <i>plant growth</i>.</p><p>This spell has no effect on plant creatures.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

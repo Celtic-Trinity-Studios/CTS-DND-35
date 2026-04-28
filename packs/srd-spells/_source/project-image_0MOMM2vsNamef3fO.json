@@ -1,0 +1,22 @@
+{
+  "_id": "0MOMM2vsNamef3fO",
+  "name": "Project Image",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Project Image' level='5'><p><h5>Project Image</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Shadow)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Sorcerer/Wizard 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>One shadow duplicate<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will disbelief (if interacted with)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You tap energy from the Plane of Shadow to create a quasi-real, illusory version of yourself. The projected image looks, sounds, and smells like you but is intangible. The projected image mimics your actions (including speech) unless you direct it to act differently (which is a move action).</p><p>You can see through its eyes and hear through its ears as if you were standing where it is, and during your turn you can switch from using its senses to using your own, or back again, as a free action. While you are using its senses, your body is considered blinded and deafened.</p><p>If you desire, any spell you cast whose range is touch or greater can originate from the projected image instead of from you. The projected image can't cast any spells on itself except for illusion spells. The spells affect other targets normally, despite originating from the projected image.</p><p>Objects are affected by the projected image as if they had succeeded on their Will save.</p><p>You must maintain line of effect to the projected image at all times. If your line of effect is obstructed, the spell ends. If you use <i>dimension door</i>,  <i>teleport</i>,  <i>plane shift</i>,  or a similar spell that breaks your line of effect, even momentarily, the spell ends.</p><p><i>Material Component:</i> A small replica of you (a doll), which costs 5 gp to create.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A small replica of you (a doll), which costs 5 gp to create.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

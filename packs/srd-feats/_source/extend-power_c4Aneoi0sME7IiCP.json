@@ -1,0 +1,10 @@
+{
+  "_id": "c4Aneoi0sME7IiCP",
+  "name": "Extend Power",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Extend Power' level='3'><p><h3>Extend Power [Metapsionic]</h3></p><p>You can manifest powers that last longer than normal.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus.</p><p>You can manifest an extended power. An extended power lasts twice as long as normal. A power with a duration of concentration, instantaneous, or permanent is not affected by this feat.</p><p>Using this feat increases the power point cost of the power by 2. The power's total cost cannot exceed your manifester level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metapsionic",
+    "prerequisites": "None"
+  }
+}

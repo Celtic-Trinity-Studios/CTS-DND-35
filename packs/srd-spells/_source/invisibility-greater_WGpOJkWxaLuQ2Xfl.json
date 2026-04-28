@@ -1,0 +1,22 @@
+{
+  "_id": "WGpOJkWxaLuQ2Xfl",
+  "name": "Invisibility, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Invisibility, Greater' level='5'><p><h5>Invisibility, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Glamer)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You or creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates (harmless)<br/></td></tr></table><p>This spell functions like <i>invisibility</i>, except that it doesn't end if the subject attacks.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

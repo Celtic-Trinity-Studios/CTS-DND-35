@@ -1,0 +1,22 @@
+{
+  "_id": "a2kPcHHnNN3qFVJS",
+  "name": "Brain Spider",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Brain Spider' level='5'><p><h5>Brain Spider</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 8, Mind 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 round<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Long (400 ft. + 40 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>Up to eight living creatures<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>This spell allows you to eavesdrop as a standard action on the thoughts of up to eight other creatures at once, hearing as desired:</p><ul>\n <li> Individual trains of thought in whatever order you desire.</li>\n <li> Information from all minds about one particular topic, thing, or being, one nugget of information per caster level.</li>\n <li> A study of the thoughts and memories of one creature of the group in detail.</li>\n</ul><p>Once per round, if you do not perform a detailed study of one creature's mind, you can attempt (as a standard action) to implant a <i>suggestion</i> in the mind of any one of the affected creatures. The creature can make another Will saving throw to resist the <i>suggestion</i>,  using the save DC of the <i>brain spider</i> spell. (Creatures with special resistance to enchantment spells can use this resistance to keep from being affected by the <i>suggestion</i>.) Success on this saving throw does not negate the other effects of the <i>brain spider</i> spell for that creature.</p><p>You can affect all intelligent beings of your choice within range (up to the limit of eight), beginning with known or named beings. Language is not a barrier, and you need not personally know the beings The spell cannot reach those who make a successful Will save.</p><p><i>Material Component:</i> A spider of any size or kind. It can be dead, but must still have all eight legs.</p><p/>\n</div>\n    ",
+    "spellLevel": 8,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "A spider of any size or kind. It can be dead, but must still have all eight legs.",
+    "castingTime": "1 round",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

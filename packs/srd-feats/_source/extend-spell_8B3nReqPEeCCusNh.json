@@ -1,0 +1,10 @@
+{
+  "_id": "8B3nReqPEeCCusNh",
+  "name": "Extend Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Extend Spell' level='3'><p><h3>Extend Spell [Metamagic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> An extended spell lasts twice as long as normal. A spell with a duration of concentration, instantaneous, or permanent is not affected by this feat. An extended spell uses up a spell slot one level higher than the spell's actual level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "None"
+  }
+}

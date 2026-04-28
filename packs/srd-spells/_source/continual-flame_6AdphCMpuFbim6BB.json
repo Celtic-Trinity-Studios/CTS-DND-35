@@ -1,0 +1,22 @@
+{
+  "_id": "6AdphCMpuFbim6BB",
+  "name": "Continual Flame",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Continual Flame' level='5'><p><h5>Continual Flame</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Light]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 3, Sorcerer/Wizard 2<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Object touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Magical, heatless flame<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Permanent<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>A flame, equivalent in brightness to a torch, springs forth from an object that you touch. The effect looks like a regular flame, but it creates no heat and doesn't use oxygen. A <i>continual flame</i> can be covered and hidden but not smothered or quenched.</p><p>Light spells counter and dispel darkness spells of an equal or lower level.</p><p><i>Material Component:</i> You sprinkle ruby dust (worth 50 gp) on the item that is to carry the flame.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "You sprinkle ruby dust (worth 50 gp) on the item that is to carry the flame.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Light"
+  }
+}

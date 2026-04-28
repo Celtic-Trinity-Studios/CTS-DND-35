@@ -1,0 +1,10 @@
+{
+  "_id": "YUzRKTjALB21gyRT",
+  "name": "Great Charisma",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Great Charisma' level='3'><p><h3>Great Charisma [Epic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's Charisma increases by 1 point.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Its effects stack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "None"
+  }
+}

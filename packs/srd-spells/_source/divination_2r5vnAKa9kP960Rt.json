@@ -1,0 +1,22 @@
+{
+  "_id": "2r5vnAKa9kP960Rt",
+  "name": "Divination",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Divination' level='5'><p><h5>Divination</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 4, Knowledge 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Personal<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr></table><p>Similar to <i>augury</i> but more powerful, a <i>divination</i> spell can provide you with a useful piece of advice in reply to a question concerning a specific goal, event, or activity that is to occur within one week. The advice can be as simple as a short phrase, or it might take the form of a cryptic rhyme or omen. If your party doesn't act on the information, the conditions may change so that the information is no longer useful. The base chance for a correct <i>divination</i> is 70% + 1% per caster level, to a maximum of 90%. If the dice roll fails, you know the spell failed, unless specific magic yielding false information is at work.</p><p>As with <i>augury</i>, multiple <i>divinations</i> about the same topic by the same caster use the same dice result as the first <i>divination</i> spell and yield the same answer each time.</p><p><i>Material Component:</i> Incense and a sacrificial offering appropriate to your religion, together worth at least 25 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "Incense and a sacrificial offering appropriate to your religion, together worth at least 25 gp.",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

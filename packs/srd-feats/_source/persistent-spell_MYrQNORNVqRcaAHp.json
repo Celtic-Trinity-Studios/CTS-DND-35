@@ -1,0 +1,10 @@
+{
+  "_id": "MYrQNORNVqRcaAHp",
+  "name": "Persistent Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Persistent Spell' level='3'><p><h3>Persistent Spell [Metamagic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Extend Spell.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> A persistent spell has a duration of 24 hours. The persistent spell must have a personal range or a fixed range. Spells of instantaneous duration cannot be affected by this feat, nor can spells whose effects are discharged.  You need not concentrate on spells such as <i>detect magic</i> or <i>detect thoughts</i> to be aware of the mere presence of absence of the things detected, but you must still concentrate to gain additional information as normal.  Concentration on such a spell is a standard action that does not provoke an attack of opportunity.  A persistent spell uses up a spell slot six levels higher than the spell's actual level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "Extend Spell."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "p1jAkHD6v673etBC",
+  "name": "Speed of Thought",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Speed of Thought' level='3'><p><h3>Speed of Thought [Psionic]</h3></p><p>The energy of your mind energizes the alacrity of your body.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Wis 13.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> As long as you are psionically focused and not wearing heavy armor, you gain an insight bonus to your speed of 10 feet.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Wis 13."
+  }
+}

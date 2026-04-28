@@ -1,0 +1,22 @@
+{
+  "_id": "IBfglllBQOTQowg3",
+  "name": "Blasphemy",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Blasphemy' level='5'><p><h5>Blasphemy</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Evil, Sonic]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 7, Evil 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>40 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>Nonevil creatures in a 40-ft. -radius spread centered on you<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None or Will negates; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>Any nonevil creature within the area of a <i>blasphemy</i> spell suffers the following ill effects.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>HD</b><br/></td>\n<td><b>Effect</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Equal to caster level<br/></td>\n<td>Dazed<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Up to caster level -1<br/></td>\n<td>Weakened, dazed<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Up to caster level -5<br/></td>\n<td>Paralyzed, weakened, dazed<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Up to caster level -10<br/></td>\n<td>Killed, paralyzed, weakened, dazed<br/></td>\n\n</tr>\n</table><p>The effects are cumulative and concurrent.</p><p>No saving throw is allowed against these effects.</p><p><i>Dazed:</i> The creature can take no actions for 1 round, though it defends itself normally.</p><p><i>Weakened:</i> The creature's Strength score decreases by 2d6 points for 2d4 rounds.</p><p><i>Paralyzed:</i> The creature is paralyzed and helpless for 1d10 minutes.</p><p><i>Killed:</i> Living creatures die. Undead creatures are destroyed.</p><p>Furthermore, if you are on your home plane when you cast this spell, nonevil extraplanar creatures within the area are instantly banished back to their home planes. Creatures so banished cannot return for at least 24 hours. This effect takes place regardless of whether the creatures hear the <i>blasphemy</i>. The banishment effect allows a Will save (at a -4 penalty) to negate.</p><p>Creatures whose Hit Dice exceed your caster level are unaffected by <i>blasphemy</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": false,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Evil, Sonic"
+  }
+}

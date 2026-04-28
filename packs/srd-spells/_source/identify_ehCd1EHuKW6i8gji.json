@@ -1,0 +1,22 @@
+{
+  "_id": "ehCd1EHuKW6i8gji",
+  "name": "Identify",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Identify' level='5'><p><h5>Identify</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 1, Magic 2, Sorcerer/Wizard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M/DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 hour<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>One touched object<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>The spell determines all magic properties of a single magic item, including how to activate those functions (if appropriate), and how many charges are left (if any).</p><p><i>Identify</i> does not function when used on an artifact.</p><p><i>Arcane Material Component:</i> A pearl of at least 100 gp value, crushed and stirred into wine with an owl feather; the infusion must be drunk prior to spellcasting.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 hour",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

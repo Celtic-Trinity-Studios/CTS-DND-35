@@ -1,0 +1,10 @@
+{
+  "_id": "wmTCg8wZ04J49suo",
+  "name": "Maximize Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Maximize Spell' level='3'><p><h3>Maximize Spell [Metamagic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> All variable, numeric effects of a spell modified by this feat are maximized. Saving throws and opposed rolls are not affected, nor are spells without random variables. A maximized spell uses up a spell slot three levels higher than the spell's actual level.</p><p>An empowered, maximized spell gains the separate benefits of each feat: the maximum result plus one-half the normally rolled result.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "None"
+  }
+}

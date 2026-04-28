@@ -1,0 +1,10 @@
+{
+  "_id": "HvE9fTff7Is8EjbJ",
+  "name": "Instant Reload",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Instant Reload' level='3'><p><h3>Instant Reload [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Quick Draw, Rapid Reload, Weapon Focus (crossbow type to be selected).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character may fire the selected type of crossbow at his or her full normal attack rate. Reloading the crossbow does not provoke attacks of opportunity.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Its effects do not stack. Each time a character takes the feat, it applies to a different type of crossbow.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Quick Draw, Rapid Reload, Weapon Focus (crossbow type to be selected)."
+  }
+}

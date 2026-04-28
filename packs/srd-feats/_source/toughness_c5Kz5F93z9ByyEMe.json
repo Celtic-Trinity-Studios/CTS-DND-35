@@ -1,0 +1,10 @@
+{
+  "_id": "c5Kz5F93z9ByyEMe",
+  "name": "Toughness",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Toughness' level='3'><p><h3>Toughness [General]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> You gain +3 hit points.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character may gain this feat multiple times. Its effects stack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

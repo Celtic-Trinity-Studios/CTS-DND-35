@@ -1,0 +1,19 @@
+{
+  "_id": "aNpjfq3Ru6seporA",
+  "name": "Lion",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Lion' level='2'><p><h2>Lion</h2></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Lion</b><br/></td> \n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Large Animal<br/></td> \n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>5d8+10 (32 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>40 ft. (8 squares)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>15 (-1 size, +3 Dex, +3 natural), touch 12, flat-footed 12<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+3/+12<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Claw +7 melee (1d4+5)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>2 claws +7 melee (1d4+5) and bite +2 melee (1d8+2)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Pounce, improved grab, rake 1d4+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +6, Ref +7, Will +2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 21, Dex 17, Con 15, Int 2, Wis 12, Cha 6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Balance +7, Hide +3*, Listen +5, Move Silently +11, Spot +5<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Run<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Warm plains<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary, pair, or pride (6-10)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>6-8 HD (Large)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>The statistics presented here describe a male African lion, which is 5 to 8 feet long and weighs 330 to 550 pounds. Females are slightly smaller but use the same statistics.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><div topic='Pounce' level='8'><p><b>Pounce (Ex):</b> If a lion charges a foe, it can make a full attack, including two rake attacks.</p>\n</div><div topic='Improved Grab' level='8'><p><b>Improved Grab (Ex):</b> To use this ability, a lion must hit with its bite attack. It can then attempt to start a grapple as a free action without provoking an attack of opportunity. If it wins the grapple check, it establishes a hold and can rake.</p>\n</div><div topic='Rake' level='8'><p><b>Rake (Ex):</b> Attack bonus +7 melee, damage 1d4+2.</p>\n</div><div topic='Skills' level='8'><p><b>Skills:</b> Lions have a +4 racial bonus on Balance, Hide, and Move Silently checks. *In areas of tall grass or heavy undergrowth, the Hide bonus improves to +12.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 3,
+      "environment": "Warm plains",
+      "organization": "Solitary, pair, or pride (6-10)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Large",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

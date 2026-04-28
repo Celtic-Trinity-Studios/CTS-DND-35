@@ -1,0 +1,10 @@
+{
+  "_id": "5oVt5m2QBwUW2Dwo",
+  "name": "Unholy Strike",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Unholy Strike' level='3'><p><h3>Unholy Strike [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Smite good class feature, any evil alignment.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Any weapon the character wields is treated as an unholy weapon (it is evil-aligned and deals an extra 2d6 points of damage against creatures of good alignment). This ability doesn't stack with similar abilities. If the weapon already has an alignment, this feat has no effect on the weapon.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Smite good class feature, any evil alignment."
+  }
+}

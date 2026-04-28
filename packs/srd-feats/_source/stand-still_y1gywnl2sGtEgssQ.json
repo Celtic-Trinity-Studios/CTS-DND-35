@@ -1,0 +1,10 @@
+{
+  "_id": "y1gywnl2sGtEgssQ",
+  "name": "Stand Still",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Stand Still' level='3'><p><h3>Stand Still [General]</h3></p><p>You can prevent foes from fleeing or closing.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Str 13.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When a foe's movement out of a square you threaten grants you an attack of opportunity, you can give up that attack and instead attempt to stop your foe in his tracks. Make your attack of opportunity normally. If you hit your foe, he must succeed on a Reflex save against a DC of 10 + your damage roll (the opponent does not actually take damage), or immediately halt as if he had used up his move actions for the round.</p><p>Since you use the Stand Still feat in place of your attack of opportunity, you can do so only a number of times per round equal to the number of times per round you could make an attack of opportunity (normally just one).</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Attacks of opportunity cannot halt your foes in their tracks.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Str 13."
+  }
+}

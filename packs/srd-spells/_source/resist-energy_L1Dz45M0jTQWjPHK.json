@@ -1,0 +1,22 @@
+{
+  "_id": "L1Dz45M0jTQWjPHK",
+  "name": "Resist Energy",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Resist Energy' level='5'><p><h5>Resist Energy</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 2, Druid 2, Fire 3, Paladin 2, Ranger 1, Sorcerer/Wizard 2<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>10 min./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates (harmless)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (harmless)<br/></td></tr></table><p>This abjuration grants a creature limited protection from damage of whichever one of five energy types you select: acid, cold, electricity, fire, or sonic. The subject gains energy resistance 10 against the energy type chosen, meaning that each time the creature is subjected to such damage (whether from a natural or magical source), that damage is reduced by 10 points before being applied to the creature's hit points. The value of the energy resistance granted increases to 20 points at 7th level and to a maximum of 30 points at 11th level. The spell protects the recipient's equipment as well.</p><p><i>Resist energy</i> absorbs only damage. The subject could still suffer unfortunate side effects.</p><p><i>Note: Resist energy</i> overlaps (and does not stack with) <i>protection from energy</i>. If a character is warded by <i>protection from energy</i> and <i>resist energy</i>,  the <i>protection</i> spell absorbs damage until its power is exhausted.</p><p/>\n</div>\n    ",
+    "spellLevel": 2,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

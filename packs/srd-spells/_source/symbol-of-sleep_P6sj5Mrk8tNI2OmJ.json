@@ -1,0 +1,22 @@
+{
+  "_id": "P6sj5Mrk8tNI2OmJ",
+  "name": "Symbol of Sleep",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Symbol of Sleep' level='5'><p><h5>Symbol of Sleep</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 5, Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr></table><p>This spell functions like <i>symbol of death</i>, except that all creatures of 10 HD or less within 60 feet of the <i>symbol of sleep</i> instead fall into a catatonic slumber for 3d6x10 minutes. Unlike with the <i>sleep</i> spell, sleeping creatures cannot be awakened by nonmagical means before this time expires.</p><p>Unlike <i>symbol of death</i>, <i>symbol of sleep</i> has no hit point limit; once triggered, a <i>symbol of sleep</i> simply remains active for 10 minutes per caster level.</p><p><i>Note:</i> Magic traps such as <i>symbol of sleep</i> are hard to detect and disable. A rogue (only) can use the Search skill to find a <i>symbol of sleep</i> and Disable Device to thwart it. The DC in each case is 25 + spell level, or 30 for <i>symbol of sleep</i>.</p><p><i>Material Component:</i> Mercury and phosphorus, plus powdered diamond and opal with a total value of at least 1,000 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "Mercury and phosphorus, plus powdered diamond and opal with a total value of at least 1,000 gp.",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

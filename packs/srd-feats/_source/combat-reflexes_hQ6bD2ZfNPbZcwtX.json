@@ -1,0 +1,10 @@
+{
+  "_id": "hQ6bD2ZfNPbZcwtX",
+  "name": "Combat Reflexes",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Combat Reflexes' level='3'><p><h3>Combat Reflexes [General]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> You may make a number of additional attacks of opportunity equal to your Dexterity bonus.</p><p>With this feat, you may also make attacks of opportunity while flat-footed.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> A character without this feat can make only one attack of opportunity per round and can't make attacks of opportunity while flat-footed.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> The Combat Reflexes feat does not allow a rogue to use her opportunist ability more than once per round.</p><p>A fighter may select Combat Reflexes as one of his fighter bonus feats.</p><p>A monk may select Combat Reflexes as a bonus feat at 2nd level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

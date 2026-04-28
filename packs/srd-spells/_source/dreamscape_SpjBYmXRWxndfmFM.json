@@ -1,0 +1,22 @@
+{
+  "_id": "SpjBYmXRWxndfmFM",
+  "name": "Dreamscape",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Dreamscape' level='5'><p><h5>Dreamscape</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration [Teleportation]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>29<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 minute<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You and other touched willing creatures weighing up to 1,000 lb.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Yes (harmless) (see text) <br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (harmless)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>261,000 gp; 6 days; 10,400 XP. Seed: Transport (DC 27). Factor: transport to region of dreams (+2 DC).<br/></td></tr></table><p>The character and any creatures he or she touches are drawn into the region of dreams. The character can take more than one creature along (subject to the character's weight limit), but all must be touching each other. The character physically enters the land of dreams, leaving nothing behind. For every minute the character moves through the dream landscape, he or she can 'wake' to find him or her self five miles displaced in the waking world. The character does not know precisely where he or she will come out in the waking world, nor the conditions of the waking world through which the character travels. The character knows approximately where he or she will end up based on time spent traveling in dream. <i>Dreamscape</i> can also be used to travel to other planes that contain creatures that dream, but doing this requires crossing into the dreams of outsiders, where the character is subject to the dangers of alien dream realities. This is a potentially perilous proposition. Transferring to another plane of existence requires 1d4 hours of uninterrupted journey. Any creatures touched by the character when <i>Dreamscape</i> is cast also make the transition to the borders of unconscious thought. They may opt to follow the character, wander off into the dreams of others, or stumble back into the waking world (50% chance for either of the latter results if they are lost or abandoned by the character). Creatures unwilling to accompany the character into the region of dreams receive a Will save, negating the effect if successful.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 minute",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Teleportation"
+  }
+}

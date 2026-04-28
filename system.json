@@ -33,7 +33,29 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "srd-spells",
+      "label": "3.5e SRD Spells",
+      "path": "packs/srd-spells",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-feats",
+      "label": "3.5e SRD Feats",
+      "path": "packs/srd-feats",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-monsters",
+      "label": "3.5e SRD Monsters",
+      "path": "packs/srd-monsters",
+      "type": "Actor",
+      "system": "CTS-DND-35"
+    }
+  ],
   "packFolders": [],
   "socket": true,
   "gridDistance": 5,

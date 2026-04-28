@@ -1,0 +1,22 @@
+{
+  "_id": "HOy5wVZN9Oy6vaH3",
+  "name": "Arcane Eye",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Arcane Eye' level='5'><p><h5>Arcane Eye</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination (Scrying)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Unlimited<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Magical sensor<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You create an invisible magical sensor that sends you visual information. You can create the <i>arcane eye</i> at any point you can see, but it can then travel outside your line of sight without hindrance. An <i>arcane eye</i> travels at 30 feet per round (300 feet per minute) if viewing an area ahead as a human would (primarily looking at the floor) or 10 feet per round (100 feet per minute) if examining the ceiling and walls as well as the floor ahead. It sees exactly as you would see if you were there.</p><p>The eye can travel in any direction as long as the spell lasts. Solid barriers block its passage, but it can pass through a hole or space as small as 1 inch in diameter. The eye can't enter another plane of existence, even through a <i>gate</i> or similar magical portal.</p><p>You must concentrate to use an <i>arcane eye</i>. If you do not concentrate, the eye is inert until you again concentrate.</p><p><i>Material Component:</i> A bit of bat fur.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A bit of bat fur.",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

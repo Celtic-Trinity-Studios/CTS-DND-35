@@ -1,0 +1,10 @@
+{
+  "_id": "owhs0hvIfY7i5Oik",
+  "name": "Spellcasting Harrier",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Spellcasting Harrier' level='3'><p><h3>Spellcasting Harrier [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Combat Reflexes.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Any spellcaster the character threatens in melee provokes an attack of opportunity if he or she tries to cast defensively.  The character gets a +4 bonus on this attack roll.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Combat Reflexes."
+  }
+}

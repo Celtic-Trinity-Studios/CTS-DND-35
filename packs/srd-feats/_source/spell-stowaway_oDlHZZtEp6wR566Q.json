@@ -1,0 +1,10 @@
+{
+  "_id": "oDlHZZtEp6wR566Q",
+  "name": "Spell Stowaway",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Spell Stowaway' level='3'><p><h3>Spell Stowaway [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Spellcraft 24 ranks, caster level 12th.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Choose a spell-like ability the character knows, or a spell the character cam cast.  The character is attuned to the magic he or she chooses. If another spellcaster within 300 feet of the character uses this magic, the character also immediately gains the magic's effect as if it had been used on the character by the same caster. The character must have direct line of effect to the spellcaster in order to gain the benefit of the attuned magic (though the character does not have to know the spellcaster is present, and he or she can be flat-footed). The magic's duration, effect, and other specifics are determined by its original caster's level.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Its effects do not stack. Each time a character takes the feat, it applies to a different spell or spell-like ability.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Spellcraft 24 ranks, caster level 12th."
+  }
+}

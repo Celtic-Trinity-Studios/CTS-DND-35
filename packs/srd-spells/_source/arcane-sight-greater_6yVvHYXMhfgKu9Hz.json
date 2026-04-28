@@ -1,0 +1,22 @@
+{
+  "_id": "6yVvHYXMhfgKu9Hz",
+  "name": "Arcane Sight, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Arcane Sight, Greater' level='5'><p><h5>Arcane Sight, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7<br/></td></tr></table><p>This spell functions like <i>arcane sight</i>,  except that you automatically know which spells or magical effects are active upon any individual or object you see.</p><p><i>Greater arcane sight</i> doesn't let you identify magic items.</p><p>Unlike <i>arcane sight</i>, this spell cannot be made permanent with a <i>permanency</i> spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

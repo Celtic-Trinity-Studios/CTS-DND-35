@@ -1,0 +1,19 @@
+{
+  "_id": "q8uSN40t3Q9u3pEb",
+  "name": "Snake, Tiny Viper",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Viper Snake' level='5'><p><h5>Viper Snake</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Snake, Tiny Viper</b> <br/></td>\n\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td>Tiny Animal<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>1/4 d8 (1 hp)<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+3<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>15 ft. (3 squares), climb 15 ft., swim 15 ft.<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>17 (+2 size, +3 Dex, +2 natural), touch 15, flat-footed 14<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+0/-11<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +5 melee (1 plus poison)<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +5 melee (1 plus poison)<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>2-1/2 ft./0 ft.<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Poison<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Scent<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +2, Ref +5, Will +1<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 4, Dex 17, Con 11, Int 1, Wis 12, Cha 2<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Balance +11, Climb +11, Hide +15, Listen +6, Spot +6, Swim +5<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Weapon Finesse<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate marshes<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>1/3<br/></td>\n\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>-<br/></td>\n\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n\n</tr>\n</table><p/><p>These creatures range widely in size. They are not particularly aggressive, but will often lash out with a bite attack before attempting to retreat.</p>\n</div>\n    ",
+      "cr": 1,
+      "environment": "Temperate marshes",
+      "organization": "Solitary",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Tiny",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

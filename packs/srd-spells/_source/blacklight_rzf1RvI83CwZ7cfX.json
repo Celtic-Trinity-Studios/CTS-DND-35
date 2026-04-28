@@ -1,0 +1,22 @@
+{
+  "_id": "rzf1RvI83CwZ7cfX",
+  "name": "Blacklight",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Blacklight' level='5'><p><h5>Blacklight</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Darkness]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Darkness 3, Sorcerer/Wizard 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>A 20-ft. -radius emanation centered on a creature, object, or point in space<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates or none (object)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes or no (object)<br/></td></tr></table><p>The caster creates an area of total darkness. The darkness is impenetrable to normal vision and darkvision, but the caster can see normally within the blacklit area. Creatures outside the spell's area, even the caster, cannot see through it.</p><p>The spell can be cast on a point in space, but the effect is stationary cast on a mobile object. A character can cast the spell on a creature, and the effect then radiates from the creature and moves as it moves. Unattended objects and points in space do not get saving throws or benefit from spell resistance.</p><p><i>Blacklight</i> counters or dispels any light spell of equal or lower level. The 3rd-level cleric spell <i>daylight</i> counters or dispels <i>blacklight</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Darkness"
+  }
+}

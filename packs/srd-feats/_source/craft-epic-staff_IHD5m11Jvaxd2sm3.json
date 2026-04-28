@@ -1,0 +1,10 @@
+{
+  "_id": "IHD5m11Jvaxd2sm3",
+  "name": "Craft Epic Staff",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Craft Epic Staff' level='3'><p><h3>Craft Epic Staff [Item Creation] [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Craft Staff, Knowledge (arcana) 35 ranks, Spellcraft 35 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can craft staffs that exceed the normal limits for such items.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Item Creation, Epic",
+    "prerequisites": "Craft Staff, Knowledge (arcana) 35 ranks, Spellcraft 35 ranks."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "MUCNAzUXJjU7YpLe",
+  "name": "Craft Universal Item",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Craft Universal Item' level='3'><p><h3>Craft Universal Item [Item Creation]</h3></p><p>You can create universal psionic items.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Manifester level 3rd.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can create any universal psionic item whose prerequisites you meet. Crafting a universal psionic item takes one day for each 1,000 gp in its base price. To craft a universal psionic item, you must spend 1/25 of the item's base price in XP and use up raw materials costing one-half of this price.</p><p>You can also mend a broken universal item if it is one that you could make. Doing so costs half the XP, half the raw materials, and half the time it would take to craft that item in the first place.</p><p>Some universal items incur extra costs in XP, as noted in their descriptions. These costs are in addition to those derived from the item's base price. You must pay such a cost to create an item or to mend a broken one.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Item Creation",
+    "prerequisites": "Manifester level 3rd."
+  }
+}

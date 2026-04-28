@@ -1,0 +1,22 @@
+{
+  "_id": "qP7VWNJfIv8VKZPj",
+  "name": "Heat Metal",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Heat Metal' level='5'><p><h5>Heat Metal</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation [Fire]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 2, Sun 2<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Metal equipment of one creature per two levels, no two of which can be more than 30 ft. apart; or 25 lb. of metal/level, all of which must be within a 30-ft. circle<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>7 rounds<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates (object)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (object)<br/></td></tr></table><p><i>Heat metal</i> makes metal extremely warm. Unattended, nonmagical metal gets no saving throw. Magical metal is allowed a saving throw against the spell. An item in a creature's possession uses the creature's saving throw bonus unless its own is higher.</p><p>A creature takes fire damage if its equipment is heated. It takes full damage if its armor is affected or if it is holding, touching, wearing, or carrying metal weighing one-fifth of its weight. The creature takes minimum damage (1 point or 2 points; see the table) if it's not wearing metal armor and the metal that it's carrying weighs less than one-fifth of its weight.</p><p>On the first round of the spell, the metal becomes warm and uncomfortable to touch but deals no damage. The same effect also occurs on the last round of the spell's duration. During the second (and also the next-to-last) round, intense heat causes pain and damage. In the third, fourth, and fifth rounds, the metal is searing hot, causing more damage, as shown on the table below.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='4' curcol='4'>\n<td><b>Round</b><br/></td>\n<td><b>Metal</b>\n <b>Temperature</b><br/></td>\n<td><b>Damage</b><br/></td>\n\n</tr>\n\n<tr maxcol='4' curcol='4'>\n<td>1<br/></td>\n<td>Warm<br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>2<br/></td>\n<td>Hot<br/></td>\n<td>1d4 points<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>3-5<br/></td>\n<td>Searing<br/></td>\n<td>2d4 points<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>6<br/></td>\n<td>Hot<br/></td>\n<td>1d4 points<br/></td>\n\n</tr>\n\n<tr maxcol='4' curcol='4'>\n<td>7<br/></td>\n<td>Warm<br/></td>\n<td>None<br/></td>\n\n</tr>\n</table><p>Any cold intense enough to damage the creature negates fire damage from the spell (and vice versa) on a point-for-point basis. If cast underwater, <i>Heat metal</i> deals half damage and boils the surrounding water.</p><p><i>Heat metal</i> counters and dispels <i>chill metal</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 2,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Fire"
+  }
+}

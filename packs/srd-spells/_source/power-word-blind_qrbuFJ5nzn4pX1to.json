@@ -1,0 +1,22 @@
+{
+  "_id": "qrbuFJ5nzn4pX1to",
+  "name": "Power Word Blind",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Power Word Blind' level='5'><p><h5>Power Word Blind</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7, War 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One creature with 200 hp or less<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You utter a single word of power that causes one creature of your choice to become blinded, whether the creature can hear the word or not. The duration of the spell depends on the target's current hit point total. Any creature that currently has 201 or more hit points is unaffected by <i>power word blind</i>.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Points</b><br/></td> <td><b>Duration</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>50 or less<br/></td>\n<td>Permanent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>51-100<br/></td>\n<td>1d4+1 minutes<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>101-200<br/></td>\n<td>1d4+1 rounds<br/></td>\n\n</tr>\n</table><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": false,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

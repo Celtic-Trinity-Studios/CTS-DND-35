@@ -1,0 +1,10 @@
+{
+  "_id": "p5X44ibCQSL7Yyfa",
+  "name": "Multiattack",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Multiattack' level='3'><p><h3>Multiattack [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Three or more natural attacks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The creature's secondary attacks with natural weapons take only a -2 penalty.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, the creature's secondary attacks with natural weapons take a -5 penalty.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Three or more natural attacks."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "5NHKVF3ZZQhu2UkV",
+  "name": "Bane of Enemies",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Bane of Enemies' level='3'><p><h3>Bane of Enemies [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Survival 24 ranks, five or more favored enemies.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Any weapon the character wields against one of his or her favored enemies is treated as a bane weapon for that creature type (thus, its enhancement bonus is increased by +2 and it deals +2d6 points of damage). This ability doesn't stack with similar abilities.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Survival 24 ranks, five or more favored enemies."
+  }
+}

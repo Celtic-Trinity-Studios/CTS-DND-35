@@ -1,0 +1,10 @@
+{
+  "_id": "Ld9FBtjzYIkEzeKW",
+  "name": "Automatic Silent Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Automatic Silent Spell' level='3'><p><h3>Automatic Silent Spell [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Silent Spell, Spellcraft 24 ranks, ability to cast 9th-level arcane or divine spells.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character may cast all 0-, 1st-, 2nd-, and 3rd-level spells as silent spells without using higher-level spell slots.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Each time a character takes the feat, the spells of his or her next three lowest spell levels can now be silenced with no adjustment to their spell slots. This feat doesn't increase the casting time for those spells that normally become full-round actions when cast in metamagic form. However, since bard spells can't be enhanced with the Silent Spell feat, they can't be affected by this feat either.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Silent Spell, Spellcraft 24 ranks, ability to cast 9th-level arcane or divine spells."
+  }
+}

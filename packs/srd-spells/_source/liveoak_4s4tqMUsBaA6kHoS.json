@@ -1,0 +1,22 @@
+{
+  "_id": "4s4tqMUsBaA6kHoS",
+  "name": "Liveoak",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Liveoak' level='5'><p><h5>Liveoak</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Tree touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>One day/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell turns an oak tree into a protector or guardian. The spell can be cast on only a single tree at a time; while <i>liveoak</i> is in effect, you can't cast it again on another tree. The tree on which the spell is cast must be within 10 feet of your dwelling place, within a place sacred to you, or within 300 feet of something that you wish to guard or protect.</p><p><i>liveoak</i> must be cast on a healthy, Huge oak. A triggering phrase of up to one word per caster level is placed on the targeted oak. The <i>liveoak</i> spell triggers the tree into animating as a treant.</p><p>If <i>liveoak</i> is dispelled, the tree takes root immediately, wherever it happens to be. If released by you, the tree tries to return to its original location before taking root.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

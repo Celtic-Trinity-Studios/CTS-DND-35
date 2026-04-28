@@ -1,0 +1,19 @@
+{
+  "_id": "rTIN0aoFduqsW696",
+  "name": "Bulette",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Bulette' level='2'><p><h2>Bulette</h2></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Bulette</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Huge Magical Beast<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>9d10+45 (94 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>40 ft. (8 squares), burrow 10 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>22 (-2 size, +2 Dex, +12 natural), touch 10, flat-footed 20<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+9/+25<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +16 melee (2d8+8)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +16 melee (2d8+8) and 2 claws +10 melee (2d6+4)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>15 ft./10 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Leap<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Darkvision 60 ft., low-light vision, scent, tremorsense 60 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +11, Ref +8, Will +6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 27, Dex 15, Con 20, Int 2, Wis 13, Cha 6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Jump +18, Listen +9, Spot +3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Iron Will, Track, Weapon Focus (bite)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate hills<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary or pair<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>7<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>10-16 HD (Huge); 17-27 HD (Gargantuan)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>Also known as the landshark, the bulette is a terrifying predator that lives only to eat.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>A bulette attacks anything it regards as edible, choosing the easiest or closest prey first. The only creatures it refuses to eat are elves (and it dislikes the taste of dwarves). When burrowing underground, a landshark relies on its tremorsense ability to detect prey.</p><p>When it senses something edible (that is, senses movement), it breaks to the surface, crest first, and begins its attack.</p><div topic='Leap' level='8'><p><b>Leap (Ex):</b> A bulette can jump into the air during combat. This allows it to make four claw attacks instead of two, each with a +15 attack bonus, but it cannot bite.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 7,
+      "environment": "Temperate hills",
+      "organization": "Solitary or pair",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Huge",
+      "type": "Magical Beast",
+      "subtype": "None"
+    }
+  }
+}

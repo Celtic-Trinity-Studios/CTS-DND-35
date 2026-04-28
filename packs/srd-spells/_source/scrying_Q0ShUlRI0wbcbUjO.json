@@ -1,0 +1,22 @@
+{
+  "_id": "Q0ShUlRI0wbcbUjO",
+  "name": "Scrying",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Scrying' level='5'><p><h5>Scrying</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination (Scrying)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 3, Cleric 5, Druid 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M/DF, F<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 hour<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Magical sensor<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You can see and hear some creature, which may be at any distance. If the subject succeeds on a Will save, the scrying attempt simply fails. The difficulty of the save depends on how well you know the subject and what sort of physical connection (if any) you have to that creature. Furthermore, if the subject is on another plane, it gets a +5 bonus on its Will save.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Knowledge</b><br/></td>\n<td><b>Will Save Modifier</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>None<sup><b>1</b></sup><br/></td>\n<td>+10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Secondhand (you have heard of the subject)<br/></td>\n<td>+5<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Firsthand (you have met the subject)<br/></td>\n<td>+0<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Familiar (you know the subject well)<br/></td>\n<td>-5<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='2'>\n<td colspan='2'>1 You must have some sort of connection to a creature you have no knowledge of.<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Connection</b><br/></td>\n<td><b>Will Save Modifier</b><br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Likeness or picture<br/></td>\n<td>-2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Possession or garment<br/></td>\n<td>-4<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Body part, lock of hair, bit of nail, etc.<br/></td>\n<td>-10<br/></td>\n\n</tr>\n</table><p>If the save fails, you can see and hear the subject and the subject's immediate surroundings (approximately 10 feet in all directions of the subject). If the subject moves, the sensor follows at a speed of up to 150 feet.</p><p>As with all divination (scrying) spells, the sensor has your full visual acuity, including any magical effects. In addition, the following spells have a 5% chance per caster level of operating through the sensor: <i>detect chaos</i>, <i>detect evil</i>, <i>detect good</i>, <i>detect law</i>, <i>detect magic</i>, and <i>message</i>.</p><p>If the save succeeds, you can't attempt to scry on that subject again for at least 24 hours.</p><p><i>Arcane Material Component:</i> The eye of a hawk, an eagle, or a roc, plus nitric acid, copper, and zinc.</p><p><i>Wizard</i>,  <i>Sorcerer</i>,  <i>or Bard Focus:</i> A mirror of finely wrought and highly polished silver costing not less than 1,000 gp. The mirror must be at least 2 feet by 4 feet.</p><p><i>Cleric Focus:</i> A holy water font costing not less than 100 gp.</p><p><i>Druid Focus:</i> A natural pool of water.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 hour",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

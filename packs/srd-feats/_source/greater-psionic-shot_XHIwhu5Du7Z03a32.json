@@ -1,0 +1,10 @@
+{
+  "_id": "XHIwhu5Du7Z03a32",
+  "name": "Greater Psionic Shot",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Greater Psionic Shot' level='3'><p><h3>Greater Psionic Shot [Psionic]</h3></p><p>You can charge your ranged attacks with additional damage potential.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Point Blank Shot, Psionic Shot, base attack bonus +5.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When you use the Psionic Shot feat, your ranged attack deals an extra 4d6 points of damage instead of an extra 2d6 points.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Point Blank Shot, Psionic Shot, base attack bonus +5."
+  }
+}

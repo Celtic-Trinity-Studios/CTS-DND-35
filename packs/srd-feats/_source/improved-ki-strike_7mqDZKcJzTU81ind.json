@@ -1,0 +1,10 @@
+{
+  "_id": "7mqDZKcJzTU81ind",
+  "name": "Improved Ki Strike",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Ki Strike' level='3'><p><h3>Improved Ki Strike [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 21, <i>ki</i> strike (adamantine).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's unarmed strikes are treated as epic magic weapons for the purposes of damage reduction.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Wis 21, ki strike (adamantine)."
+  }
+}

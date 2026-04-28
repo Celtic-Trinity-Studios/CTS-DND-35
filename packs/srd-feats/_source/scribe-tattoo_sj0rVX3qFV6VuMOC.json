@@ -1,0 +1,10 @@
+{
+  "_id": "sj0rVX3qFV6VuMOC",
+  "name": "Scribe Tattoo",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Scribe Tattoo' level='3'><p><h3>Scribe Tattoo [Item Creation]</h3></p><p>You can create psionic tattoos, which store powers within their designs.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Manifester level 3rd.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can create a psionic tattoo of any power of 3rd level or lower that you know and that targets one or more creatures. Scribing a psionic tattoo takes one day. When you create a psionic tattoo, you set the manifester level. The manifester level must be sufficient to manifest the power in question and no higher than your own level. The base price of a psionic tattoo is its power level x its manifester level x 50 gp. To scribe a tattoo, you must spend 1/25 of this base price in XP and use up raw materials (special inks, masterwork needles, and so on) costing one-half of this base price.</p><p>When you create a psionic tattoo, you make any choices that you would normally make when manifesting the power.</p><p>When its wearer physically activates the tattoo, the wearer is the target of the power.</p><p>Any psionic tattoo that stores a power with an XP cost also carries a commensurate cost. In addition to the costs derived from the base price, you must pay the XP when creating the tattoo.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Item Creation",
+    "prerequisites": "Manifester level 3rd."
+  }
+}

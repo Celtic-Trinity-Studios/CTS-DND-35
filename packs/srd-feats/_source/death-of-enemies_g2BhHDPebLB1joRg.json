@@ -1,0 +1,10 @@
+{
+  "_id": "g2BhHDPebLB1joRg",
+  "name": "Death of Enemies",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Death of Enemies' level='3'><p><h3>Death of Enemies [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Bane of Enemies, Survival 30 ranks, five or more favored enemies.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Any time the character scores a critical hit against one of his or her favored enemies, it must make a Fortitude save (DC 10 + 1/2 character's ranger class level + character's Wisdom modifier) or die instantly.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> Creatures immune to critical hits can't be affected by this feat.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Bane of Enemies, Survival 30 ranks, five or more favored enemies."
+  }
+}

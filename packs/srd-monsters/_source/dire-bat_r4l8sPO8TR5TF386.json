@@ -1,0 +1,19 @@
+{
+  "_id": "r4l8sPO8TR5TF386",
+  "name": "Dire Bat",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Dire Bat' level='3'><p><h3>Dire Bat</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Dire Bat</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Large Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>4d8+12 (30 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>20 ft. (4 squares), fly 40 ft. (good)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>20 (-1 size, +6 Dex, +5 natural), touch 15, flat-footed 14<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+3/+10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +5 melee (1d8+4)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +5 melee (1d8+4)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Blindsense 40 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +7, Ref +10, Will +6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 17, Dex 22, Con 17, Int 2, Wis 14, Cha 6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Hide +4, Listen +12*, Move Silently +11, Spot +8*<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Stealthy<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate deserts<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary or colony (5-8)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>5-12 HD (Large)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>A dire bat has a wingspan of 15 feet and weighs about 200 pounds.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>Dire bats swoop down upon unsuspecting prey from above.</p><div topic='Blindsense' level='8'><p><b>Blindsense (Ex):</b> A dire bat uses echolocation to pinpoint creatures within 40 feet. Opponents still have total concealment against the bat unless it can actually see them.</p>\n</div><div topic='Skills' level='8'><p><b>Skills:</b> Dire bats have a +4 racial bonus on Spot and Listen checks. These bonuses are lost if its blindsense is negated.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 2,
+      "environment": "Temperate deserts",
+      "organization": "Solitary or colony (5-8)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Large",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

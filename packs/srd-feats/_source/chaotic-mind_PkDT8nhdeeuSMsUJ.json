@@ -1,0 +1,10 @@
+{
+  "_id": "PkDT8nhdeeuSMsUJ",
+  "name": "Chaotic Mind",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Chaotic Mind' level='3'><p><h3>Chaotic Mind [General]</h3></p><p>The turbulence of your thoughts prevents others from gaining insight into your actions.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Chaotic alignment, Cha 15.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Creatures and characters who have an insight bonus on their attack rolls, an insight bonus to their Armor Class, or an insight bonus on skill checks or ability checks do not gain those bonuses against you.</p><p>The benefit of this feat applies only to insight bonuses gained from psionic powers and psi-like abilities. This is an exception to the psionics-magic transparency rule.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You cannot take or use this feat if you have the ability to use powers (if you have a power point reserve or psi-like abilities).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Chaotic alignment, Cha 15."
+  }
+}

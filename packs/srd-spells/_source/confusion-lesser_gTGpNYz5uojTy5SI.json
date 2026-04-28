@@ -1,0 +1,22 @@
+{
+  "_id": "gTGpNYz5uojTy5SI",
+  "name": "Confusion, Lesser",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Confusion, Lesser' level='5'><p><h5>Confusion, Lesser</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round<br/></td></tr></table><p>As <i>confusion</i>, except that this spell causes a single creature to become <i>confused</i> for 1 round. See the <i>confusion</i> spell, above, to determine the exact effect on the subject.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

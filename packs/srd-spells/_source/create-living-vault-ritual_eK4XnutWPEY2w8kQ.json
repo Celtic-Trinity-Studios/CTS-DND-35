@@ -1,0 +1,22 @@
+{
+  "_id": "eK4XnutWPEY2w8kQ",
+  "name": "Create Living Vault (Ritual)",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Create Living Vault' level='5'><p><h5>Create Living Vault (Ritual)</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Creation)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>58<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, XP<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>100 days, 11 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>0 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>One living vault, 50 ft. by 50 ft. by 10 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>540,000 gp; 11 days; 21,600 XP. Seeds: animate (DC 25) large chunk of stone, fortify (DC 27). Factors: allow vault to 'grow' to proper size after created in 4d4 days (ad hoc +20 DC), increase HD of object by 92 (+184 DC), grant magical immunity (ad hoc +105 DC), increase damage reduction to 15 (+28 DC) and to /epic (+15 DC), make permanent (x5 DC). Mitigating factors: increase casting time by 10 minutes (-20 DC), increase casting time by 100 days (-200 DC), 9d6 backlash (-9 DC), seven additional casters contributing one epic spell slot (_133 DC), burn 20,000 XP per epic caster (_1,600 DC).<br/></td></tr></table><p>The character creates a construct known as a living vault to protect and hide his or her treasures. Upon completion, the vault initially measures only 5 feet on a side, but it gradually increases to its proper size over the following 4d4 days. The vault is attuned to the character, allowing him or her alone entrance and egress in a manner similar to a <i>dimension door</i> spell. When the character desires the vault to hide itself, he or she gives it a simple command. To summon the vault, the character may cast a <i>sending</i> spell or arrange some other manner to contact it.</p><p><i>XP Cost:</i> 20,000 XP.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "100 days, 11 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

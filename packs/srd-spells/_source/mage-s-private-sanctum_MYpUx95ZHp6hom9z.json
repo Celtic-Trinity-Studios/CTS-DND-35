@@ -1,0 +1,22 @@
+{
+  "_id": "MYpUx95ZHp6hom9z",
+  "name": "Mage's Private Sanctum",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Mage's Private Sanctum' level='5'><p><h5>Mage's Private Sanctum</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>30-ft. cube/level (S)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>24 hours (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell ensures privacy. Anyone looking into the area from outside sees only a dark, foggy mass. Darkvision cannot penetrate it. No sounds, no matter how loud, can escape the area, so nobody can eavesdrop from outside. Those inside can see out normally.</p><p>Divination (scrying) spells cannot perceive anything within the area, and those within are immune to <i>detect thoughts</i>. The ward prevents speech between those inside and those outside (because it blocks sound), but it does not prevent other communication, such as a <i>sending</i> or <i>message</i> spell, or telepathic communication, such as that between a wizard and her familiar.</p><p>The spell does not prevent creatures or objects from moving into and out of the area.</p><p><i>Mage's private sanctum</i> can be made permanent with a <i>permanency</i> spell.</p><p><i>Material Component:</i> A thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A thin sheet of lead, a piece of opaque glass, a wad of cotton or cloth, and powdered chrysolite.",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

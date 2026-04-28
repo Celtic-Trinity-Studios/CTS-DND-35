@@ -1,0 +1,10 @@
+{
+  "_id": "mAzyCP3mU3AbxkFJ",
+  "name": "Investigator",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Investigator' level='3'><p><h3>Investigator [General]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> You get a +2 bonus on all Gather Information checks and Search checks.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

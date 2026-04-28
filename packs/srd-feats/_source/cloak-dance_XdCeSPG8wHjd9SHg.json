@@ -1,0 +1,10 @@
+{
+  "_id": "XdCeSPG8wHjd9SHg",
+  "name": "Cloak Dance",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Cloak Dance' level='3'><p><h3>Cloak Dance [General]</h3></p><p>You are skilled at using optical tricks to make yourself seem to be where you are not.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Hide 10 ranks, Perform (dance) 2 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can take a move action to obscure your exact position. Until your next turn, you have concealment. Alternatively, you can take a full-round action to entirely obscure your exact position. Until your next action, you have total concealment.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Hide 10 ranks, Perform (dance) 2 ranks."
+  }
+}

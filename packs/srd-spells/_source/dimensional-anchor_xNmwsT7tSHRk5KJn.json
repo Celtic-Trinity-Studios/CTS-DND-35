@@ -1,0 +1,22 @@
+{
+  "_id": "xNmwsT7tSHRk5KJn",
+  "name": "Dimensional Anchor",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Dimensional Anchor' level='5'><p><h5>Dimensional Anchor</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 4, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Ray<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 min./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (object)<br/></td></tr></table><p>A green ray springs from your outstretched hand. You must make a ranged touch attack to hit the target. Any creature or object struck by the ray is covered with a shimmering emerald field that completely blocks extradimensional travel. Forms of movement barred by a <i>dimensional anchor</i> include <i>astral projection</i>,  <i>blink</i>,  <i>dimension door</i>,  <i>ethereal jaunt</i>,  <i>etherealness</i>,  <i>gate</i>,  <i>maze</i>,  <i>plane shift</i>,  <i>shadow walk</i>,  <i>teleport</i>,  and similar spell-like or psionic abilities. The spell also prevents the use of a <i>gate</i> or <i>teleportation circle</i> for the duration of the spell.</p><p>A <i>dimensional anchor</i> does not interfere with the movement of creatures already in ethereal or astral form when the spell is cast, nor does it block extradimensional perception or attack forms. Also, <i>dimensional anchor</i> does not prevent summoned creatures from disappearing at the end of a summoning spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

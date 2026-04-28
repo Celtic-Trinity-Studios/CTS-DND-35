@@ -1,0 +1,10 @@
+{
+  "_id": "fLO7is3xLW0N2ILg",
+  "name": "Greater Multiweapon Fighting",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Greater Multiweapon Fighting' level='3'><p><h3>Greater Multiweapon Fighting [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 19, three or more arms, Improved Multiweapon Fighting, Multiweapon Fighting, base attack bonus +15.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The creature may make up to three extra attacks with each extra offhand weapon it wields, albeit at a -10 penalty on the third attack with each weapon.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> This feat replaces the Greater Two-Weapon Fighting feat for creatures with more than two arms.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 19, three or more arms, Improved Multiweapon Fighting, Multiweapon Fighting, base attack bonus +15."
+  }
+}

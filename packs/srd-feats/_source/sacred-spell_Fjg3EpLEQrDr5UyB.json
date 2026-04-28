@@ -1,0 +1,10 @@
+{
+  "_id": "Fjg3EpLEQrDr5UyB",
+  "name": "Sacred Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Sacred Spell' level='3'><p><h3>Sacred Spell [Metamagic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> Half of the damage dealt by a sacred spell results directly from divine power and is therefore not subject to being reduced by protection from energy or similar magic. The other half of the damage dealt by the spell is as normal. A sacred spell uses up a spell slot two levels higher than the spell's actual level. Only divine spells can be cast as sacred spells.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "None"
+  }
+}

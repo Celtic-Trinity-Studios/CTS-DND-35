@@ -1,0 +1,10 @@
+{
+  "_id": "GAguaW1a7d9jhnts",
+  "name": "Great Cleave",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Great Cleave' level='3'><p><h3>Great Cleave [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 13, Cleave, Power Attack, base attack bonus +4.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> This feat works like Cleave, except that there is no limit to the number of times you can use it per round.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Great Cleave as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Str 13, Cleave, Power Attack, base attack bonus +4."
+  }
+}

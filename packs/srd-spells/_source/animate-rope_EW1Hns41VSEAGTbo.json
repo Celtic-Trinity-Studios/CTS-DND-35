@@ -1,0 +1,22 @@
+{
+  "_id": "EW1Hns41VSEAGTbo",
+  "name": "Animate Rope",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Animate Rope' level='5'><p><h5>Animate Rope</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 1, Sorcerer/Wizard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Medium (100 ft. + 10 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One ropelike object, length up to 50 ft. + 5 ft./level; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You can animate a nonliving ropelike object. The maximum length assumes a rope with a 1-inch diameter.</p><p>Reduce the maximum length by 50% for every additional inch of thickness, and increase it by 50% for each reduction of the rope's diameter by half.</p><p>The possible commands are 'coil' (form a neat, coiled stack), 'coil and knot,' 'loop,' 'loop and knot,' 'tie and knot,' and the opposites of all of the above ('uncoil,' and so forth). You can give one command each round as a move action, as if directing an active spell.</p><p>The rope can enwrap only a creature or an object within 1 foot of it-it does not snake outward-so it must be thrown near the intended target. Doing so requires a successful ranged touch attack roll (range increment 10 feet). A typical 1- inch-diameter hempen rope has 2 hit points, AC 10, and requires a DC 23 Strength check to burst it. The rope does not deal damage, but it can be used as a trip line or to cause a single opponent that fails a Reflex saving throw to become entangled. A creature capable of spellcasting that is bound by this spell must make a DC 15 Concentration check to cast a spell. An entangled creature can slip free with a DC 20 Escape Artist check.</p><p>The rope itself and any knots tied in it are not magical.</p><p>This spell grants a +2 bonus on any Use Rope checks you make when using the transmuted rope.</p><p>The spell cannot animate objects carried or worn by a creature.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

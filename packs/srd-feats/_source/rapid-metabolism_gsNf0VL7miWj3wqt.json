@@ -1,0 +1,10 @@
+{
+  "_id": "gsNf0VL7miWj3wqt",
+  "name": "Rapid Metabolism",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Rapid Metabolism' level='3'><p><h3>Rapid Metabolism [General]</h3></p><p>Your wounds heal rapidly.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Con 13.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You naturally heal a number of hit points per day equal to the standard healing rate + double your Constitution  bonus. You heal even if you do not rest. This healing replaces your normal natural healing. If you are tended successfully by someone with the Heal skill, you instead regain double the normal amount of hit points + double your Constitution bonus.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Con 13."
+  }
+}

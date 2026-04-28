@@ -1,0 +1,10 @@
+{
+  "_id": "JCdrYdmO6IO26nBC",
+  "name": "Master Wand",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Master Wand' level='3'><p><h3>Master Wand [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Craft Wand, Spellcraft 15 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When the character activates a wand, he or she can substitute a spell slot instead of using a charge. The spell slot must be one the character has not used for the day, though he or she may lose a prepared spell to emulate a wand charge (the character may not lose prepared spells from his or her school of specialty, if any). The spell slot lost must be equal to or higher in level than the spell stored in the wand, including any level-increasing metamagic enhancements.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Craft Wand, Spellcraft 15 ranks."
+  }
+}

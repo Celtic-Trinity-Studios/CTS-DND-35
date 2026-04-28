@@ -1,0 +1,22 @@
+{
+  "_id": "YgM9a6kbM7tA8UcI",
+  "name": "Protection from Law",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Protection from Law' level='5'><p><h5>Protection from Law</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration [Chaotic]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Chaos 1, Cleric 1, Sorcerer/Wizard 1<br/></td></tr></table><p>This spell functions like <i>protection from evil</i>, except that the deflection and resistance bonuses apply to attacks from lawful creatures, and lawful summoned creatures cannot touch the subject.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Chaotic"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "8yES9TQrIhqH6fxy",
+  "name": "Psionic Dodge",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psionic Dodge' level='3'><p><h3>Psionic Dodge [Psionic]</h3></p><p>You are proficient at dodging blows.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Dex 13, Dodge.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You must be psionically focused to use this feat. You receive a +1 dodge bonus to your Armor Class. This bonus stacks with the bonus from the Dodge feat (but only applies on attacks made by the opponent you have designated).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Dex 13, Dodge."
+  }
+}

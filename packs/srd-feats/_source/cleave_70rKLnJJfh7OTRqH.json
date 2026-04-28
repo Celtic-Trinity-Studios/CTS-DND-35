@@ -1,0 +1,10 @@
+{
+  "_id": "70rKLnJJfh7OTRqH",
+  "name": "Cleave",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Cleave' level='3'><p><h3>Cleave [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 13, Power Attack.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> If you deal a creature enough damage to make it drop (typically by dropping it to below 0 hit points or killing it), you get an immediate, extra melee attack against another creature within reach. You cannot take a 5-foot step before making this extra attack. The extra attack is with the same weapon and at the same bonus as the attack that dropped the previous creature. You can use this ability once per round.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Cleave as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Str 13, Power Attack."
+  }
+}

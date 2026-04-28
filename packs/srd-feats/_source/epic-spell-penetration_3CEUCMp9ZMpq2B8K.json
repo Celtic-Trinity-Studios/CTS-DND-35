@@ -1,0 +1,10 @@
+{
+  "_id": "3CEUCMp9ZMpq2B8K",
+  "name": "Epic Spell Penetration",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Epic Spell Penetration' level='3'><p><h3>Epic Spell Penetration [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Greater Spell Penetration, Spell Penetration.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character gets a +2 bonus on caster level checks to beat a creature's spell resistance. This stacks with the bonuses from Spell Penetration and Greater Spell Penetration.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Greater Spell Penetration, Spell Penetration."
+  }
+}

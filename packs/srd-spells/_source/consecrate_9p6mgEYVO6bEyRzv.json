@@ -1,0 +1,22 @@
+{
+  "_id": "9p6mgEYVO6bEyRzv",
+  "name": "Consecrate",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Consecrate' level='5'><p><h5>Consecrate</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Good]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 2<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>20-ft. -radius emanation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>2 hours/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell blesses an area with positive energy. Each Charisma check made to turn undead within this area gains a +3 sacred bonus. Every undead creature entering a <i>consecrated</i> area suffers minor disruption, giving it a -1 penalty on attack rolls, damage rolls, and saves. Undead cannot be created within or summoned into a <i>consecrated</i> area.</p><p>If the <i>consecrated</i> area contains an altar, shrine, or other permanent fixture dedicated to your deity, pantheon, or aligned higher power, the modifiers given above are doubled (+6 sacred bonus on turning checks, -2 penalties for undead in the area). You cannot consecrate an area with a similar fixture of a deity other than your own patron.</p><p>If the area does contain an altar, shrine, or other permanent fixture of a deity, pantheon, or higher power other than your patron, the <i>Consecrate</i> spell instead curses the area, cutting off its connection with the associated deity or power. This secondary function, if used, does not also grant the bonuses and penalties relating to undead, as given above.</p><p><i>Consecrate</i> counters and dispels <i>desecrate</i>.</p><p><i>Material Component:</i> A vial of holy water and 25 gp worth (5 pounds) of silver dust, all of which must be sprinkled around the area.</p><p/>\n</div>\n    ",
+    "spellLevel": 2,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "A vial of holy water and 25 gp worth (5 pounds) of silver dust, all of which must be sprinkled around the area.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Good"
+  }
+}

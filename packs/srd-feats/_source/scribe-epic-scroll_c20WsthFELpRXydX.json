@@ -1,0 +1,10 @@
+{
+  "_id": "c20WsthFELpRXydX",
+  "name": "Scribe Epic Scroll",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Scribe Epic Scroll' level='3'><p><h3>Scribe Epic Scroll [Item Creation] [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Scribe Scroll, Knowledge (arcana) 24 ranks, Spellcraft 24 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can scribe scrolls that exceed the normal limits for such items. Even this feat does not allow the character to scribe a scroll with an epic spell.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Item Creation, Epic",
+    "prerequisites": "Scribe Scroll, Knowledge (arcana) 24 ranks, Spellcraft 24 ranks."
+  }
+}

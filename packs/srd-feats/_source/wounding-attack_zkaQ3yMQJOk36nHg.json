@@ -1,0 +1,10 @@
+{
+  "_id": "zkaQ3yMQJOk36nHg",
+  "name": "Wounding Attack",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Wounding Attack' level='3'><p><h3>Wounding Attack [Psionic]</h3></p><p>Your vicious attacks wound your foe.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Base attack bonus +8.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus. You can make an attack with such vicious force that you wound your opponent. A wound deals 1 point of Constitution damage to your foe in addition to the usual damage dealt.</p><p>You must decide whether or not to use this feat prior to making an attack. If your attack misses, you still expend your psionic focus.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Base attack bonus +8."
+  }
+}

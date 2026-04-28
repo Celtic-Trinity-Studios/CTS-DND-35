@@ -1,0 +1,10 @@
+{
+  "_id": "h6EhHKkJWYD4fj4L",
+  "name": "Deep Impact",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Deep Impact' level='3'><p><h3>Deep Impact [Psionic]</h3></p><p>You can strike your foe with a melee weapon as if making a touch attack.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Str 13, Psionic Weapon, base attack bonus +5.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus. You can resolve your attack with a melee weapon as a touch attack. You must decide whether or not to use this feat prior to making an attack. If your attack misses, you still expend your psionic focus.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Str 13, Psionic Weapon, base attack bonus +5."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "xc6LSHzo3NDx2EBE",
+  "name": "Psionic Meditation",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psionic Meditation' level='3'><p><h3>Psionic Meditation [Psionic]</h3></p><p>You can focus your mind faster than normal, even under duress.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Wis 13, Concentration 7 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can take a move action to become psionically focused.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> A character without this feat must take a full-round action to become psionically focused.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Wis 13, Concentration 7 ranks."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "Kf2WkmX8p5tlQzFZ",
+  "name": "Invisibility, Mass",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Invisibility, Mass' level='5'><p><h5>Invisibility, Mass</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Glamer)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Long (400 ft. + 40 ft./level)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>Any number of creatures, no two of which can be more than 180 ft. apart<br/></td></tr></table><p>This spell functions like <i>invisibility</i>,  except that the effect is mobile with the group and is broken when anyone in the group attacks. Individuals in the group cannot see each other. The spell is broken for any individual who moves more than 180 feet from the nearest member of the group. (If only two individuals are affected, the one moving away from the other one loses its invisibility. If both are moving away from each other, they both become visible when the distance between them exceeds 180 feet.)</p><p><i>Material Component:</i> An eyelash encased in a bit of gum arabic.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "An eyelash encased in a bit of gum arabic.",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

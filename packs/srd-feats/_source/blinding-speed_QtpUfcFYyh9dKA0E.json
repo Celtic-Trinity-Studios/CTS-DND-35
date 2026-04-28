@@ -1,0 +1,10 @@
+{
+  "_id": "QtpUfcFYyh9dKA0E",
+  "name": "Blinding Speed",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Blinding Speed' level='3'><p><h3>Blinding Speed [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Dex 25.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character can act as if <i>hasted</i> for 5 rounds each day. The duration of the effect need not be consecutive rounds. Activating this power is a free action.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Each time he or she takes the feat, it grants an additional 5 rounds of <i>haste</i> per day.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 25."
+  }
+}

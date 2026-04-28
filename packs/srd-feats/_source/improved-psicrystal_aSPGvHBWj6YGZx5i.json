@@ -1,0 +1,10 @@
+{
+  "_id": "aSPGvHBWj6YGZx5i",
+  "name": "Improved Psicrystal",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Psicrystal' level='3'><p><h3>Improved Psicrystal [Psionic]</h3></p><p>You can upgrade your psicrystal.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Psicrystal Affinity.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You can implant another personality fragment in your psicrystal. You gain the benefits of both psicrystal personalities. Your psicrystal's personality adjusts and becomes a blend between all implanted personality fragments. From now on, when determining the abilities of your psicrystal, treat your manifester level as one higher than your normal manifester level.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can gain this feat multiple times. Each time, you implant a new personality fragment in your psicrystal, from which you derive the noted benefits, and you treat your level as one higher for the purpose of determining your psicrystal's abilities.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Psicrystal Affinity."
+  }
+}

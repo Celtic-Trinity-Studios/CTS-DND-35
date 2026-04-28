@@ -1,0 +1,10 @@
+{
+  "_id": "GY4VRNb0klUJwAOh",
+  "name": "Thundering Rage",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Thundering Rage' level='3'><p><h3>Thundering Rage [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Str 25, rage 5/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Any weapon the character wields while in a rage is treated as a thundering weapon. The DC of the Fortitude save to resist deafness is equal to 10 + 1/2 the character's level. This ability does not stack with similar abilities.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Str 25, rage 5/day."
+  }
+}

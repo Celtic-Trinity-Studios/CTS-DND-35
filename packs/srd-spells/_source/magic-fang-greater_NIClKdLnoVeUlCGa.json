@@ -1,0 +1,22 @@
+{
+  "_id": "NIClKdLnoVeUlCGa",
+  "name": "Magic Fang, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Magic Fang, Greater' level='5'><p><h5>Magic Fang, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 3, Ranger 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 hour/level<br/></td></tr></table><p>This spell functions like <i>magic fang</i>, except that the enhancement bonus on attack and damage rolls is +1 per four caster levels (maximum +5).</p><p>Alternatively, you may imbue all of the creature's natural weapons with a +1 enhancement bonus (regardless of your caster level).</p><p><i>Greater magic fang</i> can be made permanent with a <i>permanency</i> spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

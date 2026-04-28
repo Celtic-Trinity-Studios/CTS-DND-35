@@ -1,0 +1,10 @@
+{
+  "_id": "dPL1Wzc1XdAJDmNr",
+  "name": "Psionic Talent",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psionic Talent' level='3'><p><h3>Psionic Talent [Psionic]</h3></p><p>You gain additional power points to supplement those you already had.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Having a power point reserve.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When you take this feat for the first time, you gain 2 power points.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can take this feat multiple times. Each time you take the feat after the first time, the number of power points you gain increases by 1.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Having a power point reserve."
+  }
+}

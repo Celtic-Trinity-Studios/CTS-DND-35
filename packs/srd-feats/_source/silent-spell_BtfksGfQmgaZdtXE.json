@@ -1,0 +1,10 @@
+{
+  "_id": "BtfksGfQmgaZdtXE",
+  "name": "Silent Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Silent Spell' level='3'><p><h3>Silent Spell [Metamagic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> A silent spell can be cast with no verbal components. Spells without verbal components are not affected. A silent spell uses up a spell slot one level higher than the spell's actual level.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> Bard spells cannot be enhanced by this metamagic feat.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "None"
+  }
+}

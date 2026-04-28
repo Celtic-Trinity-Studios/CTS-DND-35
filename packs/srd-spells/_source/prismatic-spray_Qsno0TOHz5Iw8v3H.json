@@ -1,0 +1,22 @@
+{
+  "_id": "Qsno0TOHz5Iw8v3H",
+  "name": "Prismatic Spray",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Prismatic Spray' level='5'><p><h5>Prismatic Spray</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>60 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>Cone-shaped burst<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>This spell causes seven shimmering, intertwined, multicolored beams of light to spray from your hand. Each beam has a different power. Creatures in the area of the spell with 8 HD or less are automatically blinded for 2d4 rounds. Every creature in the area is randomly struck by one or more beams, which have additional effects.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='4' curcol='4'>\n<td><b>1d8</b><br/></td> <td><b>Color of Beam</b><br/></td>\n<td><b>Effect</b><br/></td>\n\n</tr>\n\n<tr maxcol='4' curcol='4'>\n<td>1<br/></td>\n<td>Red<br/></td>\n<td>20 points fire damage (Reflex half)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>2<br/></td>\n<td>Orange<br/></td>\n<td>40 points acid damage (Reflex half)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>3<br/></td>\n<td>Yellow<br/></td>\n<td>80 points electricity damage (Reflex half)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>4<br/></td>\n<td>Green<br/></td>\n<td>Poison (Kills; Fortitude partial, take 1d6 points of Con damage instead)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>5<br/></td>\n<td>Blue<br/></td>\n<td>Turned to stone (Fortitude negates)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>6<br/></td>\n<td>Indigo<br/></td>\n<td>Insane, as <i>insanity</i> spell (Will negates)<br/></td>\n\n</tr>\n<tr maxcol='4' curcol='4'>\n<td>7<br/></td>\n<td>Violet<br/></td>\n<td>Sent to another plane (Will negates)<br/></td>\n\n</tr>\n\n<tr maxcol='4' curcol='3'>\n<td>8<br/></td>\n<td colspan='2' align='center'>Struck by two rays; roll twice more, ignoring any '8' results.<br/></td>\n\n</tr>\n</table><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

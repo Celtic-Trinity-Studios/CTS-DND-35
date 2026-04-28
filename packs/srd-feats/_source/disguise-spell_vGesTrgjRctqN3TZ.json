@@ -1,0 +1,10 @@
+{
+  "_id": "vGesTrgjRctqN3TZ",
+  "name": "Disguise Spell",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Disguise Spell' level='3'><p><h3>Disguise Spell [Metamagic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Bardic music, Perform 12 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You have mastered the art of casting spells unobtrusively, mingling verbal and somatic components into its music and performances so that others rarely catch you in the act of casting a spell. Like a silent, stilled spell, a disguised spell can't be identified through Spellcraft. Your performance is obvious to everyone in the vicinity, but the fact that you are casting a spell isn't. Unless the spell visibly emanates from you or observers have some other means of determining its source, they don't know where the effect came from. A disguised spell uses up a spell slot one level higher than the spell's actual level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metamagic",
+    "prerequisites": "Bardic music, Perform 12 ranks."
+  }
+}

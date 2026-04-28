@@ -1,0 +1,10 @@
+{
+  "_id": "lWJbTEj0ZFkUrOAE",
+  "name": "Ghost Attack",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Ghost Attack' level='3'><p><h3>Ghost Attack [Psionic]</h3></p><p>Your deadly strikes against incorporeal foes always find their mark.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Base attack bonus +3.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> You must be psionically focused to use this feat. When you make a melee attack or a ranged attack against an incorporeal creature, you can make two rolls to check for the miss chance. If either is successful, the attack is treated as if it were made with a ghost touch weapon for the purpose of affecting the creature. Your weapon or natural weapon actually appears to become briefly incorporeal as the attack is made.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Base attack bonus +3."
+  }
+}

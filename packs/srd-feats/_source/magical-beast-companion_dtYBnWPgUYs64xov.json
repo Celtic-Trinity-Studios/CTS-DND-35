@@ -1,0 +1,10 @@
+{
+  "_id": "dtYBnWPgUYs64xov",
+  "name": "Magical Beast Companion",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Magical Beast Companion' level='3'><p><h3>Magical Beast Companion [Wild] [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Knowledge (nature) 24 ranks, <i>wild shape</i> 6/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The following magical beasts are added to the lists of animal companions from which you can select.</p>\n</div><div topic='1st Level' level='8'><p><b>1st Level (no adjustment)</b></p><p>Stirge</p><p>Darkmantle</p><p/>\n</div><div topic='4th Level' level='8'><p><b>4th Level (-3)</b></p><p>Hippogriff</p><p>Shocker lizard</p><p/>\n</div><div topic='7th Level' level='8'><p><b>7th Level (-6)</b></p><p>Cockatrice</p><p>Ankheg</p><p>Griffon</p><p>Owlbear</p><p>Sea cat*</p><p/>\n</div><div topic='10th Level' level='8'><p><b>10th Level (-9)</b></p><p>Basilisk</p><p>Digerster</p><p>Girallon</p><p>Spider eater</p><p/>\n</div><div topic='13th Level' level='8'><p><b>13th Level (-12)</b></p><p>Bulette</p><p>Chimera</p><p>Remorhaz</p><p/>\n</div><div topic='16th Level' level='8'><p><b>16th Level (-15)</b></p><p>Gorgon</p><p>Gray render</p><p/>\n</div><div topic='Special' level='8'><p><b>Special:</b> Creatures marked with an asterisk are available only in an aquatic environment.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Wild, Epic",
+    "prerequisites": "Knowledge (nature) 24 ranks, wild shape 6/day."
+  }
+}

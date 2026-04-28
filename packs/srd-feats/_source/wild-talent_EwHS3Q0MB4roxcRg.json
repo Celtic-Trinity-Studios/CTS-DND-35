@@ -1,0 +1,10 @@
+{
+  "_id": "EwHS3Q0MB4roxcRg",
+  "name": "Wild Talent",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Wild Talent' level='3'><p><h3>Wild Talent [General]</h3></p><p>Your mind wakes to a previously unrealized talent for psionics.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> Your latent power of psionics flares to life, conferring upon you the designation of a psionic character. As a psionic character, you gain a reserve of 2 power points and can take psionic feats, metapsionic feats, and psionic item creation feats. You do not, however, gain the ability to manifest powers simply by virtue of having this feat.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

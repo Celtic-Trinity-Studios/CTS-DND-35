@@ -1,0 +1,22 @@
+{
+  "_id": "vGJveuhLOfXLo2i3",
+  "name": "Programmed Image",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Programmed Image' level='5'><p><h5>Programmed Image</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Figment)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Visual figment that cannot extend beyond a 20-ft. cube + one 10-ft. cube/level (S)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Permanent until triggered, then 1 round/level<br/></td></tr></table><p>This spell functions like <i>silent image</i>,  except that this spell's figment activates when a specific condition occurs. The figment includes visual, auditory, olfactory, and thermal elements, including intelligible speech.</p><p>You set the triggering condition (which may be a special word) when casting the spell. The event that triggers the illusion can be as general or as specific and detailed as desired but must be based on an audible, tactile, olfactory, or visual trigger. The trigger cannot be based on some quality not normally obvious to the senses, such as alignment. (See <i>magic mouth</i> for more details about such triggers.)</p><p><i>Material Component:</i> A bit of fleece and jade dust worth 25 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "A bit of fleece and jade dust worth 25 gp.",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

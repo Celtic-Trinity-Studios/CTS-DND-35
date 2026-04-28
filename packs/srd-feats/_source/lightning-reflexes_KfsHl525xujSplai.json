@@ -1,0 +1,10 @@
+{
+  "_id": "KfsHl525xujSplai",
+  "name": "Lightning Reflexes",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Lightning Reflexes' level='3'><p><h3>Lightning Reflexes [General]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> You get a +2 bonus on all Reflex saving throws.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "jFnAkiJvvZxmpFGi",
+  "name": "Miracle",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Miracle' level='5'><p><h5>Miracle</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 9, Luck 9<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, XP; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target, Effect, or Area:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You don't so much cast a <i>miracle</i> as request one. You state what you would like to have happen and request that your deity (or the power you pray to for spells) intercede.</p><p>A <i>miracle</i> can do any of the following things.</p><ul>\n <li> Duplicate any cleric spell of 8th level or lower (including spells to which you have access because of your domains).</li>\n <li> Duplicate any other spell of 7th level or lower.</li>\n <li> Undo the harmful effects of certain spells, such as <i>feeblemind</i> or <i>insanity</i>.</li>\n <li> Have any effect whose power level is in line with the above effects.</li>\n</ul><p>If the <i>miracle</i> has any of the above effects, casting it has no experience point cost.</p><p>Alternatively, a cleric can make a very powerful request. Casting such a <i>miracle</i> costs the cleric 5,000 XP because of the powerful divine energies involved. Examples of especially powerful <i>miracles</i> of this sort could include the following.</p><ul>\n <li> Swinging the tide of a battle in your favor by raising fallen allies to continue fighting.</li>\n <li> Moving you and your allies, with all your and their gear, from one plane to another through planar barriers to a specific locale with no chance of error.</li>\n <li> Protecting a city from an earthquake, volcanic eruption, flood, or other major natural disaster.</li>\n</ul><p>In any event, a request that is out of line with the deity's (or alignment's) nature is refused.</p><p>A duplicated spell allows saving throws and spell resistance as normal, but the save DCs are as for a 9th-level spell. When a <i>miracle</i> duplicates a spell that has an XP cost, you must pay that cost. When a <i>miracle</i> spell duplicates a spell with a material component that costs more than 100 gp, you must provide that component.</p><p><i>XP Cost:</i> 5,000 XP (for some uses of the <i>miracle</i> spell; see above).</p><p/>\n</div>\n    ",
+    "spellLevel": 9,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

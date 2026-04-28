@@ -1,0 +1,10 @@
+{
+  "_id": "U1p37NGsdi0bH7Fw",
+  "name": "Spectral Strike",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Spectral Strike' level='3'><p><h3>Spectral Strike [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 19, ability to turn or rebuke undead.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's attacks deal damage normally against incorporeal creatures.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, even attacks that can damage an incorporeal creature have a 50% chance to deal no damage.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Wis 19, ability to turn or rebuke undead."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "TNG38oBM4wvgcGX4",
+  "name": "Stone Shape",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Stone Shape' level='5'><p><h5>Stone Shape</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation [Earth]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 3, Druid 3, Earth 3, Sorcerer/Wizard 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M/DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Stone or stone object touched, up to 10 cu. ft. + 1 cu. ft./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You can form an existing piece of stone into any shape that suits your purpose. While it's possible to make crude coffers, doors, and so forth with <i>stone shape</i>,  fine detail isn't possible. There is a 30% chance that any shape including moving parts simply doesn't work.</p><p><i>Arcane Material Component:</i> Soft clay, which must be worked into roughly the desired shape of the stone object and then touched to the stone while the verbal component is uttered.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Earth"
+  }
+}

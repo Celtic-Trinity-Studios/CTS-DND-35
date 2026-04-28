@@ -1,0 +1,22 @@
+{
+  "_id": "yB4AqxNtausIEwah",
+  "name": "Glyph of Warding, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Glyph of Warding, Greater' level='5'><p><h5>Glyph of Warding, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 6<br/></td></tr></table><p>This spell functions like <i>glyph of warding</i>,  except that a <i>greater blast glyph</i> deals up to 10d8 points of damage, and a <i>greater spell glyph</i> can store a spell of 6th level or lower.</p><p><i>Material Component:</i> You trace the <i>glyph</i> with incense, which must first be sprinkled with powdered diamond worth at least 400 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "You trace the glyph with incense, which must first be sprinkled with powdered diamond worth at least 400 gp.",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "YIuYAAs11SvwpQCL",
+  "name": "Alarm",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Alarm' level='5'><p><h5>Alarm</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 1, Ranger 1, Sorcerer/Wizard 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F/DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>20-ft. -radius emanation centered on a point in space<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>2 hours/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>A<i>larm</i> sounds a mental or audible alarm each time a creature of Tiny or larger size enters the warded area or touches it. A creature that speaks the password (determined by you at the time of casting) does not set off the <i>alarm</i>. You decide at the time of casting whether the <i>alarm</i> will be mental or audible.</p><p><i>Mental Alarm:</i> A mental <i>alarm</i> alerts you (and only you) so long as you remain within 1 mile of the warded area. You note a single mental 'ping' that awakens you from normal sleep but does not otherwise disturb concentration. A <i>silence</i> spell has no effect on a mental <i>alarm</i>.</p><p><i>Audible Alarm:</i> An audible <i>alarm</i> produces the sound of a hand bell, and anyone within 60 feet of the warded area can hear it clearly. Reduce the distance by 10 feet for each interposing closed door and by 20 feet for each substantial interposing wall.</p><p>In quiet conditions, the ringing can be heard faintly as far as 180 feet away. The sound lasts for 1 round. Creatures within a <i>silence</i> spell cannot hear the ringing.</p><p>Ethereal or astral creatures do not trigger the <i>alarm</i>.</p><p><i>alarm</i> can be made permanent with a <i>permanency</i> spell.</p><p><i>Arcane Focus:</i> A tiny bell and a piece of very fine silver wire</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

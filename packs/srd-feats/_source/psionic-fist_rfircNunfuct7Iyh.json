@@ -1,0 +1,10 @@
+{
+  "_id": "rfircNunfuct7Iyh",
+  "name": "Psionic Fist",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psionic Fist' level='3'><p><h3>Psionic Fist [Psionic]</h3></p><p>You can charge your unarmed strike or natural weapon with additional damage potential.</p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Str 13.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus. Your unarmed strike or attack with a natural weapon deals an extra 2d6 points of damage.</p><p>You must decide whether or not to use this feat prior to making an attack. If your attack misses, you still expend your psionic focus.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "Str 13."
+  }
+}

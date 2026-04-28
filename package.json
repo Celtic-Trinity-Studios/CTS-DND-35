@@ -1,0 +1,29 @@
+{
+  "name": "cts-dnd-35",
+  "version": "1.0.0",
+  "description": "A clean, extensible Foundry VTT system for D&D 3.5 Edition, built from scratch by **Celtic Trinity Studios**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:spells": "fvtt package pack -n srd-spells --in ./packs --out ./packs",
+    "build:feats": "fvtt package pack -n srd-feats --in ./packs --out ./packs",
+    "build:monsters": "fvtt package pack -n srd-monsters --in ./packs --out ./packs",
+    "build:packs": "npm run build:spells && npm run build:feats && npm run build:monsters",
+    "release": "npm run build:packs && node build-release.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Celtic-Trinity-Studios/CTS-DND-35.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/issues"
+  },
+  "homepage": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35#readme",
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^3.0.3",
+    "archiver": "^7.0.1"
+  }
+}

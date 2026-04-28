@@ -1,0 +1,19 @@
+{
+  "_id": "r1oDTA5WE3aLBs0z",
+  "name": "Hieracosphinx",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Hieracosphinx' level='3'><p><h3>Hieracosphinx</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Hieracosphinx</b><br/></td> \n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Large Magical Beast<br/></td> \n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>9d10+18 (67 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>30 ft. (6 squares), fly 90 ft. (poor)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>19 (-1 size, +2 Dex, +8 natural), touch 11, flat-footed 17<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+9/+18<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +13 melee (1d10+5)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +13 melee (1d10+5) and 2 claws +8 melee (1d6+2)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Pounce, rake 1d6+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Darkvision 60 ft., low-light vision<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +8, Ref +8, Will +5<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 21, Dex 14, Con 15, Int 6, Wis 15, Cha 10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Listen +10, Spot +14<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Cleave, Flyby Attack, Power Attack<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Warm deserts<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary, pair, or flock (4-7)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>5<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always chaotic evil<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>10-14 HD (Large); 15-27 HD (Huge)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>+3 (cohort)<br/></td>\n\n</tr>\n</table><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>Hieracosphinxes can make short work of even the most dangerous opponents with their claws. They are not particularly intelligent, but are cunning enough to dive at their enemies from above with their flying ability.</p><div topic='Rake' level='8'><p><b>Rake (Ex):</b> Attack bonus +13 melee, damage 1d6+2.</p>\n</div><div topic='Skills' level='8'><p><b>Skills:</b> Hieracosphinxes have a +4 racial bonus on Spot checks.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 5,
+      "environment": "Warm deserts",
+      "organization": "Solitary, pair, or flock (4-7)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Large",
+      "type": "Magical Beast",
+      "subtype": "None"
+    }
+  }
+}

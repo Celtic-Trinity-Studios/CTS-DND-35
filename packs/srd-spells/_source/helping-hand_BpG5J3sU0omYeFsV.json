@@ -1,0 +1,22 @@
+{
+  "_id": "BpG5J3sU0omYeFsV",
+  "name": "Helping Hand",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Helping Hand' level='5'><p><h5>Helping Hand</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>5 miles<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Effect:</b><br/></td><td>Ghostly hand<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 hour/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You create the ghostly image of a hand, which you can send to find a creature within 5 miles. The hand then beckons to that creature and leads it to you if the creature is willing to follow.</p><p>When the spell is cast, the hand appears in front of you. You then specify a person (or any creature) by physical description, which can include race, gender, and appearance but not ambiguous factors such as level, alignment, or class. When the description is complete, the hand streaks off in search of a subject that fits the description. The amount of time it takes to find the subject depends on how far away she is.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Distance</b><br/></td>\n<td><b>Time to Locate</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>100 ft. or less<br/></td>\n<td>1 round<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>1,000 ft.<br/></td>\n<td>1 minute<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>1 mile<br/></td>\n<td>10 minutes<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>2 miles<br/></td>\n<td>1 hour<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>3 miles<br/></td>\n<td>2 hours<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>4 miles<br/></td>\n<td>3 hours<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>5 miles<br/></td>\n<td>4 hours<br/></td>\n\n</tr>\n</table><p>Once the hand locates the subject, it beckons the creature to follow it. If the subject does so, the hand points in your direction, indicating the most direct feasible route. The hand hovers 10 feet in front of the subject, moving before it at a speed of as much as 240 feet per round. Once the hand leads the subject back to you, it disappears.</p><p>The subject is not compelled to follow the hand or act in any particular way toward you. If the subject chooses not to follow, the hand continues to beckon for the duration of the spell, then disappears. If the spell expires while the subject is en route to you, the hand disappears; the subject must then rely on her own devices to locate you.</p><p>If more than one subject in a 5-mile radius meets the description, the hand locates the closest creature. If that creature refuses to follow the hand, the hand does not seek out a second subject.</p><p>If, at the end of 4 hours of searching, the hand has found no subject that matches the description within 5 miles, it returns to you, displays an outstretched palm (indicating that no such creature was found), and disappears.</p><p>The ghostly hand has no physical form. It is invisible to anyone except you and a potential subject. It cannot engage in combat or execute any other task aside from locating a subject and leading it back to you. The hand can't pass through solid objects but can ooze through small cracks and slits. The hand cannot travel more than 5 miles from the spot it appeared when you cast the spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

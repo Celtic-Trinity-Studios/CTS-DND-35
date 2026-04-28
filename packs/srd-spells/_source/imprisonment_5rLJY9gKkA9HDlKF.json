@@ -1,0 +1,22 @@
+{
+  "_id": "5rLJY9gKkA9HDlKF",
+  "name": "Imprisonment",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Imprisonment' level='5'><p><h5>Imprisonment</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 9<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>When you cast <i>imprisonment</i> and touch a creature, it is entombed in a state of suspended animation (see the <i>temporal stasis</i> spell) in a small sphere far beneath the surface of the earth. The subject remains there unless a <i>freedom</i> spell is cast at the locale where the imprisonment took place. Magical search by a <i>crystal ball</i>,  a <i>locate object</i> spell, or some other similar divination does not reveal the fact that a creature is imprisoned, but <i>discern location</i> does. A <i>wish</i> or <i>miracle</i> spell will not free the recipient, but will reveal where it is entombed. If you know the target's name and some facts about its life, the target takes a -4 penalty on its save.</p><p/>\n</div>\n    ",
+    "spellLevel": 9,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "_id": "eKn3f8bNLiESAFo1",
+  "name": "Seed: Afflict",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Seed: Afflict' level='3'><p><h3>Seed: Afflict</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Fear, Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>14<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>300 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>20 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>Afflicts the target with a -2 morale penalty on attack rolls, checks, and saving throws. For each additional -1 penalty assessed on either the target's attack rolls, checks, or saving throws, increase the Spellcraft DC by +2. A character may also develop a spell with this seed that afflicts the target with a -1 penalty on caster level checks, a -1 penalty to an ability score, a -1 penalty to spell resistance, or a -1 penalty to some other aspect of the target. For each additional -1 penalty assessed in one of the above categories, increase the Spell-craft DC by +4. This seed can afflict a character's ability scores to the point where they reach 0, except for Constitution where 1 is the minimum. If a factor is applied to increase the duration of this seed, ability score penalties instead become temporary ability damage. If a factor is applied to make the duration permanent, any ability score penalties become permanent ability drain. Finally, by increasing the Spellcraft DC by +2, one of the target's senses can be afflicted: sight, smell, hearing, taste, touch, or a special sense the target possesses. If the target fails its saving throw, the sense selected doesn't function for the spell's duration, with all attendant penalties that apply for losing the specified sense.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Fear, Mind-Affecting"
+  }
+}

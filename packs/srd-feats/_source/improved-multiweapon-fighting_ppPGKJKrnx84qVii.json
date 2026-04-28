@@ -1,0 +1,10 @@
+{
+  "_id": "ppPGKJKrnx84qVii",
+  "name": "Improved Multiweapon Fighting",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Multiweapon Fighting' level='3'><p><h3>Improved Multiweapon Fighting [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites</b>: Dex 15, three or more arms, Multiweapon Fighting, base attack bonus +9.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> In addition to the single extra attack a creature gets with each extra weapon from Multiweapon Fighting, it gets a second attack with each extra weapon, albeit at a -5 penalty.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> With only Multiweapon Fighting, a creater can only get a single attack with each extra weapon.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> This feat replaces the Improved Two-Weapon Fighting feat for creatures with more than two arms.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 15, three or more arms, Multiweapon Fighting, base attack bonus +9."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "0fIh5YGJyXxCl9OF",
+  "name": "Two-Weapon Defense",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Two-Weapon Defense' level='3'><p><h3>Two-Weapon Defense [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 15, Two-Weapon Fighting.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When wielding a double weapon or two weapons (not including natural weapons or unarmed strikes), you gain a +1 shield bonus to your AC.</p><p>When you are fighting defensively or using the total defense action, this shield bonus increases to +2.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Two-Weapon Defense as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 15, Two-Weapon Fighting."
+  }
+}

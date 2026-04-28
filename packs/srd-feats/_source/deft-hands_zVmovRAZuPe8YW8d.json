@@ -1,0 +1,10 @@
+{
+  "_id": "zVmovRAZuPe8YW8d",
+  "name": "Deft Hands",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Deft Hands' level='3'><p><h3>Deft Hands [General]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> You get a +2 bonus on all Sleight of Hand checks and Use Rope checks.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

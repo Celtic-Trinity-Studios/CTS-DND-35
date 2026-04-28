@@ -1,0 +1,10 @@
+{
+  "_id": "S4GStosrqKzAda9O",
+  "name": "Dragon Wild Shape",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Dragon Wild Shape' level='3'><p><h3>Dragon Wild Shape [Wild] [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Wis 30, Knowledge (nature) 30 ranks, <i>wild shape</i> 6/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character may use <i>wild shape</i> to change into a dragon (black, blue, green, red, white, brass, bronze, copper, gold, or silver). The size limitation is the same as the character's limitation on animal size. The character gains all extraordinary and supernatural abilities of the dragon whose form he or she takes.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Wild, Epic",
+    "prerequisites": "Wis 30, Knowledge (nature) 30 ranks, wild shape 6/day."
+  }
+}

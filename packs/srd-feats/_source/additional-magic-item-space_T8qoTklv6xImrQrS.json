@@ -1,0 +1,10 @@
+{
+  "_id": "T8qoTklv6xImrQrS",
+  "name": "Additional Magic Item Space",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Additional Magic Item Space' level='3'><p><h3>Additional Magic Item Space [Epic]</h3></p><div topic='Benefit' level='8'><p><b>Benefit:</b> Choose one type of magic item that has a limit on the number a character can simultaneously wear and gain its benefit. The character can now wear one more magic item of this type and also gain its benefit.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, a character is limited to one headband, hat, or helmet; one pair of eye lenses or goggles; one cloak, cape, or mantle; one amulet, brooch, medallion, necklace, periapt, or scarab; one suit of armor; one robe; one vest, vestment, or shirt; one pair of bracers or bracelets; one pair of gloves or gauntlets; two rings; one belt; and one pair of boots.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character can gain this feat multiple times. Each time the character takes the feat, it applies to a new type of wearable magic item.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "None"
+  }
+}

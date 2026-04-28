@@ -1,0 +1,22 @@
+{
+  "_id": "WLBGMq7AxsY3diHO",
+  "name": "Clenched Fist",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Clenched Fist' level='5'><p><h5>Clenched Fist</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Evocation [Force]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 8, Strength 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F/DF<br/></td></tr></table><p>This spell functions like <i>interposing hand</i>,  except that the hand can interpose itself, push, or strike one opponent that you select. The floating hand can move as far as 60 feet and can attack in the same round. Since this hand is directed by you, its ability to notice or attack invisible or concealed creatures is no better than yours.</p><p>The hand attacks once per round, and its attack bonus equals your caster level + your Intelligence, Wisdom, or Charisma modifier (for a wizard, cleric, or sorcerer, respectively), +11 for the hand's Strength score (33), -1 for being Large. The hand deals 1d8+11 points of damage on each attack, and any creature struck must make a Fortitude save (against this spell's save DC) or be stunned for 1 round. Directing the spell to a new target is a move action.</p><p>The <i>clenched fist</i> can also interpose itself as <i>interposing hand</i> does, or it can bull rush an opponent as <i>forceful hand</i> does, but at a +15 bonus on the Strength check.</p><p>Clerics who cast this spell name it for their deities.</p><p><i>Arcane Focus:</i> A leather glove.</p><p/>\n</div>\n    ",
+    "spellLevel": 8,
+    "school": "Evocation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Force"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_id": "CVxyjmcLLF3u33Jn",
+  "name": "Dire Bear",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Dire Bear' level='3'><p><h3>Dire Bear</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Dire Bear</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Large Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>12d8+51 (105 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+1<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>40 ft. (8 squares)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>17 (-1 size, +1 Dex, +7 natural), touch 10, flat-footed 16<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+9/+23<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Claw +19 melee (2d4+10)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>2 claws +19 melee (2d4+10) and bite +13 melee (2d8+5)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Improved grab<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +12, Ref +9, Will +9<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 31, Dex 13, Con 19, Int 2, Wis 12, Cha 10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Listen +10, Spot +10, Swim +13<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Endurance, Run, Toughness, Weapon Focus (claw)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Cold forests<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary or pair<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>7<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>13-16 HD (Large); 17-36 HD (Huge)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>The omnivorous dire bear usually does not bother creatures that try to avoid it, but will aggressively defend a kill or other source of food. It will not hesitate to rip apart anything that might contain something edible.</p><p>A typical dire bear is 12 feet long and weighs as much as 8,000 pounds.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>A dire bear attacks by tearing at opponents with its claws.</p><div topic='Improved Grab' level='8'><p><b>Improved Grab (Ex):</b> To use this ability, a dire bear must hit with a claw attack. It can then attempt to start a grapple as a free action without provoking an attack of opportunity.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 7,
+      "environment": "Cold forests",
+      "organization": "Solitary or pair",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Large",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

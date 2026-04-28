@@ -1,0 +1,22 @@
+{
+  "_id": "Jx9aPqSnp13e14F5",
+  "name": "Freedom",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Freedom' level='5'><p><h5>Freedom</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 9<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels) or see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates (harmless)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>The subject is freed from spells and effects that restrict its movement, including <i>binding</i>, <i>entangle</i>, grappling, <i>imprisonment</i>, <i>maze</i>, paralysis, <i>petrification</i>, pinning, <i>sleep</i>, <i>slow</i>, stunning, <i>temporal stasis</i>, and <i>web</i>. To free a creature from <i>imprisonment</i> or <i>maze</i>,  you must know its name and background, and you must cast this spell at the spot where it was entombed or banished into the <i>maze</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 9,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

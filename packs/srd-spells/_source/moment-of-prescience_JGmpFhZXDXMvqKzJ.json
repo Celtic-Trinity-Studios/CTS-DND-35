@@ -1,0 +1,22 @@
+{
+  "_id": "JGmpFhZXDXMvqKzJ",
+  "name": "Moment of Prescience",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Moment of Prescience' level='5'><p><h5>Moment of Prescience</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Divination<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Luck 8, Sorcerer/Wizard 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Personal<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 hour/level or until discharged<br/></td></tr></table><p>This spell grants you a powerful sixth sense in relation to yourself. Once during the spell's duration, you may choose to use its effect. This spell grants you an insight bonus equal to your caster level (maximum +25) on any single attack roll, opposed ability or skill check, or saving throw. Alternatively, you can apply the insight bonus to your AC against a single attack (even if flat-footed). Activating the effect doesn't take an action; you can even activate it on another character's turn if needed. You must choose to use the <i>moment of prescience</i> before you make the roll it is to modify. Once used, the spell ends.</p><p>You can't have more than one <i>moment of prescience</i> active on you at the same time.</p><p/>\n</div>\n    ",
+    "spellLevel": 8,
+    "school": "Divination",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

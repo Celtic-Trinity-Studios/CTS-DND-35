@@ -1,0 +1,10 @@
+{
+  "_id": "iC9FpuFKE8Dn05xu",
+  "name": "Combat Archery",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Combat Archery' level='3'><p><h3>Combat Archery [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dodge, Mobility, Point Blank Shot.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character does not incur any attacks of opportunity for firing a bow when threatened.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, a character incurs an attack of opportunity from all opponents who threaten him or her whenever he or she uses a bow.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dodge, Mobility, Point Blank Shot."
+  }
+}

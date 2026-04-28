@@ -1,0 +1,10 @@
+{
+  "_id": "aevm26fg8IYvkV83",
+  "name": "Improved Metapsionics",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Metapsionics' level='3'><p><h3>Improved Metapsionics [Epic, Psionic]</h3></p><p>You can manifest powers using metapsionic feats more easily than normal.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Character level 21st, four metapsionic feats, Psicraft 30 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Metapsionic powers you manifest cost 2 power points less than normal (to a minimum of 1 power point).</p><p>This feat has no effect on metapsionic powers that inflate the cost by only 2 power points.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can gain this feat multiple times. The effects stack, though you can't lower the cost of any metapsionic power to less than 1 power point.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic, Psionic",
+    "prerequisites": "Character level 21st, four metapsionic feats, Psicraft 30 ranks."
+  }
+}

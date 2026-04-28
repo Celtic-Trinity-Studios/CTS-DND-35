@@ -1,0 +1,22 @@
+{
+  "_id": "CYXKv5I76yvGDyIC",
+  "name": "Charm Animal",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Charm Animal' level='5'><p><h5>Charm Animal</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Charm) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 1, Ranger 1<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One animal<br/></td></tr></table><p>This spell functions like <i>charm person</i>, except that it affects a creature of the animal type.</p><p/>\n</div>\n    ",
+    "spellLevel": 1,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

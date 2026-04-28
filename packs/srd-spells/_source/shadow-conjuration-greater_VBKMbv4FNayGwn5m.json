@@ -1,0 +1,22 @@
+{
+  "_id": "VBKMbv4FNayGwn5m",
+  "name": "Shadow Conjuration, Greater",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Shadow Conjuration, Greater' level='5'><p><h5>Shadow Conjuration, Greater</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Shadow)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 7<br/></td></tr></table><p>This spell functions like <i>shadow conjuration</i>,  except that it can duplicate any sorcerer or wizard conjuration (summoning) or conjuration (creation) spell of 6th level or lower. The illusory conjurations created deal three-fifths (60%) damage to nonbelievers, and nondamaging effects are 60% likely to work against nonbelievers.</p><p/>\n</div>\n    ",
+    "spellLevel": 7,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

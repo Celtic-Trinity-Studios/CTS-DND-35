@@ -1,0 +1,10 @@
+{
+  "_id": "wt9liDuR7VJjDCcc",
+  "name": "Uncanny Accuracy",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Uncanny Accuracy' level='3'><p><h3>Uncanny Accuracy [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 21, base attack bonus +11, Point Blank Shot, Precise Shot, Improved Precise Shot, Spot 20 ranks.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's ranged attacks ignore the miss chance granted to targets by total concealment.  The character must aim his or her attacks at the correct square to gain advantage of this feat.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, characters suffer a 50% miss chance when making a ranged attack against a target with total concealment.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A character with at least 11 levels of ranger can qualify for this feat even if he or she does not have the prerequisites for it, but can only use it when wearing light or no armor.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 21, base attack bonus +11, Point Blank Shot, Precise Shot, Improved Precise Shot, Spot 20 ranks."
+  }
+}

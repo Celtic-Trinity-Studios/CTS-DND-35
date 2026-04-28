@@ -1,0 +1,22 @@
+{
+  "_id": "upusDnMEgMOxw9yj",
+  "name": "Nightmare",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Nightmare' level='5'><p><h5>Nightmare</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Phantasm) [Mind-Affecting, Evil]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 5, Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Unlimited<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You send a hideous and unsettling phantasmal vision to a specific creature that you name or otherwise specifically designate.</p><p>The <i>nightmare</i> prevents restful sleep and causes 1d10 points of damage. The <i>nightmare</i> leaves the subject fatigued and unable to regain arcane spells for the next 24 hours.</p><p>The difficulty of the save depends on how well you know the subject and what sort of physical connection (if any) you have to that creature.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Knowledge</b><br/></td>\n<td><b>Will Save Modifier</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>None<sup><b>1</b></sup><br/></td>\n<td>+10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Secondhand (you have heard of the subject)<br/></td>\n<td>+5<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Firsthand (you have met the subject)<br/></td>\n<td>+0<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Familiar (you know the subject well)<br/></td>\n<td>-5<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='2'>\n<td colspan='2'>1 You must have some sort of connection to a creature you have no knowledge of.<br/></td>\n\n</tr>\n</table><p/><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Connection</b><br/></td>\n<td><b>Will Save Modifier</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Likeness or picture<br/></td>\n<td>-2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Possession or garment<br/></td>\n<td>-4<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Body part, lock of hair, bit of nail, etc.<br/></td>\n<td>-10<br/></td>\n\n</tr>\n</table><p><i>Dispel evil</i> cast on the subject while you are casting the spell dispels the <i>nightmare</i> and causes you to be stunned for 10 minutes per caster level of the <i>dispel evil</i>.</p><p>If the recipient is awake when the spell begins, you can choose to cease casting (ending the spell) or to enter a trance until the recipient goes to sleep, whereupon you become alert again and complete the casting. If you are disturbed during the trance, you must succeed on a Concentration check as if you were in the midst of casting a spell or the spell ends.</p><p>If you choose to enter a trance, you are not aware of your surroundings or the activities around you while in the trance.</p><p>You are defenseless, both physically and mentally, while in the trance. (You always fail any saving throw, for example.)</p><p>Creatures who don't sleep (such as elves, but not half-elves) or dream are immune to this spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting, Evil"
+  }
+}

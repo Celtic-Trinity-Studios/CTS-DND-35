@@ -1,0 +1,22 @@
+{
+  "_id": "vuJgb7a5sDBx63h8",
+  "name": "Seed: Reflect",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Seed: Reflect' level='3'><p><h3>Seed: Reflect</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>27<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 minute<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Personal<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Until expended or 12 hours<br/></td></tr></table><p>Attacks targeted against the caster rebound on the original attacker. Each use of the <i>reflect</i> seed in an epic spell is effective against one type of attack only: spells (and spell-like effects), ranged attacks, or melee attacks. To reflect an area spell, where the caster is not the target but are caught in the vicinity, increase the Spellcraft DC by +20. A single successful use of <i>reflect</i> expends its protection. Spells developed with the <i>reflect</i> seed against spells and spell-like effects return all spell effects of up to 1st level. For each additional level of spells to be reflected, increase the Spellcraft DC by +20. Epic spells are treated as 10th-level spells for this purpose.</p><p>The desired effect is automatically reflected if the spell in question is 9th level or lower. An opposed caster level check is required when the reflect seed is used against another epic spell. If the enemy spellcaster gets his or her spell through by winning the caster level check, the epic spell using the reflect seed is not expended, just momentarily suppressed.</p><p>If the <i>reflect</i> seed is used against a melee attack or ranged attack, five such attacks are automatically reflected back on the original attacker. For each additional attack reflected, increase the Spellcraft DC by +4. The reflected attack rebounds on the attacker using the same attack roll. Once the allotted attacks are reflected, the spell using the <i>reflect</i> seed is expended.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 minute",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

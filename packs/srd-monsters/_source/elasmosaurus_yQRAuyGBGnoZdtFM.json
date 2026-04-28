@@ -1,0 +1,19 @@
+{
+  "_id": "yQRAuyGBGnoZdtFM",
+  "name": "Elasmosaurus",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Elasmosaurus' level='3'><p><h3>Elasmosaurus</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Elasmosaurus</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Huge Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>10d8+66 (111 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>20 ft. (4 squares), swim 50 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>13 (-2 size, +2 Dex, +3 natural), touch 10, flat-footed 11<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+7/+23<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +13 melee (2d8+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +13 melee (2d8+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>15 ft./10 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td><b>-</b><br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +15, Ref +9, Will +4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 26, Dex 14, Con 22, Int 2, Wis 13, Cha 9<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Hide -4*, Listen +4, Spot +9, Swim +16<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Dodge, Great Fortitude, Toughness (2)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Warm aquatic<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary, pair, or herd (5-8)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>7<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>11-20 HD (Huge); 21-30 HD (Gargantuan)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>Though it resides primarily in the water, an elasmosaurus only breathes air. An elasmosaurus has a total length of some 30 feet, including a tail half as long as its entire body, and weighs about 5,000 pounds. Observers who see only its head or tail might easily mistake it for a massive snake.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>An elasmosaurus is aggressive and attacks anything it notices. The creature is strong, fast, and highly maneuverable, able to turn quickly and lunge at prey. When hunting, it travels with its head out of the water, snapping down quickly to seize prey.</p><div topic='Skills' level='8'><p><b>Skills:</b> *An elasmosaurus has a +8 racial bonus on Hide checks in water.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 7,
+      "environment": "Warm aquatic",
+      "organization": "Solitary, pair, or herd (5-8)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Huge",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

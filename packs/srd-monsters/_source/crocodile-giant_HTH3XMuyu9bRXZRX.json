@@ -1,0 +1,19 @@
+{
+  "_id": "HTH3XMuyu9bRXZRX",
+  "name": "Crocodile, Giant",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Crocodile, Giant' level='2'><p><h2>Crocodile, Giant</h2></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Crocodile, Giant</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Huge Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>7d8+28 (59 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+1<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>20 ft. (4 squares), swim 30 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>16 (-2 size, +1 Dex, +7 natural), touch 9, flat-footed 15<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+5/+21<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +11 melee (2d8+12) or tail slap +11 melee (1d12+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +11 melee (2d8+12) or tail slap +11 melee (1d12+12)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>15 ft./10 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Improved grab<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Hold breath, low-light vision<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +9, Ref +6, Will +3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 27, Dex 12, Con 19, Int 1, Wis 12, Cha 2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Hide +1*, Listen +5, Spot +5, Swim +16<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Endurance, Skill Focus (Hide)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Warm marshes<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary or colony (6-11)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>8-14 HD (Huge)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>These huge creatures usually live in salt water and can be more than 20 feet long.</p><p>Giant crocodiles fight and behave like their smaller cousins.</p><p/>\n</div>\n    ",
+      "cr": 4,
+      "environment": "Warm marshes",
+      "organization": "Solitary or colony (6-11)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Huge",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_id": "OMuwC45ch6KLLxxq",
+  "name": "Improved Multiattack",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Multiattack' level='3'><p><h3>Improved Multiattack [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Three or more natural weapons, Multiattack</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The creature's secondary attacks with natural weapons have no penalty. They still add only one-half the creature's Strength bonus, if any, to damage dealt.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, the creature's secondary natural attacks have a -5 penalty (or a -2 penalty if it has the Multiattack feat).</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Three or more natural weapons, Multiattack"
+  }
+}

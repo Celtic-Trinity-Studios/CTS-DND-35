@@ -1,0 +1,22 @@
+{
+  "_id": "rpKlkapmrSDduFaE",
+  "name": "Break Enchantment",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Break Enchantment' level='5'><p><h5>Break Enchantment</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 4, Cleric 5, Luck 5, Paladin 4, Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 minute<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>Up to one creature per level, all within 30 ft. of each other<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>This spell frees victims from enchantments, transmutations, and curses. <i>Break enchantment</i> can reverse even an instantaneous effect. For each such effect, you make a caster level check (1d20 + caster level, maximum +15) against a DC of 11 + caster level of the effect. Success means that the creature is free of the spell, curse, or effect. For a cursed magic item, the DC is 25.</p><p>If the spell is one that cannot be dispelled by <i>dispel magic</i>, <i>Break enchantment</i> works only if that spell is 5th level or lower.</p><p>If the effect comes from some permanent magic item <i>Break enchantment</i> does not remove the curse from the item, but it does frees the victim from the item's effects.</p><p/>\n</div>\n    ",
+    "spellLevel": 4,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 minute",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

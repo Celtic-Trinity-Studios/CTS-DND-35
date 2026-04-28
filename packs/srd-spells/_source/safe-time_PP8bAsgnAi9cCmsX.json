@@ -1,0 +1,22 @@
+{
+  "_id": "PP8bAsgnAi9cCmsX",
+  "name": "Safe Time",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Safe Time' level='5'><p><h5>Safe Time</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration [Teleportation]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>64<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 minute<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>You or creature touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Contingent until expended, then 1 round of safe time<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>576,000 gp; 12 days; 23,040 XP. Seed: Transport (DC 27). Factors: move to time stream (+8 DC), reduce static time to 1 round (ad hoc +4 DC), activates when you would otherwise take 50 or more points of damage (+25 DC).<br/></td></tr></table><p><i>Safe time</i> can move the character (or the target) out of harm's way by shunting him or her into a static time stream. Once cast, the spell remains quiescent and does not activate until the trigger conditions have been met. Each day it remains untriggered, it uses up an epic spell slot, even if you cast it on another creature. Once triggered, the spell is expended normally. When the character would otherwise be subject to any instantaneous effect that would deal him or her 50 or more points of damage, he or she is instead transported to a static time stream where time ceases to flow. The character's condition becomes fixed-no force or effect can harm him or her until 1 round of real time has passed. Thus, the character avoids the damage he or she would otherwise receive, but the character also misses out on one round of activity. To the character, no time passes at all, but to onlookers who are part of real time, the character stands frozen and fixed in space for 1 full round.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 minute",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Teleportation"
+  }
+}

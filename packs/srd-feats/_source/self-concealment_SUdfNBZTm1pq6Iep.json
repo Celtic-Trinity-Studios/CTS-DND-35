@@ -1,0 +1,10 @@
+{
+  "_id": "SUdfNBZTm1pq6Iep",
+  "name": "Self-Concealment",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Self-Concealment' level='3'><p><h3>Self-Concealment [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 30, Hide 30 ranks, Tumble 30 ranks, improved evasion.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Attacks against the character have a 10% miss chance, similar to the effect of concealment. The character loses this benefit whenever he or she would lose his or her Dexterity bonus to AC.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> This feat may be taken multiple times. Each time it is taken, the miss chance increases by 10% to a maximum of 50% after it has been taken five times.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 30, Hide 30 ranks, Tumble 30 ranks, improved evasion."
+  }
+}

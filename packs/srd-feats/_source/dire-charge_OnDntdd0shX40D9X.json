@@ -1,0 +1,10 @@
+{
+  "_id": "OnDntdd0shX40D9X",
+  "name": "Dire Charge",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Dire Charge' level='3'><p><h3>Dire Charge [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Improved Initiative.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> If the character charges a foe during the first round of combat (or the surprise round, if the character is allowed to act in it), he or she can make a full attack against the opponent charged.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, a character may only make a single attack as part of a charge.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Improved Initiative."
+  }
+}

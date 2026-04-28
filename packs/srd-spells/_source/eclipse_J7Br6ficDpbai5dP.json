@@ -1,0 +1,22 @@
+{
+  "_id": "J7Br6ficDpbai5dP",
+  "name": "Eclipse",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Eclipse' level='5'><p><h5>Eclipse</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Creation) [Transportation]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>42<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, X P<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>200 miles<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>5-mile radius, centered on you<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Up to 8 hours (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>378,000 gp; 8 days; 15,1200 XP. Seeds: Conjure (DC 21), Transport (to move disk into position 100 miles up) (DC 27). Factors: increase mass by 1,000% (+40 DC), spread mass into paper-thin disk (ad hoc +2 DC), keep disk in place for 8 hours (ad hoc +10 DC). Mitigating factors: increase casting time by 9 minutes (-18 DC), burn 4,000 XP (-40 DC).<br/></td></tr></table><p>With this spell, the character can create a limited eclipse, as though a heavenly body moves between the sun and the earth. The landscape within a five-mile radius of the character's location experiences the dimming of the sun as a disk the character creates passes in front of it, culminating in a complete blackout and accompanying coronal ring. The eclipse follows the character across the landscape for up to 8 hours, or until the sun goes down, or until the character dismisses the eclipse. The character does not need to concentrate on the eclipse while it lasts.</p><p><i>XP Cost:</i> 4,000 XP.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Transportation"
+  }
+}

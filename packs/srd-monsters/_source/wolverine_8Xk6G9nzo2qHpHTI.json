@@ -1,0 +1,19 @@
+{
+  "_id": "8Xk6G9nzo2qHpHTI",
+  "name": "Wolverine",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Wolverine' level='2'><p><h2>Wolverine</h2></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Wolverine</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Medium Animal<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>3d8+15 (28 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>30 ft. (6 squares), burrow 10 ft., climb 10 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>14 (+2 Dex, +2 natural), touch 12, flat-footed 12<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+2/+4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Claw +4 melee (1d4+2)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>2 claws +4 melee (1d4+2) and bite -1 melee (1d6+1)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>5 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Rage<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +7, Ref +5, Will +2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 14, Dex 15, Con 19, Int 2, Wis 12, Cha 10<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Climb +10, Listen +6, Spot +6<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Alertness, Toughness, Track <sup>B</sup><br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Cold forests<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>4-5 HD (Large)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>These creatures are similar to badgers but are bigger, stronger, and even more ferocious.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><div topic='Rage' level='8'><p><b>Rage (Ex):</b> A wolverine that takes damage in combat flies into a berserk rage on its next turn, clawing and biting madly until either it or its opponent is dead. It gains +4 to Strength, +4 to Constitution, and -2 to Armor Class. The creature cannot end its rage voluntarily.</p>\n</div><div topic='Skills' level='8'><p><b>Skills:</b> Wolverines have a +8 racial bonus on Climb checks and can always choose to take 10 on Climb checks, even if rushed or threatened.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 2,
+      "environment": "Cold forests",
+      "organization": "Solitary",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Medium",
+      "type": "Animal",
+      "subtype": "None"
+    }
+  }
+}

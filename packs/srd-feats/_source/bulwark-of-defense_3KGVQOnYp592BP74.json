@@ -1,0 +1,10 @@
+{
+  "_id": "3KGVQOnYp592BP74",
+  "name": "Bulwark of Defense",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Bulwark of Defense' level='3'><p><h3>Bulwark of Defense [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Con 25, defensive stance 3/day.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character's defensive stance bonuses increase to +4 Strength, +6 Constitution, +4 resistance bonus on all saves, and +6 dodge bonus to AC.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Con 25, defensive stance 3/day."
+  }
+}

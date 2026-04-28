@@ -1,0 +1,22 @@
+{
+  "_id": "H5vag0V8SoooXz1U",
+  "name": "Eyebite",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Eyebite' level='5'><p><h5>Eyebite</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Necromancy [Evil]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round per three levels; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>Each round, you may target a single living creature, striking it with waves of evil power. Depending on the target's HD, this attack has as many as three effects.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>HD</b><br/></td>\n<td><b>Effect</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>10 or more<br/></td>\n<td>Sickened<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>5-9<br/></td>\n<td>Panicked, sickened<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>4 or less<br/></td>\n<td>Comatose, panicked, sickened<br/></td>\n\n</tr>\n</table><p>The effects are cumulative and concurrent.</p><p><i>Sickened:</i> Sudden pain and fever sweeps over the subject's body. A sickened creature takes a -2 penalty on attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks. A creature affected by this spell remains sickened for 10 minutes per caster level. The effects cannot be negated by a <i>remove disease</i> or <i>heal</i> spell, but a <i>remove curse</i> is effective.</p><p><i>Panicked:</i> The subject becomes panicked for 1d4 rounds. Even after the panic ends, the creature remains shaken for 10 minutes per caster level, and it automatically becomes panicked again if it comes within sight of you during that time. This is a fear effect.</p><p><i>Comatose:</i> The subject falls into a catatonic coma for 10 minutes per caster level. During this time, it cannot be awakened by any means short of dispelling the effect. This is not a <i>sleep</i> effect, and thus elves are not immune to it.</p><p>The spell lasts for 1 round per three caster levels. You must spend a move action each round after the first to target a foe.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Necromancy",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Evil"
+  }
+}

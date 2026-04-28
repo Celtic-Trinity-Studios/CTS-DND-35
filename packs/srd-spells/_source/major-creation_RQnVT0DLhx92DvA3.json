@@ -1,0 +1,22 @@
+{
+  "_id": "RQnVT0DLhx92DvA3",
+  "name": "Major Creation",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Major Creation' level='5'><p><h5>Major Creation</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Creation)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Sorcerer/Wizard 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Close (25 ft. + 5 ft./2 levels)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>See text<br/></td></tr></table><p>This spell functions like <i>minor creation</i>,  except that you can also create an object of mineral nature: stone, crystal, metal, or the like. The duration of the created item varies with its relative hardness and rarity, as indicated on the following table.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hardness and Rarity Examples</b><br/></td>\n<td><b>Duration</b><br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td>Vegetable matter<br/></td>\n<td>2 hr./level<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Stone, crystal, base metals<br/></td>\n<td>1 hr./level<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Precious metals<br/></td>\n<td>20 min./level<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Gems<br/></td>\n<td>10 min./level<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td>Rare metal<sup><b>1</b></sup><br/></td>\n<td>1 round/level<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='2'>\n<td colspan='2'>1 Includes adamantine, alchemical silver, and mithral. You can't use major creation to create a cold iron item.<br/></td>\n\n</tr>\n</table><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A tiny piece of matter of the same sort of item you plan to create with minor creation.",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

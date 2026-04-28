@@ -1,0 +1,10 @@
+{
+  "_id": "edPy82gJwWmme4wE",
+  "name": "Quicken Power",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Quicken Power' level='3'><p><h3>Quicken Power [Metapsionic]</h3></p><p>You can manifest a power with a moment's thought.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus. You can quicken a power. You can perform another action, even manifest another power, in the same round that you manifest a quickened power. You can manifest only one quickened power per round. A power whose manifesting time is longer than 1 round cannot be quickened.</p><p>Using this feat increases the power point cost of the power by 6. The power's total cost cannot exceed your manifester level.</p><p>Manifesting a quickened power does not provoke attacks of opportunity.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metapsionic",
+    "prerequisites": "None"
+  }
+}

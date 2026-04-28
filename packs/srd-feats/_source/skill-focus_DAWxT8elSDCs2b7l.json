@@ -1,0 +1,10 @@
+{
+  "_id": "DAWxT8elSDCs2b7l",
+  "name": "Skill Focus",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Skill Focus' level='3'><p><h3>Skill Focus [General]</h3></p><p>Choose a skill.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> You get a +3 bonus on all checks involving that skill.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a new skill.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "None"
+  }
+}

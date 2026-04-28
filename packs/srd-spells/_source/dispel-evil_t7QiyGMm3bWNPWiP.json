@@ -1,0 +1,22 @@
+{
+  "_id": "t7QiyGMm3bWNPWiP",
+  "name": "Dispel Evil",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Dispel Evil' level='5'><p><h5>Dispel Evil</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration [Good]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Cleric 5, Good 5, Paladin 4<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target or Targets:</b><br/></td><td>You and a touched evil creature from another plane; or you and an enchantment or evil spell on a touched creature or object<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level or until discharged, whichever comes first<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>See text<br/></td></tr></table><p>Shimmering, white, holy energy surrounds you. This power has three effects.</p><p>First, you gain a +4 deflection bonus to AC against attacks by evil creatures.</p><p>Second, on making a successful melee touch attack against an evil creature from another plane, you can choose to drive that creature back to its home plane. The creature can negate the effects with a successful Will save (spell resistance applies). This use discharges and ends the spell.</p><p>Third, with a touch you can automatically dispel any one enchantment spell cast by an evil creature or any one evil spell. <i>Exception:</i> Spells that can't be dispelled by <i>dispel magic</i> also can't be dispelled by <i>dispel evil</i>. Saving throws and spell resistance do not apply to this effect. This use discharges and ends the spell.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Good"
+  }
+}

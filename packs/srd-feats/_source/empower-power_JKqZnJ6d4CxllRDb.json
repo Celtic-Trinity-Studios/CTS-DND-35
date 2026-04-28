@@ -1,0 +1,10 @@
+{
+  "_id": "JKqZnJ6d4CxllRDb",
+  "name": "Empower Power",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Empower Power' level='3'><p><h3>Empower Power [Metapsionic]</h3></p><p>You can manifest powers to greater effect.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> To use this feat, you must expend your psionic focus.</p><p>You can empower a power. All variable, numeric effects of an empowered power are increased by one-half. An empowered power deals half again as much damage as normal, cures half again as many hit points, affects half again as many targets, and so forth, as appropriate. Augmented powers can also be empowered (multiply 1-1/2 times the damage total of the augmented power). Saving throws and opposed checks (such as the one you make when you manifest <i>dispel psionics</i>) are not affected, nor are powers without random variables.</p><p>Using this feat increases the power point cost of the power by 2. The power's total cost cannot exceed your manifester level.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Metapsionic",
+    "prerequisites": "None"
+  }
+}

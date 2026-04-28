@@ -1,0 +1,10 @@
+{
+  "_id": "AqnWeEC6QsiYXmkY",
+  "name": "Epic Dodge",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Epic Dodge' level='3'><p><h3>Epic Dodge [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 25, Dodge, Tumble 30 ranks, improved evasion, defensive roll class feature.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Once per round, when struck by an attack from an opponent the character has designated as the object of his or her dodge, the character may automatically avoid all damage from the attack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 25, Dodge, Tumble 30 ranks, improved evasion, defensive roll class feature."
+  }
+}

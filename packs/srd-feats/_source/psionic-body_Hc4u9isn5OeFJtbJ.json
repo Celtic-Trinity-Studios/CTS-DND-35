@@ -1,0 +1,10 @@
+{
+  "_id": "Hc4u9isn5OeFJtbJ",
+  "name": "Psionic Body",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psionic Body' level='3'><p><h3>Psionic Body [Psionic]</h3></p><p>Your mind reinforces your body.</p><div topic='Benefit' level='8'><p><b>Benefit:</b> When you take this feat, you gain 2 hit points for each psionic feat you have (including this one). Whenever you take a new psionic feat, you gain 2 more hit points.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Psionic",
+    "prerequisites": "None"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_id": "yqhEO3h344Wo0KO7",
+  "name": "Iron Colossus",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Construction' level='5'><p><h5>Construction</h5></p><p>The construction cost given for each colossus takes into account the physical body and all the materials and spell components that are consumed or become a permanent part of it. Except for the much tougher requirements, constructing a colossus is not unlike constructing a golem.</p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n\n\n<td><b>Iron Colossus</b> <br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n\n\n<td>Colossal Construct<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n\n\n<td>96d10 (603 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n\n\n<td>-2 (Dex) Initiative)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n\n\n<td>50 ft. (can't run)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n\n\n<td>60 (-8 size, -2 Dex, +60 natural), touch 0, flat-footed 60<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n\n\n<td>+72/+123<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n\n\n<td>Slam +99 (12d6+35) melee<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n\n\n<td>2 slams +99 (12d6+35) melee<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n\n\n<td>30 ft./30 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n\n\n<td>Breath weapon<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n\n\n<td>Construct traits, magic immunity, antimagic field, rustproof, damage reduction 20/Epic and adamantine<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n\n\n<td>Fort +32, Ref +30, Will +33<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n\n\n<td>Str 80, Dex 7, Con -, Int 9, Wis 12, Cha 1<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n\n\n<td>Jump +43<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n\n\n<td>Any<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n\n\n<td>Solitary<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n\n\n<td>33<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n\n\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n\n\n<td>Usually neutral<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n\n\n<td>97-288 HD (Colossal)<br/></td>\n\n</tr>\n</table>\n</div>\n    ",
+      "cr": 33,
+      "environment": "Any",
+      "organization": "Solitary",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Colossal",
+      "type": "Construct",
+      "subtype": "None"
+    }
+  }
+}

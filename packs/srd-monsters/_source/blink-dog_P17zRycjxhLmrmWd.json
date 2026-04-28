@@ -1,0 +1,19 @@
+{
+  "_id": "P17zRycjxhLmrmWd",
+  "name": "Blink Dog",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Blink Dog' level='2'><p><h2>Blink Dog</h2></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Blink Dog</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Medium Magical Beast<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>4d10 (22 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>40 ft. (8 squares)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>16 (+3 Dex, +3 natural), touch 13, flat-footed 13<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+4/+4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Bite +4 melee (1d6)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Bite +4 melee (1d6)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>5 ft./5 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td><b>-</b><br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Blink, darkvision 60 ft., dimension door, low-light vision, scent<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +4, Ref +7, Will +4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 10, Dex 17, Con 10, Int 10, Wis 13, Cha 11<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Hide +3, Listen +5, Sense Motive +3, Spot +5, Survival +4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>Iron Will, Run, Track <sup>B</sup><br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate plains<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary, pair, or pack (7-16)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Usually lawful good<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>5-7 HD (Medium); 8-12 HD (Large)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>+2 (cohort)<br/></td>\n\n</tr>\n</table><p>The blink dog is an intelligent canine that has a limited teleportation ability.</p><p>Blink dogs have their own language, a mixture of barks, yaps, whines, and growls that can transmit complex information.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>Blink dogs hunt in packs, teleporting in a seemingly random fashion until they surround their prey, allowing some of them to take advantage of flanking.</p><div topic='Blink' level='8'><p><b>Blink (Su):</b> A blink dog can use <i>blink</i> as the spell (caster level 8th), and can evoke or end the effect as a free action.</p>\n</div><div topic='Dimension Door' level='8'><p><b>Dimension Door (Su):</b> A blink dog can teleport, as <i>dimension door</i> (caster level 8th), once per round as a free action. The ability affects only the blink dog, which never appears within a solid object and can act immediately after teleporting.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 2,
+      "environment": "Temperate plains",
+      "organization": "Solitary, pair, or pack (7-16)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Medium",
+      "type": "Magical Beast",
+      "subtype": "None"
+    }
+  }
+}

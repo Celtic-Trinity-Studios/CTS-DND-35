@@ -1,0 +1,10 @@
+{
+  "_id": "osXooVhJ01KkVqqM",
+  "name": "Psicrystal Power",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Psicrystal Power' level='3'><p><h3>Psicrystal Power [Epic, Psionic]</h3></p><p>Your psicrystal can manifest a power.</p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Character level 21st, Intelligence 25 or Charisma 25 (depending on which is your key ability score for manifesting).</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Choose one power you know of 8th level or lower. Your psicrystal can now manifest this power once per day at your manifester level (the psicrystal gains sufficient power points to manifest the power once). You cannot bestow a power upon your psicrystal if the power normally has any experience point cost.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> You can gain this feat multiple times. Each time you take the feat, you can give your psicrystal knowledge of a new power (and it gains sufficient power points to manifest that power once).</p><p>All power points gained by a psicrystal from multiple applications of this feat go into its reserve and can be used to manifest the powers it knows as you desire.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic, Psionic",
+    "prerequisites": "Character level 21st, Intelligence 25 or Charisma 25 (depending on which is your key ability score for manifesting)."
+  }
+}

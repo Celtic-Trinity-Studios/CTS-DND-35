@@ -1,0 +1,22 @@
+{
+  "_id": "vaAYkD21zYNcDtFI",
+  "name": "Illusory Script",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Illusory Script' level='5'><p><h5>Illusory Script</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Illusion (Phantasm) [Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 3, Sorcerer/Wizard 3<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, M<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 minute or longer; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One touched object weighing no more than 10 lb.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>One day/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates; see text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You write instructions or other information on parchment, paper, or any suitable writing material. The <i>illusory script</i> appears to be some form of foreign or magical writing. Only the person (or people) designated by you at the time of the casting are able to read the writing; it's unintelligible to any other character, although an illusionist recognizes it as <i>illusory script</i>.</p><p>Any unauthorized creature attempting to read the script triggers a potent illusory effect and must make a saving throw. A successful saving throw means the creature can look away with only a mild sense of disorientation. Failure means the creature is subject to a suggestion implanted in the script by you at the time the illusory script spell was cast. The suggestion lasts only 30 minutes. Typical suggestions include 'Close the book and leave,' 'Forget the existence of the book,' and so forth. If successfully dispelled by <i>dispel magic</i>,  the <i>illusory script</i> and its secret message disappear. The hidden message can be read by a combination of the <i>true seeing</i> spell with the <i>read magic</i> or <i>comprehend languages</i> spell.</p><p>The casting time depends on how long a message you wish to write, but it is always at least 1 minute.</p><p><i>Material Component:</i> A lead-based ink (cost of not less than 50 gp).</p><p/>\n</div>\n    ",
+    "spellLevel": 3,
+    "school": "Illusion",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": true,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "A lead-based ink (cost of not less than 50 gp).",
+    "castingTime": "1 minute or longer; see text",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Mind-Affecting"
+  }
+}

@@ -26,19 +26,20 @@ jobs:
              '.version = $v | .download = $dl' system.json > system.json.tmp
           mv system.json.tmp system.json
 
-      - name: Create zip
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build and Package
         run: |
-          cd ..
-          zip -r CTS-DND-35/CTS-DND-35.zip CTS-DND-35 \
-            -x "CTS-DND-35/.git/*" \
-            -x "CTS-DND-35/.github/*" \
-            -x "CTS-DND-35/node_modules/*" \
-            -x "CTS-DND-35/.gitignore"
+          npm ci
+          npm run release
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            CTS-DND-35.zip
+            dist/CTS-DND-35.zip
             system.json
           generate_release_notes: true

@@ -1,0 +1,22 @@
+{
+  "_id": "azOfeAFjx9xNMtMV",
+  "name": "Awaken",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Awaken' level='5'><p><h5>Awaken</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Druid 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, DF, XP<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>24 hours<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>Touch<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>Animal or tree touched<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Instantaneous<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Will negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes<br/></td></tr></table><p>You awaken a tree or animal to humanlike sentience. To succeed, you must make a Will save (DC 10 + the animal's current HD, or the HD the tree will have once awakened).</p><p>The <i>awakened</i> animal or tree is friendly toward you. You have no special empathy or connection with a creature you awaken, although it serves you in specific tasks or endeavors if you communicate your desires to it.</p><p>An <i>awakened</i> tree has characteristics as if it were an animated object, except that it gains the plant type and its Intelligence, Wisdom, and Charisma scores are each 3d6. An <i>awakened</i> plant gains the ability to move its limbs, roots, vines, creepers, and so forth, and it has senses similar to a human's.</p><p>An <i>awakened</i> animal gets 3d6 Intelligence, +1d3 Charisma, and +2 HD. Its type becomes magical beast (augmented animal). An awakened animal can't serve as an animal companion, familiar, or special mount.</p><p>An <i>awakened</i> tree or animal can speak one language that you know, plus one additional language that you know per point of Intelligence bonus (if any).</p><p><i>XP Cost:</i> 250 XP.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": true
+    },
+    "materialComponent": "None",
+    "castingTime": "24 hours",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "None"
+  }
+}

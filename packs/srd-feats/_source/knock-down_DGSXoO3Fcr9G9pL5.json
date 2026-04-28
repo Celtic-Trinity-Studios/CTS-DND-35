@@ -1,0 +1,10 @@
+{
+  "_id": "DGSXoO3Fcr9G9pL5",
+  "name": "Knock-Down",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Knock-Down' level='3'><p><h3>Knock-Down [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Base attack bonus +2, Improved Trip, Str 15.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Whenever you deal 10 or more points of damage to your opponent in melee, you make a trip attack as a free action against the same target.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Base attack bonus +2, Improved Trip, Str 15."
+  }
+}

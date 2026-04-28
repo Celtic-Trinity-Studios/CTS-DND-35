@@ -1,0 +1,10 @@
+{
+  "_id": "Azc3501tWrDM7vfv",
+  "name": "Improved Flyby Attack",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Flyby Attack' level='3'><p><h3>Improved Flyby Attack [General]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Fly speed, Dodge, Flyby Attack, Mobility.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> If the standard action taken by a creature during a round in which it uses Flyby Attack is a melee attack, the creature provokes no attacks of opportunity from moving out of squares threatened by its target.</p>\n</div><div topic='Normal' level='8'><p><b>Normal:</b> Without this feat, a creature making an attack as part of a Flyby Attack maneuver provokes attacks of opportunity as normal from moving out of squares threatened by its target.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Fly speed, Dodge, Flyby Attack, Mobility."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_id": "LqoxwwlehE93QIhM",
+  "name": "Locust Swarm",
+  "type": "npc",
+  "system": {
+    "details": {
+      "biography": "\n      <div topic='Locust Swarm' level='3'><p><h3>Locust Swarm</h3></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'>\n\n<tr maxcol='3' curcol='3'>\n<td/>\n<td><b>Locust Swarm</b><br/></td>\n\n</tr><tr maxcol='3' curcol='3'>\n<td/>\n<td>Diminutive Vermin (Swarm)<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Hit Dice:</b><br/></td>\n<td>6d8-6 (21 hp)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Initiative:</b><br/></td>\n<td>+4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Speed:</b><br/></td>\n<td>10 ft. (2 squares), fly 30 ft. (poor)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Armor Class:</b><br/></td>\n<td>18 (+4 size, +4 Dex), touch 18, flat-footed 14<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Base Attack/Grapple:</b><br/></td>\n<td>+4/-<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Attack:</b><br/></td>\n<td>Swarm (2d6)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Full Attack:</b><br/></td>\n<td>Swarm (2d6)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Space/Reach:</b><br/></td>\n<td>10 ft./0 ft.<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Attacks:</b><br/></td>\n<td>Distraction<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Special Qualities:</b><br/></td>\n<td>Darkvision 60 ft., immune to weapon damage, swarm traits, vermin traits<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Saves:</b><br/></td>\n<td>Fort +4, Ref +6, Will +2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Abilities:</b><br/></td>\n<td>Str 1, Dex 19, Con 8, Int -, Wis 10, Cha 2<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Skills:</b><br/></td>\n<td>Listen +4, Spot +4<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Feats:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Environment:</b><br/></td>\n<td>Temperate plains<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Organization:</b><br/></td>\n<td>Solitary, cloud (2-7 swarms), or plague (11-20 swarms)<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Challenge Rating:</b><br/></td>\n<td>3<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Treasure:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Alignment:</b><br/></td>\n<td>Always neutral<br/></td>\n\n</tr>\n<tr maxcol='3' curcol='3'>\n<td><b>Advancement:</b><br/></td>\n<td>None<br/></td>\n\n</tr>\n\n<tr maxcol='3' curcol='3'>\n<td><b>Level Adjustment:</b><br/></td>\n<td>-<br/></td>\n\n</tr>\n</table><p>A locust swarm is a cloud of thousands of winged vermin that devours any organic material in its path.</p><div topic='Combat' level='5'><p><h5>Combat</h5></p><p>A locust swarm surrounds and attacks any living prey it encounters. A swarm deals 2d6 points of damage to any creature whose space it occupies at the end of its move.</p><div topic='Distraction' level='8'><p><b>Distraction (Ex):</b> Any living creature that begins its turn with a locust swarm in its space must succeed on a DC 12 Fortitude save or be nauseated for 1 round. The save DC is Constitution-based.</p>\n</div><div topic='Skills' level='8'><p><b>Skills:</b> A locust swarm has a +4 racial bonus on Listen and Spot checks.</p><p/>\n</div>\n</div>\n</div>\n    ",
+      "cr": 3,
+      "environment": "Temperate plains",
+      "organization": "Solitary, cloud (2-7 swarms), or plague (11-20 swarms)",
+      "treasure": "None"
+    },
+    "traits": {
+      "size": "Diminutive",
+      "type": "Vermin",
+      "subtype": "Swarm"
+    }
+  }
+}

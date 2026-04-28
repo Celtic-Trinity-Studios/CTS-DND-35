@@ -1,0 +1,10 @@
+{
+  "_id": "XRw2r806xAhSSz0U",
+  "name": "Improved Stunning Fist",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Improved Stunning Fist' level='3'><p><h3>Improved Stunning Fist [Epic]</h3></p><div topic='Prerequisite' level='8'><p><b>Prerequisite:</b> Dex 19, Wis 19, Improved Unarmed Strike, Stunning Fist.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> Add +2 to the DC of the character's stunning attack.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> This feat may be taken multiple times. Its effects stack.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Dex 19, Wis 19, Improved Unarmed Strike, Stunning Fist."
+  }
+}

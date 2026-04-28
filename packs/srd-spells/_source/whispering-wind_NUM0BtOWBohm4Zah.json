@@ -1,0 +1,22 @@
+{
+  "_id": "NUM0BtOWBohm4Zah",
+  "name": "Whispering Wind",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Whispering Wind' level='5'><p><h5>Whispering Wind</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation [Air]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 2, Sorcerer/Wizard 2<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>1 mile/level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>10-ft. -radius spread<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>No more than 1 hour/level or until discharged (destination is reached)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You send a message or sound on the wind to a designated spot. The <i>whispering wind</i> travels to a specific location within range that is familiar to you, provided that it can find a way to the location. A <i>whispering wind</i> is as gentle and unnoticed as a zephyr until it reaches the location. It then delivers its whisper-quiet message or other sound. Note that the message is delivered regardless of whether anyone is present to hear it. The wind then dissipates.</p><p>You can prepare the spell to bear a message of no more than twenty-five words, cause the spell to deliver other sounds for 1 round, or merely have the <i>whispering wind</i> seem to be a faint stirring of the air. You can likewise cause the <i>whispering wind</i> to move as slowly as 1 mile per hour or as quickly as 1 mile per 10 minutes.</p><p>When the spell reaches its objective, it swirls and remains in place until the message is delivered. As with <i>magic mouth</i>,  <i>whispering wind</i> cannot speak verbal components, use command words, or activate magical effects.</p><p/>\n</div>\n    ",
+    "spellLevel": 2,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Air"
+  }
+}

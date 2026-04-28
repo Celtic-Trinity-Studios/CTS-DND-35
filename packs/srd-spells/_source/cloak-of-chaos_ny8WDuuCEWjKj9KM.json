@@ -1,0 +1,22 @@
+{
+  "_id": "ny8WDuuCEWjKj9KM",
+  "name": "Cloak of Chaos",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Cloak of Chaos' level='5'><p><h5>Cloak of Chaos</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Abjuration [Chaotic]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Chaos 8, Cleric 8<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, F<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>20 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Targets:</b><br/></td><td>One creature/level in a 20-ft. -radius burst centered on you<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>1 round/level (D)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>See text<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>Yes (harmless)<br/></td></tr></table><p>A random pattern of color surrounds the subjects, protecting them from attacks, granting them resistance to spells cast by lawful creatures, and causing lawful creatures that strike the subjects to become <i>confused</i>. This abjuration has four effects.</p><p>First, each warded creature gains a +4 deflection bonus to AC and a +4 resistance bonus on saves. Unlike <i>protection from law</i>, the benefit of this spell applies against all attacks, not just against attacks by lawful creatures.</p><p>Second, each warded creature gains spell resistance 25 against lawful spells and spells cast by lawful creatures.</p><p>Third, the abjuration blocks possession and mental influence, just as <i>protection from law</i> does.</p><p>Finally, if a lawful creature succeeds on a melee attack against a warded creature, the offending attacker is <i>confused</i> for 1 round (Will save negates, as with the <i>confusion</i> spell, but against the save DC of <i>cloak of chaos</i>).</p><p><i>Focus:</i> A tiny reliquary containing some sacred relic, such as a scrap of parchment from a chaotic text. The reliquary costs at least 500 gp.</p><p/>\n</div>\n    ",
+    "spellLevel": 8,
+    "school": "Abjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": true,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Chaotic"
+  }
+}

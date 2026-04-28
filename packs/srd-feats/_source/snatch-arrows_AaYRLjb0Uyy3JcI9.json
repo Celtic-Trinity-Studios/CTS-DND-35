@@ -1,0 +1,10 @@
+{
+  "_id": "AaYRLjb0Uyy3JcI9",
+  "name": "Snatch Arrows",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Snatch Arrows' level='3'><p><h3>Snatch Arrows [General]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Dex 15, Deflect Arrows, Improved Unarmed Strike.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> When using the Deflect Arrows feat you may catch the weapon instead of just deflecting it. Thrown weapons can immediately be thrown back at the original attacker (even though it isn't your turn) or kept for later use.</p><p>You must have at least one hand free (holding nothing) to use this feat.</p>\n</div><div topic='Special' level='8'><p><b>Special:</b> A fighter may select Snatch Arrows as one of his fighter bonus feats.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "General",
+    "prerequisites": "Dex 15, Deflect Arrows, Improved Unarmed Strike."
+  }
+}

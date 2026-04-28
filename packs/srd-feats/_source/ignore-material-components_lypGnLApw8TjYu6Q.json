@@ -1,0 +1,10 @@
+{
+  "_id": "lypGnLApw8TjYu6Q",
+  "name": "Ignore Material Components",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Ignore Material Components' level='3'><p><h3>Ignore Material Components [Epic]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Eschew Materials, Spellcraft 25 ranks, ability to cast 9th-level arcane or divine spells.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> The character may cast spells without any material components. This feat does not affect the need for a focus or divine focus.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Epic",
+    "prerequisites": "Eschew Materials, Spellcraft 25 ranks, ability to cast 9th-level arcane or divine spells."
+  }
+}

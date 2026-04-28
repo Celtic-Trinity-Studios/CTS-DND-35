@@ -1,0 +1,22 @@
+{
+  "_id": "YWxj1cn7AJe5sikt",
+  "name": "Geas/Quest",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Geas/Quest' level='5'><p><h5>Geas/Quest</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Enchantment (Compulsion) [Language-Dependent, Mind-Affecting]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Bard 6, Cleric 6, Sorcerer/Wizard 6<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Target:</b><br/></td><td>One living creature<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>None<br/></td></tr></table><p>This spell functions similarly to <i>lesser geas</i>,  except that it affects a creature of any HD and allows no saving throw.</p><p>Instead of taking penalties to ability scores (as with <i>lesser geas</i>), the subject takes 3d6 points of damage each day it does not attempt to follow the <i>geas/quest</i>. Additionally, each day it must make a Fortitude saving throw or become sickened. These effects end 24 hours after the creature attempts to resume the <i>geas/quest</i>.</p><p>A <i>remove curse</i> spell ends a <i>geas/quest</i> spell only if its caster level is at least two higher than your caster level. <i>Break enchantment</i> does not end a <i>geas/quest</i>, but <i>limited wish</i>, <i>miracle</i>, and <i>wish</i> do.</p><p>Bards, sorcerers, and wizards usually refer to this spell as <i>geas</i>,  while clerics call the same spell <i>quest</i>.</p><p/>\n</div>\n    ",
+    "spellLevel": 6,
+    "school": "Enchantment",
+    "components": {
+      "verbal": true,
+      "somatic": false,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "10 minutes",
+    "spellResistance": true,
+    "prepared": false,
+    "domain": "Language-Dependent, Mind-Affecting"
+  }
+}

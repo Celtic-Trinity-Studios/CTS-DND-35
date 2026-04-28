@@ -1,0 +1,22 @@
+{
+  "_id": "M5j98z1RIgUfujK6",
+  "name": "Verdigris Tsunami",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Verdigris Tsunami' level='5'><p><h5>Verdigris Tsunami</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Conjuration (Creation)<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spellcraft DC:</b><br/></td><td>170<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S, Ritual, XP<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>10 minutes<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>1,500 ft.<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>1,000-ft. -radius hemisphere<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>Permanent<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Reflex half<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>To Develop:</b><br/></td><td>1,530,000 gp; 31 days; 61,200 XP. Seed: conjure (DC 21). Factor: change area to 20-ft. -radius hemisphere (+2 DC), increase radius to 1,000 ft. (+196 DC), increase range to 1,500 ft. (+8 DC), deal 10d6 damage during growth (ad hoc +19 DC), increase damage to 40d6 (+60 DC), permanent (x5 DC). Mitigating factors: increase casting time by 9 minutes (-18 DC), eleven additional casters contributing 6th-level spell slots (-121 DC), three additional casters contributing 4th-level spell slots (-21 DC), burn 10,000 XP per 6th-level spell contributor plus caster (-1,200 DC).<br/></td></tr></table><p>This spell creates a tsunami of grass, shrubs, and trees that overgrows the area like a tidal wave. The plant growth creeps and curls across every-thing in the area, ensnaring it and coiling around it as if it had been growing there for a century or more. Creatures in the area must make a Reflex saving throw to avoid the fast-moving growth, which otherwise deals 40d6 points of damage from the crushing press. Buildings are engulfed and they likewise take 40d6 points of damage. Those destroyed by the damage have their foundations uprooted and walls crumbled. The plant growth is permanent. This is a ritual spell requiring fourteen other spellcasters, each of whom must contribute an unused 6th-level spell slot to the casting.</p><p><i>XP Cost:</i> 10,000 XP.</p><p/>\n</div>\n    ",
+    "spellLevel": 0,
+    "school": "Conjuration",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "10 minutes",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "None"
+  }
+}

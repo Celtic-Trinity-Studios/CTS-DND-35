@@ -1,0 +1,22 @@
+{
+  "_id": "IqmCoE45k6qwsIhO",
+  "name": "Control Winds",
+  "type": "spell",
+  "system": {
+    "description": "\n      <div topic='Control Winds' level='5'><p><h5>Control Winds</h5></p><table width='100%' border='1' cellpadding='2' cellspacing='2' frame='VOID' rules='ROWS'><tr maxcol='3' curcol='3'><td width='25%'/><td>Transmutation [Air]<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Level:</b><br/></td><td>Air 5, Druid 5<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Components:</b><br/></td><td>V, S<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Casting Time:</b><br/></td><td>1 standard action<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Range:</b><br/></td><td>40 ft./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Area:</b><br/></td><td>40 ft./level radius cylinder 40 ft. high<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Duration:</b><br/></td><td>10 min./level<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Saving Throw:</b><br/></td><td>Fortitude negates<br/></td></tr><tr maxcol='3' curcol='3'><td width='25%'><b>Spell Resistance:</b><br/></td><td>No<br/></td></tr></table><p>You alter wind force in the area surrounding you. You can make the wind blow in a certain direction or manner, increase its strength, or decrease its strength. The new wind direction and strength persist until the spell ends or until you choose to alter your handiwork, which requires concentration. You may create an 'eye' of calm air up to 80 feet in diameter at the center of the area if you so desire, and you may choose to limit the area to any cylindrical area less than your full limit.</p><p><i>Wind Direction:</i> You may choose one of four basic wind patterns to function over the spell's area.</p><ul>\n <li> A downdraft blows from the center outward in equal strength in all directions.</li>\n <li> An updraft blows from the outer edges in toward the center in equal strength from all directions, veering upward before impinging on the eye in the center.</li>\n <li> A rotation causes the winds to circle the center in clockwise or counterclockwise fashion.</li>\n <li> A blast simply causes the winds to blow in one direction across the entire area from one side to the other.</li>\n</ul><p><i>Wind Strength:</i> For every three caster levels, you can increase or decrease wind strength by one level. Each round on your turn, a creature in the wind must make a Fortitude save or suffer the effect of being in the windy area.</p><p>Strong winds (21+ mph) make sailing difficult.</p><p>A severe wind (31+ mph) causes minor ship and building damage.</p><p>A windstorm (51+ mph) drives most flying creatures from the skies, uproots small trees, knocks down light wooden structures, tears off roofs, and endangers ships.</p><p>Hurricane force winds (75+ mph) destroy wooden buildings, sometimes uproot even large trees, and cause most ships to founder.</p><p>A tornado (175+ mph) destroys all nonfortified buildings and often uproots large trees.</p><p/>\n</div>\n    ",
+    "spellLevel": 5,
+    "school": "Transmutation",
+    "components": {
+      "verbal": true,
+      "somatic": true,
+      "material": false,
+      "focus": false,
+      "divineFocus": false
+    },
+    "materialComponent": "None",
+    "castingTime": "1 standard action",
+    "spellResistance": false,
+    "prepared": false,
+    "domain": "Air"
+  }
+}

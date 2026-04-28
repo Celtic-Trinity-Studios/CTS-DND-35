@@ -1,0 +1,10 @@
+{
+  "_id": "h4ktHbSHfs8abZhK",
+  "name": "Craft Construct",
+  "type": "feat",
+  "system": {
+    "description": "\n      <div topic='Craft Construct' level='3'><p><h3>Craft Construct [Item Creation]</h3></p><div topic='Prerequisites' level='8'><p><b>Prerequisites:</b> Craft Magic Arms and Armor, Craft Wondrous Item.</p>\n</div><div topic='Benefit' level='8'><p><b>Benefit:</b> A creature with this feat can create any construct whose prerequisites it meets. Enchanting a construct takes one day for each 1,000 gp in its market price. To enchant a construct, a spellcaster must spend 1/25 the item's price in XP and use up raw materials costing half of this price (see individual construct monster entries for details).</p><p>A creature with this feat can repair constructs that have taken damage. In one day of work, the creature can repair up to 20 points of damage by expending 50 gp per point of damage repaired.</p><p>A newly created construct has average hit points for its Hit Dice.</p><p/>\n</div>\n</div>\n    ",
+    "featType": "Item Creation",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Wondrous Item."
+  }
+}
