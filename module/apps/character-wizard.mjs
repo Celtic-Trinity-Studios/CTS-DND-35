@@ -69,7 +69,7 @@ export class CharacterWizard extends Application {
       },
       classSearch: "",
       activeClassUuid: "",
-      showUnavailable: true,
+      showUnavailable: false,
       skillRanks: {
         primary: this._initSkillRanks(),
         secondary: this._initSkillRanks()
@@ -93,7 +93,7 @@ export class CharacterWizard extends Application {
       classes: ["cts-dnd-35", "wizard"],
       template: "systems/CTS-DND-35/templates/apps/character-wizard.hbs",
       width: 1120,
-      height: 780,
+      height: 900,
       title: "Create Character Wizard",
       resizable: true
     });
