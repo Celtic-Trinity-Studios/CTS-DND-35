@@ -189,16 +189,16 @@
         <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
           <div style="flex: 2;">{{row.label}}</div>
           <div style="flex: 1; text-align:center; font-weight:bold;">{{row.total}}</div>
-          <div style="flex: 1; text-align:center;">
-            <button type="button" class="skill-dec" data-which="primary" data-skill="{{row.key}}">-</button>
-            <span style="display:inline-block; min-width: 20px;">{{row.primaryRanks}}</span>
-            <button type="button" class="skill-inc" data-which="primary" data-skill="{{row.key}}">+</button>
+          <div class="wizard-skill-controls" style="flex: 1; text-align:center;">
+            <button type="button" class="skill-dec wizard-skill-adjust" data-which="primary" data-skill="{{row.key}}">-</button>
+            <input type="number" class="wizard-skill-rank" value="{{row.primaryRanks}}" readonly />
+            <button type="button" class="skill-inc wizard-skill-adjust" data-which="primary" data-skill="{{row.key}}">+</button>
           </div>
           {{#if ../allowGestalt}}
-          <div style="flex: 1; text-align:center;">
-            <button type="button" class="skill-dec" data-which="secondary" data-skill="{{row.key}}">-</button>
-            <span style="display:inline-block; min-width: 20px;">{{row.secondaryRanks}}</span>
-            <button type="button" class="skill-inc" data-which="secondary" data-skill="{{row.key}}">+</button>
+          <div class="wizard-skill-controls" style="flex: 1; text-align:center;">
+            <button type="button" class="skill-dec wizard-skill-adjust" data-which="secondary" data-skill="{{row.key}}">-</button>
+            <input type="number" class="wizard-skill-rank" value="{{row.secondaryRanks}}" readonly />
+            <button type="button" class="skill-inc wizard-skill-adjust" data-which="secondary" data-skill="{{row.key}}">+</button>
           </div>
           {{/if}}
           <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>

@@ -398,6 +398,28 @@
   padding: 8px;
   background: #080808;
 }
+.cts-dnd-35.wizard-classic .wizard-skill-controls {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.cts-dnd-35.wizard-classic .wizard-skill-adjust {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #6c6c6c;
+  background: #1d1d1d;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.cts-dnd-35.wizard-classic .wizard-skill-rank {
+  width: 64px;
+  text-align: center;
+  height: 30px;
+  padding: 2px 4px;
+}
 .cts-dnd-35.wizard-classic .wizard-step-head,
 .cts-dnd-35.wizard-classic .wizard-actions-row,
 .cts-dnd-35.wizard-classic .wizard-classic-content > .form-group {

@@ -43,6 +43,7 @@ export class CharacterWizard extends Application {
     this.spellChoices = [];
     this.classChoices = [];
     this.classSkillMap = {};
+    this._availableSpellLevelsByUuid = {};
     this._hydratedFromActor = false;
     this.state = {
       step: 1,
@@ -251,11 +252,17 @@ export class CharacterWizard extends Application {
       const maxLvl = this._maxSpellLevelForClass(classDoc, level || 0);
       if (maxLvl < 0) continue;
       for (const spell of this.spellChoices) {
-        if (spell.spellLevel > maxLvl) continue;
-        if (!this._spellMatchesClass(spell, classDoc.name)) continue;
-        allowedSpellMap.set(spell.uuid, spell);
+        const classSpellLevel = this._spellLevelForClass(spell, classDoc.name);
+        if (classSpellLevel === null || classSpellLevel > maxLvl) continue;
+        const existing = allowedSpellMap.get(spell.uuid);
+        if (!existing || classSpellLevel < existing.spellLevel) {
+          allowedSpellMap.set(spell.uuid, { ...spell, spellLevel: classSpellLevel });
+        }
       }
     }
+    this._availableSpellLevelsByUuid = Object.fromEntries(
+      Array.from(allowedSpellMap.values()).map((spell) => [spell.uuid, Number(spell.spellLevel) || 0])
+    );
     context.availableSpells = Array.from(allowedSpellMap.values())
       .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
       .slice(0, 200);
@@ -353,15 +360,42 @@ export class CharacterWizard extends Application {
       .sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  _spellMatchesClass(spell, className) {
+  _spellClassLevelMap(spell) {
     const desc = String(spell?.description || "");
-    if (!desc || !className) return false;
-    const classLower = className.toLowerCase();
+    const result = {};
+    if (!desc) return result;
     const levelLineMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
-    const levelLine = String(levelLineMatch?.[1] || "").toLowerCase();
-    if (!levelLine) return false;
-    if (classLower === "wizard" || classLower === "sorcerer") return levelLine.includes("sorcerer/wizard");
-    return levelLine.includes(classLower);
+    const levelLine = String(levelLineMatch?.[1] || "");
+    if (!levelLine) return result;
+
+    for (const entry of levelLine.split(",")) {
+      const cleaned = entry.replace(/\s+/g, " ").trim();
+      if (!cleaned) continue;
+      const levelMatch = cleaned.match(/(.+?)\s+(\d+)\s*$/i);
+      if (!levelMatch) continue;
+      const classesPart = levelMatch[1].toLowerCase().trim();
+      const level = Number(levelMatch[2]);
+      if (!Number.isFinite(level)) continue;
+      result[classesPart] = level;
+      for (const alias of classesPart.split("/")) {
+        const key = alias.trim();
+        if (key) result[key] = level;
+      }
+    }
+    return result;
+  }
+
+  _spellLevelForClass(spell, className) {
+    if (!className) return null;
+    const classKey = String(className).toLowerCase().trim();
+    const levelMap = this._spellClassLevelMap(spell);
+    if (Object.prototype.hasOwnProperty.call(levelMap, classKey)) {
+      return Number(levelMap[classKey]);
+    }
+    if ((classKey === "wizard" || classKey === "sorcerer") && Object.prototype.hasOwnProperty.call(levelMap, "sorcerer/wizard")) {
+      return Number(levelMap["sorcerer/wizard"]);
+    }
+    return null;
   }
 
   _maxSpellLevelForClass(classDoc, classLevel) {
@@ -405,9 +439,9 @@ export class CharacterWizard extends Application {
   _selectedSpellCountsByLevel() {
     const counts = {};
     for (const uuid of this.state.selectedSpellUuids) {
-      const spell = this.spellChoices.find((s) => s.uuid === uuid);
-      if (!spell) continue;
-      const key = String(Number(spell.spellLevel) || 0);
+      const level = this._availableSpellLevelsByUuid?.[uuid];
+      const fallbackSpell = this.spellChoices.find((s) => s.uuid === uuid);
+      const key = String(Number(level ?? fallbackSpell?.spellLevel ?? 0) || 0);
       counts[key] = (counts[key] || 0) + 1;
     }
     return counts;
@@ -691,8 +725,9 @@ export class CharacterWizard extends Application {
       ev.preventDefault();
       const uuid = this.state.activeSpellUuid;
       if (!uuid || this.state.selectedSpellUuids.includes(uuid)) return;
+      const spellLevel = this._availableSpellLevelsByUuid?.[uuid];
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
-      const lvlKey = String(Number(spell?.spellLevel) || 0);
+      const lvlKey = String(Number(spellLevel ?? spell?.spellLevel ?? 0) || 0);
       const selectedByLevel = this._selectedSpellCountsByLevel();
       const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
       if (levelCap <= 0) return;
