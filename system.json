@@ -50,9 +50,44 @@
     },
     {
       "name": "srd-monsters",
-      "label": "3.5e SRD Monsters",
+      "label": "3.5e SRD Bestiary",
       "path": "packs/srd-monsters",
       "type": "Actor",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-classes",
+      "label": "3.5e SRD Classes",
+      "path": "packs/srd-classes",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-equipment",
+      "label": "3.5e SRD Equipment",
+      "path": "packs/srd-equipment",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-items",
+      "label": "3.5e SRD Magic Items",
+      "path": "packs/srd-items",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-domains",
+      "label": "3.5e SRD Domains",
+      "path": "packs/srd-domains",
+      "type": "Item",
+      "system": "CTS-DND-35"
+    },
+    {
+      "name": "srd-powers",
+      "label": "3.5e SRD Psionic Powers",
+      "path": "packs/srd-powers",
+      "type": "Item",
       "system": "CTS-DND-35"
     }
   ],

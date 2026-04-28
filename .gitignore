@@ -3,3 +3,5 @@ node_modules/
 Thumbs.db
 *.zip
 .ai_home/
+dist/
+packs/*/LOCK
