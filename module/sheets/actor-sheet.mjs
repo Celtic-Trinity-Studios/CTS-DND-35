@@ -5,6 +5,7 @@
 
 import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
+import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
@@ -129,6 +130,9 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     // Rollable initiative
     html.on("click", ".init-roll", this._onInitRoll.bind(this));
 
+    // Rollable skills
+    html.on("click", ".skill-roll", this._onSkillRoll.bind(this));
+
     // Rollable item
     html.on("click", ".item-roll", (ev) => {
       ev.preventDefault();
@@ -166,7 +170,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     html.find(".open-levelup").click(ev => {
       ev.preventDefault();
-      ui.notifications.info("Level Up wizard coming soon!");
+      new LevelUpWizard(this.actor).render(true);
     });
   }
 

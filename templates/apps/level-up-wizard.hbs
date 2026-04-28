@@ -1,0 +1,99 @@
+<form class="cts-dnd-35 wizard" autocomplete="off" onsubmit="event.preventDefault();">
+  <header class="wizard-header flexrow">
+    <button type="button" class="step-indicator {{#if isStep1}}active{{/if}}" data-step="1">1. Class & HP</button>
+    <button type="button" class="step-indicator {{#if isStep2}}active{{/if}}" data-step="2">2. Skills</button>
+    <button type="button" class="step-indicator {{#if isStep3}}active{{/if}}" data-step="3">3. Feat</button>
+  </header>
+
+  <div class="wizard-content">
+    {{#if isStep1}}
+    <h3 style="margin-top:0;">Level {{nextLevel}} Advancement</h3>
+    <p class="notes">Current level: {{totalLevel}} | New class level after gain: {{classLevelAfterGain}}</p>
+
+    <div class="form-group">
+      <label>Class to Advance</label>
+      <select data-prop="selectedClassUuid">
+        <option value="">-- Select class --</option>
+        {{#each classChoices as |c|}}
+        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.selectedClassUuid)}}selected{{/if}}>{{c.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>HP Gain Method</label>
+      <select data-prop="hpMethod">
+        <option value="fixed" {{#if (cts-eq state.hpMethod "fixed")}}selected{{/if}}>Fixed Average</option>
+        <option value="max" {{#if (cts-eq state.hpMethod "max")}}selected{{/if}}>Max HP</option>
+        <option value="roll" {{#if (cts-eq state.hpMethod "roll")}}selected{{/if}}>Roll Hit Die</option>
+        <option value="manual" {{#if (cts-eq state.hpMethod "manual")}}selected{{/if}}>Manual</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>HP Gain</label>
+      <input type="number" data-prop="hpManual" value="{{state.hpManual}}" min="1" />
+      <button type="button" class="cts-btn secondary roll-hp" style="margin-left:8px;">Roll HP</button>
+    </div>
+    <p class="notes">Preview HP gain: <strong>{{hpGainPreview}}</strong></p>
+    {{/if}}
+
+    {{#if isStep2}}
+    <h3 style="margin-top:0;">Skill Allocation</h3>
+    <p class="notes">Points remaining: <strong>{{skillPointRemaining}}</strong> / {{skillPointBudget}}</p>
+
+    <div style="max-height: 430px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
+      <div class="flexrow" style="font-weight: bold; margin-bottom: 6px;">
+        <div style="flex: 2;">Skill</div>
+        <div style="flex: 0.7; text-align:center;">Curr</div>
+        <div style="flex: 1; text-align:center;">Add</div>
+        <div style="flex: 0.7; text-align:center;">Ability</div>
+        <div style="flex: 0.9; text-align:center;">Total</div>
+      </div>
+      {{#each skillRows as |row|}}
+      <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
+        <div style="flex: 2;">
+          {{#if row.isClassSkill}}<i class="fas fa-star" style="color:var(--cts-accent); margin-right:4px;"></i>{{/if}}
+          {{row.label}}
+        </div>
+        <div style="flex: 0.7; text-align:center;">{{row.currentRanks}}</div>
+        <div style="flex: 1; text-align:center;">
+          <button type="button" class="skill-dec" data-skill="{{row.key}}">-</button>
+          <span style="display:inline-block; min-width: 20px;">{{row.addRanks}}</span>
+          <button type="button" class="skill-inc" data-skill="{{row.key}}">+</button>
+        </div>
+        <div style="flex: 0.7; text-align:center;">{{row.ability}}</div>
+        <div style="flex: 0.9; text-align:center; font-weight: bold;">{{cts-sign row.projectedTotal}}</div>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if isStep3}}
+    <h3 style="margin-top:0;">Feat Selection</h3>
+    {{#if isFeatLevel}}
+    <p class="notes">This level grants a feat. Choose one to continue.</p>
+    {{else}}
+    <p class="notes">No general feat gained at this level. Feat choice is optional.</p>
+    {{/if}}
+
+    <div class="form-group">
+      <label>Search</label>
+      <input type="text" data-prop="featSearch" value="{{state.featSearch}}" placeholder="Type here to search" />
+    </div>
+    <div class="form-group">
+      <label>Feat</label>
+      <select data-prop="selectedFeatUuid">
+        <option value="">-- None --</option>
+        {{#each featChoices as |feat|}}
+        <option value="{{feat.uuid}}" {{#if (cts-eq feat.uuid ../state.selectedFeatUuid)}}selected{{/if}}>{{feat.name}} ({{feat.type}})</option>
+        {{/each}}
+      </select>
+    </div>
+    {{/if}}
+  </div>
+
+  <footer class="wizard-footer flexrow" style="gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid var(--cts-border-dark);">
+    <button type="button" class="cts-btn apply-levelup" style="flex:1;">Apply Level Up</button>
+  </footer>
+</form>
