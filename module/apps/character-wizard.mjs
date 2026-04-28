@@ -40,6 +40,8 @@ export class CharacterWizard extends Application {
         primary: 1,
         secondary: 0
       },
+      classSearch: "",
+      activeClassUuid: "",
       skillRanks: {
         primary: this._initSkillRanks(),
         secondary: this._initSkillRanks()
@@ -73,7 +75,7 @@ export class CharacterWizard extends Application {
     await this._loadSpellChoices();
     const context = super.getData() ?? {};
     const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
-    const showUnavailable = game.settings.get("CTS-DND-35", "showUnavailableOptions");
+    const showUnavailable = true;
     context.actor = this.actor;
     context.state = this.state;
     context.config = CTSDND35;
@@ -83,6 +85,7 @@ export class CharacterWizard extends Application {
     context.isStep2 = this.state.step === 2;
     context.isStep3 = this.state.step === 3;
     context.isStep4 = this.state.step === 4;
+    context.isStep5 = this.state.step === 5;
     
     // Calculate point buy (3.5e standard rules: 8 is 0, up to 18 is 16)
     const pbCost = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:6, 15:8, 16:10, 17:13, 18:16 };
@@ -123,12 +126,20 @@ export class CharacterWizard extends Application {
       return { ...c, available: check.ok, unavailableReason: check.reasons.join("; ") };
     });
     if (!showUnavailable) context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => c.available);
-    if (this.state.classes.primary && !context.classChoicesForSelect.some((c) => c.uuid === this.state.classes.primary && c.available)) {
+    const selectableClassChoices = this.classChoices
+      .map((c) => ({ c, check: this._isClassAvailable(c) }))
+      .filter(({ check }) => showUnavailable || check.ok)
+      .map(({ c }) => c);
+    const classSearch = this.state.classSearch.toLowerCase().trim();
+    context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => !classSearch || c.name.toLowerCase().includes(classSearch));
+    if (this.state.classes.primary && !selectableClassChoices.some((c) => c.uuid === this.state.classes.primary && this._isClassAvailable(c).ok)) {
       this.state.classes.primary = "";
     }
-    if (this.state.classes.secondary && !context.classChoicesForSelect.some((c) => c.uuid === this.state.classes.secondary && c.available)) {
+    if (this.state.classes.secondary && !selectableClassChoices.some((c) => c.uuid === this.state.classes.secondary && this._isClassAvailable(c).ok)) {
       this.state.classes.secondary = "";
     }
+    const activeClass = this.classChoices.find((c) => c.uuid === this.state.activeClassUuid) || null;
+    context.activeClass = activeClass;
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
     context.secondaryClassLabel = allowGestalt ? this._classLabel(this.state.classes.secondary) : "Secondary";
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
@@ -274,6 +285,7 @@ export class CharacterWizard extends Application {
       .map((doc) => ({
         uuid: doc.uuid,
         name: doc.name,
+        description: doc.system?.description || "",
         skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
         classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
         spellcastingType: doc.system?.spellcasting?.type || "none",
@@ -492,7 +504,7 @@ export class CharacterWizard extends Application {
     html.find(".step-indicator").click((ev) => {
       ev.preventDefault();
       const step = Number(ev.currentTarget.dataset.step) || 1;
-      this.state.step = Math.min(4, Math.max(1, step));
+      this.state.step = Math.min(5, Math.max(1, step));
       this.render();
     });
     
@@ -528,6 +540,8 @@ export class CharacterWizard extends Application {
           this.state.classLevels.primary = Math.max(1, parseInt(el.value) || 1);
         } else if (prop === "classLevels.secondary") {
           this.state.classLevels.secondary = Math.max(0, parseInt(el.value) || 0);
+        } else if (prop === "classSearch") {
+          this.state.classSearch = el.value;
         } else if (prop === "featSearch") {
           this.state.featSearch = el.value;
         } else if (prop === "featTypeFilter") {
@@ -630,6 +644,34 @@ export class CharacterWizard extends Application {
       ev.preventDefault();
       const uuid = ev.currentTarget.dataset.uuid;
       this.state.selectedFeatUuids = this.state.selectedFeatUuids.filter((u) => u !== uuid);
+      this.render();
+    });
+
+    html.find(".class-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeClassUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".set-primary-class").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeClassUuid;
+      if (!uuid) return;
+      const choice = this.classChoices.find((c) => c.uuid === uuid);
+      if (!choice || !this._isClassAvailable(choice).ok) return;
+      this.state.classes.primary = uuid;
+      if (!this.state.classLevels.primary) this.state.classLevels.primary = 1;
+      this.render();
+    });
+
+    html.find(".set-secondary-class").click((ev) => {
+      ev.preventDefault();
+      if (!game.settings.get("CTS-DND-35", "enableGestalt")) return;
+      const uuid = this.state.activeClassUuid;
+      if (!uuid) return;
+      const choice = this.classChoices.find((c) => c.uuid === uuid);
+      if (!choice || !this._isClassAvailable(choice).ok) return;
+      this.state.classes.secondary = uuid;
       this.render();
     });
 

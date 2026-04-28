@@ -46,15 +46,6 @@ Hooks.once("init", function () {
     default: false,
   });
 
-  game.settings.register("CTS-DND-35", "showUnavailableOptions", {
-    name: "Show Unavailable Class and Feat Options",
-    hint: "When enabled, wizards display unavailable classes and feats with requirement warnings instead of hiding them.",
-    scope: "world",
-    config: true,
-    type: Boolean,
-    default: true,
-  });
-
   // Register Actor sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {

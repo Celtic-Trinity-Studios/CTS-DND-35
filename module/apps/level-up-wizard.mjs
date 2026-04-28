@@ -20,6 +20,8 @@ export class LevelUpWizard extends Application {
     this.state = {
       step: 1,
       selectedClassUuid: "",
+      classSearch: "",
+      activeClassUuid: "",
       hpMethod: "fixed",
       hpManual: 1,
       skillRanks: this._initSkillRanks(),
@@ -57,6 +59,7 @@ export class LevelUpWizard extends Application {
     this.classChoices = docs.map((doc) => ({
       uuid: doc.uuid,
       name: doc.name,
+      description: doc.system?.description || "",
       hitDie: doc.system?.hitDie || "d8",
       skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
       classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
@@ -279,7 +282,7 @@ export class LevelUpWizard extends Application {
     await this._loadSpellChoices();
 
     const context = super.getData() ?? {};
-    const showUnavailable = game.settings.get("CTS-DND-35", "showUnavailableOptions");
+    const showUnavailable = true;
     const featSearch = this.state.featSearch.toLowerCase().trim();
     const selectedClassSkills = this.classSkillMap[this.state.selectedClassUuid] || [];
     const nextLevel = this._nextLevel();
@@ -296,9 +299,12 @@ export class LevelUpWizard extends Application {
       return { ...c, available: check.ok, unavailableReason: check.reasons.join("; ") };
     });
     if (!showUnavailable) context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => c.available);
+    const classSearch = this.state.classSearch.toLowerCase().trim();
+    context.classChoicesForSelect = context.classChoicesForSelect.filter((c) => !classSearch || c.name.toLowerCase().includes(classSearch));
     if (this.state.selectedClassUuid && !context.classChoicesForSelect.some((c) => c.uuid === this.state.selectedClassUuid && c.available)) {
       this.state.selectedClassUuid = "";
     }
+    context.activeClass = this.classChoices.find((c) => c.uuid === this.state.activeClassUuid) || null;
     context.totalLevel = this._totalLevel();
     context.nextLevel = nextLevel;
     context.classLevelAfterGain = this._classLevelAfterGain();
@@ -390,6 +396,7 @@ export class LevelUpWizard extends Application {
       const prop = el.dataset.prop;
       if (!prop) return;
       if (prop === "selectedClassUuid") this.state.selectedClassUuid = el.value;
+      else if (prop === "classSearch") this.state.classSearch = el.value;
       else if (prop === "hpMethod") this.state.hpMethod = el.value;
       else if (prop === "hpManual") this.state.hpManual = Math.max(1, Number(el.value) || 1);
       else if (prop === "featSearch") this.state.featSearch = el.value;
@@ -435,6 +442,22 @@ export class LevelUpWizard extends Application {
     html.find(".apply-levelup").click(async (ev) => {
       ev.preventDefault();
       await this._apply();
+    });
+
+    html.find(".class-choice").click((ev) => {
+      ev.preventDefault();
+      this.state.activeClassUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".set-levelup-class").click((ev) => {
+      ev.preventDefault();
+      const uuid = this.state.activeClassUuid;
+      if (!uuid) return;
+      const choice = this.classChoices.find((c) => c.uuid === uuid);
+      if (!choice || !this._isClassAvailable(choice).ok) return;
+      this.state.selectedClassUuid = uuid;
+      this.render();
     });
 
     html.find(".spell-choice").click(async (ev) => {

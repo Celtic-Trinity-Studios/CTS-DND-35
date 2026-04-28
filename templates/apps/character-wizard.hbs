@@ -2,8 +2,9 @@
   <header class="wizard-header flexrow">
     <button type="button" class="step-indicator {{#if isStep1}}active{{/if}}" data-step="1">1. Basics</button>
     <button type="button" class="step-indicator {{#if isStep2}}active{{/if}}" data-step="2">2. Abilities</button>
-    <button type="button" class="step-indicator {{#if isStep3}}active{{/if}}" data-step="3">3. Skills</button>
-    <button type="button" class="step-indicator {{#if isStep4}}active{{/if}}" data-step="4">4. Feats</button>
+    <button type="button" class="step-indicator {{#if isStep3}}active{{/if}}" data-step="3">3. Classes</button>
+    <button type="button" class="step-indicator {{#if isStep4}}active{{/if}}" data-step="4">4. Skills</button>
+    <button type="button" class="step-indicator {{#if isStep5}}active{{/if}}" data-step="5">5. Feats</button>
   </header>
 
   <div class="wizard-content">
@@ -63,40 +64,49 @@
     {{/if}}
 
     {{#if isStep3}}
-    <h3 style="margin-top:0;">Skills</h3>
+    <h3 style="margin-top:0;">Classes</h3>
     <div class="form-group">
-      <label>Primary Class</label>
-      <select data-prop="classes.primary">
-        <option value="">-- Select class --</option>
+      <label>Search</label>
+      <input type="text" data-prop="classSearch" value="{{state.classSearch}}" placeholder="Type here to search classes" />
+    </div>
+    <div class="flexrow" style="gap:8px;">
+      <div style="flex:1; max-height:280px; overflow-y:auto; border:1px solid var(--cts-border-dark);">
         {{#each classChoicesForSelect as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.primary)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
-          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
-        </option>
+        <div class="class-choice" data-uuid="{{c.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
+          <strong>{{c.name}}</strong>
+          {{#unless c.available}}
+          <div class="notes" style="color:#c94c4c;">Unavailable: {{c.unavailableReason}}</div>
+          {{/unless}}
+        </div>
         {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Primary Class Level</label>
-      <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
-    </div>
-    {{#if allowGestalt}}
-    <div class="form-group">
-      <label>Secondary Class (optional)</label>
-      <select data-prop="classes.secondary">
-        <option value="">-- None --</option>
-        {{#each classChoicesForSelect as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
-          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
-        </option>
-        {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Secondary Class Level</label>
-      <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
+      </div>
+      <div style="flex:1;">
+        <h4 style="margin:0 0 6px 0;">{{#if activeClass}}{{activeClass.name}}{{else}}Select a class{{/if}}</h4>
+        <div style="max-height:140px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+          {{{activeClass.description}}}
+        </div>
+        <div style="margin-top:8px;" class="flexcol">
+          <button type="button" class="cts-btn set-primary-class">Set as Primary</button>
+          {{#if allowGestalt}}
+          <button type="button" class="cts-btn secondary set-secondary-class" style="margin-top:6px;">Set as Secondary</button>
+          {{/if}}
+        </div>
+        <div class="form-group" style="margin-top:8px;">
+          <label>Primary Class Level</label>
+          <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
+        </div>
+        {{#if allowGestalt}}
+        <div class="form-group">
+          <label>Secondary Class Level</label>
+          <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
+        </div>
+        {{/if}}
+      </div>
     </div>
     {{/if}}
 
+    {{#if isStep4}}
+    <h3 style="margin-top:0;">Skills</h3>
     <p class="notes">
       {{primaryClassLabel}} points: <strong>{{skillBudget.primaryRemaining}}</strong> / {{skillBudget.primary}}
       {{#if allowGestalt}}
@@ -104,25 +114,6 @@
       {{secondaryClassLabel}} points: <strong>{{skillBudget.secondaryRemaining}}</strong> / {{skillBudget.secondary}}
       {{/if}}
     </p>
-    {{#if primaryFeaturePreview.length}}
-    <p class="notes" style="margin-bottom:4px;"><strong>{{primaryClassLabel}} feature grants</strong></p>
-    <ul style="max-height:80px; overflow-y:auto; margin-top:0;">
-      {{#each primaryFeaturePreview as |feat|}}
-      <li>{{feat.name}}</li>
-      {{/each}}
-    </ul>
-    {{/if}}
-    {{#if allowGestalt}}
-      {{#if secondaryFeaturePreview.length}}
-      <p class="notes" style="margin-bottom:4px;"><strong>{{secondaryClassLabel}} feature grants</strong></p>
-      <ul style="max-height:80px; overflow-y:auto; margin-top:0;">
-        {{#each secondaryFeaturePreview as |feat|}}
-        <li>{{feat.name}}</li>
-        {{/each}}
-      </ul>
-      {{/if}}
-    {{/if}}
-
     <div style="max-height: 300px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
       <div class="flexrow" style="font-weight: bold; margin-bottom: 6px;">
         <div style="flex: 2;">Skill</div>
@@ -153,7 +144,7 @@
     </div>
     {{/if}}
 
-    {{#if isStep4}}
+    {{#if isStep5}}
     <h3 style="margin-top:0;">Feats</h3>
     <p class="notes">
       {{#if featsRemaining}}Choose feats.{{else}}No more feats may be added.{{/if}}
@@ -261,7 +252,7 @@
   </div>
 
   <footer class="wizard-footer flexrow" style="gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid var(--cts-border-dark);">
-    {{#if isStep4}}
+    {{#if isStep5}}
     <button type="button" class="cts-btn apply-wizard" style="flex: 1;">Apply & Finish</button>
     {{else}}
     <p class="notes" style="margin:0; width: 100%; text-align: center;">Click the tabs above to move between steps.</p>

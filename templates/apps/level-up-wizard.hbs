@@ -11,15 +11,27 @@
     <p class="notes">Current level: {{totalLevel}} | New class level after gain: {{classLevelAfterGain}}</p>
 
     <div class="form-group">
-      <label>Class to Advance</label>
-      <select data-prop="selectedClassUuid">
-        <option value="">-- Select class --</option>
+      <label>Class Search</label>
+      <input type="text" data-prop="classSearch" value="{{state.classSearch}}" placeholder="Type here to search classes" />
+    </div>
+    <div class="flexrow" style="gap:8px;">
+      <div style="flex:1; max-height:220px; overflow-y:auto; border:1px solid var(--cts-border-dark);">
         {{#each classChoicesForSelect as |c|}}
-        <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.selectedClassUuid)}}selected{{/if}} {{#unless c.available}}disabled{{/unless}}>
-          {{c.name}}{{#unless c.available}} - unavailable{{#if c.unavailableReason}} ({{c.unavailableReason}}){{/if}}{{/unless}}
-        </option>
+        <div class="class-choice" data-uuid="{{c.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
+          <strong>{{c.name}}</strong>
+          {{#unless c.available}}
+          <div class="notes" style="color:#c94c4c;">Unavailable: {{c.unavailableReason}}</div>
+          {{/unless}}
+        </div>
         {{/each}}
-      </select>
+      </div>
+      <div style="flex:1;">
+        <h4 style="margin:0 0 6px 0;">{{#if activeClass}}{{activeClass.name}}{{else}}Select a class{{/if}}</h4>
+        <div style="max-height:120px; overflow-y:auto; border:1px solid var(--cts-border-dark); padding:6px;">
+          {{{activeClass.description}}}
+        </div>
+        <button type="button" class="cts-btn set-levelup-class" style="margin-top:8px; width:100%;">Use for Level Up</button>
+      </div>
     </div>
 
     <div class="form-group">
