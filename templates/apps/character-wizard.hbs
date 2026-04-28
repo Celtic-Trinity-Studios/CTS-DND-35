@@ -212,6 +212,13 @@
     <hr />
     <h4 style="margin:8px 0 6px 0;">Starting Spells</h4>
     <p class="notes">Picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}</p>
+    {{#if spellPickCapsByLevel}}
+    <p class="notes" style="margin-top:2px;">
+      {{#each spellPickCapsByLevel}}
+        L{{@key}}: {{lookup ../spellPickCountByLevel @key}} / {{this}}&nbsp;
+      {{/each}}
+    </p>
+    {{/if}}
     <div class="form-group">
       <label>Spell Search</label>
       <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />

@@ -127,6 +127,13 @@
       Caster progression allows spells up to level <strong>{{maxSpellLevel}}</strong>.
       Picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}.
     </p>
+    {{#if spellPickCapsByLevel}}
+    <p class="notes" style="margin-top:2px;">
+      {{#each spellPickCapsByLevel}}
+        L{{@key}}: {{lookup ../spellPickCountByLevel @key}} / {{this}}&nbsp;
+      {{/each}}
+    </p>
+    {{/if}}
     <div class="form-group">
       <label>Spell Search</label>
       <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />

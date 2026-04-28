@@ -50,7 +50,8 @@ export class CharacterWizard extends Application {
       featSlots: 1,
       spellSearch: "",
       selectedSpellUuids: [],
-      spellPickCap: 0
+      spellPickCap: 0,
+      spellPickCapsByLevel: {}
     };
   }
 
@@ -201,8 +202,16 @@ export class CharacterWizard extends Application {
       const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
       return sum + this._spellPickCapForClass(classDoc, level || 0);
     }, 0);
+    context.spellPickCapsByLevel = castingDocs.reduce((acc, classDoc) => {
+      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
+      const caps = this._spellPickCapsByLevelForClass(classDoc, level || 0);
+      for (const [lvl, n] of Object.entries(caps)) acc[lvl] = (acc[lvl] || 0) + (Number(n) || 0);
+      return acc;
+    }, {});
+    this.state.spellPickCapsByLevel = context.spellPickCapsByLevel;
     this.state.spellPickCap = context.spellPickCap;
     context.spellPickCount = this.state.selectedSpellUuids.length;
+    context.spellPickCountByLevel = this._selectedSpellCountsByLevel();
     
     return context;
   }
@@ -293,6 +302,29 @@ export class CharacterWizard extends Application {
     const row = progression?.[classLevel] || progression?.[String(classLevel)] || {};
     const perDay = row?.spellsPerDay || {};
     return Object.values(perDay).reduce((sum, n) => sum + Math.max(0, Number(n) || 0), 0);
+  }
+
+  _spellPickCapsByLevelForClass(classDoc, classLevel) {
+    const progression = classDoc?.system?.spellcasting?.progression || {};
+    const row = progression?.[classLevel] || progression?.[String(classLevel)] || {};
+    const perDay = row?.spellsPerDay || {};
+    const caps = {};
+    for (const [lvl, n] of Object.entries(perDay)) {
+      const value = Math.max(0, Number(n) || 0);
+      if (value > 0) caps[String(lvl)] = value;
+    }
+    return caps;
+  }
+
+  _selectedSpellCountsByLevel() {
+    const counts = {};
+    for (const uuid of this.state.selectedSpellUuids) {
+      const spell = this.spellChoices.find((s) => s.uuid === uuid);
+      if (!spell) continue;
+      const key = String(Number(spell.spellLevel) || 0);
+      counts[key] = (counts[key] || 0) + 1;
+    }
+    return counts;
   }
 
   _getRaceKeyFromActor() {
@@ -564,6 +596,12 @@ export class CharacterWizard extends Application {
       const uuid = ev.currentTarget.dataset.uuid;
       if (!uuid) return;
       if (this.state.selectedSpellUuids.includes(uuid)) return;
+      const spell = this.spellChoices.find((s) => s.uuid === uuid);
+      const lvlKey = String(Number(spell?.spellLevel) || 0);
+      const selectedByLevel = this._selectedSpellCountsByLevel();
+      const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
+      if (levelCap <= 0) return;
+      if ((selectedByLevel[lvlKey] || 0) >= levelCap) return;
       if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
       this.state.selectedSpellUuids.push(uuid);
       this.render();
@@ -592,6 +630,14 @@ export class CharacterWizard extends Application {
     if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length > this.state.spellPickCap) {
       ui.notifications.warn(`You may pick at most ${this.state.spellPickCap} starting spells.`);
       return;
+    }
+    const selectedByLevel = this._selectedSpellCountsByLevel();
+    for (const [lvl, count] of Object.entries(selectedByLevel)) {
+      const levelCap = Number(this.state.spellPickCapsByLevel?.[lvl]) || 0;
+      if (count > levelCap) {
+        ui.notifications.warn(`Too many level ${lvl} starting spells selected (${count}/${levelCap}).`);
+        return;
+      }
     }
     
     // Apply racial modifiers

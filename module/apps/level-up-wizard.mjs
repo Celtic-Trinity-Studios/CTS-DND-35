@@ -25,7 +25,8 @@ export class LevelUpWizard extends Application {
       featSearch: "",
       selectedFeatUuid: "",
       spellSearch: "",
-      selectedSpellUuids: []
+      selectedSpellUuids: [],
+      spellPickCapsByLevel: {}
     };
   }
 
@@ -187,6 +188,32 @@ export class LevelUpWizard extends Application {
     return cap;
   }
 
+  _spellPickCapsByLevelForGain(classDoc, oldLevel, newLevel) {
+    const progression = classDoc?.system?.spellcasting?.progression || {};
+    const oldRow = progression?.[oldLevel] || progression?.[String(oldLevel)] || {};
+    const newRow = progression?.[newLevel] || progression?.[String(newLevel)] || {};
+    const oldPerDay = oldRow?.spellsPerDay || {};
+    const newPerDay = newRow?.spellsPerDay || {};
+    const allLvls = new Set([...Object.keys(oldPerDay), ...Object.keys(newPerDay)]);
+    const caps = {};
+    for (const lvl of allLvls) {
+      const gain = (Number(newPerDay[lvl]) || 0) - (Number(oldPerDay[lvl]) || 0);
+      if (gain > 0) caps[String(lvl)] = gain;
+    }
+    return caps;
+  }
+
+  _selectedSpellCountsByLevel() {
+    const counts = {};
+    for (const uuid of this.state.selectedSpellUuids) {
+      const spell = this.spellChoices.find((s) => s.uuid === uuid);
+      if (!spell) continue;
+      const key = String(Number(spell.spellLevel) || 0);
+      counts[key] = (counts[key] || 0) + 1;
+    }
+    return counts;
+  }
+
   _spellMatchesClass(spell, className) {
     const desc = String(spell?.description || "");
     if (!desc || !className) return false;
@@ -295,7 +322,10 @@ export class LevelUpWizard extends Application {
     const oldClassLevel = Math.max(0, this._classLevelAfterGain() - 1);
     const newClassLevel = this._classLevelAfterGain();
     context.spellPickCap = this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel);
+    context.spellPickCapsByLevel = this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel);
+    this.state.spellPickCapsByLevel = context.spellPickCapsByLevel;
     context.spellPickCount = this.state.selectedSpellUuids.length;
+    context.spellPickCountByLevel = this._selectedSpellCountsByLevel();
     context.availableSpells = this.spellChoices
       .filter((s) => maxSpellLevel >= 0 && s.spellLevel <= maxSpellLevel)
       .filter((s) => this._spellMatchesClass(s, className))
@@ -381,6 +411,12 @@ export class LevelUpWizard extends Application {
       const newClassLevel = oldClassLevel + 1;
       const classDoc = await fromUuid(this.state.selectedClassUuid);
       const cap = this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel);
+      const capsByLevel = this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel);
+      const spell = this.spellChoices.find((s) => s.uuid === uuid);
+      const lvlKey = String(Number(spell?.spellLevel) || 0);
+      const currentByLevel = this._selectedSpellCountsByLevel();
+      if ((Number(capsByLevel[lvlKey]) || 0) <= 0) return;
+      if ((currentByLevel[lvlKey] || 0) >= (Number(capsByLevel[lvlKey]) || 0)) return;
       if (cap > 0 && this.state.selectedSpellUuids.length >= cap) return;
       this.state.selectedSpellUuids.push(uuid);
       this.render();
@@ -404,8 +440,8 @@ export class LevelUpWizard extends Application {
       return;
     }
     const classDoc = await fromUuid(this.state.selectedClassUuid);
-    const pendingFeatures = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
-    if (this._requiresFeatSelection(pendingFeatures) && !this.state.selectedFeatUuid) {
+    const pendingFeaturePreview = getClassFeatureGrants(classDoc?.system, this._classLevelAfterGain() - 1, this._classLevelAfterGain());
+    if (this._requiresFeatSelection(pendingFeaturePreview) && !this.state.selectedFeatUuid) {
       ui.notifications.warn("This level grants a feat choice. Please choose one.");
       return;
     }
@@ -419,12 +455,21 @@ export class LevelUpWizard extends Application {
         }
       }
     }
-    const oldClassLevel = Math.max(0, this._classLevelAfterGain() - 1);
+    const previewOldClassLevel = Math.max(0, this._classLevelAfterGain() - 1);
     const newClassLevelPreview = this._classLevelAfterGain();
-    const spellPickCap = this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevelPreview);
+    const spellPickCap = this._spellPickCapForLevel(classDoc, previewOldClassLevel, newClassLevelPreview);
+    const spellPickCapsByLevel = this._spellPickCapsByLevelForGain(classDoc, previewOldClassLevel, newClassLevelPreview);
+    const selectedByLevel = this._selectedSpellCountsByLevel();
     if (spellPickCap > 0 && this.state.selectedSpellUuids.length > spellPickCap) {
       ui.notifications.warn(`You may pick at most ${spellPickCap} new spells for this level.`);
       return;
+    }
+    for (const [lvl, count] of Object.entries(selectedByLevel)) {
+      const capForLevel = Number(spellPickCapsByLevel[lvl]) || 0;
+      if (count > capForLevel) {
+        ui.notifications.warn(`Too many level ${lvl} spells selected (${count}/${capForLevel}).`);
+        return;
+      }
     }
 
     const cls = this.classChoices.find((c) => c.uuid === this.state.selectedClassUuid);
