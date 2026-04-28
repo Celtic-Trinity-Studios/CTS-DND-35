@@ -1,0 +1,121 @@
+{{!-- Combat Stats Partial --}}
+
+{{!-- HP --}}
+<div class="combat-stats mb-md">
+  <div class="stat-box">
+    <div class="stat-label">HP</div>
+    <div class="hp-bar">
+      <input type="number" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" />
+      <span class="hp-sep">/</span>
+      <input type="number" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}" />
+    </div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Temp HP</div>
+    <input type="number" name="system.attributes.hp.temp" value="{{system.attributes.hp.temp}}" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Nonlethal</div>
+    <input type="number" name="system.attributes.hp.nonlethal" value="{{system.attributes.hp.nonlethal}}" />
+  </div>
+</div>
+
+{{!-- AC --}}
+<div class="combat-stats mb-md">
+  <div class="stat-box">
+    <div class="stat-label">AC</div>
+    <input type="number" name="system.attributes.ac.normal" value="{{system.attributes.ac.normal}}" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Touch</div>
+    <input type="number" name="system.attributes.ac.touch" value="{{system.attributes.ac.touch}}" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Flat-Footed</div>
+    <input type="number" name="system.attributes.ac.flatFooted" value="{{system.attributes.ac.flatFooted}}" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Natural</div>
+    <input type="number" name="system.attributes.ac.naturalArmor" value="{{system.attributes.ac.naturalArmor}}" />
+  </div>
+</div>
+
+{{!-- BAB / Grapple / Init --}}
+<div class="combat-stats mb-md">
+  <div class="stat-box">
+    <div class="stat-label">BAB</div>
+    <input type="number" name="system.attributes.bab.total" value="{{system.attributes.bab.total}}" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Grapple</div>
+    <div class="stat-value">{{cts-sign system.attributes.grapple.total}}</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Init</div>
+    <div class="stat-value rollable init-roll" title="Roll Initiative">
+      {{cts-sign system.attributes.init.total}}
+    </div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">SR</div>
+    <input type="number" name="system.attributes.sr.value" value="{{system.attributes.sr.value}}" />
+  </div>
+</div>
+
+{{!-- Saving Throws --}}
+<div class="saving-throws mb-md">
+  {{#each system.attributes.savingThrows as |save key|}}
+  <div class="save">
+    <span class="save-label">{{key}}</span>
+    <span class="save-total rollable save-roll" data-save="{{key}}" title="Roll {{key}} save">
+      {{cts-sign save.total}}
+    </span>
+    <input type="number" name="system.attributes.savingThrows.{{key}}.base" value="{{save.base}}" style="width:36px;text-align:center;" title="Base Save" />
+    <input type="number" name="system.attributes.savingThrows.{{key}}.bonus" value="{{save.bonus}}" style="width:36px;text-align:center;" title="Misc Bonus" />
+  </div>
+  {{/each}}
+</div>
+
+{{!-- Speed --}}
+<div class="combat-stats mb-md">
+  <div class="stat-box">
+    <div class="stat-label">Land</div>
+    <input type="number" name="system.attributes.speed.land.base" value="{{system.attributes.speed.land.base}}" /> ft
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Fly</div>
+    <input type="number" name="system.attributes.speed.fly.base" value="{{system.attributes.speed.fly.base}}" /> ft
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Swim</div>
+    <input type="number" name="system.attributes.speed.swim.base" value="{{system.attributes.speed.swim.base}}" /> ft
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Climb</div>
+    <input type="number" name="system.attributes.speed.climb.base" value="{{system.attributes.speed.climb.base}}" /> ft
+  </div>
+</div>
+
+{{!-- Attacks --}}
+{{#if items.attacks.length}}
+<h3>Attacks</h3>
+<ol class="item-list">
+  <li class="item-header">
+    <span class="flex-grow">Name</span>
+    <span style="width:80px;text-align:center;">Type</span>
+    <span style="width:60px;text-align:center;">Controls</span>
+  </li>
+  {{#each items.attacks}}
+  <li class="item" data-item-id="{{this._id}}">
+    <img class="item-img" src="{{this.img}}" />
+    <span class="item-name item-roll flex-grow">{{this.name}}</span>
+    <span style="width:80px;text-align:center;">{{this.system.attackType}}</span>
+    <div class="item-controls" style="width:60px;text-align:center;">
+      <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+      <a class="item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+  {{/each}}
+</ol>
+<a class="item-create cts-btn secondary" data-type="attack"><i class="fas fa-plus"></i> Add Attack</a>
+{{/if}}

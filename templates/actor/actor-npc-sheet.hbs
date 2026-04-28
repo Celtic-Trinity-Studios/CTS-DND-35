@@ -1,0 +1,65 @@
+<form class="{{cssClass}}" autocomplete="off">
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    <div class="header-fields">
+      <div class="flex-row">
+        <input class="char-name flex-grow" name="name" type="text" value="{{actor.name}}" placeholder="NPC Name" />
+      </div>
+      <div class="flex-row">
+        <label>CR:</label>
+        <input type="number" name="system.details.cr" value="{{system.details.cr}}" style="width: 50px;" />
+        <label>Size:</label>
+        <select name="system.traits.size">
+          {{#each config.sizes as |label key|}}
+          <option value="{{key}}" {{#if (cts-eq key ../system.traits.size)}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+        <label>Type:</label>
+        <input type="text" name="system.traits.type" value="{{system.traits.type}}" />
+        <label>Alignment:</label>
+        <select name="system.details.alignment">
+          <option value="">—</option>
+          {{#each config.alignments as |label key|}}
+          <option value="{{key}}" {{#if (cts-eq key ../system.details.alignment)}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="flex-row">
+        <label>Source:</label>
+        <input type="text" name="system.details.source" value="{{system.details.source}}" class="flex-grow" />
+      </div>
+    </div>
+  </header>
+
+  {{!-- Ability Scores --}}
+  {{> "systems/CTS-DND-35/templates/actor/parts/actor-abilities.hbs"}}
+
+  {{!-- Sheet Tabs --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="combat"><i class="fas fa-fist-raised"></i> Combat</a>
+    <a class="item" data-tab="features"><i class="fas fa-star"></i> Features</a>
+    <a class="item" data-tab="inventory"><i class="fas fa-backpack"></i> Inventory</a>
+    <a class="item" data-tab="spells"><i class="fas fa-magic"></i> Spells</a>
+    <a class="item" data-tab="biography"><i class="fas fa-book"></i> Bio</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="combat">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-combat.hbs"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="features">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-features.hbs"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="inventory">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-inventory.hbs"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="spells">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-spells.hbs"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="biography">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-biography.hbs"}}
+    </div>
+  </section>
+</form>

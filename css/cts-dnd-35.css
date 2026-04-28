@@ -1,0 +1,386 @@
+/* ============================================
+   CTS DND 35 — System Stylesheet
+   ============================================ */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  --cts-primary: #7b2d26;
+  --cts-primary-light: #a94442;
+  --cts-secondary: #2c3e50;
+  --cts-accent: #c9a84c;
+  --cts-bg: #f5f0e6;
+  --cts-bg-dark: #e8e0d0;
+  --cts-text: #1a1a1a;
+  --cts-text-light: #5a5a5a;
+  --cts-border: #c4b998;
+  --cts-border-dark: #8b7d5e;
+  --cts-success: #27ae60;
+  --cts-danger: #c0392b;
+  --cts-warning: #f39c12;
+  --cts-radius: 4px;
+  --cts-font-body: "Signika", "Palatino Linotype", serif;
+  --cts-font-heading: "Modesto Condensed", "Signika", serif;
+}
+
+/* --- Sheet Foundation --- */
+.cts-dnd-35 .window-content {
+  background: var(--cts-bg);
+  color: var(--cts-text);
+  font-family: var(--cts-font-body);
+  font-size: 13px;
+  padding: 8px;
+}
+
+.cts-dnd-35 .sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--cts-border-dark);
+  margin-bottom: 8px;
+}
+
+.cts-dnd-35 .sheet-header img.profile-img {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--cts-border-dark);
+  border-radius: var(--cts-radius);
+  object-fit: cover;
+}
+
+.cts-dnd-35 .sheet-header .header-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cts-dnd-35 .sheet-header .header-fields input[type="text"],
+.cts-dnd-35 .sheet-header .header-fields select {
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  background: white;
+  padding: 2px 6px;
+  font-family: var(--cts-font-body);
+}
+
+.cts-dnd-35 .sheet-header .char-name {
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: var(--cts-font-heading);
+  color: var(--cts-primary);
+}
+
+/* --- Tabs --- */
+.cts-dnd-35 .sheet-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--cts-border-dark);
+  margin-bottom: 8px;
+}
+
+.cts-dnd-35 .sheet-tabs .item {
+  padding: 4px 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--cts-radius) var(--cts-radius) 0 0;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--cts-text-light);
+  transition: all 0.15s ease;
+}
+
+.cts-dnd-35 .sheet-tabs .item:hover {
+  color: var(--cts-primary);
+  background: var(--cts-bg-dark);
+}
+
+.cts-dnd-35 .sheet-tabs .item.active {
+  color: var(--cts-primary);
+  background: var(--cts-bg);
+  border-color: var(--cts-border-dark);
+  border-bottom: 2px solid var(--cts-bg);
+  margin-bottom: -2px;
+}
+
+/* --- Ability Scores Grid --- */
+.cts-dnd-35 .ability-scores {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.cts-dnd-35 .ability-scores .ability {
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cts-dnd-35 .ability-scores .ability .ability-label {
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--cts-primary);
+}
+
+.cts-dnd-35 .ability-scores .ability .ability-mod {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--cts-secondary);
+  cursor: pointer;
+}
+
+.cts-dnd-35 .ability-scores .ability .ability-mod:hover {
+  color: var(--cts-primary);
+}
+
+.cts-dnd-35 .ability-scores .ability input.ability-score {
+  width: 36px;
+  text-align: center;
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  font-size: 13px;
+  padding: 1px;
+  background: white;
+}
+
+/* --- Combat Stats Row --- */
+.cts-dnd-35 .combat-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.cts-dnd-35 .combat-stats .stat-box {
+  flex: 1;
+  min-width: 70px;
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  padding: 6px;
+  text-align: center;
+}
+
+.cts-dnd-35 .combat-stats .stat-box .stat-label {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--cts-text-light);
+}
+
+.cts-dnd-35 .combat-stats .stat-box .stat-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--cts-secondary);
+}
+
+.cts-dnd-35 .combat-stats .stat-box input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  font-size: 14px;
+  font-weight: bold;
+  background: white;
+}
+
+/* --- Saving Throws --- */
+.cts-dnd-35 .saving-throws {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.cts-dnd-35 .saving-throws .save {
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cts-dnd-35 .saving-throws .save .save-label {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--cts-primary);
+}
+
+.cts-dnd-35 .saving-throws .save .save-total {
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--cts-secondary);
+}
+
+.cts-dnd-35 .saving-throws .save .save-total:hover {
+  color: var(--cts-primary);
+}
+
+/* --- Item Lists --- */
+.cts-dnd-35 .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cts-dnd-35 .item-list .item-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--cts-text-light);
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius) var(--cts-radius) 0 0;
+}
+
+.cts-dnd-35 .item-list .item {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  border: 1px solid var(--cts-border);
+  border-top: none;
+  gap: 6px;
+  transition: background 0.1s ease;
+}
+
+.cts-dnd-35 .item-list .item:hover {
+  background: var(--cts-bg-dark);
+}
+
+.cts-dnd-35 .item-list .item:last-child {
+  border-radius: 0 0 var(--cts-radius) var(--cts-radius);
+}
+
+.cts-dnd-35 .item-list .item img.item-img {
+  width: 24px;
+  height: 24px;
+  border: none;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cts-dnd-35 .item-list .item .item-name {
+  flex: 1;
+  cursor: pointer;
+}
+
+.cts-dnd-35 .item-list .item .item-name:hover {
+  color: var(--cts-primary);
+}
+
+.cts-dnd-35 .item-list .item .item-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.cts-dnd-35 .item-list .item .item-controls a {
+  color: var(--cts-text-light);
+  cursor: pointer;
+}
+
+.cts-dnd-35 .item-list .item .item-controls a:hover {
+  color: var(--cts-primary);
+}
+
+/* --- Buttons --- */
+.cts-dnd-35 .cts-btn {
+  background: var(--cts-primary);
+  color: white;
+  border: none;
+  border-radius: var(--cts-radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background 0.15s ease;
+}
+
+.cts-dnd-35 .cts-btn:hover {
+  background: var(--cts-primary-light);
+}
+
+.cts-dnd-35 .cts-btn.secondary {
+  background: var(--cts-secondary);
+}
+
+.cts-dnd-35 .cts-btn.secondary:hover {
+  background: #3d556e;
+}
+
+/* --- Rollable Highlights --- */
+.cts-dnd-35 .rollable {
+  cursor: pointer;
+}
+
+.cts-dnd-35 .rollable:hover {
+  color: var(--cts-primary);
+  text-shadow: 0 0 6px rgba(123, 45, 38, 0.3);
+}
+
+/* --- HP Bar Inline --- */
+.cts-dnd-35 .hp-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cts-dnd-35 .hp-bar input {
+  width: 44px;
+  text-align: center;
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  font-weight: bold;
+  background: white;
+}
+
+.cts-dnd-35 .hp-bar .hp-sep {
+  font-weight: bold;
+  color: var(--cts-text-light);
+}
+
+/* --- Editor --- */
+.cts-dnd-35 .editor {
+  min-height: 200px;
+}
+
+/* --- Utilities --- */
+.cts-dnd-35 .flex-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cts-dnd-35 .flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cts-dnd-35 .flex-grow {
+  flex: 1;
+}
+
+.cts-dnd-35 .text-center {
+  text-align: center;
+}
+
+.cts-dnd-35 .mb-sm { margin-bottom: 4px; }
+.cts-dnd-35 .mb-md { margin-bottom: 8px; }
+.cts-dnd-35 .mb-lg { margin-bottom: 16px; }

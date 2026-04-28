@@ -1,0 +1,44 @@
+{
+  "id": "CTS-DND-35",
+  "title": "CTS DND 35",
+  "description": "A custom D&D 3.5 Edition system by Celtic Trinity Studios. Clean, extensible, and built for Foundry VTT.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Celtic Trinity Studios"
+    }
+  ],
+  "url": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "manifest": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/releases/latest/download/system.json",
+  "download": "https://github.com/Celtic-Trinity-Studios/CTS-DND-35/releases/download/v0.1.0/CTS-DND-35.zip",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/CTS-DND-35/assets/logo.png",
+      "thumbnail": "systems/CTS-DND-35/assets/logo.png"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.360"
+  },
+  "esmodules": ["module/cts-dnd-35.mjs"],
+  "styles": ["css/cts-dnd-35.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": true,
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "attributes.hp",
+  "secondaryTokenAttribute": null,
+  "initiative": "1d20 + @abilities.dex.mod"
+}

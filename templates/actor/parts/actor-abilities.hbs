@@ -1,0 +1,12 @@
+{{!-- Ability Scores Partial --}}
+<div class="ability-scores">
+  {{#each system.abilities as |ability key|}}
+  <div class="ability">
+    <span class="ability-label">{{key}}</span>
+    <span class="ability-mod rollable ability-roll" data-ability="{{key}}" title="Roll {{key}} check">
+      {{cts-mod ability.value}}
+    </span>
+    <input class="ability-score" type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}" />
+  </div>
+  {{/each}}
+</div>
