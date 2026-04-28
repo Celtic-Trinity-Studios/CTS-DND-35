@@ -39,6 +39,7 @@ Hooks.once("init", function () {
   // Register Actor sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {
+    types: ["character", "npc"],
     makeDefault: true,
     label: "CTSDND35.SheetActorDefault",
   });
@@ -46,6 +47,7 @@ Hooks.once("init", function () {
   // Register Item sheet application classes
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("CTS-DND-35", CTSDND35ItemSheet, {
+    types: ["weapon", "armor", "equipment", "consumable", "feat", "feature", "spell", "class", "race", "buff", "attack"],
     makeDefault: true,
     label: "CTSDND35.SheetItemDefault",
   });
