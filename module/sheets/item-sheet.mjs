@@ -3,11 +3,7 @@
  * Extends ItemSheet to display item data.
  */
 
-const BaseItemSheet = (foundry.applications?.sheets?.ItemSheetV2 && foundry.applications?.api?.HandlebarsApplicationMixin)
-  ? foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.sheets.ItemSheetV2)
-  : foundry.appv1.sheets.ItemSheet;
-
-export class CTSDND35ItemSheet extends BaseItemSheet {
+export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
 
   /** @override */
   static get defaultOptions() {
