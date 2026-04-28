@@ -4,6 +4,7 @@ export class CharacterWizard extends Application {
   constructor(actor, options = {}) {
     super(options);
     this.actor = actor;
+    this.featChoices = [];
     this.state = {
       step: 1,
       basics: {
@@ -17,7 +18,9 @@ export class CharacterWizard extends Application {
       abilities: {
         str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8
       },
-      rolls: []
+      rolls: [],
+      selectedFeatUuid: "",
+      skillRanks: this._initSkillRanks()
     };
   }
 
@@ -33,7 +36,7 @@ export class CharacterWizard extends Application {
     });
   }
 
-  getData() {
+  async getData() {
     const context = super.getData() ?? {};
     context.actor = this.actor;
     context.state = this.state;
@@ -41,6 +44,7 @@ export class CharacterWizard extends Application {
     
     context.isStep1 = this.state.step === 1;
     context.isStep2 = this.state.step === 2;
+    context.isStep3 = this.state.step === 3;
     
     // Calculate point buy (3.5e standard rules: 8 is 0, up to 18 is 16)
     const pbCost = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:6, 15:8, 16:10, 17:13, 18:16 };
@@ -60,8 +64,40 @@ export class CharacterWizard extends Application {
     for (let a of ["str", "dex", "con", "int", "wis", "cha"]) {
       context.finalAbilities[a] = (this.state.abilities[a] || 10) + (currentRace.abilities[a] || 0);
     }
+
+    const intMod = Math.floor(((context.finalAbilities.int || 10) - 10) / 2);
+    const baseSkillPoints = Math.max(1, 2 + intMod);
+    const humanBonus = this.state.basics.race === "human" ? 1 : 0;
+    context.skillPointBudget = (baseSkillPoints + humanBonus) * 4;
+    context.skillPointSpent = Object.values(this.state.skillRanks).reduce((sum, n) => sum + (Number(n) || 0), 0);
+    context.skillPointRemaining = context.skillPointBudget - context.skillPointSpent;
+
+    await this._loadFeatChoices();
+    context.featChoices = this.featChoices;
     
     return context;
+  }
+
+  _initSkillRanks() {
+    const skills = {};
+    for (const key of Object.keys(CTSDND35.skills)) {
+      skills[key] = 0;
+    }
+    return skills;
+  }
+
+  async _loadFeatChoices() {
+    if (this.featChoices.length) return;
+    const pack = game.packs.get("CTS-DND-35.srd-feats");
+    if (!pack) return;
+
+    const index = await pack.getIndex({ fields: ["name"] });
+    this.featChoices = index
+      .map((entry) => ({
+        uuid: `Compendium.${pack.collection}.${entry._id}`,
+        name: entry.name
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
   }
 
   activateListeners(html) {
@@ -69,11 +105,11 @@ export class CharacterWizard extends Application {
     
     // Navigation
     html.find(".next-step").click(ev => {
-      this.state.step++;
+      this.state.step = Math.min(3, this.state.step + 1);
       this.render();
     });
     html.find(".prev-step").click(ev => {
-      this.state.step--;
+      this.state.step = Math.max(1, this.state.step - 1);
       this.render();
     });
     
@@ -100,6 +136,11 @@ export class CharacterWizard extends Application {
           if (el.value === "array") this.state.abilities = {str:15, dex:14, con:13, int:12, wis:10, cha:8};
           else if (el.value === "pointbuy") this.state.abilities = {str:8, dex:8, con:8, int:8, wis:8, cha:8};
           // leave "roll" alone until they click the button
+        } else if (prop === "selectedFeatUuid") {
+          this.state.selectedFeatUuid = el.value;
+        } else if (prop.startsWith("skills.")) {
+          const key = prop.split(".")[1];
+          this.state.skillRanks[key] = Math.max(0, parseInt(el.value) || 0);
         }
         this.render();
       }
@@ -150,7 +191,21 @@ export class CharacterWizard extends Application {
       updates[`system.abilities.${a}.value`] = finalAbilities[a];
     }
 
+    for (const [skillKey, ranks] of Object.entries(this.state.skillRanks)) {
+      updates[`system.skills.${skillKey}.ranks`] = ranks;
+      updates[`system.skills.${skillKey}.misc`] = 0;
+      updates[`system.skills.${skillKey}.classSkill`] = false;
+    }
+
     await this.actor.update(updates);
+
+    if (this.state.selectedFeatUuid) {
+      const featDoc = await fromUuid(this.state.selectedFeatUuid);
+      if (featDoc) {
+        await this.actor.createEmbeddedDocuments("Item", [featDoc.toObject()]);
+      }
+    }
+
     this.actor.sheet?.render(true);
     ui.notifications.info(`Character Wizard completed for ${basics.name}!`);
     this.close();
