@@ -4,6 +4,7 @@
  */
 
 import { CTSDND35 } from "../helpers/config.mjs";
+import { CharacterWizard } from "../apps/character-wizard.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
@@ -156,11 +157,23 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     // Rollable initiative
     html.on("click", ".init-roll", this._onInitRoll.bind(this));
 
-    // Item roll (click name)
+    // Rollable item
     html.on("click", ".item-roll", (ev) => {
+      ev.preventDefault();
       const li = $(ev.currentTarget).closest(".item");
       const item = this.actor.items.get(li.data("item-id"));
       if (item) item.roll(ev);
+    });
+
+    // Wizard buttons
+    html.find(".open-wizard").click(ev => {
+      ev.preventDefault();
+      new CharacterWizard(this.actor).render(true);
+    });
+
+    html.find(".open-levelup").click(ev => {
+      ev.preventDefault();
+      ui.notifications.info("Level Up wizard coming soon!");
     });
 
     // Rollable skill checks

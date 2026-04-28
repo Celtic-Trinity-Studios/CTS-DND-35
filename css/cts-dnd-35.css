@@ -48,6 +48,39 @@
   object-fit: cover;
 }
 
+.cts-dnd-35 .sheet-header .charlevel {
+  flex: 0 0 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --- Wizard App --- */
+.cts-dnd-35.wizard .wizard-header {
+  margin-bottom: 16px;
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border-dark);
+  border-radius: var(--cts-radius);
+  overflow: hidden;
+}
+.cts-dnd-35.wizard .step-indicator {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  font-family: var(--cts-font-heading);
+  font-size: 18px;
+  color: var(--cts-text-light);
+  border-right: 1px solid var(--cts-border-dark);
+}
+.cts-dnd-35.wizard .step-indicator:last-child {
+  border-right: none;
+}
+.cts-dnd-35.wizard .step-indicator.active {
+  background: var(--cts-primary);
+  color: white;
+}
+
+
 .cts-dnd-35 .sheet-header .header-fields {
   flex: 1;
   display: flex;

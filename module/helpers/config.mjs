@@ -138,6 +138,19 @@ CTSDND35.alignments = {
 };
 
 /**
+ * Standard 3.5e Races
+ */
+CTSDND35.races = {
+  human: { label: "Human", size: "med", speed: 30, abilities: {} },
+  dwarf: { label: "Dwarf", size: "med", speed: 20, abilities: { con: 2, cha: -2 } },
+  elf: { label: "Elf", size: "med", speed: 30, abilities: { dex: 2, con: -2 } },
+  gnome: { label: "Gnome", size: "sm", speed: 20, abilities: { con: 2, str: -2 } },
+  halfElf: { label: "Half-Elf", size: "med", speed: 30, abilities: {} },
+  halfOrc: { label: "Half-Orc", size: "med", speed: 30, abilities: { str: 2, int: -2, cha: -2 } },
+  halfling: { label: "Halfling", size: "sm", speed: 20, abilities: { dex: 2, str: -2 } }
+};
+
+/**
  * D&D 3.5 Skill definitions
  * key: { label, ability, untrained }
  */

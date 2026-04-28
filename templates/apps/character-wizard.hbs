@@ -1,0 +1,112 @@
+<form class="cts-dnd-35 wizard" autocomplete="off" onsubmit="event.preventDefault();">
+  <header class="wizard-header flexrow">
+    <div class="step-indicator {{#if isStep1}}active{{/if}}">1. Basics</div>
+    <div class="step-indicator {{#if isStep2}}active{{/if}}">2. Abilities</div>
+  </header>
+
+  <div class="wizard-content">
+    {{#if isStep1}}
+    <h3 style="margin-top:0;">Character Basics</h3>
+    <div class="form-group">
+      <label>Character Name</label>
+      <input type="text" data-prop="basics.name" value="{{state.basics.name}}" />
+    </div>
+    <div class="form-group">
+      <label>Race</label>
+      <select data-prop="basics.race">
+        {{#each config.races as |race key|}}
+        <option value="{{key}}" {{#if (cts-eq key ../state.basics.race)}}selected{{/if}}>{{race.label}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Alignment</label>
+      <select data-prop="basics.alignment">
+        {{#each config.alignments as |label key|}}
+        <option value="{{key}}" {{#if (cts-eq key ../state.basics.alignment)}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Deity</label>
+      <input type="text" data-prop="basics.deity" value="{{state.basics.deity}}" placeholder="Optional" />
+    </div>
+    <div class="form-group">
+      <label>Size</label>
+      <select data-prop="basics.size" disabled>
+        {{#each config.sizes as |label key|}}
+        <option value="{{key}}" {{#if (cts-eq key ../state.basics.size)}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+      </select>
+      <p class="notes" style="flex:0 0 100%;">Size is determined automatically by race.</p>
+    </div>
+    {{/if}}
+
+    {{#if isStep2}}
+    <h3 style="margin-top:0;">Ability Scores</h3>
+    <div class="form-group">
+      <label>Generation Method</label>
+      <select data-prop="abilityMethod">
+        <option value="array" {{#if (cts-eq state.abilityMethod "array")}}selected{{/if}}>Standard Array (15, 14, 13, 12, 10, 8)</option>
+        <option value="pointbuy" {{#if (cts-eq state.abilityMethod "pointbuy")}}selected{{/if}}>Point Buy (25 Points)</option>
+        <option value="roll" {{#if (cts-eq state.abilityMethod "roll")}}selected{{/if}}>Roll (4d6 drop lowest)</option>
+      </select>
+    </div>
+
+    {{#if (cts-eq state.abilityMethod "roll")}}
+      <div class="flexrow mb-md">
+        <button type="button" class="roll-stats cts-btn"><i class="fas fa-dice"></i> Roll Abilities</button>
+      </div>
+      {{#if state.rolls.length}}
+      <p class="notes" style="text-align:center; font-weight:bold;">Rolled values: {{#each state.rolls}}{{this}} {{/each}}</p>
+      {{/if}}
+    {{/if}}
+
+    {{#if (cts-eq state.abilityMethod "pointbuy")}}
+      <p class="notes" style="text-align:center;">Points Remaining: 
+        <strong style="font-size:16px; color: {{#if (cts-eq pointBuyRemaining 0)}}var(--cts-success){{else}}var(--cts-primary){{/if}};">{{pointBuyRemaining}}</strong> / 25
+      </p>
+    {{/if}}
+
+    <div class="ability-assignment mt-md">
+      <div class="flexrow" style="padding-bottom: 4px; border-bottom: 1px solid var(--cts-border-dark);">
+        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Ability</div>
+        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Base Score</div>
+        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Racial Mod</div>
+        <div class="flexcol" style="flex:1; text-align:center; font-weight:bold;">Final Score</div>
+      </div>
+      <div style="padding-top: 8px;">
+        {{#each config.abilityAbbreviations as |abbr key|}}
+        <div class="flexrow mb-sm" style="align-items: center;">
+          <div class="flexcol" style="flex:1; text-align:center; font-weight:bold; font-size:16px;">{{abbr}}</div>
+          <div class="flexcol" style="flex:1; text-align:center;">
+            {{#if (cts-eq ../state.abilityMethod "roll")}}
+              <input type="number" data-prop="abilities.{{key}}" value="{{lookup ../state.abilities key}}" style="text-align:center;" readonly />
+            {{else}}
+              <input type="number" data-prop="abilities.{{key}}" value="{{lookup ../state.abilities key}}" style="text-align:center;" min="8" max="18" />
+            {{/if}}
+          </div>
+          <div class="flexcol" style="flex:1; text-align:center; font-weight:bold; color: {{#if (lookup ../currentRace.abilities key)}}var(--cts-primary-light){{else}}var(--cts-text-light){{/if}};">
+            {{cts-sign (lookup ../currentRace.abilities key)}}
+          </div>
+          <div class="flexcol stat-value derived" style="flex:1;">
+            {{lookup ../finalAbilities key}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  <footer class="wizard-footer flexrow" style="gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid var(--cts-border-dark);">
+    {{#if isStep1}}
+      <button type="button" class="cts-btn next-step" style="flex: 1;"><i class="fas fa-arrow-right"></i> Next Step</button>
+    {{/if}}
+    
+    {{#if isStep2}}
+      <button type="button" class="cts-btn secondary prev-step" style="flex: 0 0 120px;"><i class="fas fa-arrow-left"></i> Back</button>
+      <button type="button" class="cts-btn apply-wizard" style="flex: 1;"><i class="fas fa-check"></i> Apply & Finish</button>
+    {{/if}}
+  </footer>
+</form>
