@@ -32,7 +32,7 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
   async getData() {
     const context = await super.getData();
 
-    const itemData = this.document.toPlainObject();
+    const itemData = this.document.toObject();
     context.system = itemData.system;
     context.flags = itemData.flags;
 

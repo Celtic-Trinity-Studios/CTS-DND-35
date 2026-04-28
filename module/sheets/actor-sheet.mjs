@@ -35,9 +35,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     const context = await super.getData();
 
     // Add the actor's data to context for easier access in templates
-    const actorData = this.document.toPlainObject();
-    context.system = actorData.system;
-    context.flags = actorData.flags;
+    context.system = this.actor.system;
+    context.flags = this.actor.flags;
 
     // Add system config
     context.config = CTSDND35;
