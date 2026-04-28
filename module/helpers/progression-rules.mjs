@@ -153,3 +153,31 @@ export function getSpellcastingProgression(classSystem, className, classLevel, a
     }
   };
 }
+
+export function evaluateClassAvailability({ requirements = {}, actor = {}, knownFeatNames = new Set() }) {
+  const reasons = [];
+  const race = String(actor?.system?.details?.race || "").toLowerCase();
+  const bab = Number(actor?.system?.attributes?.bab?.total) || 0;
+
+  const reqBab = Number(requirements.req_base_attack_bonus) || 0;
+  if (reqBab > 0 && bab < reqBab) reasons.push(`BAB +${reqBab} required`);
+
+  const reqRace = String(requirements.req_race || "").trim();
+  if (reqRace && reqRace.toLowerCase() !== "none") {
+    const races = reqRace.split(",").map((r) => r.trim().toLowerCase()).filter(Boolean);
+    if (races.length && !races.some((r) => race.includes(r))) reasons.push(`Race requirement: ${reqRace}`);
+  }
+
+  const reqFeat = String(requirements.req_feat || "").trim();
+  if (reqFeat && reqFeat.toLowerCase() !== "none") {
+    const feats = reqFeat.split(",").map((f) => f.trim()).filter(Boolean);
+    for (const feat of feats) {
+      if (!knownFeatNames.has(feat.toLowerCase())) {
+        reasons.push(`Requires feat: ${feat}`);
+        break;
+      }
+    }
+  }
+
+  return { ok: reasons.length === 0, reasons };
+}

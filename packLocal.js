@@ -203,6 +203,15 @@ async function packData() {
                 saves: { fort: "low", ref: "low", will: "low" },
                 skillRanksPerLevel: parseInt(row.skill_points) || 2,
                 classSkills: row.class_skills ? row.class_skills.split(",").map(s => s.trim()) : [],
+                requirements: {
+                    req_base_attack_bonus: row.req_base_attack_bonus || "",
+                    req_feat: row.req_feat || "",
+                    req_race: row.req_race || "",
+                    req_skill: row.req_skill || "",
+                    req_alignment: row.alignment || "",
+                    req_spells: row.req_spells || "",
+                    req_special: row.req_special || ""
+                },
                 featuresByLevel: progression.featuresByLevel,
                 spellcasting: {
                     type: row.spell_type || "none",

@@ -68,7 +68,7 @@
       <label>Primary Class</label>
       <select data-prop="classes.primary">
         <option value="">-- Select class --</option>
-        {{#each classChoices as |c|}}
+        {{#each availableClassChoices as |c|}}
         <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.primary)}}selected{{/if}}>{{c.name}}</option>
         {{/each}}
       </select>
@@ -82,7 +82,7 @@
       <label>Secondary Class (optional)</label>
       <select data-prop="classes.secondary">
         <option value="">-- None --</option>
-        {{#each classChoices as |c|}}
+        {{#each availableClassChoices as |c|}}
         <option value="{{c.uuid}}" {{#if (cts-eq c.uuid ../state.classes.secondary)}}selected{{/if}}>{{c.name}}</option>
         {{/each}}
       </select>

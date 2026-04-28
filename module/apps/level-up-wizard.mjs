@@ -5,7 +5,8 @@ import {
   getKnownFeatNames,
   getSkillPointCost,
   getSkillRankCap,
-  getSpellcastingProgression
+  getSpellcastingProgression,
+  evaluateClassAvailability
 } from "../helpers/progression-rules.mjs";
 
 export class LevelUpWizard extends Application {
@@ -59,7 +60,8 @@ export class LevelUpWizard extends Application {
       hitDie: doc.system?.hitDie || "d8",
       skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
       classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
-      spellcastingType: doc.system?.spellcasting?.type || "none"
+      spellcastingType: doc.system?.spellcasting?.type || "none",
+      requirements: doc.system?.requirements || {}
     })).sort((a, b) => a.name.localeCompare(b.name));
     this.classSkillMap = Object.fromEntries(this.classChoices.map((c) => [c.uuid, c.classSkills]));
   }
@@ -136,6 +138,14 @@ export class LevelUpWizard extends Application {
 
   _getCurrentFeatNames() {
     return getKnownFeatNames(this.actor);
+  }
+
+  _isClassAvailable(classChoice) {
+    return evaluateClassAvailability({
+      requirements: classChoice?.requirements || {},
+      actor: this.actor,
+      knownFeatNames: this._getCurrentFeatNames()
+    }).ok;
   }
 
   _evaluateFeatPrerequisites(feat) {
@@ -278,7 +288,10 @@ export class LevelUpWizard extends Application {
     context.isStep1 = this.state.step === 1;
     context.isStep2 = this.state.step === 2;
     context.isStep3 = this.state.step === 3;
-    context.classChoices = this.classChoices;
+    context.availableClassChoices = this.classChoices.filter((c) => this._isClassAvailable(c));
+    if (this.state.selectedClassUuid && !context.availableClassChoices.some((c) => c.uuid === this.state.selectedClassUuid)) {
+      this.state.selectedClassUuid = "";
+    }
     context.totalLevel = this._totalLevel();
     context.nextLevel = nextLevel;
     context.classLevelAfterGain = this._classLevelAfterGain();
@@ -292,7 +305,11 @@ export class LevelUpWizard extends Application {
       .map((f) => {
         const check = this._evaluateFeatPrerequisites(f);
         return { ...f, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
-      });
+      })
+      .filter((f) => f.prereqOk);
+    if (this.state.selectedFeatUuid && !context.featChoices.some((f) => f.uuid === this.state.selectedFeatUuid)) {
+      this.state.selectedFeatUuid = "";
+    }
     context.selectedClassSkills = new Set(selectedClassSkills);
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, def]) => {
       const currentRanks = Number(this.actor.system?.skills?.[key]?.ranks) || 0;

@@ -5,7 +5,8 @@ import {
   getKnownFeatNames,
   getSkillPointCost,
   getSkillRankCap,
-  getSpellcastingProgression
+  getSpellcastingProgression,
+  evaluateClassAvailability
 } from "../helpers/progression-rules.mjs";
 
 export class CharacterWizard extends Application {
@@ -116,7 +117,13 @@ export class CharacterWizard extends Application {
       secondaryRemaining: allowGestalt ? (secondaryBudget - secondarySpent) : 0
     };
 
-    context.classChoices = this.classChoices;
+    context.availableClassChoices = this.classChoices.filter((c) => this._isClassAvailable(c));
+    if (this.state.classes.primary && !context.availableClassChoices.some((c) => c.uuid === this.state.classes.primary)) {
+      this.state.classes.primary = "";
+    }
+    if (this.state.classes.secondary && !context.availableClassChoices.some((c) => c.uuid === this.state.classes.secondary)) {
+      this.state.classes.secondary = "";
+    }
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
     context.secondaryClassLabel = allowGestalt ? this._classLabel(this.state.classes.secondary) : "Secondary";
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
@@ -165,7 +172,10 @@ export class CharacterWizard extends Application {
         featName: feat.name
       });
       return { ...feat, prereqOk: check.ok, prereqReason: check.reasons.join("; ") };
-    });
+    }).filter((feat) => feat.prereqOk);
+    const visibleFeatUuids = new Set(context.featChoices.map((f) => f.uuid));
+    this.state.selectedFeatUuids = this.state.selectedFeatUuids.filter((uuid) => visibleFeatUuids.has(uuid));
+    if (this.state.activeFeatUuid && !visibleFeatUuids.has(this.state.activeFeatUuid)) this.state.activeFeatUuid = "";
     context.featTypes = Array.from(new Set(this.featChoices.map((f) => f.type).filter(Boolean))).sort();
     context.selectedFeats = this.state.selectedFeatUuids
       .map((uuid) => this.featChoices.find((f) => f.uuid === uuid))
@@ -257,7 +267,8 @@ export class CharacterWizard extends Application {
         name: doc.name,
         skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
         classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
-        spellcastingType: doc.system?.spellcasting?.type || "none"
+        spellcastingType: doc.system?.spellcasting?.type || "none",
+        requirements: doc.system?.requirements || {}
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -455,6 +466,14 @@ export class CharacterWizard extends Application {
 
   _countBonusFeatGrants(featureGrants = []) {
     return featureGrants.filter((f) => String(f.name || "").toLowerCase().includes("bonus feat")).length;
+  }
+
+  _isClassAvailable(classChoice) {
+    return evaluateClassAvailability({
+      requirements: classChoice?.requirements || {},
+      actor: this.actor,
+      knownFeatNames: getKnownFeatNames(this.actor)
+    }).ok;
   }
 
   activateListeners(html) {
