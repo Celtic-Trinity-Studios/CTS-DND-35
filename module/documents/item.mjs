@@ -55,17 +55,17 @@ export class CTSDND35Item extends Item {
 
     // If there's no actor, just display the item in chat
     if (!actor) {
-      return ChatMessage.create({
+      return foundry.documents.BaseChatMessage.create({
         content: `<h2>${item.name}</h2><p>${item.system.description || ""}</p>`,
       });
     }
 
-    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
 
     // Build a basic chat card
     const content = `
-      <div class="CTS-DND-35 chat-card">
+      <div class="cts-dnd-35 chat-card">
         <header class="card-header">
           <img src="${item.img}" width="36" height="36" />
           <h3>${item.name}</h3>
@@ -76,7 +76,7 @@ export class CTSDND35Item extends Item {
       </div>
     `;
 
-    return ChatMessage.create({
+    return foundry.documents.BaseChatMessage.create({
       speaker: speaker,
       rollMode: rollMode,
       content: content,

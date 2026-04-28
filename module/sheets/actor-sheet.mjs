@@ -95,8 +95,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     };
 
     for (const item of this.actor.items) {
-      const i = item.toPlainObject();
-      i.img = i.img || Item.DEFAULT_ICON;
+      const i = item.toObject();
+      i.img = i.img || foundry.documents.BaseItem.DEFAULT_ICON;
 
       switch (i.type) {
         case "weapon": items.weapons.push(i); break;
@@ -179,7 +179,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       type: type,
       system: {},
     };
-    return await Item.create(itemData, { parent: this.actor });
+    return await foundry.documents.BaseItem.create(itemData, { parent: this.actor });
   }
 
   /**
@@ -189,10 +189,10 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     event.preventDefault();
     const ability = event.currentTarget.dataset.ability;
     const abilityData = this.actor.system.abilities[ability];
-    const label = game.i18n.localize(CTSDND35.abilities[ability]) ?? ability;
+    const label = CTSDND35.abilities[ability] ?? ability;
 
-    return new Roll("1d20 + @mod", { mod: abilityData.mod }).toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    return new foundry.dice.Roll("1d20 + @mod", { mod: abilityData.mod }).toMessage({
+      speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${label} Check`,
     });
   }
@@ -204,10 +204,10 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     event.preventDefault();
     const save = event.currentTarget.dataset.save;
     const saveData = this.actor.system.attributes.savingThrows[save];
-    const label = game.i18n.localize(CTSDND35.saves[save]) ?? save;
+    const label = CTSDND35.saves[save] ?? save;
 
-    return new Roll("1d20 + @total", { total: saveData.total }).toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    return new foundry.dice.Roll("1d20 + @total", { total: saveData.total }).toMessage({
+      speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${label} Save`,
     });
   }
@@ -230,8 +230,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     const skillData = this.actor.system.skills?.[skillKey];
     if (!skillDef || !skillData) return;
 
-    return new Roll("1d20 + @total", { total: skillData.total }).toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    return new foundry.dice.Roll("1d20 + @total", { total: skillData.total }).toMessage({
+      speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${skillDef.label} Check`,
     });
   }
