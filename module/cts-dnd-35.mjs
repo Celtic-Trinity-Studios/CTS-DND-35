@@ -37,16 +37,16 @@ Hooks.once("init", function () {
   CONFIG.Item.documentClass = CTSDND35Item;
 
   // Register Actor sheet application classes
-  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
-  foundry.documents.collections.Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {
+  Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {
     types: ["character", "npc"],
     makeDefault: true,
     label: "CTSDND35.SheetActorDefault",
   });
 
   // Register Item sheet application classes
-  foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
-  foundry.documents.collections.Items.registerSheet("CTS-DND-35", CTSDND35ItemSheet, {
+  Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+  Items.registerSheet("CTS-DND-35", CTSDND35ItemSheet, {
     types: ["weapon", "armor", "equipment", "consumable", "feat", "feature", "spell", "class", "race", "buff", "attack"],
     makeDefault: true,
     label: "CTSDND35.SheetItemDefault",

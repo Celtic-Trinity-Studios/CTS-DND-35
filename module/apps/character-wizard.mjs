@@ -1,6 +1,6 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 
-export class CharacterWizard extends foundry.appv1.applications.Application {
+export class CharacterWizard extends Application {
   constructor(actor, options = {}) {
     super(options);
     this.actor = actor;
@@ -34,7 +34,7 @@ export class CharacterWizard extends foundry.appv1.applications.Application {
   }
 
   getData() {
-    const context = super.getData();
+    const context = super.getData() ?? {};
     context.actor = this.actor;
     context.state = this.state;
     context.config = CTSDND35;
@@ -151,6 +151,7 @@ export class CharacterWizard extends foundry.appv1.applications.Application {
     }
 
     await this.actor.update(updates);
+    this.actor.sheet?.render(true);
     ui.notifications.info(`Character Wizard completed for ${basics.name}!`);
     this.close();
   }
