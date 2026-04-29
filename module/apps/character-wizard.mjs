@@ -853,11 +853,13 @@ export class CharacterWizard extends Application {
       const spellLevel = this._availableSpellLevelsByUuid?.[uuid];
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
       const lvlKey = String(Number(spellLevel ?? spell?.spellLevel ?? 0) || 0);
-      const selectedByLevel = this._selectedSpellCountsByLevel();
-      const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
-      if (levelCap <= 0) return;
-      if ((selectedByLevel[lvlKey] || 0) >= levelCap) return;
-      if (this.state.spellPickCap > 0 && this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
+      if (this.state.spellPickCap > 0) {
+        const selectedByLevel = this._selectedSpellCountsByLevel();
+        const levelCap = Number(this.state.spellPickCapsByLevel?.[lvlKey]) || 0;
+        if (levelCap <= 0) return;
+        if ((selectedByLevel[lvlKey] || 0) >= levelCap) return;
+        if (this.state.selectedSpellUuids.length >= this.state.spellPickCap) return;
+      }
       this.state.selectedSpellUuids.push(uuid);
       this.render();
     });
