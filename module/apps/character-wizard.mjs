@@ -84,7 +84,8 @@ export class CharacterWizard extends Application {
       selectedSpellUuids: [],
       activeSpellUuid: "",
       spellPickCap: 0,
-      spellPickCapsByLevel: {}
+      spellPickCapsByLevel: {},
+      spellLevelCollapsed: {}
     };
   }
 
@@ -281,7 +282,12 @@ export class CharacterWizard extends Application {
       }, {})
     )
       .sort((a, b) => Number(a[0]) - Number(b[0]))
-      .map(([level, spells]) => ({ level: Number(level), spells }));
+      .map(([level, spells]) => {
+        const lvl = Number(level);
+        const key = String(lvl);
+        const collapsed = this.state.spellLevelCollapsed?.[key] === true;
+        return { level: lvl, levelKey: key, spells, collapsed };
+      });
     if (this.state.activeSpellUuid && !context.availableSpells.some((s) => s.uuid === this.state.activeSpellUuid)) {
       this.state.activeSpellUuid = "";
     }
@@ -828,6 +834,15 @@ export class CharacterWizard extends Application {
     html.find(".spell-choice").click((ev) => {
       ev.preventDefault();
       this.state.activeSpellUuid = ev.currentTarget.dataset.uuid || "";
+      this.render();
+    });
+
+    html.find(".spell-level-toggle").click((ev) => {
+      ev.preventDefault();
+      const levelKey = String(ev.currentTarget.dataset.level ?? "");
+      if (!levelKey) return;
+      const now = this.state.spellLevelCollapsed?.[levelKey] === true;
+      this.state.spellLevelCollapsed[levelKey] = !now;
       this.render();
     });
 
