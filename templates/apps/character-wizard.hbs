@@ -110,16 +110,6 @@
             <button type="button" class="cts-btn secondary set-secondary-class" style="margin-top:6px;">Set as Secondary</button>
             {{/if}}
           </div>
-          <div class="form-group" style="margin-top:8px;">
-            <label>Primary Class Level</label>
-            <input type="number" data-prop="classLevels.primary" value="{{state.classLevels.primary}}" min="1" />
-          </div>
-          {{#if allowGestalt}}
-          <div class="form-group">
-            <label>Secondary Class Level</label>
-            <input type="number" data-prop="classLevels.secondary" value="{{state.classLevels.secondary}}" min="0" />
-          </div>
-          {{/if}}
         </div>
       </div>
       {{/if}}
@@ -316,12 +306,19 @@
             <input type="text" data-prop="spellSearch" value="{{state.spellSearch}}" placeholder="Type here to search class spells" />
           </div>
           <div class="wizard-scroll-list">
-            {{#each availableSpells as |spell|}}
-            <div class="spell-choice wizard-choice-button {{#if (cts-eq spell.uuid ../state.activeSpellUuid)}}active{{/if}}" data-uuid="{{spell.uuid}}">
+            {{#if availableSpellsByLevel.length}}
+            {{#each availableSpellsByLevel as |group|}}
+            <div class="notes" style="padding:6px 8px 4px; font-weight:700; border-bottom:1px solid #333;">Level {{group.level}}</div>
+            {{#each group.spells as |spell|}}
+            <div class="spell-choice wizard-choice-button {{#if (cts-eq spell.uuid ../../state.activeSpellUuid)}}active{{/if}}" data-uuid="{{spell.uuid}}">
               <strong>{{spell.name}}</strong>
               <span class="notes"> ({{spell.spellLevel}})</span>
             </div>
             {{/each}}
+            {{/each}}
+            {{else}}
+            <p class="notes" style="padding:8px;">No spells available for selected class.</p>
+            {{/if}}
           </div>
         </div>
         <div class="wizard-detail-column" style="flex: 1 1 58%; min-width:0;">

@@ -272,6 +272,16 @@ export class CharacterWizard extends Application {
     context.availableSpells = Array.from(allowedSpellMap.values())
       .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
       .slice(0, 200);
+    context.availableSpellsByLevel = Object.entries(
+      context.availableSpells.reduce((acc, spell) => {
+        const level = Number(spell.spellLevel) || 0;
+        if (!acc[level]) acc[level] = [];
+        acc[level].push(spell);
+        return acc;
+      }, {})
+    )
+      .sort((a, b) => Number(a[0]) - Number(b[0]))
+      .map(([level, spells]) => ({ level: Number(level), spells }));
     if (this.state.activeSpellUuid && !context.availableSpells.some((s) => s.uuid === this.state.activeSpellUuid)) {
       this.state.activeSpellUuid = "";
     }
@@ -312,11 +322,9 @@ export class CharacterWizard extends Application {
     const gender = context.genderChoices?.find((g) => g.selected)?.label || "—";
     const race = CTSDND35.races[this.state.basics.race]?.label || "—";
     const align = CTSDND35.alignments[this.state.basics.alignment] || "—";
-    const pLvl = Math.max(1, Number(this.state.classLevels.primary) || 1);
-    const sLvl = Math.max(0, Number(this.state.classLevels.secondary) || 0);
     const primary =
       this.state.classes.primary && context.primaryClassLabel && context.primaryClassLabel !== "Class"
-        ? `${context.primaryClassLabel} ${pLvl}`
+        ? context.primaryClassLabel
         : "—";
     const chips = [
       { label: "Name", value: name, step: 1 },
@@ -327,7 +335,7 @@ export class CharacterWizard extends Application {
     if (allowGestalt) {
       const secondary =
         this.state.classes.secondary && context.secondaryClassLabel && context.secondaryClassLabel !== "Secondary"
-          ? `${context.secondaryClassLabel} ${sLvl}`
+          ? context.secondaryClassLabel
           : "—";
       chips.push({ label: "2nd", value: secondary, step: 3 });
     }
@@ -769,7 +777,7 @@ export class CharacterWizard extends Application {
       const choice = this.classChoices.find((c) => c.uuid === uuid);
       if (!choice || !this._isClassAvailable(choice).ok) return;
       this.state.classes.primary = uuid;
-      if (!this.state.classLevels.primary) this.state.classLevels.primary = 1;
+      this.state.classLevels.primary = 1;
       this.render();
     });
 
@@ -781,6 +789,7 @@ export class CharacterWizard extends Application {
       const choice = this.classChoices.find((c) => c.uuid === uuid);
       if (!choice || !this._isClassAvailable(choice).ok) return;
       this.state.classes.secondary = uuid;
+      this.state.classLevels.secondary = 1;
       this.render();
     });
 
