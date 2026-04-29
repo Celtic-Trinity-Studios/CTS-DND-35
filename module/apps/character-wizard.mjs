@@ -197,6 +197,15 @@ export class CharacterWizard extends Application {
     context.classListActiveUuid = classPreviewUuid || "";
     context.primaryClassLabel = this._classLabel(this.state.classes.primary);
     context.secondaryClassLabel = allowGestalt ? this._classLabel(this.state.classes.secondary) : "Secondary";
+    context.classChoicesForSelect = context.classChoicesForSelect.map((c) => ({
+      ...c,
+      isPrimary: c.uuid === this.state.classes.primary,
+      isSecondary: allowGestalt && c.uuid === this.state.classes.secondary
+    }));
+    const activeClsForReq = this.classChoices.find((c) => c.uuid === classPreviewUuid);
+    const activeClassCheck = activeClsForReq ? this._isClassAvailable(activeClsForReq) : { ok: true, reasons: [] };
+    context.activeClassIsAvailable = activeClassCheck.ok;
+    context.activeClassRequirementText = activeClassCheck.ok ? "" : activeClassCheck.reasons.join("; ");
     context.skillRows = Object.entries(CTSDND35.skills).map(([key, skill]) => {
       const pRanks = this.state.skillRanks.primary[key] || 0;
       const sRanks = allowGestalt ? (this.state.skillRanks.secondary[key] || 0) : 0;
@@ -295,8 +304,61 @@ export class CharacterWizard extends Application {
     this.state.spellPickCap = context.spellPickCap;
     context.spellPickCount = this.state.selectedSpellUuids.length;
     context.spellPickCountByLevel = this._selectedSpellCountsByLevel();
-    
+
+    context.wizardSummaryChips = this._buildWizardSummaryChips(context, allowGestalt);
+
     return context;
+  }
+
+  _buildWizardSummaryChips(context, allowGestalt) {
+    const name = (this.state.basics.name || "").trim() || "—";
+    const gender = context.genderChoices?.find((g) => g.selected)?.label || "—";
+    const race = CTSDND35.races[this.state.basics.race]?.label || "—";
+    const align = CTSDND35.alignments[this.state.basics.alignment] || "—";
+    const pLvl = Math.max(1, Number(this.state.classLevels.primary) || 1);
+    const sLvl = Math.max(0, Number(this.state.classLevels.secondary) || 0);
+    const primary =
+      this.state.classes.primary && context.primaryClassLabel && context.primaryClassLabel !== "Class"
+        ? `${context.primaryClassLabel} ${pLvl}`
+        : "—";
+    const chips = [
+      { label: "Name", value: name, step: 1 },
+      { label: "Gender", value: gender, step: 1 },
+      { label: "Race", value: race, step: 2 },
+      { label: "Class", value: primary, step: 3 }
+    ];
+    if (allowGestalt) {
+      const secondary =
+        this.state.classes.secondary && context.secondaryClassLabel && context.secondaryClassLabel !== "Secondary"
+          ? `${context.secondaryClassLabel} ${sLvl}`
+          : "—";
+      chips.push({ label: "2nd", value: secondary, step: 3 });
+    }
+    chips.push({ label: "Align", value: align, step: 4 });
+    const method = this.state.abilityMethod || "array";
+    chips.push({
+      label: "Abilities",
+      value: method === "pointbuy" ? "Point buy" : method === "roll" ? "Roll" : "Array",
+      step: 5
+    });
+    const skPri = context.skillBudget?.primary;
+    const skRem = context.skillBudget?.primaryRemaining;
+    chips.push({
+      label: "Skills",
+      value: skPri != null ? `${skRem}/${skPri}` : "—",
+      step: 6
+    });
+    const featTaken = this.state.selectedFeatUuids?.length ?? 0;
+    const featCap = context.featSlots ?? 0;
+    chips.push({ label: "Feats", value: featCap ? `${featTaken}/${featCap}` : `${featTaken}`, step: 7 });
+    const spellTaken = this.state.selectedSpellUuids?.length ?? 0;
+    const spellCap = context.spellPickCap ?? 0;
+    chips.push({
+      label: "Spells",
+      value: spellCap > 0 ? `${spellTaken}/${spellCap}` : spellTaken ? `${spellTaken}` : "—",
+      step: 8
+    });
+    return chips;
   }
 
   _initSkillRanks() {
@@ -626,6 +688,14 @@ export class CharacterWizard extends Application {
     html.find(".step-indicator").click((ev) => {
       ev.preventDefault();
       const step = Number(ev.currentTarget.dataset.step) || 1;
+      this.state.step = Math.min(8, Math.max(1, step));
+      this.render();
+    });
+
+    html.find(".wizard-summary-chip").click((ev) => {
+      ev.preventDefault();
+      const step = Number(ev.currentTarget.dataset.step);
+      if (!Number.isFinite(step)) return;
       this.state.step = Math.min(8, Math.max(1, step));
       this.render();
     });

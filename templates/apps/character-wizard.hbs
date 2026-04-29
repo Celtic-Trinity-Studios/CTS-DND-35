@@ -1,5 +1,13 @@
 <form class="cts-dnd-35 wizard wizard-classic" autocomplete="off" onsubmit="event.preventDefault();">
   <div class="wizard-classic-title">Character Generation</div>
+  <div class="wizard-selection-summary" role="navigation" aria-label="Current choices">
+    {{#each wizardSummaryChips as |chip|}}
+    <button type="button" class="wizard-summary-chip{{#if (cts-eq chip.step ../state.step)}} active{{/if}}" data-step="{{chip.step}}" title="Go to {{chip.label}}">
+      <span class="wizard-summary-chip-label">{{chip.label}}</span>
+      <span class="wizard-summary-chip-value">{{chip.value}}</span>
+    </button>
+    {{/each}}
+  </div>
   <div class="wizard-classic-body">
     <aside class="wizard-classic-nav">
       <button type="button" class="step-indicator {{#if isStep1}}active{{/if}}" data-step="1">Gender</button>
@@ -76,16 +84,25 @@
       <div class="wizard-split">
         <div class="wizard-scroll-list">
           {{#each classChoicesForSelect as |c|}}
-          <div class="class-choice wizard-choice-button {{#if (cts-eq c.uuid ../classListActiveUuid)}}active{{/if}}" data-uuid="{{c.uuid}}">
-            <strong>{{c.name}}</strong>
-            {{#unless c.available}}
-            <div class="notes" style="color:#c94c4c;">Unavailable: {{c.unavailableReason}}</div>
-            {{/unless}}
+          <div class="class-choice wizard-choice-button {{#if (cts-eq c.uuid ../classListActiveUuid)}}active{{/if}}{{#if c.isPrimary}} class-choice-primary{{/if}}{{#if c.isSecondary}} class-choice-secondary{{/if}}" data-uuid="{{c.uuid}}">
+            <span class="class-choice-name"><strong>{{c.name}}</strong></span>
+            <span class="class-choice-tags">
+              {{#if c.isPrimary}}<span class="wizard-class-tag">Primary</span>{{/if}}
+              {{#if c.isSecondary}}<span class="wizard-class-tag wizard-class-tag-secondary">Secondary</span>{{/if}}
+            </span>
           </div>
           {{/each}}
         </div>
         <div class="wizard-detail-column">
           <h4>{{#if activeClass}}{{activeClass.name}}{{else}}Select a class{{/if}}</h4>
+          {{#if activeClass}}
+          {{#unless activeClassIsAvailable}}
+          <div class="wizard-class-requirements wizard-class-requirements--unmet">
+            <strong>Requirements not met</strong>
+            <p>{{activeClassRequirementText}}</p>
+          </div>
+          {{/unless}}
+          {{/if}}
           <div class="wizard-detail-body">{{#if activeClass}}{{{activeClass.description}}}{{else}}<p class="notes">Choose a class from the list.</p>{{/if}}</div>
           <div class="wizard-inline-actions flexcol" style="margin-top:8px;">
             <button type="button" class="cts-btn set-primary-class">Set as Primary</button>
