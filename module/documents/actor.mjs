@@ -41,6 +41,7 @@ export class CTSDND35Actor extends Actor {
     systemData.details.race ??= "";
     systemData.details.alignment ??= "";
     systemData.details.deity ??= "";
+    systemData.details.groups ??= "";
     systemData.details.biography ??= "";
     systemData.details.notes ??= "";
 

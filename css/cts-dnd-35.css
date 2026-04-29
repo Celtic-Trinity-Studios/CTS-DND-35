@@ -1061,6 +1061,28 @@
   margin-top: 8px;
 }
 
+.cts-group-row input[name="system.details.groups"] {
+  width: 100%;
+}
+
+.cts-group-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.cts-group-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #6c5a2f;
+  background: linear-gradient(180deg, rgba(53, 68, 108, 0.85), rgba(27, 36, 62, 0.85));
+  color: #efdfb7;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
 .cts-portrait {
   width: 100%;
   height: 165px;

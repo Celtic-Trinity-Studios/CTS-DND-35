@@ -49,6 +49,10 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       context.system.details?.notes || "",
       { async: true }
     );
+    context.groupList = String(context.system.details?.groups || "")
+      .split(/[,\n;]+/g)
+      .map((s) => s.trim())
+      .filter(Boolean);
 
     // Build skill list for the template
     const skillList = [];

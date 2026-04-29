@@ -29,6 +29,23 @@
         <label>Source:</label>
         <input type="text" name="system.details.source" value="{{system.details.source}}" class="flex-grow" />
       </div>
+      <div class="flex-row">
+        <label>Groups:</label>
+        <input
+          type="text"
+          name="system.details.groups"
+          value="{{system.details.groups}}"
+          class="flex-grow"
+          placeholder="Comma-separated factions/groups"
+        />
+      </div>
+      {{#if groupList.length}}
+      <div class="flex-row cts-group-tags">
+        {{#each groupList as |group|}}
+        <span class="cts-group-tag">{{group}}</span>
+        {{/each}}
+      </div>
+      {{/if}}
     </div>
   </header>
 
