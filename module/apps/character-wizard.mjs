@@ -220,16 +220,13 @@ export class CharacterWizard extends Application {
         ability: skill.ability.toUpperCase(),
         primaryRanks: pRanks,
         secondaryRanks: sRanks,
-        primaryCost: getSkillPointCost(primaryIsClass, 1),
-        secondaryCost: getSkillPointCost(secondaryIsClass, 1),
-        rankCap: getSkillRankCap(1, primaryIsClass || (allowGestalt && secondaryIsClass)),
         total: totalRanks + abilityMod + classBonus
       };
     });
     const primaryClassDoc = this.state.classes.primary ? await fromUuid(this.state.classes.primary) : null;
     const secondaryClassDoc = allowGestalt && this.state.classes.secondary ? await fromUuid(this.state.classes.secondary) : null;
-    context.primaryFeaturePreview = getClassFeatureGrants(primaryClassDoc?.system, 0, this.state.classLevels.primary || 0);
-    context.secondaryFeaturePreview = allowGestalt
+    const primaryFeaturePreview = getClassFeatureGrants(primaryClassDoc?.system, 0, this.state.classLevels.primary || 0);
+    const secondaryFeaturePreview = allowGestalt
       ? getClassFeatureGrants(secondaryClassDoc?.system, 0, this.state.classLevels.secondary || 0)
       : [];
 
@@ -248,8 +245,8 @@ export class CharacterWizard extends Application {
     context.activeFeat = active ?? null;
     const baseFeatSlots = this.state.basics.race === "human" ? 2 : 1;
     const bonusFeatSlots =
-      this._countBonusFeatGrants(context.primaryFeaturePreview) +
-      this._countBonusFeatGrants(context.secondaryFeaturePreview);
+      this._countBonusFeatGrants(primaryFeaturePreview) +
+      this._countBonusFeatGrants(secondaryFeaturePreview);
     context.featSlots = baseFeatSlots + bonusFeatSlots;
     this.state.featSlots = context.featSlots;
     context.featsRemaining = context.featSlots - this.state.selectedFeatUuids.length;
@@ -589,10 +586,6 @@ export class CharacterWizard extends Application {
     return Math.max(1, cls.skillRanksPerLevel + intMod + humanBonus) * 4;
   }
 
-  _sumSkillRanks(rankSet) {
-    return Object.values(rankSet).reduce((sum, n) => sum + (Number(n) || 0), 0);
-  }
-
   _skillCostSpent(which) {
     let spent = 0;
     const classUuid = which === "primary" ? this.state.classes.primary : this.state.classes.secondary;
@@ -640,7 +633,7 @@ export class CharacterWizard extends Application {
     const showUnavailable = this.state.showUnavailable !== false;
     let list = this.classChoices.map((c) => {
       const check = this._isClassAvailable(c);
-      return { ...c, available: check.ok, unavailableReason: check.reasons.join("; ") };
+      return { ...c, available: check.ok };
     });
     if (!showUnavailable) list = list.filter((c) => c.available);
     const q = this.state.classSearch.toLowerCase().trim();

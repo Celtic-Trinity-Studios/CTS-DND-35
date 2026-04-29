@@ -16,6 +16,44 @@ import { CTSDND35ItemSheet } from "./sheets/item-sheet.mjs";
 import { CTSDND35 } from "./helpers/config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 
+function _getD35DiagonalRuleValue() {
+  const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
+  return (
+    diagonalRules.ALTERNATING_1 ??
+    diagonalRules.ALTERNATING_2 ??
+    diagonalRules.ALTERNATING ??
+    diagonalRules.DND35 ??
+    diagonalRules["5-10-5"] ??
+    "5105"
+  );
+}
+
+function _buildFiveFootGridPatch(source) {
+  const patch = {};
+  const grid = foundry.utils.deepClone(source?.grid ?? {});
+  let changed = false;
+
+  if (Number(grid.distance) !== 5) {
+    grid.distance = 5;
+    changed = true;
+  }
+  if (String(grid.units ?? "").toLowerCase() !== "ft") {
+    grid.units = "ft";
+    changed = true;
+  }
+  if (changed) patch.grid = grid;
+
+  // Compatibility for scenes still using legacy keys.
+  if (source && Object.prototype.hasOwnProperty.call(source, "gridDistance") && Number(source.gridDistance) !== 5) {
+    patch.gridDistance = 5;
+  }
+  if (source && Object.prototype.hasOwnProperty.call(source, "gridUnits") && String(source.gridUnits ?? "").toLowerCase() !== "ft") {
+    patch.gridUnits = "ft";
+  }
+
+  return Object.keys(patch).length ? patch : null;
+}
+
 /* -------------------------------------------- */
 /*  Hooks: Init                                 */
 /* -------------------------------------------- */
@@ -66,6 +104,24 @@ Hooks.once("init", function () {
     },
   });
 
+  game.settings.register("CTS-DND-35", "enforceFiveFootSquares", {
+    name: "Enforce 5-foot square grid",
+    hint: "Automatically keeps scene grid distance at 5 and units at ft for D&D 3.5 movement scale.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
+  game.settings.register("CTS-DND-35", "enforceD35Diagonals", {
+    name: "Use D&D 3.5 diagonal movement (5-10-5)",
+    hint: "Sets Foundry's diagonal movement rule to alternating 5/10 feet (3.5 standard).",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
   // Register Actor sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
   foundry.documents.collections.Actors.registerSheet("CTS-DND-35", CTSDND35ActorSheet, {
@@ -90,8 +146,43 @@ Hooks.once("init", function () {
 /*  Hooks: Ready                                */
 /* -------------------------------------------- */
 
-Hooks.once("ready", function () {
+Hooks.once("ready", async function () {
   console.log("CTS DND 35 | System Ready");
+
+  if (!game.user?.isGM) return;
+
+  if (game.settings.get("CTS-DND-35", "enforceD35Diagonals")) {
+    try {
+      await game.settings.set("core", "gridDiagonals", _getD35DiagonalRuleValue());
+    } catch (err) {
+      console.warn("CTS DND 35 | Unable to set core diagonal movement rule.", err);
+    }
+  }
+
+  if (game.settings.get("CTS-DND-35", "enforceFiveFootSquares")) {
+    for (const scene of game.scenes ?? []) {
+      const patch = _buildFiveFootGridPatch(scene.toObject());
+      if (!patch) continue;
+      try {
+        await scene.update(patch);
+      } catch (err) {
+        console.warn(`CTS DND 35 | Unable to update grid scale for scene ${scene.name}.`, err);
+      }
+    }
+  }
+});
+
+Hooks.on("preCreateScene", function (_scene, createData) {
+  if (!game.settings.get("CTS-DND-35", "enforceFiveFootSquares")) return;
+  const patch = _buildFiveFootGridPatch(createData);
+  if (patch) foundry.utils.mergeObject(createData, patch);
+});
+
+Hooks.on("preUpdateScene", function (scene, changedData) {
+  if (!game.settings.get("CTS-DND-35", "enforceFiveFootSquares")) return;
+  const nextData = foundry.utils.mergeObject(scene.toObject(), changedData, { inplace: false });
+  const patch = _buildFiveFootGridPatch(nextData);
+  if (patch) foundry.utils.mergeObject(changedData, patch);
 });
 
 /* -------------------------------------------- */
@@ -117,8 +208,3 @@ Handlebars.registerHelper("cts-or", function () {
   return args.some(Boolean);
 });
 
-Handlebars.registerHelper("cts-concat", function () {
-  const args = Array.from(arguments);
-  args.pop(); // Remove Handlebars options hash
-  return args.join("");
-});
