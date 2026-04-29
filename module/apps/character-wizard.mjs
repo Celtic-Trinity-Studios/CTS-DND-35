@@ -366,6 +366,12 @@ export class CharacterWizard extends Application {
     return skills;
   }
 
+  _descriptionText(value) {
+    if (typeof value === "string") return value;
+    if (!value || typeof value !== "object") return "";
+    return String(value.value ?? value.content ?? value.html ?? value.text ?? "");
+  }
+
   async _loadFeatChoices() {
     if (this.featChoices.length) return;
     const pack = game.packs.get("CTS-DND-35.srd-feats");
@@ -377,7 +383,7 @@ export class CharacterWizard extends Application {
         uuid: doc.uuid,
         name: doc.name,
         type: doc.system?.featType || "General",
-        description: doc.system?.description || "",
+        description: this._descriptionText(doc.system?.description),
         prerequisites: doc.system?.prerequisites || ""
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -393,7 +399,7 @@ export class CharacterWizard extends Application {
       .map((doc) => ({
         uuid: doc.uuid,
         name: doc.name,
-        description: doc.system?.description || "",
+        description: this._descriptionText(doc.system?.description),
         skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
         classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
         spellcastingType: doc.system?.spellcasting?.type || "none",
@@ -414,7 +420,7 @@ export class CharacterWizard extends Application {
         uuid: doc.uuid,
         name: doc.name,
         spellLevel: Number(doc.system?.spellLevel) || 0,
-        description: doc.system?.description || ""
+        description: this._descriptionText(doc.system?.description)
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -423,8 +429,15 @@ export class CharacterWizard extends Application {
     const desc = String(spell?.description || "");
     const result = {};
     if (!desc) return result;
-    const levelLineMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
-    const levelLine = String(levelLineMatch?.[1] || "");
+    const htmlLevelCellMatch = desc.match(/<b>\s*Level:\s*<\/b>[\s\S]*?<td[^>]*>\s*([^<]+?)\s*(?:<br|<\/td>)/i);
+    const inlineLevelMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<\n]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
+    const textOnly = desc
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/(td|tr|p|div|li|h[1-6])>/gi, "\n")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ");
+    const plainLevelMatch = textOnly.match(/level:\s*([^\n]+)/i);
+    const levelLine = String(htmlLevelCellMatch?.[1] || inlineLevelMatch?.[1] || plainLevelMatch?.[1] || "");
     if (!levelLine) return result;
 
     for (const entry of levelLine.split(",")) {
@@ -437,11 +450,36 @@ export class CharacterWizard extends Application {
       if (!Number.isFinite(level)) continue;
       result[classesPart] = level;
       for (const alias of classesPart.split("/")) {
-        const key = alias.trim();
+        const key = this._normalizeSpellClassAlias(alias);
         if (key) result[key] = level;
       }
     }
     return result;
+  }
+
+  _normalizeSpellClassAlias(value) {
+    const raw = String(value || "").trim().toLowerCase();
+    const key = raw.replace(/\./g, "").replace(/\s+/g, "");
+    const map = {
+      sor: "sorcerer",
+      sorc: "sorcerer",
+      sorcerer: "sorcerer",
+      wiz: "wizard",
+      wizard: "wizard",
+      clr: "cleric",
+      cleric: "cleric",
+      dru: "druid",
+      druid: "druid",
+      brd: "bard",
+      bard: "bard",
+      pal: "paladin",
+      paladin: "paladin",
+      rgr: "ranger",
+      ranger: "ranger",
+      ass: "assassin",
+      assassin: "assassin"
+    };
+    return map[key] || raw;
   }
 
   _spellLevelForClass(spell, className) {

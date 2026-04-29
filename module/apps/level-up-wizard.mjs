@@ -52,6 +52,12 @@ export class LevelUpWizard extends Application {
     return skills;
   }
 
+  _descriptionText(value) {
+    if (typeof value === "string") return value;
+    if (!value || typeof value !== "object") return "";
+    return String(value.value ?? value.content ?? value.html ?? value.text ?? "");
+  }
+
   async _loadClassChoices() {
     if (this.classChoices.length) return;
     const pack = game.packs.get("CTS-DND-35.srd-classes");
@@ -60,7 +66,7 @@ export class LevelUpWizard extends Application {
     this.classChoices = docs.map((doc) => ({
       uuid: doc.uuid,
       name: doc.name,
-      description: doc.system?.description || "",
+      description: this._descriptionText(doc.system?.description),
       hitDie: doc.system?.hitDie || "d8",
       skillRanksPerLevel: Number(doc.system?.skillRanksPerLevel) || 2,
       classSkills: Array.isArray(doc.system?.classSkills) ? doc.system.classSkills : [],
@@ -92,7 +98,7 @@ export class LevelUpWizard extends Application {
       uuid: doc.uuid,
       name: doc.name,
       spellLevel: Number(doc.system?.spellLevel) || 0,
-      description: doc.system?.description || ""
+      description: this._descriptionText(doc.system?.description)
     })).sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -239,16 +245,67 @@ export class LevelUpWizard extends Application {
   }
 
   _spellMatchesClass(spell, className) {
+    if (!className) return false;
+    const classLower = this._normalizeSpellClassAlias(className);
+    const levelMap = this._spellClassLevelMap(spell);
+    return Object.prototype.hasOwnProperty.call(levelMap, classLower);
+  }
+
+  _spellClassLevelMap(spell) {
     const desc = String(spell?.description || "");
-    if (!desc || !className) return false;
-    const classLower = className.toLowerCase();
-    const levelLineMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
-    const levelLine = String(levelLineMatch?.[1] || "").toLowerCase();
-    if (!levelLine) return false;
-    if (classLower === "wizard" || classLower === "sorcerer") {
-      return levelLine.includes("sorcerer/wizard");
+    const result = {};
+    if (!desc) return result;
+    const htmlLevelCellMatch = desc.match(/<b>\s*Level:\s*<\/b>[\s\S]*?<td[^>]*>\s*([^<]+?)\s*(?:<br|<\/td>)/i);
+    const inlineLevelMatch = desc.match(/<b>\s*Level:\s*<\/b>\s*([^<\n]+)/i) || desc.match(/Level:\s*([^<\n]+)/i);
+    const textOnly = desc
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/(td|tr|p|div|li|h[1-6])>/gi, "\n")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ");
+    const plainLevelMatch = textOnly.match(/level:\s*([^\n]+)/i);
+    const levelLine = String(htmlLevelCellMatch?.[1] || inlineLevelMatch?.[1] || plainLevelMatch?.[1] || "");
+    if (!levelLine) return result;
+
+    for (const entry of levelLine.split(",")) {
+      const cleaned = entry.replace(/\s+/g, " ").trim();
+      if (!cleaned) continue;
+      const levelMatch = cleaned.match(/(.+?)\s+(\d+)\s*$/i);
+      if (!levelMatch) continue;
+      const classesPart = levelMatch[1].toLowerCase().trim();
+      const level = Number(levelMatch[2]);
+      if (!Number.isFinite(level)) continue;
+      result[classesPart] = level;
+      for (const alias of classesPart.split("/")) {
+        const key = this._normalizeSpellClassAlias(alias);
+        if (key) result[key] = level;
+      }
     }
-    return levelLine.includes(classLower);
+    return result;
+  }
+
+  _normalizeSpellClassAlias(value) {
+    const raw = String(value || "").trim().toLowerCase();
+    const key = raw.replace(/\./g, "").replace(/\s+/g, "");
+    const map = {
+      sor: "sorcerer",
+      sorc: "sorcerer",
+      sorcerer: "sorcerer",
+      wiz: "wizard",
+      wizard: "wizard",
+      clr: "cleric",
+      cleric: "cleric",
+      dru: "druid",
+      druid: "druid",
+      brd: "bard",
+      bard: "bard",
+      pal: "paladin",
+      paladin: "paladin",
+      rgr: "ranger",
+      ranger: "ranger",
+      ass: "assassin",
+      assassin: "assassin"
+    };
+    return map[key] || raw;
   }
 
   _selectedClass() {
