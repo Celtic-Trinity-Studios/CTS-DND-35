@@ -16,6 +16,7 @@ import { CTSDND35ItemSheet } from "./sheets/item-sheet.mjs";
 import { CTSDND35 } from "./helpers/config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { registerActorFactionGroupHooks } from "./hooks/actor-faction-groups.mjs";
+import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
 
 function _getD35DiagonalRuleValue() {
@@ -149,6 +150,14 @@ Hooks.once("init", function () {
   });
 
   registerActorFactionGroupHooks();
+
+  Hooks.on("updateItem", (first, second) => {
+    const { item, actor } = getItemAndActorFromHookArgs(first, second);
+    const owner = actor ?? item?.actor ?? (item?.parent?.documentName === "Actor" ? item.parent : null);
+    if (!item || (item.type !== "faction" && item.type !== "feat")) return;
+    if (!owner?.sheet?.rendered || !(owner.sheet instanceof CTSDND35ActorSheet)) return;
+    queueMicrotask(() => owner.sheet.render(false));
+  });
 
   // Preload Handlebars templates
   return preloadHandlebarsTemplates();

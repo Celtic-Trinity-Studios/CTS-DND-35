@@ -4,6 +4,7 @@
  */
 
 import { actorFactionFilterTokens, syncActorGroupsFromFactionItems } from "../utils/faction-groups.mjs";
+import { getItemAndActorFromHookArgs, getUpdateItemHookContext } from "../utils/item-hook-args.mjs";
 
 const STORAGE_KEY = "CTS-DND-35.actorGroupDirectoryFilter";
 /** @type {WeakMap<HTMLSelectElement, HTMLElement>} */
@@ -147,17 +148,23 @@ export function registerActorFactionGroupHooks() {
     queueMicrotask(() => _refreshAllDirectoryGroupFilters());
   });
 
-  Hooks.on("createItem", (item) => {
-    if (item.type === "faction" && item.actor) _scheduleFactionGroupSync(item.actor);
+  Hooks.on("createItem", (first, second) => {
+    const { item, actor } = getItemAndActorFromHookArgs(first, second);
+    const owner = actor ?? item?.actor ?? (item?.parent?.documentName === "Actor" ? item.parent : null);
+    if (item?.type === "faction" && owner) _scheduleFactionGroupSync(owner);
   });
 
-  Hooks.on("updateItem", (item, changed) => {
-    if (item.type !== "faction" || !item.actor) return;
+  Hooks.on("updateItem", (first, second, third) => {
+    const { item, actor, changed } = getUpdateItemHookContext(first, second, third);
+    const owner = actor ?? item?.actor ?? (item?.parent?.documentName === "Actor" ? item.parent : null);
+    if (item?.type !== "faction" || !owner) return;
     const c = changed ?? {};
-    if ("name" in c || "system" in c) _scheduleFactionGroupSync(item.actor);
+    if ("name" in c || "system" in c) _scheduleFactionGroupSync(owner);
   });
 
-  Hooks.on("deleteItem", (item) => {
-    if (item.type === "faction" && item.actor) _scheduleFactionGroupSync(item.actor);
+  Hooks.on("deleteItem", (first, second) => {
+    const { item, actor } = getItemAndActorFromHookArgs(first, second);
+    const owner = actor ?? item?.actor ?? (item?.parent?.documentName === "Actor" ? item.parent : null);
+    if (item?.type === "faction" && owner) _scheduleFactionGroupSync(owner);
   });
 }
