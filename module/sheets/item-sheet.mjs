@@ -4,7 +4,7 @@
  */
 
 import { CTSDND35ActorSheet } from "./actor-sheet.mjs";
-import { syncActorGroupsFromFactionItems } from "../utils/faction-groups.mjs";
+import { propagateFactionSnapshotToAllActors } from "../utils/faction-propagation.mjs";
 
 export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
 
@@ -60,26 +60,45 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
     if (!this.isEditable) return;
   }
 
+  /** Merge open sheet inputs into a plain snapshot (Gear % / name may be unsaved). */
+  _mergeFactionSnapshotFromSheet() {
+    const doc = this.item;
+    const snap = {
+      name: doc.name,
+      img: doc.img,
+      system: foundry.utils.deepClone(doc.system ?? {}),
+    };
+    const root = this.element;
+    if (!root?.find) return snap;
+    const nameInput = root.find('input[name="name"]');
+    if (nameInput.length) {
+      const v = nameInput.val();
+      if (v !== undefined && v !== null) snap.name = String(v);
+    }
+    const gearInput = root.find('input[name="system.gearPct"]');
+    if (gearInput.length) {
+      const raw = gearInput.val();
+      const n = raw === "" || raw === undefined ? 0 : Number(raw);
+      if (!Number.isNaN(n)) snap.system.gearPct = n;
+    }
+    return snap;
+  }
+
   /**
-   * Faction item sheet: redraw open CTS actor sheets so faction % / names match the DB
-   * (sidebar clicks do not re-fetch sheet data).
+   * Persist this faction, push matching copies on every world actor, sync group strings, redraw open CTS sheets.
    */
   async _onFactionRefreshActorSheets(event) {
     event.preventDefault();
     if (this.item.type !== "faction") return;
-
-    const owner =
-      this.item.actor ??
-      (this.item.parent?.documentName === "Actor" ? this.item.parent : null);
-    if (owner) {
-      try {
-        await syncActorGroupsFromFactionItems(owner);
-      } catch (_err) {
-        /* non-fatal */
-      }
+    if (!game.user?.isGM) {
+      ui.notifications?.warn(game.i18n.localize("CTSDND35.FactionRefreshNeedsGM"));
+      return;
     }
 
-    let count = 0;
+    const snapshot = this._mergeFactionSnapshotFromSheet();
+    const { embeddedUpdated } = await propagateFactionSnapshotToAllActors(this.item, snapshot);
+
+    let sheetsRedrawn = 0;
     for (const actor of game.actors ?? []) {
       const sheet = actor.sheet;
       if (!sheet?.rendered) continue;
@@ -87,9 +106,16 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
         sheet instanceof CTSDND35ActorSheet || sheet.constructor?.name === "CTSDND35ActorSheet";
       if (!isOurs) continue;
       await sheet.render(false);
-      count++;
+      sheetsRedrawn++;
     }
 
-    ui.notifications?.info(game.i18n.format("CTSDND35.FactionRefreshSheetsDone", { count }));
+    const actorsTotal = game.actors?.size ?? 0;
+    ui.notifications?.info(
+      game.i18n.format("CTSDND35.FactionRefreshSheetsDone", {
+        embeddedUpdated,
+        actorsTotal,
+        sheetsRedrawn,
+      })
+    );
   }
 }

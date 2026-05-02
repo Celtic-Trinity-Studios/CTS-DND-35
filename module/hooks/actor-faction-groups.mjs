@@ -90,6 +90,11 @@ function _refreshAllDirectoryGroupFilters() {
   });
 }
 
+/** Call after bulk faction / actor updates so sidebar group filters stay accurate. */
+export function refreshActorDirectoryFactionFilters() {
+  _refreshAllDirectoryGroupFilters();
+}
+
 function _injectDirectoryToolbar(htmlRoot) {
   const header = htmlRoot.querySelector(".directory-header");
   if (!header || htmlRoot.querySelector(".cts-actor-group-toolbar")) return;
