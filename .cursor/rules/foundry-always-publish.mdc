@@ -1,0 +1,17 @@
+---
+description: After CTS-DND-35 system code changes, bump version and publish a GitHub release tag so the maintainer can install via Foundry.
+alwaysApply: true
+---
+
+# Foundry system — always publish releases
+
+When this workspace (`CTS-DND-35`) has **any change** that ships in the system zip (anything under `module/`, `templates/`, `css/`, `lang/`, `packs/`, `assets/`, or `system.json`), **finish by publishing**:
+
+1. Bump `"version"` and `"download"` in `system.json` to the next patch (or minor if appropriate), matching tag `v{version}`.
+2. Commit all release-related files with a clear message.
+3. `git push origin main`
+4. `git tag v{version}` and `git push origin v{version}` — this triggers `.github/workflows/release.yml`.
+
+Do **not** leave fixes only on local `main` without a tag; the maintainer tests from GitHub releases / manifest.
+
+Skip a new tag only for commits that **cannot** affect the installed system (e.g. README-only or `.github/` workflow edits only), unless the user explicitly asks otherwise.
