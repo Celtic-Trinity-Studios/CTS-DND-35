@@ -1,4 +1,5 @@
 import { CTSDND35 } from "../helpers/config.mjs";
+import { normalizeGroupsFromRaw } from "../utils/faction-groups.mjs";
 import {
   evaluateFeatPrerequisites,
   getClassFeatureGrants,
@@ -53,7 +54,8 @@ export class CharacterWizard extends Application {
         race: "human",
         alignment: "tn",
         deity: "",
-        size: "med"
+        size: "med",
+        groups: ""
       },
       abilityMethod: "array",
       abilities: {
@@ -332,8 +334,11 @@ export class CharacterWizard extends Application {
       this.state.classes.primary && context.primaryClassLabel && context.primaryClassLabel !== "Class"
         ? context.primaryClassLabel
         : "—";
+    const rawGroups = (this.state.basics.groups || "").trim();
+    const groupsSummary = rawGroups.length > 40 ? `${rawGroups.slice(0, 38)}…` : rawGroups || "—";
     const chips = [
       { label: "Name", value: name, step: 1 },
+      { label: "Groups", value: groupsSummary, step: 1 },
       { label: "Gender", value: gender, step: 1 },
       { label: "Race", value: race, step: 2 },
       { label: "Class", value: primary, step: 3 }
@@ -581,7 +586,8 @@ export class CharacterWizard extends Application {
       race: raceKey,
       alignment: actorSystem.details?.alignment || "tn",
       deity: actorSystem.details?.deity || "",
-      size: actorSystem.traits?.size || CTSDND35.races[raceKey]?.size || "med"
+      size: actorSystem.traits?.size || CTSDND35.races[raceKey]?.size || "med",
+      groups: actorSystem.details?.groups || ""
     };
 
     for (const key of ["str", "dex", "con", "int", "wis", "cha"]) {
@@ -1042,6 +1048,7 @@ export class CharacterWizard extends Application {
       "system.details.gender": basics.gender || "male",
       "system.details.alignment": basics.alignment,
       "system.details.deity": basics.deity,
+      "system.details.groups": normalizeGroupsFromRaw(basics.groups || ""),
       "system.traits.size": basics.size,
       "system.spellcasting.classes": foundry.utils.deepClone(this.actor.system?.spellcasting?.classes || {})
     };
