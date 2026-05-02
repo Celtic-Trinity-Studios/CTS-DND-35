@@ -6,7 +6,6 @@
   <li class="item" data-item-id="{{this._id}}"><img class="item-img" src="{{this.img}}" /><span class="item-name item-roll flex-grow">{{this.name}}</span><span style="width:50px;text-align:center;">{{this.system.level}}</span><span style="width:50px;text-align:center;">{{this.system.hitDie}}</span><div class="item-controls" style="width:60px;"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div></li>
   {{/each}}
 </ol>
-<a class="item-create cts-btn secondary mb-lg" data-type="class"><i class="fas fa-plus"></i> Add Class</a>
 
 <h3>Feats</h3>
 <ol class="item-list mb-md">
@@ -15,7 +14,6 @@
   <li class="item" data-item-id="{{this._id}}"><img class="item-img" src="{{this.img}}" /><span class="item-name item-roll flex-grow">{{this.name}}</span><span style="width:80px;">{{this.system.featType}}</span><div class="item-controls" style="width:60px;"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div></li>
   {{/each}}
 </ol>
-<a class="item-create cts-btn secondary mb-lg" data-type="feat"><i class="fas fa-plus"></i> Add Feat</a>
 
 <h3>Features</h3>
 <ol class="item-list mb-md">
@@ -24,7 +22,6 @@
   <li class="item" data-item-id="{{this._id}}"><img class="item-img" src="{{this.img}}" /><span class="item-name item-roll flex-grow">{{this.name}}</span><span style="width:80px;">{{this.system.classSource}}</span><div class="item-controls" style="width:60px;"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div></li>
   {{/each}}
 </ol>
-<a class="item-create cts-btn secondary mb-lg" data-type="feature"><i class="fas fa-plus"></i> Add Feature</a>
 
 <h3>Buffs</h3>
 <ol class="item-list mb-md">
@@ -32,4 +29,3 @@
   <li class="item" data-item-id="{{this._id}}"><img class="item-img" src="{{this.img}}" /><span class="item-name item-roll flex-grow">{{this.name}}</span><span style="width:60px;">{{#if this.system.active}}✓{{else}}—{{/if}}</span><div class="item-controls" style="width:60px;"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div></li>
   {{/each}}
 </ol>
-<a class="item-create cts-btn secondary" data-type="buff"><i class="fas fa-plus"></i> Add Buff</a>

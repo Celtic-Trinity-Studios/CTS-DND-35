@@ -216,9 +216,6 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     // Everything below here is only for editable sheets
     if (!this.isEditable) return;
 
-    // Add item
-    html.on("click", ".item-create", this._onItemCreate.bind(this));
-
     // Edit item
     html.on("click", ".item-edit", (ev) => {
       const li = $(ev.currentTarget).closest(".item");
@@ -278,24 +275,6 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       await this.actor.update({ "system.details.raceModsSelling": rows });
       this.render(false);
     });
-  }
-
-  /**
-   * Handle creating a new embedded Item.
-   */
-  async _onItemCreate(event) {
-    event.preventDefault();
-    const header = event.currentTarget;
-    const type = header.dataset.type;
-    const itemData = {
-      name:
-        type === "faction"
-          ? "New Faction"
-          : `New ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-      type: type,
-      system: type === "faction" ? { description: "", gearPct: 0 } : {},
-    };
-    return await foundry.documents.BaseItem.create(itemData, { parent: this.actor });
   }
 
   /**
