@@ -1,12 +1,11 @@
 /**
- * Actor sidebar: filter by faction labels (legacy groups string + factionAffiliations names).
- * Create Actor dialog: optional comma tags → groups + initial faction rows.
+ * Actor sidebar: filter by faction labels (faction items + legacy data).
+ * Keeps actor groups string in sync with embedded faction items.
  */
 
-import { actorFactionFilterTokens, normalizeGroupsForSave, parseGroupTokens } from "../utils/faction-groups.mjs";
+import { actorFactionFilterTokens, syncActorGroupsFromFactionItems } from "../utils/faction-groups.mjs";
 
 const STORAGE_KEY = "CTS-DND-35.actorGroupDirectoryFilter";
-let _pendingCreateActorGroups = null;
 /** @type {WeakMap<HTMLSelectElement, HTMLElement>} */
 const directoryRootByFilterSelect = new WeakMap();
 
@@ -116,49 +115,12 @@ function _injectDirectoryToolbar(htmlRoot) {
   });
 }
 
-function _capturePendingGroupsFromForm(form) {
-  const v = form.querySelector('input[name="ctsInitialGroups"]')?.value ?? "";
-  _pendingCreateActorGroups = normalizeGroupsForSave(parseGroupTokens(v)) || null;
-}
-
-function _tryInjectCreateActorGroups(htmlRoot, _dialogApp) {
-  const form = htmlRoot.querySelector("form");
-  if (!form) return;
-
-  if (form.classList.contains("sheet") || form.querySelector(".sheet-tabs")) return;
-
-  const nameInput = form.querySelector('input[name="name"]');
-  const typeSelect =
-    form.querySelector('select[name="type"]') ||
-    form.querySelector("select[data-document-type]") ||
-    form.querySelector('select[name="documentType"]');
-  if (!nameInput || !typeSelect) return;
-  if (!typeSelect.querySelector?.('option[value="character"]')) return;
-
-  const existing = form.querySelector(".cts-create-actor-groups");
-  if (existing) return;
-
-  const wrap = document.createElement("div");
-  wrap.className = "form-group cts-create-actor-groups";
-  const datalistId = `cts-create-group-presets-${foundry.utils.randomID()}`;
-  const presets = _presetLines();
-  const presetOpts = presets.map((p) => `<option value="${foundry.utils.escapeHTML(p)}"></option>`).join("");
-  wrap.innerHTML = `
-    <label>${game.i18n.localize("CTSDND35.CreateActorGroupsLabel")}</label>
-    <input type="text" name="ctsInitialGroups" list="${datalistId}" placeholder="${foundry.utils.escapeHTML(game.i18n.localize("CTSDND35.CreateActorGroupsPlaceholder"))}" />
-    <datalist id="${datalistId}">${presetOpts}</datalist>
-    <p class="hint">${game.i18n.localize("CTSDND35.CreateActorGroupsHint")}</p>`;
-
-  const typeRow = typeSelect?.closest(".form-group");
-  const folderSelect = form.querySelector('select[name="folder"]');
-  const folderRow = folderSelect?.closest(".form-group");
-  const anchor = folderRow ?? typeRow;
-  if (anchor?.nextElementSibling) anchor.insertAdjacentElement("afterend", wrap);
-  else form.appendChild(wrap);
-
-  const onCommit = () => _capturePendingGroupsFromForm(form);
-  form.addEventListener("submit", onCommit, { capture: true });
-  form.querySelector('button[type="submit"]')?.addEventListener("click", onCommit);
+function _scheduleFactionGroupSync(actor) {
+  if (!actor) return;
+  queueMicrotask(async () => {
+    await syncActorGroupsFromFactionItems(actor);
+    _refreshAllDirectoryGroupFilters();
+  });
 }
 
 export function registerActorFactionGroupHooks() {
@@ -185,28 +147,17 @@ export function registerActorFactionGroupHooks() {
     queueMicrotask(() => _refreshAllDirectoryGroupFilters());
   });
 
-  Hooks.on("renderDialog", (dialogApp, html) => {
-    const root = _rootEl(html);
-    if (!root) return;
-    _tryInjectCreateActorGroups(root, dialogApp);
+  Hooks.on("createItem", (item) => {
+    if (item.type === "faction" && item.actor) _scheduleFactionGroupSync(item.actor);
   });
 
-  Hooks.on("renderApplicationV2", (application, element) => {
-    if (!(element instanceof HTMLElement)) return;
-    if (!element.querySelector?.("form")) return;
-    _tryInjectCreateActorGroups(element, application);
+  Hooks.on("updateItem", (item, changed) => {
+    if (item.type !== "faction" || !item.actor) return;
+    const c = changed ?? {};
+    if ("name" in c || "system" in c) _scheduleFactionGroupSync(item.actor);
   });
 
-  Hooks.on("createActor", (document, _data, _opts, userId) => {
-    queueMicrotask(() => _refreshAllDirectoryGroupFilters());
-    if (userId !== game.userId) return;
-    const g = _pendingCreateActorGroups;
-    _pendingCreateActorGroups = null;
-    if (!g) return;
-    const tokens = parseGroupTokens(g);
-    void document.update({
-      "system.details.groups": g,
-      "system.details.factionAffiliations": tokens.map((name) => ({ name, gearPct: 0, notes: "" })),
-    });
+  Hooks.on("deleteItem", (item) => {
+    if (item.type === "faction" && item.actor) _scheduleFactionGroupSync(item.actor);
   });
 }

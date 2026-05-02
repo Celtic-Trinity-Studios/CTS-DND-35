@@ -72,6 +72,7 @@
     "ItemTypeEquipment": "Equipment",
     "ItemTypeConsumable": "Consumable",
     "ItemTypeFeat": "Feat",
+    "ItemTypeFaction": "Faction",
     "ItemTypeFeature": "Feature",
     "ItemTypeSpell": "Spell",
     "ItemTypeClass": "Class",
@@ -118,12 +119,9 @@
 
     "Groups": "Groups / factions",
     "GroupFilter": "Filter by group",
-    "GroupFilterHint": "Show actors whose faction names match (sheet faction rows or legacy comma field).",
+    "GroupFilterHint": "Show actors that have a matching Faction item or legacy groups text.",
     "GroupFilterAll": "All groups",
     "FactionPresetsName": "Faction / group name presets",
-    "FactionPresetsHint": "One name per line. Shown as suggestions when creating an actor (optional comma field).",
-    "CreateActorGroupsLabel": "Initial groups / factions (optional)",
-    "CreateActorGroupsPlaceholder": "e.g. Party, Allies",
-    "CreateActorGroupsHint": "Creates initial faction rows on the actor (edit percentages on the sheet)."
+    "FactionPresetsHint": "One name per line. Used as suggestions in the Actors sidebar filter dropdown."
   }
 }

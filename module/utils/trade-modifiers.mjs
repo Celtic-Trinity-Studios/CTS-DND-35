@@ -1,7 +1,6 @@
 /**
  * Gear price modifiers when `buyer` purchases from `seller`.
- * Uses buyer.system.details.factionAffiliations[].gearPct (stacking %)
- * and buyer.system.details.raceTradeMods when seller.system.details.race matches (case-insensitive normalized).
+ * Factions: embedded Item documents (type `faction`) stack system.gearPct; legacy affiliation rows still count if no items.
  */
 
 export function normalizeRaceLabel(s) {
@@ -11,15 +10,19 @@ export function normalizeRaceLabel(s) {
     .replace(/\s+/g, " ");
 }
 
+function buyerFactionGearPctTotal(buyer) {
+  const items = buyer?.items?.filter((i) => i.type === "faction") ?? [];
+  if (items.length) return items.reduce((sum, i) => sum + (Number(i.system?.gearPct) || 0), 0);
+  const legacy = buyer?.system?.details?.factionAffiliations ?? [];
+  return legacy.reduce((sum, r) => sum + (Number(r?.gearPct) || 0), 0);
+}
+
 /**
  * Total percent adjustment (e.g. −10 and +5 → −5).
- * Counts: buyer faction rows; buyer race rows vs seller race; seller race rows vs buyer race.
+ * Counts: buyer faction items (or legacy affiliation rows); buyer race rows vs seller race; seller selling-rows vs buyer race.
  */
 export function computeGearPricePercentTotal(buyer, seller) {
-  let pct = 0;
-  for (const row of buyer?.system?.details?.factionAffiliations ?? []) {
-    pct += Number(row?.gearPct) || 0;
-  }
+  let pct = buyerFactionGearPctTotal(buyer);
   const sellerRace = normalizeRaceLabel(seller?.system?.details?.race);
   const buyerRace = normalizeRaceLabel(buyer?.system?.details?.race);
   for (const row of buyer?.system?.details?.raceTradeMods ?? []) {

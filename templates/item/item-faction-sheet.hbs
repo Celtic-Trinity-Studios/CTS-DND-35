@@ -1,0 +1,26 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="48" width="48" />
+    <div class="header-fields">
+      <input class="char-name flex-grow" name="name" type="text" value="{{item.name}}" />
+      <span class="stat-label" style="text-transform: uppercase">Faction</span>
+    </div>
+  </header>
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description"><i class="fas fa-book"></i> Description</a>
+    <a class="item" data-tab="details"><i class="fas fa-percent"></i> Trade</a>
+  </nav>
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="description">
+      <h3>Description</h3>
+      {{editor enrichedDescription target="system.description" button=true editable=editable}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="details">
+      <div class="form-group">
+        <label>Gear price % (when the owning actor <strong>buys</strong> gear)</label>
+        <input type="number" name="system.gearPct" value="{{system.gearPct}}" step="1" />
+        <p class="notes">Stacks with other faction items on the same actor. Negative = discount, positive = markup.</p>
+      </div>
+    </div>
+  </section>
+</form>

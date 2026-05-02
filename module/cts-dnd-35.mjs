@@ -137,9 +137,15 @@ Hooks.once("init", function () {
   // Register Item sheet application classes
   foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
   foundry.documents.collections.Items.registerSheet("CTS-DND-35", CTSDND35ItemSheet, {
-    types: ["weapon", "armor", "equipment", "consumable", "feat", "feature", "spell", "class", "race", "buff", "attack"],
+    types: ["weapon", "armor", "equipment", "consumable", "feat", "feature", "spell", "class", "race", "buff", "attack", "faction"],
     makeDefault: true,
     label: "CTSDND35.SheetItemDefault",
+  });
+
+  Hooks.on("preCreateItem", (_document, data) => {
+    if (data.type !== "faction") return;
+    data.img = data.img || "icons/svg/star.svg";
+    data.system = foundry.utils.mergeObject({ description: "", gearPct: 0 }, data.system ?? {});
   });
 
   registerActorFactionGroupHooks();
@@ -154,6 +160,10 @@ Hooks.once("init", function () {
 
 Hooks.once("ready", async function () {
   console.log("CTS DND 35 | System Ready");
+
+  CONFIG.Item.typeLabels = foundry.utils.mergeObject(CONFIG.Item.typeLabels ?? {}, {
+    faction: game.i18n.localize("CTSDND35.ItemTypeFaction"),
+  });
 
   if (!game.user?.isGM) return;
 

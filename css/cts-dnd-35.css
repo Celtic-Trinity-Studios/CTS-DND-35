@@ -1113,10 +1113,6 @@ select.cts-actor-group-filter {
   max-width: 100%;
 }
 
-.sidebar-tab#actors .cts-create-actor-groups input[name="ctsInitialGroups"] {
-  width: 100%;
-}
-
 .cts-factions-relations {
   margin-top: 12px;
   padding: 12px;
@@ -1312,8 +1308,26 @@ select.cts-actor-group-filter {
 
 .cts-bottom-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
+}
+
+.cts-faction-hint {
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: 0.88;
+  margin: 0 0 8px;
+}
+
+.cts-faction-pct {
+  flex: 0 0 auto;
+  font-size: 11px;
+  opacity: 0.85;
+  margin-right: 4px;
+}
+
+.sheet-body .cts-factions-column .cts-faction-hint {
+  max-width: 42rem;
 }
 
 .cts-line {

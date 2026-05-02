@@ -1,0 +1,15 @@
+<div class="cts-column cts-factions-column">
+  <h3><i class="fas fa-flag"></i> Factions</h3>
+  <p class="cts-faction-hint">Create <strong>Faction</strong> items from the Items sidebar (right‑click → Create Item → Faction), then drag them onto this actor like feats. Edit each item for name, notes, and <strong>Gear %</strong> (stacks when buying).</p>
+  {{#each items.factions}}
+  <div class="cts-line item" data-item-id="{{this._id}}">
+    <span class="item-name item-roll">{{this.name}}</span>
+    <span class="cts-faction-pct" title="Gear price % when this actor buys">{{#if this.system.gearPct}}{{this.system.gearPct}}{{else}}0{{/if}}%</span>
+    <span class="cts-line-controls">
+      <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+      <a class="item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+    </span>
+  </div>
+  {{/each}}
+  <a class="item-create cts-btn secondary" data-type="faction"><i class="fas fa-plus"></i> Add Faction</a>
+</div>

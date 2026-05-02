@@ -15,5 +15,6 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/CTS-DND-35/templates/actor/parts/actor-skills.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-biography.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-factions-relations.hbs",
+    "systems/CTS-DND-35/templates/actor/parts/actor-faction-items-block.hbs",
   ]);
 };
