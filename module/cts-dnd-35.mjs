@@ -16,6 +16,7 @@ import { CTSDND35ItemSheet } from "./sheets/item-sheet.mjs";
 import { CTSDND35 } from "./helpers/config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { registerActorFactionGroupHooks } from "./hooks/actor-faction-groups.mjs";
+import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
 
 function _getD35DiagonalRuleValue() {
   const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
@@ -66,6 +67,8 @@ Hooks.once("init", function () {
   game.ctsdnd35 = {
     CTSDND35Actor,
     CTSDND35Item,
+    computeGearPricePercentTotal,
+    adjustedGearPrice,
   };
 
   // Store config on the global CONFIG object

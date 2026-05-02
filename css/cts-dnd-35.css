@@ -1117,6 +1117,82 @@ select.cts-actor-group-filter {
   width: 100%;
 }
 
+.cts-factions-relations {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #6c5a2f;
+  background: rgba(20, 26, 44, 0.55);
+}
+
+.cts-factions-relations h3 {
+  margin: 14px 0 6px;
+  font-size: 14px;
+  color: #efdfb7;
+}
+
+.cts-factions-relations h3:first-child {
+  margin-top: 0;
+}
+
+.cts-hint-block {
+  font-size: 11px;
+  opacity: 0.88;
+  line-height: 1.45;
+  margin: 0 0 10px;
+}
+
+.cts-api-hint code {
+  font-size: 10px;
+}
+
+.cts-faction-row,
+.cts-race-trade-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cts-faction-row input[type="text"],
+.cts-race-trade-row input[type="text"] {
+  min-width: 0;
+}
+
+.cts-num-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.cts-num-label input[type="number"] {
+  width: 72px;
+}
+
+.cts-grow {
+  flex: 1;
+  min-width: 80px;
+}
+
+.cts-icon-btn {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: #c9a857;
+  cursor: pointer;
+}
+
+.cts-icon-btn:hover {
+  color: #ffdda0;
+}
+
+.sheet-body .cts-factions-relations {
+  padding: 8px 4px;
+}
+
 .cts-portrait {
   width: 100%;
   height: 165px;

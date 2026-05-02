@@ -12,22 +12,6 @@
         </select>
         <input type="text" name="system.details.deity" value="{{system.details.deity}}" placeholder="Deity" />
       </div>
-      <div class="cts-header-subline cts-group-row">
-        <input
-          type="text"
-          name="system.details.groups"
-          value="{{system.details.groups}}"
-          placeholder="Groups/Factions (comma-separated)"
-          title="Comma-separated groups or factions"
-        />
-      </div>
-      {{#if groupList.length}}
-      <div class="cts-group-tags">
-        {{#each groupList as |group|}}
-        <span class="cts-group-tag">{{group}}</span>
-        {{/each}}
-      </div>
-      {{/if}}
       <div class="cts-header-meta">
         <span>Level {{system.details.level.value}}</span>
         <label>XP <input type="number" name="system.details.xpValue" value="{{system.details.xpValue}}" /></label>
@@ -136,4 +120,6 @@
       <a class="item-create cts-btn secondary" data-type="equipment"><i class="fas fa-plus"></i> Add Item</a>
     </div>
   </section>
+
+  {{> "systems/CTS-DND-35/templates/actor/parts/actor-factions-relations.hbs"}}
 </form>

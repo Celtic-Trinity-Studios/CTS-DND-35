@@ -23,3 +23,14 @@ export function normalizeGroupsForSave(tokens) {
 export function normalizeGroupsFromRaw(stringValue) {
   return normalizeGroupsForSave(parseGroupTokens(stringValue));
 }
+
+/** Labels used for actor sidebar filters (legacy string + structured factions). */
+export function actorFactionFilterTokens(actor) {
+  const set = new Set();
+  for (const t of parseGroupTokens(actor?.system?.details?.groups)) set.add(t);
+  for (const row of actor?.system?.details?.factionAffiliations ?? []) {
+    const n = String(row?.name ?? "").trim();
+    if (n) set.add(n);
+  }
+  return [...set];
+}

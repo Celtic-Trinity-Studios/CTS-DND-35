@@ -1,5 +1,5 @@
 import { CTSDND35 } from "../helpers/config.mjs";
-import { normalizeGroupsFromRaw } from "../utils/faction-groups.mjs";
+import { normalizeGroupsFromRaw, parseGroupTokens } from "../utils/faction-groups.mjs";
 import {
   evaluateFeatPrerequisites,
   getClassFeatureGrants,
@@ -580,6 +580,9 @@ export class CharacterWizard extends Application {
 
     const actorSystem = this.actor.system || {};
     const raceKey = this._getRaceKeyFromActor();
+    const affiliationNames = (actorSystem.details?.factionAffiliations || [])
+      .map((r) => String(r?.name ?? "").trim())
+      .filter(Boolean);
     this.state.basics = {
       name: this.actor.name || "New Character",
       gender: actorSystem.details?.gender || "male",
@@ -587,7 +590,9 @@ export class CharacterWizard extends Application {
       alignment: actorSystem.details?.alignment || "tn",
       deity: actorSystem.details?.deity || "",
       size: actorSystem.traits?.size || CTSDND35.races[raceKey]?.size || "med",
-      groups: actorSystem.details?.groups || ""
+      groups:
+        actorSystem.details?.groups ||
+        (affiliationNames.length ? affiliationNames.join(", ") : ""),
     };
 
     for (const key of ["str", "dex", "con", "int", "wis", "cha"]) {
@@ -1042,6 +1047,7 @@ export class CharacterWizard extends Application {
       }
     }
 
+    const factionTokens = parseGroupTokens(basics.groups || "");
     const updates = {
       name: basics.name,
       "system.details.race": raceDef ? raceDef.label : basics.race,
@@ -1049,6 +1055,7 @@ export class CharacterWizard extends Application {
       "system.details.alignment": basics.alignment,
       "system.details.deity": basics.deity,
       "system.details.groups": normalizeGroupsFromRaw(basics.groups || ""),
+      "system.details.factionAffiliations": factionTokens.map((name) => ({ name, gearPct: 0, notes: "" })),
       "system.traits.size": basics.size,
       "system.spellcasting.classes": foundry.utils.deepClone(this.actor.system?.spellcasting?.classes || {})
     };

@@ -6,6 +6,7 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
 import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
+import { parseGroupTokens } from "../utils/faction-groups.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
@@ -14,7 +15,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["cts-dnd-35", "sheet", "actor"],
       width: 720,
-      height: 840,
+      height: 920,
     });
   }
 
@@ -49,10 +50,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       context.system.details?.notes || "",
       { async: true }
     );
-    context.groupList = String(context.system.details?.groups || "")
-      .split(/[,\n;]+/g)
-      .map((s) => s.trim())
-      .filter(Boolean);
+    context.factionAffiliations = this._factionRowsForDisplay(this.actor);
+    context.raceTradeMods = this._raceTradeRowsForDisplay(this.actor);
 
     // Build skill list for the template
     const skillList = [];
@@ -121,6 +120,82 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     return items;
   }
 
+  _factionRowsForDisplay(actor) {
+    const stored = actor.system?.details?.factionAffiliations;
+    let rows;
+    if (Array.isArray(stored) && stored.length) {
+      rows = stored.map((r) => ({
+        name: r?.name ?? "",
+        gearPct: Number(r?.gearPct) || 0,
+        notes: r?.notes ?? "",
+      }));
+    } else {
+      rows = parseGroupTokens(actor.system?.details?.groups || "").map((name) => ({
+        name,
+        gearPct: 0,
+        notes: "",
+      }));
+    }
+    if (!rows.length) rows.push({ name: "", gearPct: 0, notes: "" });
+    return rows;
+  }
+
+  _raceTradeRowsForDisplay(actor) {
+    const stored = actor.system?.details?.raceTradeMods;
+    if (!Array.isArray(stored) || !stored.length) return [{ race: "", tradePct: 0, notes: "" }];
+    const rows = stored.map((r) => ({
+      race: r?.race ?? "",
+      tradePct: Number(r?.tradePct) || 0,
+      notes: r?.notes ?? "",
+    }));
+    return rows.length ? rows : [{ race: "", tradePct: 0, notes: "" }];
+  }
+
+  _normalizeFactionSubmitData(details) {
+    if (!details) return;
+    let fa = details.factionAffiliations;
+    if (fa && typeof fa === "object" && !Array.isArray(fa)) {
+      fa = Object.keys(fa)
+        .sort((a, b) => Number(a) - Number(b))
+        .map((k) => fa[k]);
+    }
+    if (Array.isArray(fa)) {
+      details.factionAffiliations = fa
+        .map((r) => ({
+          name: String(r?.name ?? "").trim(),
+          gearPct: Number(r?.gearPct) || 0,
+          notes: String(r?.notes ?? "").trim(),
+        }))
+        .filter((r) => r.name.length > 0 || r.gearPct !== 0 || r.notes.length > 0);
+      details.groups = details.factionAffiliations.map((r) => r.name).filter(Boolean).join(", ");
+    }
+    let rm = details.raceTradeMods;
+    if (rm && typeof rm === "object" && !Array.isArray(rm)) {
+      rm = Object.keys(rm)
+        .sort((a, b) => Number(a) - Number(b))
+        .map((k) => rm[k]);
+    }
+    if (Array.isArray(rm)) {
+      details.raceTradeMods = rm
+        .map((r) => ({
+          race: String(r?.race ?? "").trim(),
+          tradePct: Number(r?.tradePct) || 0,
+          notes: String(r?.notes ?? "").trim(),
+        }))
+        .filter((r) => r.race.length > 0 || r.tradePct !== 0 || r.notes.length > 0);
+    }
+  }
+
+  /** @override */
+  async _updateObject(event, formData) {
+    const updateData =
+      formData && typeof formData === "object" && formData.system !== undefined
+        ? foundry.utils.deepClone(formData)
+        : foundry.utils.expandObject(formData);
+    if (updateData.system?.details) this._normalizeFactionSubmitData(updateData.system.details);
+    return super._updateObject(event, updateData);
+  }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -177,6 +252,60 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     html.find(".open-levelup").click(ev => {
       ev.preventDefault();
       new LevelUpWizard(this.actor).render(true);
+    });
+
+    html.find(".cts-add-faction-row").click(async (ev) => {
+      ev.preventDefault();
+      let rows = [...(this.actor.system.details?.factionAffiliations || [])];
+      if (!rows.length) {
+        rows = parseGroupTokens(this.actor.system.details?.groups || "").map((name) => ({
+          name,
+          gearPct: 0,
+          notes: "",
+        }));
+      }
+      rows.push({ name: "", gearPct: 0, notes: "" });
+      await this.actor.update({
+        "system.details.factionAffiliations": rows,
+        "system.details.groups": rows.map((r) => r.name).filter(Boolean).join(", "),
+      });
+      this.render(false);
+    });
+
+    html.find(".cts-remove-faction-row").click(async (ev) => {
+      ev.preventDefault();
+      const idx = Number(ev.currentTarget.dataset.index);
+      let rows = [...(this.actor.system.details?.factionAffiliations || [])];
+      if (!rows.length) {
+        rows = parseGroupTokens(this.actor.system.details?.groups || "").map((name) => ({
+          name,
+          gearPct: 0,
+          notes: "",
+        }));
+      }
+      rows.splice(idx, 1);
+      await this.actor.update({
+        "system.details.factionAffiliations": rows,
+        "system.details.groups": rows.map((r) => r.name).filter(Boolean).join(", "),
+      });
+      this.render(false);
+    });
+
+    html.find(".cts-add-race-trade-row").click(async (ev) => {
+      ev.preventDefault();
+      const rows = [...(this.actor.system.details?.raceTradeMods || [])];
+      rows.push({ race: "", tradePct: 0, notes: "" });
+      await this.actor.update({ "system.details.raceTradeMods": rows });
+      this.render(false);
+    });
+
+    html.find(".cts-remove-race-trade-row").click(async (ev) => {
+      ev.preventDefault();
+      const idx = Number(ev.currentTarget.dataset.index);
+      const rows = [...(this.actor.system.details?.raceTradeMods || [])];
+      rows.splice(idx, 1);
+      await this.actor.update({ "system.details.raceTradeMods": rows });
+      this.render(false);
     });
   }
 

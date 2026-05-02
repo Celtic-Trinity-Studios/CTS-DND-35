@@ -17,6 +17,8 @@
         </select>
         <label>Type:</label>
         <input type="text" name="system.traits.type" value="{{system.traits.type}}" />
+        <label>Race:</label>
+        <input type="text" name="system.details.race" value="{{system.details.race}}" placeholder="For trade rules" style="width:120px;" />
         <label>Alignment:</label>
         <select name="system.details.alignment">
           <option value="">—</option>
@@ -29,23 +31,6 @@
         <label>Source:</label>
         <input type="text" name="system.details.source" value="{{system.details.source}}" class="flex-grow" />
       </div>
-      <div class="flex-row">
-        <label>Groups:</label>
-        <input
-          type="text"
-          name="system.details.groups"
-          value="{{system.details.groups}}"
-          class="flex-grow"
-          placeholder="Comma-separated factions/groups"
-        />
-      </div>
-      {{#if groupList.length}}
-      <div class="flex-row cts-group-tags">
-        {{#each groupList as |group|}}
-        <span class="cts-group-tag">{{group}}</span>
-        {{/each}}
-      </div>
-      {{/if}}
     </div>
   </header>
 
@@ -59,6 +44,7 @@
     <a class="item" data-tab="inventory"><i class="fas fa-backpack"></i> Inventory</a>
     <a class="item" data-tab="spells"><i class="fas fa-magic"></i> Spells</a>
     <a class="item" data-tab="biography"><i class="fas fa-book"></i> Bio</a>
+    <a class="item" data-tab="trade"><i class="fas fa-coins"></i> Trade &amp; factions</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -77,6 +63,9 @@
     </div>
     <div class="tab" data-group="primary" data-tab="biography">
       {{> "systems/CTS-DND-35/templates/actor/parts/actor-biography.hbs"}}
+    </div>
+    <div class="tab" data-group="primary" data-tab="trade">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-factions-relations.hbs"}}
     </div>
   </section>
 </form>

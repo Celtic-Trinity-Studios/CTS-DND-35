@@ -1,0 +1,31 @@
+<section class="cts-factions-relations cts-panel-block">
+  <h3><i class="fas fa-users"></i> Factions (when buying gear)</h3>
+  <p class="cts-hint-block">Each row is a separate membership or reputation. <strong>Gear %</strong> values <em>stack</em> when this actor buys equipment (negative = discount, positive = markup). Example: Town Hero −10 and Thieves Guild +5 → net −5%.</p>
+  <div class="cts-faction-rows">
+    {{#each factionAffiliations}}
+    <div class="cts-faction-row" data-index="{{@index}}">
+      <input type="text" name="system.details.factionAffiliations.{{@index}}.name" value="{{this.name}}" placeholder="Faction / guild / status" />
+      <label class="cts-num-label"><span>Gear %</span><input type="number" name="system.details.factionAffiliations.{{@index}}.gearPct" value="{{this.gearPct}}" step="1" /></label>
+      <input type="text" name="system.details.factionAffiliations.{{@index}}.notes" value="{{this.notes}}" placeholder="Notes" class="cts-grow" />
+      <button type="button" class="cts-icon-btn cts-remove-faction-row" data-index="{{@index}}" title="Remove row" aria-label="Remove faction row"><i class="fas fa-trash"></i></button>
+    </div>
+    {{/each}}
+  </div>
+  <button type="button" class="cts-btn secondary cts-add-faction-row"><i class="fas fa-plus"></i> Add faction</button>
+
+  <h3><i class="fas fa-handshake"></i> Race attitudes (when buying from…)</h3>
+  <p class="cts-hint-block">When <strong>this actor buys</strong> from someone else, add these % if the <strong>seller's Race field</strong> matches (same text as on their sheet, compared case-insensitive). Use for pride, prejudice, or favored peoples.</p>
+  <div class="cts-race-trade-rows">
+    {{#each raceTradeMods}}
+    <div class="cts-race-trade-row" data-index="{{@index}}">
+      <input type="text" name="system.details.raceTradeMods.{{@index}}.race" value="{{this.race}}" placeholder="Seller race label (e.g. Elf, Human)" />
+      <label class="cts-num-label"><span>Gear price %</span><input type="number" name="system.details.raceTradeMods.{{@index}}.tradePct" value="{{this.tradePct}}" step="1" /></label>
+      <input type="text" name="system.details.raceTradeMods.{{@index}}.notes" value="{{this.notes}}" placeholder="Notes" class="cts-grow" />
+      <button type="button" class="cts-icon-btn cts-remove-race-trade-row" data-index="{{@index}}" title="Remove row" aria-label="Remove race rule"><i class="fas fa-trash"></i></button>
+    </div>
+    {{/each}}
+  </div>
+  <button type="button" class="cts-btn secondary cts-add-race-trade-row"><i class="fas fa-plus"></i> Add race rule</button>
+
+  <p class="cts-hint-block cts-api-hint">Macros / modules: <code>game.ctsdnd35.computeGearPricePercentTotal(buyer, seller)</code> and <code>game.ctsdnd35.adjustedGearPrice(gp, buyer, seller)</code>.</p>
+</section>

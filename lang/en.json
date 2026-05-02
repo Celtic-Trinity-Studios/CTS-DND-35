@@ -118,17 +118,12 @@
 
     "Groups": "Groups / factions",
     "GroupFilter": "Filter by group",
-    "GroupFilterHint": "Show only actors that include this group tag (matches sheet \"Groups / factions\" field).",
+    "GroupFilterHint": "Show actors whose faction names match (sheet faction rows or legacy comma field).",
     "GroupFilterAll": "All groups",
-    "ContextSetGroups": "Set groups / factions…",
-    "SetGroupsTitle": "Groups / factions",
-    "SetGroupsHint": "Separate multiple groups with commas, semicolons, or new lines. Used for organizing actors and filtering the Actors sidebar.",
-    "DialogSave": "Save",
-    "DialogCancel": "Cancel",
     "FactionPresetsName": "Faction / group name presets",
-    "FactionPresetsHint": "One name per line. Shown as suggestions when assigning groups from the sidebar or when creating an actor.",
+    "FactionPresetsHint": "One name per line. Shown as suggestions when creating an actor (optional comma field).",
     "CreateActorGroupsLabel": "Initial groups / factions (optional)",
     "CreateActorGroupsPlaceholder": "e.g. Party, Allies",
-    "CreateActorGroupsHint": "Stored on the actor like the sheet field; you can edit later from the sheet or sidebar."
+    "CreateActorGroupsHint": "Creates initial faction rows on the actor (edit percentages on the sheet)."
   }
 }
