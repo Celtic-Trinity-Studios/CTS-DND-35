@@ -98,6 +98,11 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
     const snapshot = this._mergeFactionSnapshotFromSheet();
     const { embeddedUpdated } = await propagateFactionSnapshotToAllActors(this.item, snapshot);
 
+    // Let embedded collections + hooks settle before actor sheets read getData (avoids needing a second click).
+    await new Promise((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+
     let sheetsRedrawn = 0;
     for (const actor of game.actors ?? []) {
       const sheet = actor.sheet;

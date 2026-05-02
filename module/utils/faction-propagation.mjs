@@ -5,6 +5,7 @@
 
 import { syncActorGroupsFromFactionItems } from "./faction-groups.mjs";
 import { refreshActorDirectoryFactionFilters } from "../hooks/actor-faction-groups.mjs";
+import { beginFactionBulkPush, endFactionBulkPush } from "./faction-bulk-push-guard.mjs";
 
 function _normFactionName(s) {
   return String(s ?? "").trim().toLowerCase();
@@ -38,49 +39,54 @@ export function embeddedFactionMatchesMaster(embed, masterDoc, snapshotName) {
  * @returns {{ embeddedUpdated: number }}
  */
 export async function propagateFactionSnapshotToAllActors(masterDoc, snapshot) {
-  const name = snapshot.name ?? masterDoc.name;
-  const img = snapshot.img ?? masterDoc.img;
-  const gearPct = Number(snapshot.system?.gearPct ?? masterDoc.system?.gearPct ?? 0);
-  const safePct = Number.isFinite(gearPct) ? gearPct : 0;
-  const description = snapshot.system?.description ?? masterDoc.system?.description ?? "";
-
-  const mergedSystem = foundry.utils.mergeObject(foundry.utils.deepClone(masterDoc.system ?? {}), {
-    gearPct: safePct,
-    description,
-  });
-
+  beginFactionBulkPush();
   try {
-    await masterDoc.update({ name, img, system: mergedSystem });
-  } catch (err) {
-    console.warn("CTS DND 35 | Faction refresh could not update this faction item document:", err);
-  }
+    const name = snapshot.name ?? masterDoc.name;
+    const img = snapshot.img ?? masterDoc.img;
+    const gearPct = Number(snapshot.system?.gearPct ?? masterDoc.system?.gearPct ?? 0);
+    const safePct = Number.isFinite(gearPct) ? gearPct : 0;
+    const description = snapshot.system?.description ?? masterDoc.system?.description ?? "";
 
-  let embeddedUpdated = 0;
-  for (const actor of game.actors ?? []) {
-    const batch = [];
-    for (const it of actor.items) {
-      if (!embeddedFactionMatchesMaster(it, masterDoc, name)) continue;
-      batch.push({
-        _id: it.id,
-        name,
-        img,
-        system: foundry.utils.mergeObject(foundry.utils.deepClone(it.system ?? {}), {
-          gearPct: safePct,
-          description,
-        }),
-      });
+    const mergedSystem = foundry.utils.mergeObject(foundry.utils.deepClone(masterDoc.system ?? {}), {
+      gearPct: safePct,
+      description,
+    });
+
+    try {
+      await masterDoc.update({ name, img, system: mergedSystem });
+    } catch (err) {
+      console.warn("CTS DND 35 | Faction refresh could not update this faction item document:", err);
     }
-    if (batch.length) {
-      await actor.updateEmbeddedDocuments("Item", batch);
-      embeddedUpdated += batch.length;
+
+    let embeddedUpdated = 0;
+    for (const actor of game.actors ?? []) {
+      const batch = [];
+      for (const it of actor.items) {
+        if (!embeddedFactionMatchesMaster(it, masterDoc, name)) continue;
+        batch.push({
+          _id: it.id,
+          name,
+          img,
+          system: foundry.utils.mergeObject(foundry.utils.deepClone(it.system ?? {}), {
+            gearPct: safePct,
+            description,
+          }),
+        });
+      }
+      if (batch.length) {
+        await actor.updateEmbeddedDocuments("Item", batch);
+        embeddedUpdated += batch.length;
+      }
     }
+
+    for (const actor of game.actors ?? []) {
+      await syncActorGroupsFromFactionItems(actor);
+    }
+
+    refreshActorDirectoryFactionFilters();
+
+    return { embeddedUpdated };
+  } finally {
+    endFactionBulkPush();
   }
-
-  for (const actor of game.actors ?? []) {
-    await syncActorGroupsFromFactionItems(actor);
-  }
-
-  refreshActorDirectoryFactionFilters();
-
-  return { embeddedUpdated };
 }

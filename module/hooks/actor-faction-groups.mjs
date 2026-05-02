@@ -5,6 +5,7 @@
 
 import { actorFactionFilterTokens, syncActorGroupsFromFactionItems } from "../utils/faction-groups.mjs";
 import { getItemAndActorFromHookArgs, getUpdateItemHookContext } from "../utils/item-hook-args.mjs";
+import { isFactionBulkPushActive } from "../utils/faction-bulk-push-guard.mjs";
 
 const STORAGE_KEY = "CTS-DND-35.actorGroupDirectoryFilter";
 /** @type {WeakMap<HTMLSelectElement, HTMLElement>} */
@@ -160,6 +161,7 @@ export function registerActorFactionGroupHooks() {
   });
 
   Hooks.on("updateItem", (first, second, third) => {
+    if (isFactionBulkPushActive()) return;
     const { item, actor, changed } = getUpdateItemHookContext(first, second, third);
     const owner = actor ?? item?.actor ?? (item?.parent?.documentName === "Actor" ? item.parent : null);
     if (item?.type !== "faction" || !owner) return;
