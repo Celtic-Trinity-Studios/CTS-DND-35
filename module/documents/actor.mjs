@@ -44,6 +44,7 @@ export class CTSDND35Actor extends Actor {
     systemData.details.groups ??= "";
     systemData.details.factionAffiliations ??= [];
     systemData.details.raceTradeMods ??= [];
+    systemData.details.raceModsSelling ??= [];
     systemData.details.biography ??= "";
     systemData.details.notes ??= "";
 

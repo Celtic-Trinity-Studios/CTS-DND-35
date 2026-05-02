@@ -27,5 +27,19 @@
   </div>
   <button type="button" class="cts-btn secondary cts-add-race-trade-row"><i class="fas fa-plus"></i> Add race rule</button>
 
+  <h3><i class="fas fa-store"></i> Race rates (when this actor <strong>sells</strong>)</h3>
+  <p class="cts-hint-block">For <strong>merchants / vendors</strong>: add % if the <strong>buyer's Race field</strong> matches (e.g. +20% for Orc, −10% for friends). Stacks with the buyer's own modifiers above.</p>
+  <div class="cts-race-selling-rows">
+    {{#each raceModsSelling}}
+    <div class="cts-race-selling-row" data-index="{{@index}}">
+      <input type="text" name="system.details.raceModsSelling.{{@index}}.race" value="{{this.race}}" placeholder="Buyer race label" />
+      <label class="cts-num-label"><span>Gear price %</span><input type="number" name="system.details.raceModsSelling.{{@index}}.tradePct" value="{{this.tradePct}}" step="1" /></label>
+      <input type="text" name="system.details.raceModsSelling.{{@index}}.notes" value="{{this.notes}}" placeholder="Notes" class="cts-grow" />
+      <button type="button" class="cts-icon-btn cts-remove-race-selling-row" data-index="{{@index}}" title="Remove row" aria-label="Remove selling rule"><i class="fas fa-trash"></i></button>
+    </div>
+    {{/each}}
+  </div>
+  <button type="button" class="cts-btn secondary cts-add-race-selling-row"><i class="fas fa-plus"></i> Add buyer-race rule</button>
+
   <p class="cts-hint-block cts-api-hint">Macros / modules: <code>game.ctsdnd35.computeGearPricePercentTotal(buyer, seller)</code> and <code>game.ctsdnd35.adjustedGearPrice(gp, buyer, seller)</code>.</p>
 </section>

@@ -52,6 +52,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     );
     context.factionAffiliations = this._factionRowsForDisplay(this.actor);
     context.raceTradeMods = this._raceTradeRowsForDisplay(this.actor);
+    context.raceModsSelling = this._raceModsSellingForDisplay(this.actor);
 
     // Build skill list for the template
     const skillList = [];
@@ -151,6 +152,17 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     return rows.length ? rows : [{ race: "", tradePct: 0, notes: "" }];
   }
 
+  _raceModsSellingForDisplay(actor) {
+    const stored = actor.system?.details?.raceModsSelling;
+    if (!Array.isArray(stored) || !stored.length) return [{ race: "", tradePct: 0, notes: "" }];
+    const rows = stored.map((r) => ({
+      race: r?.race ?? "",
+      tradePct: Number(r?.tradePct) || 0,
+      notes: r?.notes ?? "",
+    }));
+    return rows.length ? rows : [{ race: "", tradePct: 0, notes: "" }];
+  }
+
   _normalizeFactionSubmitData(details) {
     if (!details) return;
     let fa = details.factionAffiliations;
@@ -177,6 +189,21 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     }
     if (Array.isArray(rm)) {
       details.raceTradeMods = rm
+        .map((r) => ({
+          race: String(r?.race ?? "").trim(),
+          tradePct: Number(r?.tradePct) || 0,
+          notes: String(r?.notes ?? "").trim(),
+        }))
+        .filter((r) => r.race.length > 0 || r.tradePct !== 0 || r.notes.length > 0);
+    }
+    let ms = details.raceModsSelling;
+    if (ms && typeof ms === "object" && !Array.isArray(ms)) {
+      ms = Object.keys(ms)
+        .sort((a, b) => Number(a) - Number(b))
+        .map((k) => ms[k]);
+    }
+    if (Array.isArray(ms)) {
+      details.raceModsSelling = ms
         .map((r) => ({
           race: String(r?.race ?? "").trim(),
           tradePct: Number(r?.tradePct) || 0,
@@ -305,6 +332,23 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       const rows = [...(this.actor.system.details?.raceTradeMods || [])];
       rows.splice(idx, 1);
       await this.actor.update({ "system.details.raceTradeMods": rows });
+      this.render(false);
+    });
+
+    html.find(".cts-add-race-selling-row").click(async (ev) => {
+      ev.preventDefault();
+      const rows = [...(this.actor.system.details?.raceModsSelling || [])];
+      rows.push({ race: "", tradePct: 0, notes: "" });
+      await this.actor.update({ "system.details.raceModsSelling": rows });
+      this.render(false);
+    });
+
+    html.find(".cts-remove-race-selling-row").click(async (ev) => {
+      ev.preventDefault();
+      const idx = Number(ev.currentTarget.dataset.index);
+      const rows = [...(this.actor.system.details?.raceModsSelling || [])];
+      rows.splice(idx, 1);
+      await this.actor.update({ "system.details.raceModsSelling": rows });
       this.render(false);
     });
   }

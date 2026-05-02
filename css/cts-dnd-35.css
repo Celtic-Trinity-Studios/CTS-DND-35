@@ -1147,7 +1147,8 @@ select.cts-actor-group-filter {
 }
 
 .cts-faction-row,
-.cts-race-trade-row {
+.cts-race-trade-row,
+.cts-race-selling-row {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -1155,7 +1156,8 @@ select.cts-actor-group-filter {
 }
 
 .cts-faction-row input[type="text"],
-.cts-race-trade-row input[type="text"] {
+.cts-race-trade-row input[type="text"],
+.cts-race-selling-row input[type="text"] {
   min-width: 0;
 }
 
