@@ -1,24 +1,26 @@
 # D&D 3.5 Mechanics — Gap Analysis (CTS-DND-35)
 
-This document maps **D&D 3.5 / SRD-level mechanics** against **CTS-DND-35** today. It is for planning and prioritization, not legal comparison of third-party systems.
+This document maps **D&D 3.5 / SRD-level mechanics** against **CTS-DND-35** in one consolidated pass. Use it for roadmap and prioritization—**not** as a claim of parity with any third-party product.
 
-**Reference only (do not copy code or non-OGL content):** [Dragonshorn D35E — Release 3.0.0](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0). That release notes list illustrates the *depth of automation* a mature Foundry 3.5 implementation may provide (threat overlays, slot enforcement, formula tooling, ammo rules, treasure data, etc.). CTS-DND-35 should implement behavior from the **SRD/OGL** and your own design goals, not from proprietary packages.
+**Reference only (do not copy code or non-OGL content):** [Dragonshorn D35E — Release 3.0.0](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0). Those notes illustrate how deep Foundry automation *can* go (threat overlays, slot enforcement, formula helpers, ammo/treasure tooling, senses on tokens, etc.). CTS should implement **SRD/OGL** (and your house rules), not proprietary implementations.
 
 **Legend**
 
 | Status | Meaning |
 |--------|---------|
-| **Present** | Implemented in code/sheets at a usable level |
-| **Partial** | Data model or UI exists; rules incomplete or manual |
-| **Missing** | Not meaningfully supported yet |
+| **Present** | Implemented in templates/code/packs at a usable level |
+| **Partial** | Data or UI exists; rule is incomplete, manual, or pack-dependent |
+| **Missing** | No meaningful first-class support |
+
+**Code pointers (common)** — `module/documents/actor.mjs`, `module/helpers/config.mjs`, `module/helpers/progression-rules.mjs`, `module/apps/character-wizard.mjs`, `module/apps/level-up-wizard.mjs`, `module/utils/trade-modifiers.mjs`, item sheets under `templates/item/`.
 
 ---
 
 ## Executive summary
 
-CTS-DND-35 is a **clean, extensible shell**: solid **ability/skill lists**, **derived BAB from class items**, **core AC** (armor/shield/natural/size/Dex cap), **saves/init/grapple** basics, **inventory item types**, **character & level-up wizards**, **feat prerequisite helpers**, **trade/faction pricing**, and **compendium packs**.  
+CTS-DND-35 is a **strong structural base**: full **skill catalog**, **ability mods**, **BAB from class items**, **core AC** (armor/shield/natural/size/Dex-to-armor cap), **initiative & save totals**, **grapple total**, **HP fields**, **currency**, **many item types** (weapon, armor, spell, class, race, feat, feature, buff, attack, faction, consumable, equipment), **character & level-up wizards** with feat prereq parsing, **faction/trade** subsystem, **grid/diagonal settings**, and **multiple SRD compendia**.
 
-What separates it from a **full tactical + spell + item-rules engine** is mostly: **no unified “changes” pipeline** (buffs/feats/items altering the same derived stats), **limited combat automation** (AoOs, reach, flanking, actions, special attacks), **spellcasting workflow** (slots, preparation, DC/SR/concentration), **equipment depth** (slots, encumbrance, masterwork/magic stacking), and **canvas/token integration** beyond Foundry defaults.
+The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/conditions → derived stats). Without it, **most advanced 3.5** (stacking bonuses, AoOs, flanking, slots, encumbrance ACP, spell slots/DC, DR/resist, conditions, canvas threat) stays **manual or absent**. Secondary gaps: **spellcasting workflow**, **equipment rules**, **special combat actions**, **monster/treasure tooling**.
 
 ---
 
@@ -26,25 +28,43 @@ What separates it from a **full tactical + spell + item-rules engine** is mostly
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Ability scores & mods | **Present** | Computed in `prepareDerivedData`; stored per ability |
-| Hit points (current/max/temp/nonlethal) | **Present** | Fields on sheet; dying/stabilization/death rules not automated |
-| Level & XP | **Partial** | Total level from **class items**; XP fields exist; level-up wizard; multiclass ordering / XP penalties not deeply modeled |
-| Race | **Partial** | Default race table in config + **race** items; automatic application of racial traits to all mechanics is **not** centralized |
-| Alignment, deity, bio | **Present** | Mostly narrative fields; alignment used in feat prereqs (`progression-rules`) |
-| Size | **Present** | Size mods feed AC/grapple; reach by size not surfaced as token mechanic |
-| Speed (land/fly/swim/climb/burrow) | **Partial** | Fields + fly maneuverability; armor speed reduction, encumbrance speed not wired |
+| Ability scores & modifiers | **Present** | `prepareDerivedData` → `mod = floor((score−10)/2)` per ability |
+| Ability damage / drain / burn | **Missing** | No temporary score layers or penalty tracking |
+| Hit points (current / max / temp / nonlethal) | **Present** | Sheet inputs; **dying**, stabilization, death threshold, massive damage — not automated |
+| Constitution changes & HP | **Missing** | No rule when Con changes (current vs max interaction) |
+| Level (total) | **Present** | Sum of **class** item levels (`actor.mjs`) |
+| Experience points & next level | **Partial** | Fields exist; wizards; **XP awards**, **multiclass XP penalty**, **LA buyoff** — not modeled |
+| Favored class / multiclass XP penalty | **Missing** | |
+| Race (SRD quick picks) | **Partial** | `config.mjs` racial presets + **race** items; **traits not auto-applied** to speed/abilities/skills centrally |
+| Size category | **Present** | `traits.size`; feeds AC size mod & grapple |
+| Reach by size / creature | **Partial** | Not on token; no default reach table wired to combat |
+| Speed — land / fly / swim / climb / burrow | **Partial** | Stored + fly maneuverability; **armor speed**, **encumbrance speed**, **difficult terrain** — not applied |
+| Alignment | **Present** | Stored; used in **feat** prereq checks |
+| Deity, gender, biography, notes | **Present** | Narrative fields |
+| Age, height, weight, eyes/hair | **Missing** | Optional descriptive fields not standardized |
+| Languages | **Missing** | No language list / literacy tracker |
+| Vision & senses (darkvision, low-light, etc.) | **Missing** | Not aggregated to actor/token (contrast D35E feat-granted senses) |
+| Level drain / negative levels | **Missing** | |
+| Creature type / subtype (PC) | **Missing** | Monsters rely on manual stats; no PC type field |
 
 ---
 
-## 2. Classes, leveling, multiclass
+## 2. Classes, leveling, multiclass, prestige
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Class items & BAB progression | **Present** | BAB tables by progression type; level per class item |
-| Saves from class levels | **Partial** | Save **bases** are editable inputs; **automatic** base saves from class + level tables not derived from class items alone |
-| Skill points per level | **Partial** | Wizard logic exists; caps (`getSkillRankCap`) exist; full multiclass skill point stacking verification is ongoing design |
-| Prestige classes | **Partial** | Same **class** item type can represent PrC if packs provide data; prereq enforcement beyond feats may be incomplete |
-| Gestalt / house rules | **Partial** | Setting flag exists; behavior depth depends on wizards |
+| Class as **Item** | **Present** | Levels, BAB progression type, tied to wizards |
+| BAB derived from all class levels | **Present** | Tables in `config.mjs`; summed in `actor.mjs` |
+| Base saves from class + level | **Partial** | Save **total** uses manual **base** inputs; **not** computed from per-class good/poor tables |
+| Hit dice / HP at level 1 & beyond | **Partial** | Level-up wizard supports **fixed / roll / manual** style flow; full HD averaging rules table-side |
+| Skill points per level | **Partial** | Wizard + `getSkillRankCap`; multiclass **class skill lists** merged from packs |
+| Max ranks (class / cross-class) | **Present** | `getSkillRankCap` |
+| Class skill flags on sheet | **Present** | Per-skill class checkbox |
+| Starting wealth / gear at level 1 | **Missing** | Not enforced |
+| Prestige classes | **Partial** | Same **class** item; **entry requirements** beyond feats not systematically enforced |
+| Gestalt | **Partial** | `enableGestalt` setting; depth depends on wizard |
+| NPC class vs PC class | **Partial** | Data can exist in packs; no separate NPC-class workflow |
+| Spellcasting progression metadata | **Partial** | `getSpellcastingProgression` etc. in `progression-rules`; **slot/spells-known execution** thin |
 
 ---
 
@@ -52,152 +72,268 @@ What separates it from a **full tactical + spell + item-rules engine** is mostly
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Full 3.5 skill list | **Present** | `config.mjs` defines skills + abilities + untrained flag |
-| Ranks, class skill, misc, totals | **Present** | Totals in `actor.mjs`; **synergy bonuses**, **circumstance/racial** as structured modifiers — mostly manual via misc |
-| DC tables / skill checks in UI | **Missing** | Roll sends basic flavor; no built-in DC library |
-| Taking 10 / 20, aid another | **Missing** | Table workflow not enforced |
-| Armor check penalty | **Missing** | Not applied from armor to relevant skills automatically |
+| Full SRD skill list | **Present** | `CTSDND35.skills` |
+| Trained-only skills | **Present** | `untrained` flag in config; enforcement on roll — **soft** |
+| Ranks, ability mod, misc, **total** | **Present** | `actor.mjs` `_prepareSkills` |
+| Class skill vs cross-class **cost** | **Partial** | `getSkillPointCost` exists; wizard applies; **sheet direct-edit** can desync |
+| Skill synergies | **Missing** | Must use misc |
+| Armor check penalty on skills | **Missing** | Armor has no ACP field wired to skills |
+| Fatigue / encumbrance to skills | **Missing** | |
+| Tools & masterwork tools | **Missing** | |
+| Taking 10 / Taking 20 | **Missing** | |
+| Aid another | **Missing** | |
+| Retry rules / special durations | **Missing** | |
+| Individual skill APIs (e.g. Craft income, Decipher page/week) | **Missing** | Use narrative / manual |
+| Knowledge checks vs DC tables | **Missing** | |
+| Use Rope, Swim with armor | **Missing** | |
 
 ---
 
-## 4. Feats & features
+## 4. Feats, traits, class features
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Feat items | **Present** | Listed on sheet; prereq evaluation **partial** (`evaluateFeatPrerequisites`) |
-| Class / racial features | **Present** | **feature** / **race** items; mechanical effect layer **manual** unless scripted elsewhere |
-| Feat types (fighter bonus, etc.) | **Partial** | Depends on pack data and wizard; no global tracker |
-| Passive numeric effects from feats | **Partial** | No standard “Changes” pipeline (contrast: D35E-style aggregated modifiers) |
+| **Feat** items & list | **Present** | Character sheet list |
+| Prerequisite parser | **Partial** | `evaluateFeatPrerequisites`: abilities, BAB, level, alignment axes, feat names, **some** skills/race/features |
+| Fighter bonus feat slots / scaling | **Partial** | Wizard tracks selections; **no** global “feat slot budget” vs sources |
+| Metamagic feats | **Missing** | No heightening workflow tied to spells |
+| Item creation feats | **Missing** | |
+| Passive numeric bonuses from feats | **Partial** | No **Changes**/effect aggregation |
+| **Feature** items (class features) | **Present** | Stored; mechanics manual |
+| **Race** items | **Present** | Stored; mechanics manual |
+| Alternate racial traits / subraces | **Partial** | Pack content only |
 
 ---
 
-## 5. Combat (core)
+## 5. Combat — attacks & damage
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Attack rolls (weapon / attack items) | **Partial** | Items exist; full attack bonus decomposition (BAB, size, ability, enhancement, morale, etc.) not unified |
-| Damage rolls | **Partial** | Chat cards basic in `item.mjs`; crit confirmation / multiplier / precision vs acid etc. not fully modeled |
-| AC (normal/touch/flat-footed) | **Partial** | Armor+shield+Dex cap+size+natural; **deflection, dodge, misc bonuses** not item-driven |
-| Initiative | **Present** | Rolled from sheet |
-| Saving throws | **Partial** | Total = base + ability + misc bonus; base not auto from classes |
-| BAB / grapple display | **Present** | Grapple uses SRD-style components |
-| Critical hits | **Missing** | No systematic crit range/multiplier pipeline |
-| Damage reduction / hardness | **Missing** | Not first-class on actors/items |
-| Concealment / miss chance | **Missing** | Not automated |
-| Spell resistance | **Partial** | SR value field; **caster level checks vs SR** not integrated into spell workflow |
-| Actions (standard/move/swift/immediate/full-round) | **Missing** | No turn economy tracker |
-| Attacks of opportunity | **Missing** | No AoO counter or provoke matrix (D35E emphasizes threat/provocation tooling) |
-| Reach & threatened area | **Missing** | No reach visualization (D35E 3.0 highlights this) |
-| Flanking | **Missing** | No detection / bonus automation |
-| Grapple / trip / bull rush / etc. | **Missing** | No structured opposed-check workflows beyond raw rolls |
+| **Weapon** / **attack** items | **Present** | Types exist |
+| Melee attack bonus decomposition | **Partial** | Not one pipeline (BAB + Str/Dex + size + enhancement + morale + luck + …) |
+| Ranged attacks | **Partial** | Same; range increments / cover not automated |
+| Iterative attacks (BAB −5, −10, …) | **Missing** | |
+| Natural weapons & secondary attacks | **Missing** | |
+| Touch attacks / ranged touch | **Partial** | AC touch computed; **attack mode** not distinguished in automation |
+| Critical threat / confirmation / multiplier | **Missing** | |
+| Damage rolls & chat cards | **Partial** | Basic `Item.roll()` chat output |
+| Damage types (B/S/P) & energy types | **Partial** | Schema varies by item; **DR interaction** missing |
+| Precision damage (sneak attack, etc.) | **Missing** | |
+| Nonlethal damage | **Partial** | HP field exists; **weapon toggle / track** not wired |
+| Weapon size / inappropriate size | **Missing** | |
+| Two-weapon fighting penalties | **Missing** | |
+| Power Attack / Combat Expertise sliders | **Missing** | |
+
+---
+
+## 6. Combat — AC, saves, resistances
+
+| Topic | Status | Notes / gaps |
+|-------|--------|----------------|
+| AC (normal) | **Partial** | 10 + armor + shield + capped Dex + size + natural |
+| Touch AC | **Present** | Derived line |
+| Flat-footed AC | **Present** | Derived line |
+| Dodge, deflection, insight, sacred, profane, luck, misc AC | **Missing** | Not item-driven; use house manual change to natural/bonus fields if at all |
+| Max Dex bonus from armor | **Present** | Lowest equipped armor `maxDex` caps Dex to AC |
+| Shield spell / force effects | **Missing** | |
+| Saving throws (Fort / Ref / Will total) | **Partial** | Base + ability + misc; base should tie to classes |
+| Saving throw bonuses by source | **Missing** | No typed stacking |
+| Damage reduction (DR) | **Missing** | |
+| Energy resistance / immunity | **Missing** | |
+| Spell resistance (SR) | **Partial** | Numeric field; **no** caster check workflow |
+| Hardness & object HP | **Missing** | |
+| Miss chance (concealment / blur / displacement) | **Missing** | |
+
+---
+
+## 7. Combat — actions, movement, positioning
+
+| Topic | Status | Notes / gaps |
+|-------|--------|----------------|
+| Initiative order | **Present** | Foundry combat + sheet initiative roll |
+| Turn structure (standard / move / swift / immediate / full-round) | **Missing** | |
+| Delay / ready | **Missing** | |
+| Charge, withdraw, run, tumble through threatened squares | **Missing** | |
+| 5-foot step | **Missing** | |
+| Grappling rules (initiate, hold, pin, damage, escape) | **Missing** | Grapple **modifier** shown only |
+| Trip, bull rush, overrun, disarm, sunder, feint | **Missing** | |
 | Mounted combat | **Missing** | |
-| Two-weapon fighting | **Missing** | |
+| Reach weapons & threatened squares | **Missing** | No geometry (D35E-style overlays absent) |
+| Flanking (+2 melee) | **Missing** | |
+| Attacks of opportunity | **Missing** | No counter / provoke logic |
+| Cover / concealment modifiers | **Missing** | |
+| Higher ground, squeezing | **Missing** | |
 
 ---
 
-## 6. Equipment & inventory
+## 8. Conditions, healing, death
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Weapons / armor / gear items | **Present** | Types + sheets |
-| Equip flags | **Partial** | Armor uses `equipped` for AC; general slot UX varies |
-| Magic enhancement fields | **Partial** | Some enhancement fields on armor; full weapon + ammo + stacking rules incomplete |
-| Body slots (ring/neck/head…) | **Missing** | D35E 3.0 documents strict slot enforcement + extra slots via Changes — CTS has **no** slot system |
+| **Buff** item type | **Present** | Exists; **duration / combat-round** automation thin |
+| SRD condition catalog (applied effects) | **Missing** | |
+| Foundry **Active Effects** driving mods | **Missing** | `prepareDerivedData` does not consume unified effects |
+| Fatigued / exhausted track | **Missing** | |
+| Shaken / frightened / panicked | **Missing** | |
+| Nauseated / sickened | **Missing** | |
+| Stunned / dazed / helpless | **Missing** | |
+| Invisible / blind | **Missing** | Foundry vision separate from 3.5 miss rules |
+| Poison & disease (frequency, DC track) | **Missing** | |
+| Stable / dying / dead | **Missing** | |
+| Natural healing / long-term care | **Missing** | |
+| Raise dead / restoration (spell effects) | **Missing** | |
+
+---
+
+## 9. Equipment & inventory
+
+| Topic | Status | Notes / gaps |
+|-------|--------|----------------|
+| Weapons, armor, shields, goods | **Present** | Item types + sheets |
+| Equipped flag (armor/shield) | **Present** | Feeds AC |
+| Weapon stats (damage, crit, type, reach flags in data?) | **Partial** | Pack-dependent; not validated |
+| Armor stats (bonus, max Dex, ACP, arcane spell failure, speed) | **Partial** | AC bonus & maxDex used; **ACP / ASF / speed penalty** fields if present — **not** wired globally |
+| Magic enhancement (+1 armor / weapon) | **Partial** | Some fields on armor |
+| Material (cold iron, silver, adamantine) | **Missing** | |
+| Weapon sizing & handedness | **Missing** | |
+| Ammunition & consumption | **Missing** | No ammo items workflow (see D35E patterns for reference only) |
+| Charges / per-day item uses | **Partial** | Schema possible; no universal UI |
 | Weight & encumbrance | **Missing** | |
-| Carrying capacity by Str | **Missing** | |
-| Ammunition | **Missing** | No infinite-ammo flags or ammo damage riders (D35E 3.0 describes patterns for this) |
-| Charges / uses per day (items) | **Partial** | Depends on item schema; not globally unified |
+| Load limits by Strength | **Missing** | |
+| Body slots (ring ×2, head, eyes, …) | **Missing** | |
+| Slotless / combining rules | **Missing** | |
+| Drawing / sheathing / dropping | **Missing** | |
+| Breaking / sundering gear | **Missing** | |
 
 ---
 
-## 7. Spells & magic
+## 10. Spells & divine casting
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Spell items & spell list UI | **Partial** | Grouped by level; editing/casting depth limited |
-| Spell slots (per class/level) | **Missing** | No preparation / spontaneous / pact-style tracker |
-| Caster level | **Partial** | May exist on items; not centralized for SR/concentration/duration |
-| Spell DC (10 + level + ability) | **Missing** | Not automated from sheet |
-| Concentration checks | **Missing** | Skill exists; no wound-based DC automation |
-| Components (V/S/M/DF/XP) | **Partial** | Narrative on items at best |
-| Buff duration / combat tracker tie-in | **Partial** | **buff** item type exists; timeline integration like D35E optional combat tracking **missing** |
-| Domain / specialty spell lists | **Partial** | Domains in packs as items; mechanical linkage varies |
+| **Spell** items & per-level lists | **Partial** | Sheet lists by level |
+| Spell preparation (Vancian) | **Missing** | |
+| Spontaneous casting (known spells / slots) | **Missing** | |
+| Spell slots per level | **Missing** | |
+| Caster level (global per class) | **Partial** | Not centralized on actor for checks |
+| Spell DC (10 + level + ability) | **Missing** | |
+| Spell resistance check | **Missing** | |
+| Concentration (DC = 10 + damage + spell level, etc.) | **Missing** | Skill exists only as static total |
+| Components V / S / M / F / DF / XP | **Partial** | Text on items at best |
+| Arcane spell failure chance | **Missing** | Not applied from armor |
+| Counterspells | **Missing** | |
+| Dispel magic / buff stacking rules | **Missing** | |
+| Domains & domain spells | **Partial** | **srd-domains** pack; linkage to preparation missing |
+| Turn / rebuke undead | **Missing** | |
+| Divine spell morality (cleric alignment) | **Missing** | |
 
 ---
 
-## 8. Conditions & effects
+## 11. Psionics (SRD Expanded — if used)
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Foundry Active Effects | **Missing** | Actor prep does not integrate a unified effect-driven modifier stack |
-| SRD condition catalog (shaken, nauseated, …) | **Missing** | |
-| Darkvision / senses on token | **Missing** | D35E 3.0 mentions feats granting senses to token vision — CTS has no equivalent |
+| Power **Item** compendium | **Partial** | `srd-powers` pack exists |
+| Power points | **Missing** | |
+| Manifester level / discipline | **Missing** | |
+| Display / augment | **Missing** | |
 
 ---
 
-## 9. Monsters & NPCs
+## 12. Monsters & NPCs
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| NPC actor type | **Present** | Sheet includes trade/factions |
-| CR | **Partial** | Field/config exists; encounter math not in scope here |
-| Treasure type / random treasure | **Missing** | D35E 3.0 adds structured treasure % for generators — CTS **no** treasure generator |
-| Monster subtype traits | **Partial** | Depends on manual stats + packs |
+| **NPC** actor sheet | **Present** | Includes trade / factions tab |
+| Challenge Rating field | **Partial** | Usable as label; encounter CR math not system-owned |
+| Monster ability scores & skills | **Partial** | Same model as PCs; **good saves / synergy** manual |
+| Special attacks & qualities | **Partial** | Narrative + manual stats |
+| Treasure type / encounter loot tables | **Missing** | D35E-style treasure % + generator — absent |
+| Advancement by HD / templates | **Missing** | |
+| Summoned creatures / generic tokens | **Missing** | |
 
 ---
 
-## 10. Exploration & environment
+## 13. Environment & hazards
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Light / vision (rules) | **Missing** | Uses Foundry vision; 3.5 light radius rules not enforced |
-| Movement modes & terrain | **Partial** | Speed fields; diagonal policy setting exists for grid |
-| Skill challenges (Listen/Spot DCs) | **Missing** | |
+| Falling damage | **Missing** | |
+| Suffocation / drowning | **Missing** | |
+| Fire / cold environmental damage | **Missing** | |
+| Light sources vs darkvision radius | **Missing** | Foundry lighting ≠ SRD radii rules |
+| Weather & forced saves | **Missing** | |
+| Traps (Search / Disable / Reflex) | **Missing** | |
 
 ---
 
-## 11. Social & economy (CTS-specific)
+## 14. Social play & downtime
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Factions as items + Gear % | **Present** | Custom mechanic; propagation tooling |
-| Race-based trade modifiers | **Present** | Buyer/seller rows + API (`trade-modifiers`) |
-| Wealth-by-level / item pricing tables | **Partial** | GP tracking exists; SRD wealth guidelines not baked in |
+| Diplomacy / Gather Information DC scaffolding | **Missing** | Skills roll only |
+| Intimidate / Bluff opposed checks | **Missing** | |
+| Urban encounters / reputation | **Missing** | |
 
 ---
 
-## 12. UX, authoring & tooling (benchmark vs D35E 3.0)
+## 15. Economy & CTS-specific systems
 
-These items mirror **capabilities described** in [D35E 3.0.0 release notes](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0); treat as **product goals**, not as requirements to clone.
+| Topic | Status | Notes / gaps |
+|-------|--------|----------------|
+| Currency (cp/sp/gp/pp) | **Present** | Actor field |
+| Craft / Profession income | **Missing** | |
+| Treasure allocation | **Missing** | |
+| **Faction** items & Gear % stacking | **Present** | Trade buyer modifiers |
+| Race-based buyer/seller trade % | **Present** | NPC sheet + `computeGearPricePercentTotal` |
+| Item pricing helpers | **Partial** | `adjustedGearPrice`; full SRD price tables not enforced |
+
+---
+
+## 16. Canvas, tokens & Foundry integration
+
+| Topic | Status | Notes / gaps |
+|-------|--------|----------------|
+| Token ↔ actor link | **Present** | Foundry default |
+| Vision modes on token | **Present** | Foundry; not driven by 3.5 sense aggregation |
+| Grid diagonal policy (3.5 style) | **Present** | System setting enforces 5-10-5 option |
+| Template placement / areas | **Missing** | Foundry tools manual |
+| Measured templates & spell areas | **Missing** | Not spell-aware |
+
+---
+
+## 17. UX, macros & authoring (benchmark vs D35E 3.0)
+
+Capabilities described in [D35E 3.0.0](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0) as **aspirational** targets for any deep 3.5 Foundry system—not a CTS requirement list.
 
 | Capability | CTS status |
 |------------|------------|
-| Threatened-area / flanking visualization | **Missing** |
-| Formula builder / variable picker for item formulas | **Missing** |
-| Equipment slot enforcement + “grant slot” effects | **Missing** |
-| Advanced ammo options (infinite / ammo damage parts) | **Missing** |
-| Treasure data + generator hooks | **Missing** |
-| Optional advanced combat tracker (actions/AoO icons) | **Missing** |
+| Threatened-area overlay & reach-aware melee | **Missing** |
+| Automatic flanking / threat detection at attack time | **Missing** |
+| Formula builder / `@variable` picker on item fields | **Missing** |
+| Equipment slot enforcement + bonus slots from effects | **Missing** |
+| Advanced ammunition (no consume / ammo damage riders) | **Missing** |
+| NPC treasure blocks & treasure generator hooks | **Missing** |
+| Optional heavy combat tracker (actions, AoOs, buff ticks) | **Missing** |
 
 ---
 
-## 13. Suggested implementation phases (for CTS)
+## 18. Suggested roadmap (ordered)
 
-Order is subjective; adjust for your table.
-
-1. **Modifiers pipeline** — Single place where equipped items, buffs, and feats apply bonuses/penalties to AC, saves, ability checks, skills, speed (even if UI stays simple). Foundry **Active Effects** or a custom **Changes** array on items are typical approaches.
-2. **Combat essentials** — Criticals, DR, basic reach/flanking hooks (even if manual toggles before full geometry).
-3. **Spellcasting** — Slots + DC + CL on the actor; concentration helper.
-4. **Equipment** — Encumbrance, armor check penalty, body slots.
-5. **Canvas automation** — Threat overlays last (high effort; depends on stable attack/reach data).
-
----
-
-## 14. How to maintain this doc
-
-- When you **ship** a feature, flip the row from **Missing/Partial** to **Present** and point to the owning module/template.
-- When scope changes (e.g. “theatre of the mind only”), add a **Non-goals** section so contributors do not chase automation you intentionally omit.
+1. **Modifier pipeline** — One path: equipped items + buffs + conditions → AC components, saves, skills, speed, AB, damage (Active Effects or custom Changes).
+2. **Armor & encumbrance** — ACP, ASF, speed reduction, weight, loads; skill penalties.
+3. **Combat core** — Crit pipeline, DR/resist, energy types, iterative attacks (even if manual toggles first).
+4. **Spellcasting** — Slots, DC, CL, concentration helper, ASF application.
+5. **Special actions** — AoO counter, flanking flag, reach field on weapon/token (automation can follow).
+6. **Canvas polish** — Threat overlays last (depends on reliable reach & disposition).
 
 ---
 
-*Generated for CTS-DND-35 codebase review. Reference release: [D35E 3.0.0](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0).*
+## 19. Maintaining this document
+
+- After shipping a feature, change **Missing** → **Partial** → **Present** and add the owning path (`module/…`, `templates/…`).
+- Add a **Non-goals** subsection if you intentionally stay theatre-of-the-mind for some rows.
+
+---
+
+*CTS-DND-35 mechanics audit (single pass). Reference benchmark: [D35E 3.0.0 release notes](https://gitlab.com/dragonshorn/D35E/-/releases/3.0.0).*
