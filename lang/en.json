@@ -122,6 +122,10 @@
     "GroupFilterHint": "Show actors that have a matching Faction item or legacy groups text.",
     "GroupFilterAll": "All groups",
     "FactionPresetsName": "Faction / group name presets",
-    "FactionPresetsHint": "One name per line. Used as suggestions in the Actors sidebar filter dropdown."
+    "FactionPresetsHint": "One name per line. Used as suggestions in the Actors sidebar filter dropdown.",
+
+    "FactionRefreshSheets": "Refresh open actor sheets",
+    "FactionRefreshSheetsHint": "If a character sheet still shows an old name or % after you save, click here. Choosing an actor in the sidebar only focuses the window; it does not reload the sheet.",
+    "FactionRefreshSheetsDone": "Redrew {count} open CTS actor sheet(s)."
   }
 }

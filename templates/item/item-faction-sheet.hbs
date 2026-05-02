@@ -20,6 +20,10 @@
         <label>Gear price % (when the owning actor <strong>buys</strong> gear)</label>
         <input type="number" name="system.gearPct" value="{{system.gearPct}}" step="1" />
         <p class="notes">Stacks with other faction items on the same actor. Negative = discount, positive = markup.</p>
+        <p class="notes">{{localize "CTSDND35.FactionRefreshSheetsHint"}}</p>
+        <button type="button" class="cts-btn secondary cts-faction-refresh-actor-sheets">
+          <i class="fas fa-sync-alt"></i> {{localize "CTSDND35.FactionRefreshSheets"}}
+        </button>
       </div>
     </div>
   </section>
