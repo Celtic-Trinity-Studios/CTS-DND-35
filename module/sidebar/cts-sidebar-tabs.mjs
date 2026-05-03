@@ -67,6 +67,63 @@ function _tagItemRows(root) {
   }
 }
 
+/**
+ * Print diagnostic data about a typed sidebar panel render.
+ * Enabled by `game.settings.get("CTS-DND-35", "sidebarDiagnostics")`.
+ * @param {Application} app
+ * @param {HTMLElement} root
+ * @param {string} primary
+ */
+function _logTypedPanelDiagnostics(app, root, primary) {
+  try {
+    if (!game.settings?.get?.("CTS-DND-35", "sidebarDiagnostics")) return;
+  } catch {
+    return;
+  }
+  const nodes = root.querySelectorAll("[data-document-id]");
+  const liNodes = root.querySelectorAll("li");
+  const directoryItems = root.querySelectorAll("li.directory-item, .directory-item");
+  const sampleRow = nodes[0] ?? directoryItems[0] ?? null;
+  /** @type {Record<string, unknown>} */
+  const sampleAttrs = {};
+  if (sampleRow instanceof HTMLElement) {
+    for (const attr of sampleRow.attributes) sampleAttrs[attr.name] = attr.value;
+  }
+  const rowSummary = [];
+  let limit = Math.min(nodes.length, 8);
+  for (let i = 0; i < limit; i++) {
+    const el = nodes[i];
+    if (!(el instanceof HTMLElement)) continue;
+    const id = el.dataset?.documentId ?? el.getAttribute("data-document-id");
+    const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
+    rowSummary.push({
+      tag: el.tagName.toLowerCase(),
+      classes: el.className,
+      "data-document-id": id ?? null,
+      "data-cts-item-type": el.dataset.ctsItemType ?? null,
+      resolvedType: doc?.type ?? null,
+      resolvedName: doc?.name ?? null,
+      isEmbedded: doc?.isEmbedded ?? null,
+      collectionKey: doc?.collection?.collectionName ?? null,
+    });
+  }
+  console.groupCollapsed(`CTS DND 35 | sidebar diagnostic [${primary}]`);
+  console.log("app:", app?.constructor?.name, "id:", app?.id, "tabName:", app?.tabName);
+  console.log("root id:", root.id, "data-cts-typed-panel:", root.dataset.ctsTypedPanel);
+  console.log("counts:", {
+    "[data-document-id]": nodes.length,
+    li: liNodes.length,
+    "directory-item": directoryItems.length,
+    worldItems: game.items?.size ?? null,
+    factionWorldItems: [...(game.items ?? [])].filter((d) => d.type === "faction").length,
+    spellWorldItems: [...(game.items ?? [])].filter((d) => d.type === "spell").length,
+  });
+  console.log("sampleRow attrs:", sampleAttrs);
+  console.table(rowSummary);
+  if (sampleRow instanceof HTMLElement) console.log("sampleRow HTML:", sampleRow.outerHTML.slice(0, 400));
+  console.groupEnd();
+}
+
 /** @type {WeakMap<HTMLElement, MutationObserver>} */
 const _observers = new WeakMap();
 
@@ -274,8 +331,22 @@ function _registerRenderHooks() {
       if (primary) root.dataset.ctsTypedPanel = primary;
       _tagItemRows(root);
       _ensureRowObserver(root);
+      if (primary) _logTypedPanelDiagnostics(app, root, primary);
     });
   }
+}
+
+function _registerSidebarDiagnosticSetting() {
+  game.settings.register("CTS-DND-35", "sidebarDiagnostics", {
+    name: game.i18n.localize("CTSDND35.SidebarDiagnosticsName") || "CTS sidebar diagnostics",
+    hint:
+      game.i18n.localize("CTSDND35.SidebarDiagnosticsHint") ||
+      "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Turn off when the filter is verified working.",
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
 }
 
 /** Call from `Hooks.once("init")` before the UI is constructed. */
@@ -286,6 +357,7 @@ export function registerCtsSidebarTabs() {
   }
   _mergeSidebarTabDescriptors();
   _registerConfigUi();
+  _registerSidebarDiagnosticSetting();
   _registerRenderHooks();
   _registerWorldItemHooks();
 }

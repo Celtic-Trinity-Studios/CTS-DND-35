@@ -127,6 +127,8 @@
     "SidebarTabNpcs": "NPCs",
     "SidebarTabSpells": "Spells",
     "SidebarTabFactions": "Factions",
+    "SidebarDiagnosticsName": "CTS sidebar diagnostics",
+    "SidebarDiagnosticsHint": "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Turn off when the filter is verified working.",
 
     "FactionRefreshSheets": "Apply to all actors & refresh sheets",
     "FactionRefreshSheetsHint": "GM only: saves this faction from the form (even if you have not closed the sheet), updates every matching faction item on all world actors (same compendium/source link, or same name), syncs group strings for everyone, then redraws open CTS sheets. Same display name on different factions will all be updated.",
