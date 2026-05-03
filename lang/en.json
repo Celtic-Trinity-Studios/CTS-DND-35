@@ -131,7 +131,7 @@
     "SidebarDiagnosticsHint": "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Enable temporarily when debugging sidebar filters.",
 
     "ItemsDirectoryTypeRailName": "Items sidebar type strip",
-    "ItemsDirectoryTypeRailHint": "On the main Items (briefcase) tab, show a vertical strip of buttons to filter the list by item type. Foundry’s right sidebar tabs cannot nest like the left scene-control flyouts; this is a compact in-panel alternative.",
+    "ItemsDirectoryTypeRailHint": "On the main Items (briefcase) tab, show a compact wrapped row of type chips to filter the list. Foundry’s right sidebar tabs cannot nest like the left scene-control flyouts; this stays inside the directory panel.",
     "ItemsRailAll": "All types",
     "ItemsRailAria": "Filter world items by type",
 
