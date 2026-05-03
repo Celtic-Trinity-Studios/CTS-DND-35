@@ -1,7 +1,6 @@
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
+import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldSceneDirectoryRows } from "./world-scene-directory-rows.mjs";
-
-const SceneDirectory = foundry.applications.sidebar.tabs.SceneDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.scenesDirectoryNavFilter";
 const FILTER_STYLE_ID = "cts-scenes-directory-filter-css";
@@ -12,7 +11,14 @@ const observers = new WeakMap();
 let _hooked = false;
 
 function isCoreWorldSceneDirectory(app) {
-  return Boolean(app && app instanceof SceneDirectory && app.tabName === "scenes");
+  if (!app || app.constructor?.name !== "SceneDirectory") return false;
+  try {
+    if (game.scenes && app.collection === game.scenes) return true;
+  } catch {
+    /* ignore */
+  }
+  const tab = app.tabName ?? app.options?.id;
+  return tab === "scenes" || app.id === "scenes" || app.options?.uniqueId === "scenes";
 }
 
 function getStoredFilter() {
@@ -120,8 +126,7 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbar(app) {
-  const root = app.element;
+function injectToolbarAtRoot(root) {
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
   if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='scenes']")) return;
@@ -169,6 +174,20 @@ function injectToolbar(app) {
   ensureObserver(root);
 }
 
+function scheduleSceneDirectoryInject(app, html) {
+  let frames = 0;
+  const tick = () => {
+    const root = sidebarDirectoryRootFromRenderArgs(app, html);
+    if (root instanceof HTMLElement) {
+      injectToolbarAtRoot(root);
+      return;
+    }
+    frames += 1;
+    if (frames < 24) requestAnimationFrame(tick);
+  };
+  queueMicrotask(tick);
+}
+
 export function cleanupScenesDirectoryTypeToolbar() {
   const el = ui?.scenes?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='scenes']")?.remove();
@@ -189,9 +208,9 @@ export function registerScenesDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderSceneDirectory", (app) => {
+  Hooks.on("renderSceneDirectory", (app, html) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldSceneDirectory(app)) return;
-    injectToolbar(app);
+    scheduleSceneDirectoryInject(app, html);
   });
 }

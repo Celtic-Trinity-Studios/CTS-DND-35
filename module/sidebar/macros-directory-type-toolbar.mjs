@@ -1,7 +1,6 @@
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
+import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldMacroDirectoryRows } from "./world-macro-directory-rows.mjs";
-
-const MacroDirectory = foundry.applications.sidebar.tabs.MacroDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.macrosDirectoryTypeFilter";
 const FILTER_STYLE_ID = "cts-macros-directory-filter-css";
@@ -20,7 +19,14 @@ function orderedMacroTypes() {
 }
 
 function isCoreWorldMacroDirectory(app) {
-  return Boolean(app && app instanceof MacroDirectory && app.tabName === "macros");
+  if (!app || app.constructor?.name !== "MacroDirectory") return false;
+  try {
+    if (game.macros && app.collection === game.macros) return true;
+  } catch {
+    /* ignore */
+  }
+  const tab = app.tabName ?? app.options?.id;
+  return tab === "macros" || app.id === "macros" || app.options?.uniqueId === "macros";
 }
 
 function getStoredFilter() {
@@ -130,8 +136,7 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbar(app) {
-  const root = app.element;
+function injectToolbarAtRoot(root) {
   if (!(root instanceof HTMLElement)) return;
   const types = orderedMacroTypes();
   if (types.length < 2) return;
@@ -175,6 +180,20 @@ function injectToolbar(app) {
   ensureObserver(root);
 }
 
+function scheduleMacroDirectoryInject(app, html) {
+  let frames = 0;
+  const tick = () => {
+    const root = sidebarDirectoryRootFromRenderArgs(app, html);
+    if (root instanceof HTMLElement) {
+      injectToolbarAtRoot(root);
+      return;
+    }
+    frames += 1;
+    if (frames < 24) requestAnimationFrame(tick);
+  };
+  queueMicrotask(tick);
+}
+
 export function cleanupMacrosDirectoryTypeToolbar() {
   const el = ui?.macros?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='macros']")?.remove();
@@ -195,9 +214,9 @@ export function registerMacrosDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderMacroDirectory", (app) => {
+  Hooks.on("renderMacroDirectory", (app, html) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldMacroDirectory(app)) return;
-    injectToolbar(app);
+    scheduleMacroDirectoryInject(app, html);
   });
 }

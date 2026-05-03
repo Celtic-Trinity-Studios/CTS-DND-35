@@ -1,7 +1,6 @@
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
+import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldItemDirectoryRows } from "./world-item-directory-rows.mjs";
-
-const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.itemsDirectoryTypeFilter";
 const FILTER_STYLE_ID = "cts-items-directory-filter-css";
@@ -25,7 +24,14 @@ function orderedItemTypes() {
 }
 
 function isCoreWorldItemDirectory(app) {
-  return Boolean(app && app instanceof ItemDirectory && app.tabName === "items");
+  if (!app || app.constructor?.name !== "ItemDirectory") return false;
+  try {
+    if (game.items && app.collection === game.items) return true;
+  } catch {
+    /* ignore */
+  }
+  const tab = app.tabName ?? app.options?.id;
+  return tab === "items" || app.id === "items" || app.options?.uniqueId === "items";
 }
 
 function getStoredFilter() {
@@ -171,8 +177,7 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbar(app) {
-  const root = app.element;
+function injectToolbarAtRoot(root) {
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
   if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")) return;
@@ -191,6 +196,21 @@ function injectToolbar(app) {
   ensureObserver(root);
 }
 
+/** ApplicationV2 hooks can run before `app.element` exists; retry like the pre-refactor rail. */
+function scheduleItemDirectoryInject(app, html) {
+  let frames = 0;
+  const tick = () => {
+    const root = sidebarDirectoryRootFromRenderArgs(app, html);
+    if (root instanceof HTMLElement) {
+      injectToolbarAtRoot(root);
+      return;
+    }
+    frames += 1;
+    if (frames < 24) requestAnimationFrame(tick);
+  };
+  queueMicrotask(tick);
+}
+
 export function cleanupItemsDirectoryTypeToolbar() {
   const el = ui?.items?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")?.remove();
@@ -206,9 +226,9 @@ export function registerItemsDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderItemDirectory", (app) => {
+  Hooks.on("renderItemDirectory", (app, html) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldItemDirectory(app)) return;
-    injectToolbar(app);
+    scheduleItemDirectoryInject(app, html);
   });
 }

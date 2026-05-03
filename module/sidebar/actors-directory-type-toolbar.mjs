@@ -1,8 +1,7 @@
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { applyActorFactionDirectoryVisualFilter } from "../hooks/actor-faction-groups.mjs";
+import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { tagWorldActorDirectoryRows } from "./world-actor-directory-rows.mjs";
-
-const ActorDirectory = foundry.applications.sidebar.tabs.ActorDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.actorDirectoryTypeFilter";
 
@@ -36,7 +35,14 @@ function actorTypeLabel(type) {
 }
 
 function isCoreWorldActorDirectory(app) {
-  return Boolean(app && app instanceof ActorDirectory && app.tabName === "actors");
+  if (!app || app.constructor?.name !== "ActorDirectory") return false;
+  try {
+    if (game.actors && app.collection === game.actors) return true;
+  } catch {
+    /* ignore */
+  }
+  const tab = app.tabName ?? app.options?.id;
+  return tab === "actors" || app.id === "actors" || app.options?.uniqueId === "actors";
 }
 
 function getStoredType() {
@@ -139,8 +145,7 @@ function buildToolbar(types) {
   return nav;
 }
 
-function injectToolbar(app) {
-  const root = app.element;
+function injectToolbarAtRoot(root) {
   if (!(root instanceof HTMLElement)) return;
   const types = orderedActorTypes();
   if (types.length < 2) return;
@@ -158,6 +163,20 @@ function injectToolbar(app) {
   applyActorTypeToRoot(root, stored);
   syncToolbarButtons(toolbar, stored);
   ensureObserver(root);
+}
+
+function scheduleActorDirectoryInject(app, html) {
+  let frames = 0;
+  const tick = () => {
+    const root = sidebarDirectoryRootFromRenderArgs(app, html);
+    if (root instanceof HTMLElement) {
+      injectToolbarAtRoot(root);
+      return;
+    }
+    frames += 1;
+    if (frames < 24) requestAnimationFrame(tick);
+  };
+  queueMicrotask(tick);
 }
 
 export function cleanupActorsDirectoryTypeToolbar() {
@@ -180,9 +199,9 @@ export function registerActorsDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderActorDirectory", (app) => {
+  Hooks.on("renderActorDirectory", (app, html) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldActorDirectory(app)) return;
-    injectToolbar(app);
+    scheduleActorDirectoryInject(app, html);
   });
 }
