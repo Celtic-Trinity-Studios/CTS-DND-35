@@ -79,8 +79,9 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 
 | ✓ | Step | Expected |
 |---|------|----------|
-| ☐ | Open **Status** tab. | **Vitality** select and **Status notes** textarea show light text on dark field; buff list readable. |
-| ☐ | Set vitality to **Unconscious**, add notes, save. | `system.details.status` persists. |
+| ☐ | Open **Status** tab. | **Conditions** grid shows many checkboxes; **Vitality**, notes, and buff list use readable colors. |
+| ☐ | Toggle several **condition** checkboxes. | Each updates `system.details.status.conditions.<key>`; refresh sheet — states persist. |
+| ☐ | Set vitality to **Unconscious**, add notes, save. | `system.details.status` persists (vitality is separate from condition checkboxes). |
 | ☐ | Drag a **Buff** item onto the actor; open item → **Details** → set **Active**. | Status tab shows ✓ for active buff. |
 
 ---

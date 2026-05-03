@@ -1,7 +1,19 @@
 {{!-- Status tab: conditions narrative + buff items (spells, effects) --}}
 <section class="cts-panel-block cts-status-panel">
   <h3><i class="fas fa-notes-medical"></i> Status &amp; conditions</h3>
-  <p class="cts-tab-hint">Use <strong>Vitality</strong> and <strong>Status notes</strong> for unconscious, dying, spell durations, etc. Add <strong>Buff</strong> items from the Items sidebar for structured effects you can toggle on the item sheet.</p>
+  <p class="cts-tab-hint">Tick conditions below. Use <strong>Vitality</strong> and <strong>Status notes</strong> for HP thresholds, spell durations, and anything not listed. <strong>Buff</strong> items cover numeric modifiers on the item sheet.</p>
+
+  <fieldset class="cts-condition-fieldset">
+    <legend class="cts-condition-legend">Conditions</legend>
+    <div class="cts-condition-grid">
+      {{#each statusConditionRows}}
+      <label class="cts-condition-chip {{#if this.on}}is-on{{/if}}">
+        <input type="checkbox" data-condition-key="{{this.key}}" {{#if this.on}}checked{{/if}}{{#unless editable}} disabled="disabled"{{/unless}} />
+        <span>{{this.label}}</span>
+      </label>
+      {{/each}}
+    </div>
+  </fieldset>
 
   <div class="cts-status-vitals">
     <label>Vitality / awareness

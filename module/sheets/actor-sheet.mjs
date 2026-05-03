@@ -81,6 +81,12 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     }
     context.skillList = skillList;
 
+    context.statusConditionRows = CTSDND35.statusConditions.map(({ key, label }) => ({
+      key,
+      label,
+      on: !!(context.system.details?.status?.conditions?.[key]),
+    }));
+
     context.sheetVisualTheme = game.settings.get("CTS-DND-35", "actorSheetVisualTheme") || "angled";
 
     return context;
@@ -301,6 +307,13 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       src.splice(idx, 1);
       await this.actor.update({ "system.attributes.hp.tempSources": src });
       this.render(false);
+    });
+
+    html.on("change", "input[type='checkbox'][data-condition-key]", async (ev) => {
+      if (!this.isEditable) return;
+      const key = ev.currentTarget.dataset.conditionKey;
+      if (!key) return;
+      await this.actor.update({ [`system.details.status.conditions.${key}`]: ev.currentTarget.checked });
     });
   }
 

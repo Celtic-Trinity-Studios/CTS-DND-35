@@ -1698,6 +1698,68 @@ select.cts-actor-group-filter {
   color: #c9a84c;
 }
 
+.cts-condition-fieldset {
+  border: 1px solid rgba(107, 92, 50, 0.55);
+  border-radius: 8px;
+  padding: 10px 12px 12px;
+  margin: 12px 0 14px;
+}
+
+.cts-condition-legend {
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #d9c78f;
+  letter-spacing: 0.04em;
+}
+
+.cts-condition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
+  gap: 8px 10px;
+  margin-top: 4px;
+  max-height: min(52vh, 420px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 2px 2px;
+}
+
+.cts-condition-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid rgba(107, 92, 50, 0.55);
+  border-radius: 6px;
+  background: rgba(12, 18, 34, 0.88);
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: #e7dcc0;
+}
+
+.cts-condition-chip:hover {
+  border-color: rgba(201, 168, 76, 0.45);
+}
+
+.cts-condition-chip.is-on {
+  border-color: rgba(201, 168, 76, 0.85);
+  background: rgba(36, 48, 82, 0.65);
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 76, 0.2);
+}
+
+.cts-condition-chip span {
+  line-height: 1.25;
+}
+
+.cts-condition-chip input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: #c9a84c;
+  cursor: pointer;
+}
+
 /* Character fundamentals — identity, ability adjustments, temp HP sources */
 .cts-extra-panels {
   display: flex;

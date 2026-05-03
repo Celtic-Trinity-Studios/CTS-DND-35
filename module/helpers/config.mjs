@@ -151,6 +151,45 @@ CTSDND35.alignments = {
 };
 
 /**
+ * Actor Status tab — common conditions (3.5 SRD-style + familiar names).
+ * Persisted as `system.details.status.conditions.<key>` (boolean).
+ */
+CTSDND35.statusConditions = [
+  { key: "blinded", label: "Blinded" },
+  { key: "charmed", label: "Charmed" },
+  { key: "confused", label: "Confused" },
+  { key: "cowering", label: "Cowering" },
+  { key: "dazed", label: "Dazed" },
+  { key: "dazzled", label: "Dazzled" },
+  { key: "deafened", label: "Deafened" },
+  { key: "disabled", label: "Disabled" },
+  { key: "dying", label: "Dying" },
+  { key: "entangled", label: "Entangled" },
+  { key: "exhausted", label: "Exhausted" },
+  { key: "fascinated", label: "Fascinated" },
+  { key: "fatigued", label: "Fatigued" },
+  { key: "frightened", label: "Frightened" },
+  { key: "grappled", label: "Grappled" },
+  { key: "helpless", label: "Helpless" },
+  { key: "incorporeal", label: "Incorporeal" },
+  { key: "invisible", label: "Invisible" },
+  { key: "nauseated", label: "Nauseated" },
+  { key: "panicked", label: "Panicked" },
+  { key: "paralyzed", label: "Paralyzed" },
+  { key: "petrified", label: "Petrified" },
+  { key: "pinned", label: "Pinned" },
+  { key: "prone", label: "Prone" },
+  { key: "restrained", label: "Restrained" },
+  { key: "shaken", label: "Shaken" },
+  { key: "sickened", label: "Sickened" },
+  { key: "slowed", label: "Slowed" },
+  { key: "staggered", label: "Staggered" },
+  { key: "stunned", label: "Stunned" },
+  { key: "turned", label: "Turned" },
+  { key: "unconscious", label: "Unconscious" },
+];
+
+/**
  * Standard 3.5e Races
  */
 CTSDND35.races = {

@@ -66,9 +66,16 @@ export class CTSDND35Actor extends Actor {
     systemData.details.creatureType ??= "";
     systemData.details.creatureSubtype ??= "";
     systemData.details.humanoidSubtype ??= "";
-    systemData.details.status ??= { notes: "", vitality: "normal" };
+    systemData.details.status ??= { notes: "", vitality: "normal", conditions: {} };
     systemData.details.status.notes ??= "";
     systemData.details.status.vitality ??= "normal";
+    systemData.details.status.conditions ??= {};
+    for (const { key } of CTSDND35.statusConditions) {
+      systemData.details.status.conditions[key] ??= false;
+      systemData.details.status.conditions[key] =
+        systemData.details.status.conditions[key] === true ||
+        systemData.details.status.conditions[key] === "true";
+    }
 
     // Legacy XP field used by older templates — mirror into level.xp once.
     if (systemData.details.xpValue != null && Number(systemData.details.level?.xp) === 0) {
