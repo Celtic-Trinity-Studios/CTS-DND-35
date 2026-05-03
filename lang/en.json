@@ -128,7 +128,12 @@
     "SidebarTabSpells": "Spells",
     "SidebarTabFactions": "Factions",
     "SidebarDiagnosticsName": "CTS sidebar diagnostics",
-    "SidebarDiagnosticsHint": "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Turn off when the filter is verified working.",
+    "SidebarDiagnosticsHint": "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Enable temporarily when debugging sidebar filters.",
+
+    "ItemsDirectoryTypeRailName": "Items sidebar type strip",
+    "ItemsDirectoryTypeRailHint": "On the main Items (briefcase) tab, show a vertical strip of buttons to filter the list by item type. Foundry’s right sidebar tabs cannot nest like the left scene-control flyouts; this is a compact in-panel alternative.",
+    "ItemsRailAll": "All types",
+    "ItemsRailAria": "Filter world items by type",
 
     "FactionRefreshSheets": "Apply to all actors & refresh sheets",
     "FactionRefreshSheetsHint": "GM only: saves this faction from the form (even if you have not closed the sheet), updates every matching faction item on all world actors (same compendium/source link, or same name), syncs group strings for everyone, then redraws open CTS sheets. Same display name on different factions will all be updated.",

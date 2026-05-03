@@ -1096,6 +1096,70 @@
   display: none !important;
 }
 
+/* Main Items directory — vertical type rail (approximates a compact “tree” of type buttons).
+   Row filter rules for `[data-cts-items-filter]` are injected in JS (`items-directory-type-rail.mjs`). */
+#items .directory-sidebar:has(.cts-items-type-rail) {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 4px;
+  min-height: 0;
+}
+
+#items .directory-sidebar:has(.cts-items-type-rail) > *:not(.cts-items-type-rail) {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cts-items-type-rail {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 3px;
+  padding: 4px 4px 4px 2px;
+  margin: 0 2px 0 0;
+  border-right: 1px solid var(--color-border-light-primary, rgba(255, 255, 255, 0.12));
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: max-content;
+  max-width: 7.5rem;
+}
+
+.cts-items-rail-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 0.65rem;
+  line-height: 1.15;
+  padding: 3px 5px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--color-text-light-heading, #e0e0e0);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cts-items-rail-btn:hover {
+  border-color: var(--color-border-light-primary, rgba(255, 255, 255, 0.2));
+}
+
+.cts-items-rail-btn.active {
+  border-color: var(--color-text-hyperlink, #6ba4ff);
+  background: rgba(60, 100, 180, 0.25);
+}
+
+.cts-items-rail-btn--all {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
 /* Actor directory — faction / group filter toolbar */
 .cts-actor-group-toolbar {
   align-items: center;

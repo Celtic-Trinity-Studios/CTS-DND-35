@@ -5,15 +5,22 @@
  * Each tab uses a unique Application `id` / `uniqueId` so the sidebar mounts a separate panel.
  *
  * Item tabs filter by Item#type using a stylesheet rule keyed off `data-cts-item-type`. We
- * tag every rendered row from the world Items collection and let CSS (`css/cts-dnd-35.css`)
- * hide rows whose type does not match the panel. A MutationObserver keeps tagging fresh rows
- * (new items, search expansion, folder toggles, drops) so the filter does not "lose" rows.
+ * tag every rendered row from the world Items collection (`world-item-directory-rows.mjs`) and
+ * let CSS (`css/cts-dnd-35.css`) hide rows whose type does not match the panel. A MutationObserver
+ * keeps tagging fresh rows (new items, search expansion, folder toggles, drops) so the filter
+ * does not "lose" rows. The main Items tab can add a vertical type rail (`items-directory-type-rail.mjs`).
  */
 
 import {
   applyActorFactionDirectoryVisualFilter,
   injectActorFactionDirectoryToolbar,
 } from "../hooks/actor-faction-groups.mjs";
+import {
+  DIRECTORY_ROW_SELECTOR,
+  resolveWorldItemFromDirectoryId,
+  tagWorldItemDirectoryRows,
+} from "./world-item-directory-rows.mjs";
+import { registerItemsDirectoryTypeRail } from "./items-directory-type-rail.mjs";
 
 const ActorDirectory = foundry.applications.sidebar.tabs.ActorDirectory;
 const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
@@ -26,49 +33,6 @@ const Sidebar = foundry.applications.sidebar.Sidebar;
 function _directoryDefaultOptions(BaseCls, elementId) {
   const base = foundry.utils.duplicate(BaseCls.DEFAULT_OPTIONS);
   return foundry.utils.mergeObject(base, { id: elementId, uniqueId: elementId });
-}
-
-/** @param {string | null | undefined} id */
-function _resolveWorldItemByDirectoryId(id) {
-  if (!id) return null;
-  const col = game.items;
-  if (!col) return null;
-  let doc = col.get(id) ?? null;
-  if (!doc && typeof col.find === "function") {
-    doc = col.find((d) => d.id === id || d.uuid === id);
-  }
-  if (!doc && String(id).includes(".")) {
-    try {
-      const resolved = foundry.utils.fromUuid(String(id));
-      doc = resolved?.document ?? resolved ?? null;
-    } catch {
-      /* ignore */
-    }
-  }
-  if (!doc || doc.isEmbedded) return null;
-  return doc;
-}
-
-/** Foundry v14+ directory rows use `data-entry-id`; older builds used `data-document-id`. */
-const _DIRECTORY_ROW_SELECTOR =
-  "li.directory-item[data-entry-id], li.directory-item[data-document-id], .directory-item[data-entry-id], .directory-item[data-document-id]";
-
-/** Tag each rendered world-item row with its document type. CSS hides non-matches. */
-function _tagItemRows(root) {
-  if (!(root instanceof HTMLElement)) return;
-  const nodes = root.querySelectorAll(_DIRECTORY_ROW_SELECTOR);
-  for (const el of nodes) {
-    if (!(el instanceof HTMLElement)) continue;
-    if (el.classList.contains("folder")) continue;
-    const id =
-      el.dataset?.entryId ??
-      el.getAttribute("data-entry-id") ??
-      el.dataset?.documentId ??
-      el.getAttribute("data-document-id");
-    const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
-    if (doc?.type) el.dataset.ctsItemType = doc.type;
-    else el.dataset.ctsItemType = "__unknown";
-  }
 }
 
 /**
@@ -86,7 +50,7 @@ function _logTypedPanelDiagnostics(app, root, primary) {
   }
   const nodesEntry = root.querySelectorAll("[data-entry-id]");
   const nodesDoc = root.querySelectorAll("[data-document-id]");
-  const nodes = root.querySelectorAll(_DIRECTORY_ROW_SELECTOR);
+  const nodes = root.querySelectorAll(DIRECTORY_ROW_SELECTOR);
   const liNodes = root.querySelectorAll("li");
   const directoryItems = root.querySelectorAll("li.directory-item, .directory-item");
   const sampleRow = nodes[0] ?? directoryItems[0] ?? null;
@@ -105,7 +69,7 @@ function _logTypedPanelDiagnostics(app, root, primary) {
       el.getAttribute("data-entry-id") ??
       el.dataset?.documentId ??
       el.getAttribute("data-document-id");
-    const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
+    const doc = resolveWorldItemFromDirectoryId(id ?? undefined);
     rowSummary.push({
       tag: el.tagName.toLowerCase(),
       classes: el.className,
@@ -159,7 +123,7 @@ function _ensureRowObserver(root) {
       }
       if (touched) break;
     }
-    if (touched) _tagItemRows(root);
+    if (touched) tagWorldItemDirectoryRows(root);
   });
   obs.observe(root, { childList: true, subtree: true });
   _observers.set(root, obs);
@@ -224,7 +188,7 @@ class CtsTypedWorldItemDirectory extends ItemDirectory {
     const root = this.element;
     if (!root) return;
     root.dataset.ctsTypedPanel = this._ctsPrimaryType;
-    _tagItemRows(root);
+    tagWorldItemDirectoryRows(root);
     _ensureRowObserver(root);
   }
 
@@ -237,7 +201,7 @@ class CtsTypedWorldItemDirectory extends ItemDirectory {
   /** @override */
   _onSearchFilter(event, query, rgx, html) {
     super._onSearchFilter(event, query, rgx, html);
-    if (this.element) _tagItemRows(this.element);
+    if (this.element) tagWorldItemDirectoryRows(this.element);
   }
 
   /** @override */
@@ -314,8 +278,9 @@ function _refreshTypedTabsFromHook() {
       for (const tab of tabs) {
         if (!tab) continue;
         if (tab.rendered) tab.render(false);
-        else if (tab.element) _tagItemRows(tab.element);
+        else if (tab.element) tagWorldItemDirectoryRows(tab.element);
       }
+      if (ui?.items?.element) tagWorldItemDirectoryRows(ui.items.element);
     });
   });
 }
@@ -346,7 +311,7 @@ function _registerRenderHooks() {
       if (!root) return;
       const primary = /** @type {typeof CtsTypedWorldItemDirectory} */ (app?.constructor)?._ctsItemTypes?.[0];
       if (primary) root.dataset.ctsTypedPanel = primary;
-      _tagItemRows(root);
+      tagWorldItemDirectoryRows(root);
       _ensureRowObserver(root);
       if (primary) _logTypedPanelDiagnostics(app, root, primary);
     });
@@ -362,7 +327,7 @@ function _registerSidebarDiagnosticSetting() {
     scope: "client",
     config: true,
     type: Boolean,
-    default: true,
+    default: false,
   });
 }
 
@@ -377,4 +342,5 @@ export function registerCtsSidebarTabs() {
   _registerSidebarDiagnosticSetting();
   _registerRenderHooks();
   _registerWorldItemHooks();
+  registerItemsDirectoryTypeRail();
 }
