@@ -2,11 +2,12 @@
  * Extra sidebar tabs: NPCs-only actors, spells-only items, faction items only.
  * Registered on CONFIG.ui + Sidebar.TABS during init (Foundry v14 ApplicationV2 sidebar).
  *
- * Each tab must use a unique Application `id` / `uniqueId` (see DEFAULT_OPTIONS). Without that,
- * subclasses still used the core `#items` / `#actors` roots and every tab showed the same panel.
+ * Each tab uses a unique Application `id` / `uniqueId` so the sidebar mounts a separate panel.
  *
- * Typed item tabs filter by Item#type in the DOM after each render. We do not mutate
- * `_prepareDirectoryContext` trees — that broke v14 directory data (e.g. factions never listing).
+ * Item tabs filter by Item#type using a stylesheet rule keyed off `data-cts-item-type`. We
+ * tag every rendered row from the world Items collection and let CSS (`css/cts-dnd-35.css`)
+ * hide rows whose type does not match the panel. A MutationObserver keeps tagging fresh rows
+ * (new items, search expansion, folder toggles, drops) so the filter does not "lose" rows.
  */
 
 import {
@@ -48,10 +49,9 @@ function _resolveWorldItemByDirectoryId(id) {
   return doc;
 }
 
-/** @param {HTMLElement | null} root @param {string[]} types */
-function _applyItemTypeRowFilter(root, types) {
-  if (!root) return;
-  const allow = new Set(types);
+/** Tag each rendered world-item row with its document type. CSS hides non-matches. */
+function _tagItemRows(root) {
+  if (!(root instanceof HTMLElement)) return;
   const nodes = root.querySelectorAll("[data-document-id]");
   for (const el of nodes) {
     if (!(el instanceof HTMLElement)) continue;
@@ -62,9 +62,33 @@ function _applyItemTypeRowFilter(root, types) {
       el.dataset?.entryId ??
       el.getAttribute("data-entry-id");
     const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
-    const show = !!(doc && allow.has(doc.type));
-    el.style.display = show ? "" : "none";
+    if (doc?.type) el.dataset.ctsItemType = doc.type;
+    else el.dataset.ctsItemType = "__unknown";
   }
+}
+
+/** @type {WeakMap<HTMLElement, MutationObserver>} */
+const _observers = new WeakMap();
+
+/** Watch for added rows so the filter keeps applying after any internal re-render. */
+function _ensureRowObserver(root) {
+  if (!(root instanceof HTMLElement)) return;
+  if (_observers.has(root)) return;
+  const obs = new MutationObserver((records) => {
+    let touched = false;
+    for (const rec of records) {
+      for (const n of rec.addedNodes) {
+        if (n instanceof HTMLElement && (n.matches("[data-document-id]") || n.querySelector("[data-document-id]"))) {
+          touched = true;
+          break;
+        }
+      }
+      if (touched) break;
+    }
+    if (touched) _tagItemRows(root);
+  });
+  obs.observe(root, { childList: true, subtree: true });
+  _observers.set(root, obs);
 }
 
 /** @param {unknown} html */
@@ -112,25 +136,41 @@ export class CtsNpcActorDirectory extends ActorDirectory {
   }
 }
 
-/** Shared world-item directory filtered by Item#type (DOM only). */
+/** Shared world-item directory filtered by Item#type via row tagging + CSS. */
 class CtsTypedWorldItemDirectory extends ItemDirectory {
   /** @type {string[]} */
   static _ctsItemTypes = ["spell"];
 
-  _ctsApplyItemRowVisibility() {
-    _applyItemTypeRowFilter(this.element, this.constructor._ctsItemTypes);
+  /** @returns {string} primary type used for the CSS attribute hook on the root */
+  get _ctsPrimaryType() {
+    return this.constructor._ctsItemTypes[0];
+  }
+
+  _ctsTagAndObserve() {
+    const root = this.element;
+    if (!root) return;
+    root.dataset.ctsTypedPanel = this._ctsPrimaryType;
+    _tagItemRows(root);
+    _ensureRowObserver(root);
   }
 
   async _postRender(context, options) {
     await super._postRender(context, options);
-    this._ctsApplyItemRowVisibility();
-    requestAnimationFrame(() => this._ctsApplyItemRowVisibility());
+    this._ctsTagAndObserve();
+    requestAnimationFrame(() => this._ctsTagAndObserve());
   }
 
   /** @override */
   _onSearchFilter(event, query, rgx, html) {
     super._onSearchFilter(event, query, rgx, html);
-    this._ctsApplyItemRowVisibility();
+    if (this.element) _tagItemRows(this.element);
+  }
+
+  /** @override */
+  _onActivate() {
+    super._onActivate?.();
+    if (this.element) this._ctsTagAndObserve();
+    else this.render(true);
   }
 
   /** @override */
@@ -193,36 +233,30 @@ function _registerConfigUi() {
   CONFIG.ui.ctsFactions = CtsFactionItemDirectory;
 }
 
-function _queueRefreshCtsItemTabs() {
+function _refreshTypedTabsFromHook() {
   queueMicrotask(() => {
     requestAnimationFrame(() => {
-      game.ui?.ctsSpells?.render?.(false);
-      game.ui?.ctsFactions?.render?.(false);
+      const tabs = [ui?.ctsSpells, ui?.ctsFactions];
+      for (const tab of tabs) {
+        if (!tab) continue;
+        if (tab.rendered) tab.render(false);
+        else if (tab.element) _tagItemRows(tab.element);
+      }
     });
   });
 }
 
 function _registerWorldItemHooks() {
   const skip = (doc) => !doc || doc.isEmbedded;
-
   Hooks.on("createItem", (doc) => {
-    if (skip(doc)) return;
-    _queueRefreshCtsItemTabs();
+    if (!skip(doc)) _refreshTypedTabsFromHook();
   });
   Hooks.on("deleteItem", (doc) => {
-    if (skip(doc)) return;
-    _queueRefreshCtsItemTabs();
+    if (!skip(doc)) _refreshTypedTabsFromHook();
   });
   Hooks.on("updateItem", (doc) => {
-    if (skip(doc)) return;
-    _queueRefreshCtsItemTabs();
+    if (!skip(doc)) _refreshTypedTabsFromHook();
   });
-}
-
-function _typedItemRowHook(app, html) {
-  const root = _rootFromHtml(html) ?? app?.element ?? null;
-  const types = /** @type {typeof CtsTypedWorldItemDirectory} */ (app?.constructor)?._ctsItemTypes;
-  if (root && types) _applyItemTypeRowFilter(root, types);
 }
 
 function _registerRenderHooks() {
@@ -232,12 +266,16 @@ function _registerRenderHooks() {
     injectActorFactionDirectoryToolbar(root, { storageKeySuffix: "ctsNpcs" });
   });
 
-  Hooks.on("renderCtsSpellItemDirectory", (app, html) => {
-    queueMicrotask(() => _typedItemRowHook(app, html));
-  });
-  Hooks.on("renderCtsFactionItemDirectory", (app, html) => {
-    queueMicrotask(() => _typedItemRowHook(app, html));
-  });
+  for (const evt of ["renderCtsSpellItemDirectory", "renderCtsFactionItemDirectory"]) {
+    Hooks.on(evt, (app, html) => {
+      const root = _rootFromHtml(html) ?? app?.element ?? null;
+      if (!root) return;
+      const primary = /** @type {typeof CtsTypedWorldItemDirectory} */ (app?.constructor)?._ctsItemTypes?.[0];
+      if (primary) root.dataset.ctsTypedPanel = primary;
+      _tagItemRows(root);
+      _ensureRowObserver(root);
+    });
+  }
 }
 
 /** Call from `Hooks.once("init")` before the UI is constructed. */

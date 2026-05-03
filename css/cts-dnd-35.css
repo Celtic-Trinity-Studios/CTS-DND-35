@@ -1083,6 +1083,16 @@
   letter-spacing: 0.02em;
 }
 
+/* CTS typed item sidebar panels — show only rows whose data-cts-item-type
+   matches the panel's data-cts-typed-panel attribute. Rows are tagged by JS
+   (`module/sidebar/cts-sidebar-tabs.mjs`); a MutationObserver re-tags new rows. */
+[data-cts-typed-panel="spell"] [data-document-id]:not(.folder):not([data-cts-item-type="spell"]) {
+  display: none !important;
+}
+[data-cts-typed-panel="faction"] [data-document-id]:not(.folder):not([data-cts-item-type="faction"]) {
+  display: none !important;
+}
+
 /* Actor directory — faction / group filter toolbar */
 .cts-actor-group-toolbar {
   align-items: center;
