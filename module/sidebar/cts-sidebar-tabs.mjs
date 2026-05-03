@@ -1,6 +1,10 @@
 /**
- * Sidebar directory UX: in-panel type / filter chips on core Foundry directories.
- * Extra NPC / Spells / Factions tabs were removed in favor of the main tabs + filters.
+ * Sidebar directory UX entry point. Forwards to the unified toolbar registrar.
  */
+import { pruneLegacyCtsSidebarTabEntries } from "./directory-type-toolbars-shared.mjs";
+import { registerDirectoryFilterToolbars } from "./directory-filter-toolbars.mjs";
 
-export { registerDirectoryTypeToolbars as registerCtsSidebarTabs } from "./register-directory-type-toolbars.mjs";
+export function registerCtsSidebarTabs() {
+  pruneLegacyCtsSidebarTabEntries();
+  registerDirectoryFilterToolbars();
+}
