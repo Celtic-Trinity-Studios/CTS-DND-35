@@ -12,7 +12,13 @@ let _registered = false;
 
 function orderedItemTypes() {
   const raw = game.system?.documentTypes?.Item;
-  const list = Array.isArray(raw) ? [...raw] : [];
+  /** @type {string[]} */
+  let list = [];
+  if (Array.isArray(raw)) list = raw.map(String);
+  else if (raw && typeof raw === "object") list = Object.keys(raw);
+  else if (CONFIG.Item?.typeLabels && typeof CONFIG.Item.typeLabels === "object") {
+    list = Object.keys(CONFIG.Item.typeLabels);
+  }
   list.sort((a, b) => String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
   return list;
 }
