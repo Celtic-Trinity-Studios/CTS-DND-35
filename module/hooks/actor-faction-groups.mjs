@@ -63,8 +63,10 @@ function applyDirectoryGroupFilter(htmlRoot, filterToken) {
   const list = htmlRoot.querySelector(".directory-list");
   if (!list) return;
   const typeWant = _actorTypeConstraintForRoot(htmlRoot);
-  for (const li of list.querySelectorAll("li.directory-item[data-document-id]")) {
-    const id = li.dataset.documentId;
+  for (const li of list.querySelectorAll(
+    "li.directory-item[data-entry-id], li.directory-item[data-document-id]",
+  )) {
+    const id = li.dataset.entryId ?? li.dataset.documentId;
     const actor = game.actors?.get(id);
     if (!actor) continue;
     const typeOk = !typeWant || actor.type === typeWant;

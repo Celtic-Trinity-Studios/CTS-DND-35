@@ -49,18 +49,22 @@ function _resolveWorldItemByDirectoryId(id) {
   return doc;
 }
 
+/** Foundry v14+ directory rows use `data-entry-id`; older builds used `data-document-id`. */
+const _DIRECTORY_ROW_SELECTOR =
+  "li.directory-item[data-entry-id], li.directory-item[data-document-id], .directory-item[data-entry-id], .directory-item[data-document-id]";
+
 /** Tag each rendered world-item row with its document type. CSS hides non-matches. */
 function _tagItemRows(root) {
   if (!(root instanceof HTMLElement)) return;
-  const nodes = root.querySelectorAll("[data-document-id]");
+  const nodes = root.querySelectorAll(_DIRECTORY_ROW_SELECTOR);
   for (const el of nodes) {
     if (!(el instanceof HTMLElement)) continue;
     if (el.classList.contains("folder")) continue;
     const id =
-      el.dataset?.documentId ??
-      el.getAttribute("data-document-id") ??
       el.dataset?.entryId ??
-      el.getAttribute("data-entry-id");
+      el.getAttribute("data-entry-id") ??
+      el.dataset?.documentId ??
+      el.getAttribute("data-document-id");
     const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
     if (doc?.type) el.dataset.ctsItemType = doc.type;
     else el.dataset.ctsItemType = "__unknown";
@@ -80,7 +84,9 @@ function _logTypedPanelDiagnostics(app, root, primary) {
   } catch {
     return;
   }
-  const nodes = root.querySelectorAll("[data-document-id]");
+  const nodesEntry = root.querySelectorAll("[data-entry-id]");
+  const nodesDoc = root.querySelectorAll("[data-document-id]");
+  const nodes = root.querySelectorAll(_DIRECTORY_ROW_SELECTOR);
   const liNodes = root.querySelectorAll("li");
   const directoryItems = root.querySelectorAll("li.directory-item, .directory-item");
   const sampleRow = nodes[0] ?? directoryItems[0] ?? null;
@@ -94,12 +100,17 @@ function _logTypedPanelDiagnostics(app, root, primary) {
   for (let i = 0; i < limit; i++) {
     const el = nodes[i];
     if (!(el instanceof HTMLElement)) continue;
-    const id = el.dataset?.documentId ?? el.getAttribute("data-document-id");
+    const id =
+      el.dataset?.entryId ??
+      el.getAttribute("data-entry-id") ??
+      el.dataset?.documentId ??
+      el.getAttribute("data-document-id");
     const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
     rowSummary.push({
       tag: el.tagName.toLowerCase(),
       classes: el.className,
-      "data-document-id": id ?? null,
+      "data-entry-id": el.dataset?.entryId ?? el.getAttribute("data-entry-id") ?? null,
+      "data-document-id": el.dataset?.documentId ?? el.getAttribute("data-document-id") ?? null,
       "data-cts-item-type": el.dataset.ctsItemType ?? null,
       resolvedType: doc?.type ?? null,
       resolvedName: doc?.name ?? null,
@@ -111,7 +122,9 @@ function _logTypedPanelDiagnostics(app, root, primary) {
   console.log("app:", app?.constructor?.name, "id:", app?.id, "tabName:", app?.tabName);
   console.log("root id:", root.id, "data-cts-typed-panel:", root.dataset.ctsTypedPanel);
   console.log("counts:", {
-    "[data-document-id]": nodes.length,
+    "[data-entry-id]": nodesEntry.length,
+    "[data-document-id]": nodesDoc.length,
+    directoryRows: nodes.length,
     li: liNodes.length,
     "directory-item": directoryItems.length,
     worldItems: game.items?.size ?? null,
@@ -135,7 +148,11 @@ function _ensureRowObserver(root) {
     let touched = false;
     for (const rec of records) {
       for (const n of rec.addedNodes) {
-        if (n instanceof HTMLElement && (n.matches("[data-document-id]") || n.querySelector("[data-document-id]"))) {
+        if (
+          n instanceof HTMLElement &&
+          (n.matches("[data-entry-id], [data-document-id]") ||
+            n.querySelector("[data-entry-id], [data-document-id]"))
+        ) {
           touched = true;
           break;
         }

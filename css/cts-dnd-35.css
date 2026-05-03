@@ -1085,11 +1085,14 @@
 
 /* CTS typed item sidebar panels — show only rows whose data-cts-item-type
    matches the panel's data-cts-typed-panel attribute. Rows are tagged by JS
-   (`module/sidebar/cts-sidebar-tabs.mjs`); a MutationObserver re-tags new rows. */
-[data-cts-typed-panel="spell"] [data-document-id]:not(.folder):not([data-cts-item-type="spell"]) {
+   (`module/sidebar/cts-sidebar-tabs.mjs`); a MutationObserver re-tags new rows.
+   Foundry v14 uses data-entry-id on directory rows; data-document-id kept for older builds. */
+[data-cts-typed-panel="spell"] li.directory-item[data-entry-id]:not(.folder):not([data-cts-item-type="spell"]),
+[data-cts-typed-panel="spell"] li.directory-item[data-document-id]:not(.folder):not([data-cts-item-type="spell"]) {
   display: none !important;
 }
-[data-cts-typed-panel="faction"] [data-document-id]:not(.folder):not([data-cts-item-type="faction"]) {
+[data-cts-typed-panel="faction"] li.directory-item[data-entry-id]:not(.folder):not([data-cts-item-type="faction"]),
+[data-cts-typed-panel="faction"] li.directory-item[data-document-id]:not(.folder):not([data-cts-item-type="faction"]) {
   display: none !important;
 }
 
