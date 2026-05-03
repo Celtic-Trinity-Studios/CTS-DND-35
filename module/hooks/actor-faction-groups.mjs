@@ -175,8 +175,8 @@ export function registerActorFactionGroupHooks() {
     default: ["Party", "Allies", "Neutral", "Hostiles"].join("\n"),
   });
 
-  Hooks.on("renderActorDirectory", (_app, html) => {
-    const root = _rootEl(html);
+  Hooks.on("renderActorDirectory", (app, html) => {
+    const root = app?.element ?? _rootEl(html);
     if (!root) return;
     _injectDirectoryToolbar(root);
   });

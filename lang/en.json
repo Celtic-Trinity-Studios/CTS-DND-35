@@ -124,16 +124,22 @@
     "FactionPresetsName": "Faction / group name presets",
     "FactionPresetsHint": "One name per line. Used as suggestions in the Actors sidebar filter dropdown.",
 
-    "SidebarTabNpcs": "NPCs",
-    "SidebarTabSpells": "Spells",
-    "SidebarTabFactions": "Factions",
-    "SidebarDiagnosticsName": "CTS sidebar diagnostics",
-    "SidebarDiagnosticsHint": "Log details about the NPC / Spells / Factions sidebar panels to the browser console (F12) on each render. Enable temporarily when debugging sidebar filters.",
+    "DirectoryTypeToolbarsName": "Sidebar directory filter chips",
+    "DirectoryTypeToolbarsHint": "Show compact wrapped filter chips inside the Scenes, Actors, Items, and Macros sidebar panels (instead of extra sidebar tab buttons). Turn off for a stock Foundry directory header.",
+    "DirectoryTypeToolbarsActorsAria": "Filter actors by type",
+    "DirectoryTypeToolbarsMacrosAria": "Filter macros by type",
+    "DirectoryTypeToolbarsScenesAria": "Filter scenes by navigation bar",
 
-    "ItemsDirectoryTypeRailName": "Items sidebar type strip",
-    "ItemsDirectoryTypeRailHint": "On the main Items (briefcase) tab, show a compact wrapped row of type chips to filter the list. Foundry’s right sidebar tabs cannot nest like the left scene-control flyouts; this stays inside the directory panel.",
-    "ItemsRailAll": "All types",
+    "ItemsRailAll": "All",
     "ItemsRailAria": "Filter world items by type",
+
+    "MacroTypeChat": "Chat",
+    "MacroTypeScript": "Script",
+
+    "SceneFilterNav": "Nav bar",
+    "SceneFilterNavHint": "Show only scenes placed on the navigation bar",
+    "SceneFilterNonNav": "Not on bar",
+    "SceneFilterNonNavHint": "Show only scenes not on the navigation bar",
 
     "FactionRefreshSheets": "Apply to all actors & refresh sheets",
     "FactionRefreshSheetsHint": "GM only: saves this faction from the form (even if you have not closed the sheet), updates every matching faction item on all world actors (same compendium/source link, or same name), syncs group strings for everyone, then redraws open CTS sheets. Same display name on different factions will all be updated.",

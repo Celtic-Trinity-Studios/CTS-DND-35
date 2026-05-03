@@ -4,13 +4,11 @@ const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.itemsDirectoryTypeFilter";
 const FILTER_STYLE_ID = "cts-items-directory-filter-css";
-/** Marks the ItemDirectory app root so filter CSS can target it without relying on `#items`. */
 const FILTER_HOST_CLASS = "cts-item-type-filter-host";
 
 /** @type {WeakMap<HTMLElement, MutationObserver>} */
 const observers = new WeakMap();
-
-let _registered = false;
+let _hooked = false;
 
 function orderedItemTypes() {
   const raw = game.system?.documentTypes?.Item;
@@ -51,12 +49,11 @@ function escapeCssIdent(type) {
   return type;
 }
 
-function clearInjectedFilterStyle() {
+export function clearItemsDirectoryFilterStyle() {
   const style = document.getElementById(FILTER_STYLE_ID);
   if (style) style.textContent = "";
 }
 
-/** Human-readable item type label (CONFIG keys like `TYPES.Item.x` often do not resolve in custom systems). */
 function itemTypeLabel(type) {
   const tl = CONFIG.Item?.typeLabels?.[type];
   if (tl && typeof tl === "string") {
@@ -69,11 +66,6 @@ function itemTypeLabel(type) {
   return typeof foundry?.utils?.titleCase === "function" ? foundry.utils.titleCase(type) : type;
 }
 
-/**
- * Each branch of DIRECTORY_ROW_SELECTOR must be scoped; a bare comma would leave later
- * branches unscoped and break filtering (or hide rows in other panels).
- * @param {string} safe
- */
 function buildFilterCssRules(safe) {
   const host = `.${FILTER_HOST_CLASS}[data-cts-items-filter="${safe}"]`;
   return DIRECTORY_ROW_SELECTOR.split(",")
@@ -117,9 +109,9 @@ function applyFilterToRoot(root, type) {
   tagWorldItemDirectoryRows(root);
 }
 
-function syncRailActiveButtons(rail, type) {
+function syncRailActiveButtons(toolbar, type) {
   const safe = escapeCssIdent(type);
-  for (const btn of rail.querySelectorAll("button.cts-items-rail-btn")) {
+  for (const btn of toolbar.querySelectorAll("button.cts-items-rail-btn")) {
     const isAll = btn.classList.contains("cts-items-rail-btn--all");
     const t = isAll ? "" : (btn.getAttribute("data-cts-item-type") ?? "");
     btn.classList.toggle("active", isAll ? !safe : t === safe);
@@ -129,6 +121,7 @@ function syncRailActiveButtons(rail, type) {
 function buildToolbar(types) {
   const nav = document.createElement("nav");
   nav.className = "cts-items-type-toolbar";
+  nav.dataset.ctsToolbarKind = "items";
   nav.setAttribute("role", "tablist");
   nav.setAttribute("aria-label", game.i18n.localize("CTSDND35.ItemsRailAria"));
 
@@ -172,9 +165,7 @@ function wireToolbar(toolbar, root) {
 
 function ensureObserver(root) {
   if (observers.has(root)) return;
-  const obs = new MutationObserver(() => {
-    tagWorldItemDirectoryRows(root);
-  });
+  const obs = new MutationObserver(() => tagWorldItemDirectoryRows(root));
   obs.observe(root, { childList: true, subtree: true });
   observers.set(root, obs);
 }
@@ -183,7 +174,7 @@ function injectToolbar(app) {
   const root = app.element;
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
-  if (root.querySelector(".cts-items-type-toolbar")) return;
+  if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")) return;
 
   const types = orderedItemTypes();
   const toolbar = buildToolbar(types);
@@ -199,34 +190,23 @@ function injectToolbar(app) {
   ensureObserver(root);
 }
 
-export function registerItemsDirectoryTypeRail() {
-  if (_registered) return;
-  _registered = true;
+export function cleanupItemsDirectoryTypeToolbar() {
+  const el = ui?.items?.element;
+  el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")?.remove();
+  if (el instanceof HTMLElement) {
+    delete el.dataset.ctsItemsFilter;
+    el.classList.remove(FILTER_HOST_CLASS);
+    tagWorldItemDirectoryRows(el);
+  }
+  clearItemsDirectoryFilterStyle();
+}
 
-  game.settings.register("CTS-DND-35", "itemsDirectoryTypeRail", {
-    name: game.i18n.localize("CTSDND35.ItemsDirectoryTypeRailName"),
-    hint: game.i18n.localize("CTSDND35.ItemsDirectoryTypeRailHint"),
-    scope: "client",
-    config: true,
-    type: Boolean,
-    default: true,
-    onChange: (enabled) => {
-      if (!enabled) {
-        const el = ui?.items?.element;
-        el?.querySelector(".cts-items-type-toolbar")?.remove();
-        if (el instanceof HTMLElement) {
-          delete el.dataset.ctsItemsFilter;
-          el.classList.remove(FILTER_HOST_CLASS);
-          tagWorldItemDirectoryRows(el);
-        }
-        clearInjectedFilterStyle();
-      }
-      ui?.items?.render?.(false);
-    },
-  });
+export function registerItemsDirectoryTypeToolbar() {
+  if (_hooked) return;
+  _hooked = true;
 
   Hooks.on("renderItemDirectory", (app) => {
-    if (!game.settings.get("CTS-DND-35", "itemsDirectoryTypeRail")) return;
+    if (!game.settings.get("CTS-DND-35", "directoryTypeToolbars")) return;
     if (!isCoreWorldItemDirectory(app)) return;
     injectToolbar(app);
   });
