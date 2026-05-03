@@ -87,6 +87,9 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       on: !!(context.system.details?.status?.conditions?.[key]),
     }));
 
+    const spellBuckets = context.items?.spells ?? {};
+    context.hasActorSpells = Object.keys(spellBuckets).some((lvl) => (spellBuckets[lvl]?.length ?? 0) > 0);
+
     context.sheetVisualTheme = game.settings.get("CTS-DND-35", "actorSheetVisualTheme") || "angled";
 
     return context;
@@ -314,6 +317,20 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       const key = ev.currentTarget.dataset.conditionKey;
       if (!key) return;
       await this.actor.update({ [`system.details.status.conditions.${key}`]: ev.currentTarget.checked });
+    });
+
+    html.on("click", ".cts-status-subtabs [data-cts-status-sub]", (ev) => {
+      ev.preventDefault();
+      const sub = ev.currentTarget.dataset.ctsStatusSub;
+      if (!sub) return;
+      const root = ev.currentTarget.closest(".cts-status-panel");
+      if (!root) return;
+      root.querySelectorAll(".cts-status-subtabs [data-cts-status-sub]").forEach((el) => {
+        el.classList.toggle("active", el === ev.currentTarget);
+      });
+      root.querySelectorAll(".cts-status-subpane").forEach((pane) => {
+        pane.classList.toggle("is-active", pane.dataset.ctsStatusSub === sub);
+      });
     });
   }
 

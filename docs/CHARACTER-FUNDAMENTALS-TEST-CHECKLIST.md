@@ -6,7 +6,7 @@ Use this after pulling changes that touch **`module/documents/actor.mjs`**, **`m
 
 For each row: run the steps, then check **Expected**. Note failures with Foundry version, module list, and console errors.
 
-**PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Status, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Status** holds vitality, freeform status notes, and **Buff** items. **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
+**PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Status, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Status** has inner **Conditions | Spells** toggles (condition grid + vitality/notes vs spell item list), then **Buff** items. **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
 
 ---
 
@@ -79,7 +79,7 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 
 | ✓ | Step | Expected |
 |---|------|----------|
-| ☐ | Open **Status** tab. | **Conditions** grid shows many checkboxes; **Vitality**, notes, and buff list use readable colors. |
+| ☐ | Open **Status** tab. | **Conditions | Spells** sub-tabs appear; **Conditions** shows a compact checkbox grid, vitality, and notes; **Spells** lists spell items (or empty hint). |
 | ☐ | Toggle several **condition** checkboxes. | Each updates `system.details.status.conditions.<key>`; refresh sheet — states persist. |
 | ☐ | Set vitality to **Unconscious**, add notes, save. | `system.details.status` persists (vitality is separate from condition checkboxes). |
 | ☐ | Drag a **Buff** item onto the actor; open item → **Details** → set **Active**. | Status tab shows ✓ for active buff. |

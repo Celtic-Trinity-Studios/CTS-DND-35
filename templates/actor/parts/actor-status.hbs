@@ -1,41 +1,60 @@
-{{!-- Status tab: conditions narrative + buff items (spells, effects) --}}
+{{!-- Status tab: sub-panels Conditions | Spells, then buffs --}}
 <section class="cts-panel-block cts-status-panel">
-  <h3><i class="fas fa-notes-medical"></i> Status &amp; conditions</h3>
-  <p class="cts-tab-hint">Tick conditions below. Use <strong>Vitality</strong> and <strong>Status notes</strong> for HP thresholds, spell durations, and anything not listed. <strong>Buff</strong> items cover numeric modifiers on the item sheet.</p>
+  <h3><i class="fas fa-notes-medical"></i> Status</h3>
+  <p class="cts-tab-hint cts-status-hint">Tick conditions on <strong>Conditions</strong>. Known spells live on <strong>Spells</strong>. Vitality, notes, and buff items stay for anything else.</p>
 
-  <fieldset class="cts-condition-fieldset">
-    <legend class="cts-condition-legend">Conditions</legend>
-    <div class="cts-condition-grid">
-      {{#each statusConditionRows}}
-      <label class="cts-condition-chip {{#if this.on}}is-on{{/if}}">
-        <input type="checkbox" data-condition-key="{{this.key}}" {{#if this.on}}checked{{/if}}{{#unless editable}} disabled="disabled"{{/unless}} />
-        <span>{{this.label}}</span>
+  <nav class="cts-status-subtabs" aria-label="Status sections">
+    <button type="button" class="item active" data-cts-status-sub="conditions">Conditions</button>
+    <button type="button" class="item" data-cts-status-sub="spells">Spells</button>
+  </nav>
+
+  <div class="cts-status-subpanes">
+    <div class="cts-status-subpane is-active" data-cts-status-sub="conditions">
+      <fieldset class="cts-condition-fieldset">
+        <legend class="cts-sr-only">Condition toggles</legend>
+        <div class="cts-condition-grid">
+          {{#each statusConditionRows}}
+          <label class="cts-condition-chip {{#if this.on}}is-on{{/if}}">
+            <input type="checkbox" data-condition-key="{{this.key}}" {{#if this.on}}checked{{/if}}{{#unless editable}} disabled="disabled"{{/unless}} />
+            <span>{{this.label}}</span>
+          </label>
+          {{/each}}
+        </div>
+      </fieldset>
+
+      <div class="cts-status-vitals">
+        <label>Vitality / awareness
+          <select name="system.details.status.vitality">
+            <option value="normal" {{#if (cts-eq system.details.status.vitality "normal")}}selected{{/if}}>Normal</option>
+            <option value="unconscious" {{#if (cts-eq system.details.status.vitality "unconscious")}}selected{{/if}}>Unconscious</option>
+            <option value="stable" {{#if (cts-eq system.details.status.vitality "stable")}}selected{{/if}}>Stable (0 HP)</option>
+            <option value="dying" {{#if (cts-eq system.details.status.vitality "dying")}}selected{{/if}}>Dying</option>
+            <option value="disabled" {{#if (cts-eq system.details.status.vitality "disabled")}}selected{{/if}}>Disabled</option>
+            <option value="dead" {{#if (cts-eq system.details.status.vitality "dead")}}selected{{/if}}>Dead</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="cts-full-width cts-status-notes-label">Status notes<br />
+        <textarea name="system.details.status.notes" rows="4" placeholder="Rounds, sources, house rules…">{{system.details.status.notes}}</textarea>
       </label>
-      {{/each}}
     </div>
-  </fieldset>
 
-  <div class="cts-status-vitals">
-    <label>Vitality / awareness
-      <select name="system.details.status.vitality">
-        <option value="normal" {{#if (cts-eq system.details.status.vitality "normal")}}selected{{/if}}>Normal</option>
-        <option value="unconscious" {{#if (cts-eq system.details.status.vitality "unconscious")}}selected{{/if}}>Unconscious</option>
-        <option value="stable" {{#if (cts-eq system.details.status.vitality "stable")}}selected{{/if}}>Stable (0 HP)</option>
-        <option value="dying" {{#if (cts-eq system.details.status.vitality "dying")}}selected{{/if}}>Dying</option>
-        <option value="disabled" {{#if (cts-eq system.details.status.vitality "disabled")}}selected{{/if}}>Disabled</option>
-        <option value="dead" {{#if (cts-eq system.details.status.vitality "dead")}}selected{{/if}}>Dead</option>
-      </select>
-    </label>
+    <div class="cts-status-subpane" data-cts-status-sub="spells">
+      <div class="cts-status-spells-wrap">
+        {{#if hasActorSpells}}
+        {{> "systems/CTS-DND-35/templates/actor/parts/actor-spells.hbs"}}
+        {{else}}
+        <p class="cts-tab-hint">No spell items on this actor yet. Add <strong>Spell</strong> items from the Items sidebar or a compendium.</p>
+        {{/if}}
+      </div>
+    </div>
   </div>
-
-  <label class="cts-full-width">Status notes (spells, rounds, sources)<br />
-    <textarea name="system.details.status.notes" rows="6" placeholder="e.g. Bless (CL 3), 2 rounds left; Grease DC 12 Ref…">{{system.details.status.notes}}</textarea>
-  </label>
 </section>
 
 <section class="cts-panel-block cts-status-buffs">
   <h3><i class="fas fa-bolt"></i> Buffs &amp; effects (items)</h3>
-  <p class="cts-tab-hint">Drag <strong>Buff</strong> items onto the actor. Open an item to mark <strong>active</strong> when the system supports it on the buff sheet.</p>
+  <p class="cts-tab-hint cts-status-buffs-hint">Drag <strong>Buff</strong> items onto the actor. Open an item → <strong>Details</strong> to mark <strong>Active</strong>.</p>
   {{#each items.buffs}}
   <div class="cts-line item" data-item-id="{{this._id}}">
     <img class="item-img" src="{{this.img}}" alt="" />
