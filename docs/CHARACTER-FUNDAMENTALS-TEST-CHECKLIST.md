@@ -129,6 +129,6 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 3. Armor + encumbrance + difficult terrain on same actor → land speed plausible.  
 4. Add temp HP source row → sum correct.  
 5. Enable polymorph Str → Str mod matches replacement column.  
-6. **Status** tab: fields readable; set vitality + note; buff row shows active ✓ when set on item.
+6. **Status** tab: tick several **condition** checkboxes; vitality + notes; buff ✓ when item active.
 
 Record **date**, **Foundry build**, and **system version** (`system.json` **version**) on each full pass.
