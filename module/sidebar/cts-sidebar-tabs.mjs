@@ -5,8 +5,8 @@
  * Each tab must use a unique Application `id` / `uniqueId` (see DEFAULT_OPTIONS). Without that,
  * subclasses still used the core `#items` / `#actors` roots and every tab showed the same panel.
  *
- * Item tabs filter at render context (`_prepareDirectoryContext`) so wrong types are not listed,
- * with a DOM pass as backup and hooks to refresh after world item changes (e.g. compendium import).
+ * Typed item tabs filter by Item#type in the DOM after each render. We do not mutate
+ * `_prepareDirectoryContext` trees — that broke v14 directory data (e.g. factions never listing).
  */
 
 import {
@@ -27,59 +27,15 @@ function _directoryDefaultOptions(BaseCls, elementId) {
   return foundry.utils.mergeObject(base, { id: elementId, uniqueId: elementId });
 }
 
-/** @param {unknown} entry */
-function _entryDocumentType(entry) {
-  if (!entry || typeof entry !== "object") return null;
-  const any = /** @type {any} */ (entry);
-  if (any.documentName === "Folder") return null;
-
-  const ItemCls = CONFIG.Item?.documentClass;
-  if (ItemCls) {
-    if (any instanceof ItemCls) return any.type ?? null;
-    const doc = any.document ?? any.doc;
-    if (doc instanceof ItemCls) return doc.type ?? null;
-  }
-
-  const labels = CONFIG.Item?.typeLabels;
-  const t = typeof any.type === "string" ? any.type : null;
-  if (t && labels && Object.prototype.hasOwnProperty.call(labels, t)) return t;
-  return null;
-}
-
-/**
- * Remove directory tree nodes whose document type is not allowed (world items only).
- * @param {unknown} node
- * @param {Set<string>} allow
- */
-function _filterDirectoryTreeForItemTypes(node, allow) {
-  if (node == null) return;
-  if (Array.isArray(node)) {
-    for (const el of node) _filterDirectoryTreeForItemTypes(el, allow);
-    return;
-  }
-  if (typeof node !== "object") return;
-
-  for (const key of ["documents", "entries", "contents"]) {
-    const arr = /** @type {any} */ (node)[key];
-    if (!Array.isArray(arr)) continue;
-    /** @type {any} */ (node)[key] = arr.filter((e) => {
-      const t = _entryDocumentType(e);
-      if (t == null) return true;
-      return allow.has(t);
-    });
-  }
-
-  for (const key of ["tree", "children", "folders", "subfolders", "nodes", "root"]) {
-    const v = /** @type {any} */ (node)[key];
-    if (Array.isArray(v)) _filterDirectoryTreeForItemTypes(v, allow);
-    else if (v && typeof v === "object") _filterDirectoryTreeForItemTypes(v, allow);
-  }
-}
-
-/** @param {string | undefined} id */
-function _worldItemFromDirectoryId(id) {
+/** @param {string | null | undefined} id */
+function _resolveWorldItemByDirectoryId(id) {
   if (!id) return null;
-  let doc = game.items?.get(id) ?? null;
+  const col = game.items;
+  if (!col) return null;
+  let doc = col.get(id) ?? null;
+  if (!doc && typeof col.find === "function") {
+    doc = col.find((d) => d.id === id || d.uuid === id);
+  }
   if (!doc && String(id).includes(".")) {
     try {
       const resolved = foundry.utils.fromUuid(String(id));
@@ -96,12 +52,18 @@ function _worldItemFromDirectoryId(id) {
 function _applyItemTypeRowFilter(root, types) {
   if (!root) return;
   const allow = new Set(types);
-  for (const li of root.querySelectorAll("li[data-document-id]")) {
-    if (li.classList.contains("folder")) continue;
-    const id = li.dataset?.documentId ?? li.getAttribute("data-document-id");
-    const doc = _worldItemFromDirectoryId(id ?? undefined);
+  const nodes = root.querySelectorAll("[data-document-id]");
+  for (const el of nodes) {
+    if (!(el instanceof HTMLElement)) continue;
+    if (el.classList.contains("folder")) continue;
+    const id =
+      el.dataset?.documentId ??
+      el.getAttribute("data-document-id") ??
+      el.dataset?.entryId ??
+      el.getAttribute("data-entry-id");
+    const doc = _resolveWorldItemByDirectoryId(id ?? undefined);
     const show = !!(doc && allow.has(doc.type));
-    li.style.display = show ? "" : "none";
+    el.style.display = show ? "" : "none";
   }
 }
 
@@ -150,23 +112,10 @@ export class CtsNpcActorDirectory extends ActorDirectory {
   }
 }
 
-/** Shared world-item directory filtered by Item#type. */
+/** Shared world-item directory filtered by Item#type (DOM only). */
 class CtsTypedWorldItemDirectory extends ItemDirectory {
   /** @type {string[]} */
   static _ctsItemTypes = ["spell"];
-
-  /** @override */
-  async _prepareDirectoryContext(context, options) {
-    await super._prepareDirectoryContext(context, options);
-    try {
-      const allow = new Set(this.constructor._ctsItemTypes);
-      _filterDirectoryTreeForItemTypes(context, allow);
-      _filterDirectoryTreeForItemTypes(/** @type {any} */ (context)?.directory, allow);
-    } catch (err) {
-      console.warn("CTS DND 35 | Typed item directory context filter failed.", err);
-    }
-    return context;
-  }
 
   _ctsApplyItemRowVisibility() {
     _applyItemTypeRowFilter(this.element, this.constructor._ctsItemTypes);
@@ -246,8 +195,10 @@ function _registerConfigUi() {
 
 function _queueRefreshCtsItemTabs() {
   queueMicrotask(() => {
-    game.ui?.ctsSpells?.render?.(false);
-    game.ui?.ctsFactions?.render?.(false);
+    requestAnimationFrame(() => {
+      game.ui?.ctsSpells?.render?.(false);
+      game.ui?.ctsFactions?.render?.(false);
+    });
   });
 }
 
@@ -268,11 +219,24 @@ function _registerWorldItemHooks() {
   });
 }
 
+function _typedItemRowHook(app, html) {
+  const root = _rootFromHtml(html) ?? app?.element ?? null;
+  const types = /** @type {typeof CtsTypedWorldItemDirectory} */ (app?.constructor)?._ctsItemTypes;
+  if (root && types) _applyItemTypeRowFilter(root, types);
+}
+
 function _registerRenderHooks() {
   Hooks.on("renderCtsNpcActorDirectory", (_app, html) => {
     const root = _rootFromHtml(html);
     if (!root) return;
     injectActorFactionDirectoryToolbar(root, { storageKeySuffix: "ctsNpcs" });
+  });
+
+  Hooks.on("renderCtsSpellItemDirectory", (app, html) => {
+    queueMicrotask(() => _typedItemRowHook(app, html));
+  });
+  Hooks.on("renderCtsFactionItemDirectory", (app, html) => {
+    queueMicrotask(() => _typedItemRowHook(app, html));
   });
 }
 

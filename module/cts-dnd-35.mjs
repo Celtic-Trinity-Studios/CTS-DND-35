@@ -82,6 +82,10 @@ Hooks.once("init", function () {
   CONFIG.Actor.documentClass = CTSDND35Actor;
   CONFIG.Item.documentClass = CTSDND35Item;
 
+  CONFIG.Item.typeLabels = foundry.utils.mergeObject(CONFIG.Item.typeLabels ?? {}, {
+    faction: game.i18n.localize("CTSDND35.ItemTypeFaction"),
+  });
+
   registerCtsSidebarTabs();
 
   // System settings
