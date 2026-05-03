@@ -1,7 +1,14 @@
+/**
+ * Actors sidebar: chip strip that filters by Actor type (character / npc).
+ * Mirrors the v0.4.77 Items pattern: direct `app.element` injection on
+ * `renderActorDirectory`, using `instanceof ActorDirectory` for identity.
+ */
+
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { applyActorFactionDirectoryVisualFilter } from "../hooks/actor-faction-groups.mjs";
-import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { tagWorldActorDirectoryRows } from "./world-actor-directory-rows.mjs";
+
+const ActorDirectory = foundry.applications.sidebar.tabs.ActorDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.actorDirectoryTypeFilter";
 
@@ -35,14 +42,7 @@ function actorTypeLabel(type) {
 }
 
 function isCoreWorldActorDirectory(app) {
-  if (!app || app.constructor?.name !== "ActorDirectory") return false;
-  try {
-    if (game.actors && app.collection === game.actors) return true;
-  } catch {
-    /* ignore */
-  }
-  const tab = app.tabName ?? app.options?.id;
-  return tab === "actors" || app.id === "actors" || app.options?.uniqueId === "actors";
+  return Boolean(app && app instanceof ActorDirectory && app.tabName === "actors");
 }
 
 function getStoredType() {
@@ -119,6 +119,7 @@ function ensureObserver(root) {
 function buildToolbar(types) {
   const nav = document.createElement("nav");
   nav.className = "cts-items-type-toolbar";
+  nav.dataset.ctsToolbarKind = "actors";
   nav.setAttribute("role", "tablist");
   nav.setAttribute("aria-label", game.i18n.localize("CTSDND35.DirectoryTypeToolbarsActorsAria"));
 
@@ -145,14 +146,14 @@ function buildToolbar(types) {
   return nav;
 }
 
-function injectToolbarAtRoot(root) {
+function injectToolbar(app) {
+  const root = app.element;
   if (!(root instanceof HTMLElement)) return;
   const types = orderedActorTypes();
   if (types.length < 2) return;
   if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='actors']")) return;
 
   const toolbar = buildToolbar(types);
-  toolbar.dataset.ctsToolbarKind = "actors";
   wireToolbar(toolbar, root);
 
   const sidebar = root.querySelector(".directory-sidebar");
@@ -163,20 +164,6 @@ function injectToolbarAtRoot(root) {
   applyActorTypeToRoot(root, stored);
   syncToolbarButtons(toolbar, stored);
   ensureObserver(root);
-}
-
-function scheduleActorDirectoryInject(app, html) {
-  let frames = 0;
-  const tick = () => {
-    const root = sidebarDirectoryRootFromRenderArgs(app, html);
-    if (root instanceof HTMLElement) {
-      injectToolbarAtRoot(root);
-      return;
-    }
-    frames += 1;
-    if (frames < 24) requestAnimationFrame(tick);
-  };
-  queueMicrotask(tick);
 }
 
 export function cleanupActorsDirectoryTypeToolbar() {
@@ -199,9 +186,9 @@ export function registerActorsDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderActorDirectory", (app, html) => {
+  Hooks.on("renderActorDirectory", (app) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldActorDirectory(app)) return;
-    scheduleActorDirectoryInject(app, html);
+    injectToolbar(app);
   });
 }

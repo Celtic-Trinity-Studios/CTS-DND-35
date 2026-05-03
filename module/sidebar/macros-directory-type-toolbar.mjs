@@ -1,6 +1,12 @@
+/**
+ * Macros sidebar: chip strip that filters by Macro type (chat / script).
+ * Mirrors the v0.4.77 Items pattern.
+ */
+
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
-import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldMacroDirectoryRows } from "./world-macro-directory-rows.mjs";
+
+const MacroDirectory = foundry.applications.sidebar.tabs.MacroDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.macrosDirectoryTypeFilter";
 const FILTER_STYLE_ID = "cts-macros-directory-filter-css";
@@ -13,20 +19,15 @@ let _hooked = false;
 function orderedMacroTypes() {
   const T = CONST?.MACRO_TYPES;
   if (T && typeof T === "object" && !Array.isArray(T)) {
-    return Object.keys(T).sort((a, b) => String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
+    return Object.values(T)
+      .map((v) => String(v))
+      .sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
   }
   return ["chat", "script"];
 }
 
 function isCoreWorldMacroDirectory(app) {
-  if (!app || app.constructor?.name !== "MacroDirectory") return false;
-  try {
-    if (game.macros && app.collection === game.macros) return true;
-  } catch {
-    /* ignore */
-  }
-  const tab = app.tabName ?? app.options?.id;
-  return tab === "macros" || app.id === "macros" || app.options?.uniqueId === "macros";
+  return Boolean(app && app instanceof MacroDirectory && app.tabName === "macros");
 }
 
 function getStoredFilter() {
@@ -136,7 +137,8 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbarAtRoot(root) {
+function injectToolbar(app) {
+  const root = app.element;
   if (!(root instanceof HTMLElement)) return;
   const types = orderedMacroTypes();
   if (types.length < 2) return;
@@ -180,20 +182,6 @@ function injectToolbarAtRoot(root) {
   ensureObserver(root);
 }
 
-function scheduleMacroDirectoryInject(app, html) {
-  let frames = 0;
-  const tick = () => {
-    const root = sidebarDirectoryRootFromRenderArgs(app, html);
-    if (root instanceof HTMLElement) {
-      injectToolbarAtRoot(root);
-      return;
-    }
-    frames += 1;
-    if (frames < 24) requestAnimationFrame(tick);
-  };
-  queueMicrotask(tick);
-}
-
 export function cleanupMacrosDirectoryTypeToolbar() {
   const el = ui?.macros?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='macros']")?.remove();
@@ -214,9 +202,9 @@ export function registerMacrosDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderMacroDirectory", (app, html) => {
+  Hooks.on("renderMacroDirectory", (app) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldMacroDirectory(app)) return;
-    scheduleMacroDirectoryInject(app, html);
+    injectToolbar(app);
   });
 }

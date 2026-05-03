@@ -1,6 +1,12 @@
+/**
+ * Scenes sidebar: chip strip that filters by navigation-bar membership.
+ * Mirrors the v0.4.77 Items pattern.
+ */
+
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
-import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldSceneDirectoryRows } from "./world-scene-directory-rows.mjs";
+
+const SceneDirectory = foundry.applications.sidebar.tabs.SceneDirectory;
 
 const STORAGE_KEY = "CTS-DND-35.scenesDirectoryNavFilter";
 const FILTER_STYLE_ID = "cts-scenes-directory-filter-css";
@@ -11,14 +17,7 @@ const observers = new WeakMap();
 let _hooked = false;
 
 function isCoreWorldSceneDirectory(app) {
-  if (!app || app.constructor?.name !== "SceneDirectory") return false;
-  try {
-    if (game.scenes && app.collection === game.scenes) return true;
-  } catch {
-    /* ignore */
-  }
-  const tab = app.tabName ?? app.options?.id;
-  return tab === "scenes" || app.id === "scenes" || app.options?.uniqueId === "scenes";
+  return Boolean(app && app instanceof SceneDirectory && app.tabName === "scenes");
 }
 
 function getStoredFilter() {
@@ -43,26 +42,15 @@ function clearFilterStyle() {
   if (style) style.textContent = "";
 }
 
-/**
- * @param {"nav"|"nonav"} mode
- */
 function buildFilterCssRules(mode) {
   const host = `.${FILTER_HOST_CLASS}[data-cts-scenes-nav-filter="${mode}"]`;
-  const branches = DIRECTORY_ROW_SELECTOR.split(",")
+  const navTarget = mode === "nav" ? "true" : "false";
+  return DIRECTORY_ROW_SELECTOR.split(",")
     .map((s) => s.trim())
-    .filter(Boolean);
-  if (mode === "nav") {
-    return branches
-      .map(
-        (sel) =>
-          `${host} ${sel}:not(.folder):not([data-cts-scene-nav="true"]) { display: none !important; }`
-      )
-      .join("\n");
-  }
-  return branches
+    .filter(Boolean)
     .map(
       (sel) =>
-        `${host} ${sel}:not(.folder):not([data-cts-scene-nav="false"]) { display: none !important; }`
+        `${host} ${sel}:not(.folder):not([data-cts-scene-nav="${navTarget}"]) { display: none !important; }`
     )
     .join("\n");
 }
@@ -74,17 +62,17 @@ function updateFilterStyle(mode) {
     style.id = FILTER_STYLE_ID;
     document.head.appendChild(style);
   }
-  if (!mode || (mode !== "nav" && mode !== "nonav")) {
+  if (mode !== "nav" && mode !== "nonav") {
     style.textContent = "";
     return;
   }
-  style.textContent = buildFilterCssRules(/** @type {"nav"|"nonav"} */ (mode));
+  style.textContent = buildFilterCssRules(mode);
 }
 
 function applyFilterToRoot(root, mode) {
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
-  if (!mode || mode === "") {
+  if (mode !== "nav" && mode !== "nonav") {
     delete root.dataset.ctsScenesNavFilter;
     updateFilterStyle("");
     setStoredFilter("");
@@ -126,7 +114,8 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbarAtRoot(root) {
+function injectToolbar(app) {
+  const root = app.element;
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
   if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='scenes']")) return;
@@ -174,20 +163,6 @@ function injectToolbarAtRoot(root) {
   ensureObserver(root);
 }
 
-function scheduleSceneDirectoryInject(app, html) {
-  let frames = 0;
-  const tick = () => {
-    const root = sidebarDirectoryRootFromRenderArgs(app, html);
-    if (root instanceof HTMLElement) {
-      injectToolbarAtRoot(root);
-      return;
-    }
-    frames += 1;
-    if (frames < 24) requestAnimationFrame(tick);
-  };
-  queueMicrotask(tick);
-}
-
 export function cleanupScenesDirectoryTypeToolbar() {
   const el = ui?.scenes?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='scenes']")?.remove();
@@ -208,9 +183,9 @@ export function registerScenesDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderSceneDirectory", (app, html) => {
+  Hooks.on("renderSceneDirectory", (app) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldSceneDirectory(app)) return;
-    scheduleSceneDirectoryInject(app, html);
+    injectToolbar(app);
   });
 }

@@ -10,7 +10,6 @@ import { tagWorldSceneDirectoryRows } from "./world-scene-directory-rows.mjs";
 
 let _settingRegistered = false;
 let _refreshHooks = false;
-let _readyPrune = false;
 
 function refreshAllDirectoryTags() {
   queueMicrotask(() => {
@@ -83,16 +82,4 @@ export function registerDirectoryTypeToolbars() {
   registerMacrosDirectoryTypeToolbar();
   registerScenesDirectoryTypeToolbar();
   registerWorldDocumentRefreshHooks();
-
-  if (!_readyPrune) {
-    _readyPrune = true;
-    Hooks.once("ready", () => {
-      pruneLegacyCtsSidebarTabEntries();
-      try {
-        ui?.sidebar?.render?.(false);
-      } catch {
-        /* ignore */
-      }
-    });
-  }
 }

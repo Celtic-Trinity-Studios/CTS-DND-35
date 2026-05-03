@@ -1,10 +1,17 @@
+/**
+ * Items sidebar: wrapped chip strip that filters by Item type.
+ * Restored to the v0.4.77 working pattern: direct `app.element` injection on
+ * `renderItemDirectory`, using `instanceof ItemDirectory` for identity.
+ */
+
 import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
-import { sidebarDirectoryRootFromRenderArgs } from "./sidebar-directory-root.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldItemDirectoryRows } from "./world-item-directory-rows.mjs";
 
-const STORAGE_KEY = "CTS-DND-35.itemsDirectoryTypeFilter";
+const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
+
 const FILTER_STYLE_ID = "cts-items-directory-filter-css";
 const FILTER_HOST_CLASS = "cts-item-type-filter-host";
+const STORAGE_KEY = "CTS-DND-35.itemsDirectoryTypeFilter";
 
 /** @type {WeakMap<HTMLElement, MutationObserver>} */
 const observers = new WeakMap();
@@ -24,14 +31,7 @@ function orderedItemTypes() {
 }
 
 function isCoreWorldItemDirectory(app) {
-  if (!app || app.constructor?.name !== "ItemDirectory") return false;
-  try {
-    if (game.items && app.collection === game.items) return true;
-  } catch {
-    /* ignore */
-  }
-  const tab = app.tabName ?? app.options?.id;
-  return tab === "items" || app.id === "items" || app.options?.uniqueId === "items";
+  return Boolean(app && app instanceof ItemDirectory && app.tabName === "items");
 }
 
 function getStoredFilter() {
@@ -152,7 +152,6 @@ function buildToolbar(types) {
     b.textContent = label;
     nav.appendChild(b);
   }
-
   return nav;
 }
 
@@ -177,7 +176,8 @@ function ensureObserver(root) {
   observers.set(root, obs);
 }
 
-function injectToolbarAtRoot(root) {
+function injectToolbar(app) {
+  const root = app.element;
   if (!(root instanceof HTMLElement)) return;
   root.classList.add(FILTER_HOST_CLASS);
   if (root.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")) return;
@@ -196,21 +196,6 @@ function injectToolbarAtRoot(root) {
   ensureObserver(root);
 }
 
-/** ApplicationV2 hooks can run before `app.element` exists; retry like the pre-refactor rail. */
-function scheduleItemDirectoryInject(app, html) {
-  let frames = 0;
-  const tick = () => {
-    const root = sidebarDirectoryRootFromRenderArgs(app, html);
-    if (root instanceof HTMLElement) {
-      injectToolbarAtRoot(root);
-      return;
-    }
-    frames += 1;
-    if (frames < 24) requestAnimationFrame(tick);
-  };
-  queueMicrotask(tick);
-}
-
 export function cleanupItemsDirectoryTypeToolbar() {
   const el = ui?.items?.element;
   el?.querySelector(".cts-items-type-toolbar[data-cts-toolbar-kind='items']")?.remove();
@@ -226,28 +211,9 @@ export function registerItemsDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  const scheduleIfItems = (app, html) => {
+  Hooks.on("renderItemDirectory", (app) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldItemDirectory(app)) return;
-    scheduleItemDirectoryInject(app, html);
-  };
-
-  Hooks.on("renderItemDirectory", (app, html) => {
-    scheduleIfItems(app, html);
-  });
-
-  /* Some v14 builds only emit the generic Application hook reliably (avoid running for every app). */
-  Hooks.on("renderApplication", (app, html) => {
-    if (app?.constructor?.name !== "ItemDirectory") return;
-    scheduleIfItems(app, html);
-  });
-
-  Hooks.once("ready", () => {
-    if (!isDirectoryTypeToolbarsEnabled()) return;
-    try {
-      if (ui?.items?.rendered) ui.items.render(false);
-    } catch {
-      /* ignore */
-    }
+    injectToolbar(app);
   });
 }
