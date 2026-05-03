@@ -1,0 +1,40 @@
+{{!-- Status tab: conditions narrative + buff items (spells, effects) --}}
+<section class="cts-panel-block cts-status-panel">
+  <h3><i class="fas fa-notes-medical"></i> Status &amp; conditions</h3>
+  <p class="cts-tab-hint">Use <strong>Vitality</strong> and <strong>Status notes</strong> for unconscious, dying, spell durations, etc. Add <strong>Buff</strong> items from the Items sidebar for structured effects you can toggle on the item sheet.</p>
+
+  <div class="cts-status-vitals">
+    <label>Vitality / awareness
+      <select name="system.details.status.vitality">
+        <option value="normal" {{#if (cts-eq system.details.status.vitality "normal")}}selected{{/if}}>Normal</option>
+        <option value="unconscious" {{#if (cts-eq system.details.status.vitality "unconscious")}}selected{{/if}}>Unconscious</option>
+        <option value="stable" {{#if (cts-eq system.details.status.vitality "stable")}}selected{{/if}}>Stable (0 HP)</option>
+        <option value="dying" {{#if (cts-eq system.details.status.vitality "dying")}}selected{{/if}}>Dying</option>
+        <option value="disabled" {{#if (cts-eq system.details.status.vitality "disabled")}}selected{{/if}}>Disabled</option>
+        <option value="dead" {{#if (cts-eq system.details.status.vitality "dead")}}selected{{/if}}>Dead</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="cts-full-width">Status notes (spells, rounds, sources)<br />
+    <textarea name="system.details.status.notes" rows="6" placeholder="e.g. Bless (CL 3), 2 rounds left; Grease DC 12 Ref…">{{system.details.status.notes}}</textarea>
+  </label>
+</section>
+
+<section class="cts-panel-block cts-status-buffs">
+  <h3><i class="fas fa-bolt"></i> Buffs &amp; effects (items)</h3>
+  <p class="cts-tab-hint">Drag <strong>Buff</strong> items onto the actor. Open an item to mark <strong>active</strong> when the system supports it on the buff sheet.</p>
+  {{#each items.buffs}}
+  <div class="cts-line item" data-item-id="{{this._id}}">
+    <img class="item-img" src="{{this.img}}" alt="" />
+    <span class="item-name item-roll flex-grow">{{this.name}}</span>
+    <span class="cts-buff-active" title="Active on item">{{#if this.system.active}}✓{{else}}—{{/if}}</span>
+    <span class="cts-line-controls">
+      <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+      <a class="item-delete" title="Remove"><i class="fas fa-trash"></i></a>
+    </span>
+  </div>
+  {{else}}
+  <p class="cts-tab-hint">No buff items yet.</p>
+  {{/each}}
+</section>

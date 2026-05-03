@@ -6,7 +6,7 @@ Use this after pulling changes that touch **`module/documents/actor.mjs`**, **`m
 
 For each row: run the steps, then check **Expected**. Note failures with Foundry version, module list, and console errors.
 
-**PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
+**PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Status, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Status** holds vitality, freeform status notes, and **Buff** items. **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
 
 ---
 
@@ -75,7 +75,17 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 
 ---
 
-## 7. Identity, languages, senses, polymorph flags
+## 7. Status tab (vitality, notes, buffs)
+
+| ✓ | Step | Expected |
+|---|------|----------|
+| ☐ | Open **Status** tab. | **Vitality** select and **Status notes** textarea show light text on dark field; buff list readable. |
+| ☐ | Set vitality to **Unconscious**, add notes, save. | `system.details.status` persists. |
+| ☐ | Drag a **Buff** item onto the actor; open item → **Details** → set **Active**. | Status tab shows ✓ for active buff. |
+
+---
+
+## 8. Identity, languages, senses, polymorph flags
 
 | ✓ | Step | Expected |
 |---|------|----------|
@@ -88,7 +98,7 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 
 ---
 
-## 8. XP field binding
+## 9. XP field binding
 
 | ✓ | Step | Expected |
 |---|------|----------|
@@ -97,13 +107,13 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 
 ---
 
-## 9. NPC / Bio tab
+## 10. NPC / Bio tab
 
 | ☐ | Open **NPC** sheet → Bio (or equivalent) if identity partial is duplicated there. | Identity + ability adjustments visible and save like PC where intended. |
 
 ---
 
-## 10. Regression sniff tests
+## 11. Regression sniff tests
 
 | ☐ | On **character** sheet, **Combat Stats → HP** shows two editable fields (current / max), not read-only `0 / 0` text. | Values persist after close/reopen. |
 | ☐ | Level-up wizard / character wizard still opens; class levels still sum to **Level**. | No thrown errors in console. |
@@ -117,6 +127,7 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 2. Set NL = 1 → confirm save total drops by 1.  
 3. Armor + encumbrance + difficult terrain on same actor → land speed plausible.  
 4. Add temp HP source row → sum correct.  
-5. Enable polymorph Str → Str mod matches replacement column.
+5. Enable polymorph Str → Str mod matches replacement column.  
+6. **Status** tab: fields readable; set vitality + note; buff row shows active ✓ when set on item.
 
 Record **date**, **Foundry build**, and **system version** (`system.json` **version**) on each full pass.

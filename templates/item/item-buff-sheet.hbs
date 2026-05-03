@@ -16,7 +16,14 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      <div class="form-group">
+        <label>Active on character</label>
+        <select name="system.active">
+          <option value="false" {{#unless system.active}}selected{{/unless}}>Inactive</option>
+          <option value="true" {{#if system.active}}selected{{/if}}>Active</option>
+        </select>
+      </div>
+      <p class="notes">Use <strong>Description</strong> for mechanical notes (bonus type, duration, source).</p>
     </div>
   </section>
 </form>

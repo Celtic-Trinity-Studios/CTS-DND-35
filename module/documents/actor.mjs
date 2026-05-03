@@ -66,6 +66,9 @@ export class CTSDND35Actor extends Actor {
     systemData.details.creatureType ??= "";
     systemData.details.creatureSubtype ??= "";
     systemData.details.humanoidSubtype ??= "";
+    systemData.details.status ??= { notes: "", vitality: "normal" };
+    systemData.details.status.notes ??= "";
+    systemData.details.status.vitality ??= "normal";
 
     // Legacy XP field used by older templates — mirror into level.xp once.
     if (systemData.details.xpValue != null && Number(systemData.details.level?.xp) === 0) {

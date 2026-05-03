@@ -35,6 +35,7 @@
     <a class="item" data-tab="skills"><i class="fas fa-list"></i> Skills</a>
     <a class="item" data-tab="features"><i class="fas fa-star"></i> Features</a>
     <a class="item" data-tab="inventory"><i class="fas fa-backpack"></i> Inventory</a>
+    <a class="item" data-tab="status"><i class="fas fa-heart-pulse"></i> Status</a>
     <a class="item" data-tab="details"><i class="fas fa-id-card"></i> Details</a>
   </nav>
 
@@ -145,6 +146,10 @@
         </div>
         {{/each}}
       </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="status">
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-status.hbs"}}
     </div>
 
     <div class="tab" data-group="primary" data-tab="details">

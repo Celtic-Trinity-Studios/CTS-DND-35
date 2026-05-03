@@ -18,6 +18,10 @@ export class CTSDND35Item extends Item {
     const itemData = this;
     const systemData = itemData.system;
 
+    if (itemData.type === "buff") {
+      systemData.active = systemData.active === true || systemData.active === "true";
+    }
+
     // Add type-specific preparation
     if (itemData.type === "spell") this._prepareSpellData(systemData);
     if (itemData.type === "weapon") this._prepareWeaponData(systemData);
