@@ -1,0 +1,46 @@
+<section class="cts-panel-block cts-ability-adj">
+  <h3><i class="fas fa-band-aid"></i> Ability damage / drain / aging</h3>
+  <p class="cts-hint-block">Temporary reductions adjust modifiers only (PHB). <strong>Drain</strong> stacks with damage for effective score. <strong>Aging</strong> is optional v3.5 middle-age+ penalties you enter manually. <strong>Bonus</strong> may be fractional (incremental +½, tomes over levels, etc.) — effective score uses the running total before modifiers. Permanent Con changes still use the score field — HP adjusts when <strong>Constitution</strong> value changes.</p>
+  <table class="cts-mini-table">
+    <thead>
+      <tr>
+        <th></th>
+        {{#each system.abilities as |ability key|}}
+        <th>{{lookup ../config.abilityAbbreviations key}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bonus</td>
+        {{#each system.abilities as |ability key|}}
+        <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.bonus" value="{{ability.bonus}}" step="any" title="Misc / fractional bonus to score" /></td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>Damage</td>
+        {{#each system.abilities as |ability key|}}
+        <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.damage" value="{{ability.damage}}" min="0" step="1" title="Ability damage" /></td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>Drain</td>
+        {{#each system.abilities as |ability key|}}
+        <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.drain" value="{{ability.drain}}" min="0" step="1" title="Ability drain" /></td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>Aging</td>
+        {{#each system.abilities as |ability key|}}
+        <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.aging" value="{{ability.aging}}" min="0" step="1" title="Optional aging penalty points" /></td>
+        {{/each}}
+      </tr>
+      <tr>
+        <td>Effective</td>
+        {{#each system.abilities as |ability key|}}
+        <td class="derived">{{ability.effective}}</td>
+        {{/each}}
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -70,6 +70,19 @@ CTSDND35.sizeMods = {
   col:  { attack: -8, grapple: 16, hide: -16},
 };
 
+/** Default melee reach (feet) when not overridden — PHB combat grid assumptions. */
+CTSDND35.sizeReachFt = {
+  fine: 0,
+  dim: 0,
+  tiny: 5,
+  sm: 5,
+  med: 5,
+  lg: 10,
+  huge: 15,
+  grg: 20,
+  col: 30,
+};
+
 /**
  * BAB progression tables
  */

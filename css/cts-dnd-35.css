@@ -1282,6 +1282,19 @@ select.cts-actor-group-filter {
   color: #f2ead2;
 }
 
+/* PC sheet combat strip — HP inputs match dark card (NPC uses same .hp-bar in combat tab) */
+.cts-card-sheet .cts-combat-grid .cts-stat-box--hp .hp-bar {
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.cts-card-sheet .cts-combat-grid .cts-stat-box--hp .hp-bar input {
+  width: 52px;
+  background: rgba(8, 12, 24, 0.95);
+  color: #f2ead2;
+  border: 1px solid #6b5c32;
+}
+
 .cts-attack-lines h4,
 .cts-saves-row h4 {
   margin: 6px 0 4px;
@@ -1511,4 +1524,66 @@ select.cts-actor-group-filter {
     0 calc(100% - 10px),
     0 10px
   );
+}
+
+/* Character fundamentals — identity, ability adjustments, temp HP sources */
+.cts-extra-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cts-identity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cts-identity-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85em;
+}
+
+.cts-identity .cts-inline-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.cts-mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88em;
+}
+
+.cts-mini-table th,
+.cts-mini-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.cts-mini-table th:first-child,
+.cts-mini-table td:first-child {
+  text-align: left;
+}
+
+.cts-temp-hp-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cts-temp-hp-sources > .stat-label {
+  margin-bottom: 2px;
+}
+
+.cts-temp-hp-row {
+  align-items: center;
+  gap: 6px;
 }

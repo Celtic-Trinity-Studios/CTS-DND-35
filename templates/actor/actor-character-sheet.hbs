@@ -14,8 +14,9 @@
       </div>
       <div class="cts-header-meta">
         <span>Level {{system.details.level.value}}</span>
-        <label>XP <input type="number" name="system.details.xpValue" value="{{system.details.xpValue}}" /></label>
-        <span>{{#if system.attributes.speed.land.base}}{{system.attributes.speed.land.base}}{{else}}30{{/if}} ft.</span>
+        <label>XP <input type="number" name="system.details.level.xp" value="{{system.details.level.xp}}" min="0" step="1" /></label>
+        <span title="Derived land speed">SPD {{system.attributes.speed.land.total}} ft</span>
+        <span title="Melee reach">Reach {{system.traits.reachFt}} ft</span>
       </div>
       <div class="cts-header-actions">
         {{#if (cts-or (cts-eq system.details.level.value 0) (cts-eq system.details.level.value "0"))}}
@@ -31,7 +32,7 @@
   <section class="cts-top-grid">
     <div class="cts-abilities-panel">
       {{#each system.abilities as |ability key|}}
-      <div class="cts-ability-tile">
+      <div class="cts-ability-tile" title="Effective {{ability.effective}} (incl. damage/drain/aging/polymorph)">
         <div class="cts-ability-label">{{lookup ../config.abilityAbbreviations key}}</div>
         <input class="cts-ability-value" type="number" name="system.abilities.{{key}}.value" value="{{ability.value}}" />
         <div class="cts-ability-mod rollable ability-roll" data-ability="{{key}}">{{cts-sign ability.mod}}</div>
@@ -42,9 +43,13 @@
     <div class="cts-combat-panel">
       <h3>Combat Stats</h3>
       <div class="cts-combat-grid">
-        <div class="cts-stat-box">
+        <div class="cts-stat-box cts-stat-box--hp">
           <span>HP</span>
-          <strong>{{system.attributes.hp.value}} / {{system.attributes.hp.max}}</strong>
+          <div class="hp-bar" title="Current / max hit points">
+            <input type="number" name="system.attributes.hp.value" value="{{system.attributes.hp.value}}" min="0" step="1" />
+            <span class="hp-sep">/</span>
+            <input type="number" name="system.attributes.hp.max" value="{{system.attributes.hp.max}}" min="0" step="1" />
+          </div>
         </div>
         <div class="cts-stat-box">
           <span>AC</span>
@@ -118,5 +123,10 @@
       </div>
       {{/each}}
     </div>
+  </section>
+
+  <section class="cts-extra-panels">
+    {{> "systems/CTS-DND-35/templates/actor/parts/actor-identity.hbs"}}
+    {{> "systems/CTS-DND-35/templates/actor/parts/actor-ability-adjustments.hbs"}}
   </section>
 </form>

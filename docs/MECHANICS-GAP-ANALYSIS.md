@@ -12,13 +12,15 @@ This document maps **D&D 3.5 / SRD-level mechanics** against **CTS-DND-35** in o
 | **Partial** | Data or UI exists; rule is incomplete, manual, or pack-dependent |
 | **Missing** | No meaningful first-class support |
 
-**Code pointers (common)** — `module/documents/actor.mjs`, `module/helpers/config.mjs`, `module/helpers/progression-rules.mjs`, `module/apps/character-wizard.mjs`, `module/apps/level-up-wizard.mjs`, `module/utils/trade-modifiers.mjs`, item sheets under `templates/item/`.
+**Code pointers (common)** — `module/documents/actor.mjs`, `module/helpers/config.mjs`, `module/helpers/progression-rules.mjs`, `module/hooks/actor-character-mechanics.mjs` (Con→HP), `module/sheets/actor-sheet.mjs`, `module/apps/character-wizard.mjs`, `module/apps/level-up-wizard.mjs`, `module/utils/trade-modifiers.mjs`, item sheets under `templates/item/`, character partials `templates/actor/parts/actor-identity.hbs`, `actor-ability-adjustments.hbs`, `actor-combat.hbs`.
 
 ---
 
 ## Executive summary
 
 CTS-DND-35 is a **strong structural base**: full **skill catalog**, **ability mods**, **BAB from class items**, **core AC** (armor/shield/natural/size/Dex-to-armor cap), **initiative & save totals**, **grapple total**, **HP fields**, **currency**, **many item types** (weapon, armor, spell, class, race, feat, feature, buff, attack, faction, consumable, equipment), **character & level-up wizards** with feat prereq parsing, **faction/trade** subsystem, **grid/diagonal settings**, and **multiple SRD compendia**. Sections **1–17** below expand row-by-row; **§20** lists optional non-SRD extensions.
+
+**§1 update:** Character fundamentals now include **effective abilities** (damage/drain/aging, fractional bonus, polymorph replacements), **Con→HP adjustment** on edit, **negative levels** on saves/skills/init/grapple, **land speed** (armor penalty, encumbrance, difficult terrain), **default reach by size** + override, **identity & senses** fields, **temp HP source rows**, **multiclass XP reminder** + favored-class fields. Manual checklist: [`CHARACTER-FUNDAMENTALS-TEST-CHECKLIST.md`](./CHARACTER-FUNDAMENTALS-TEST-CHECKLIST.md).
 
 The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/conditions → derived stats). Without it, **most advanced 3.5** (stacking bonuses, AoOs, flanking, slots, encumbrance ACP, spell slots/DC, DR/resist, conditions, canvas threat) stays **manual or absent**. Secondary gaps: **spellcasting workflow**, **equipment rules**, **special combat actions**, **monster/treasure tooling**.
 
@@ -28,29 +30,31 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
-| Ability scores & modifiers | **Present** | `prepareDerivedData` → `mod = floor((score−10)/2)` per ability |
-| Ability damage / drain / burn | **Missing** | No temporary score layers or penalty tracking |
-| Hit points (current / max / temp / nonlethal) | **Present** | Sheet inputs; **dying**, stabilization, death threshold, massive damage — not automated |
-| Constitution changes & HP | **Missing** | No rule when Con changes (current vs max interaction) |
+| Ability scores & modifiers | **Present** | Effective score → `mod = floor((effective−10)/2)`; **`effective`** accounts for polymorph base, damage/drain/aging, optional fractional **bonus** (`actor.mjs`, ability-adjustments partial) |
+| Ability damage / drain / burn | **Partial** | Per-ability **damage**, **drain**, **aging** fields reduce effective score; **burn** not a separate column (treat as drain or misc if needed) |
+| Hit points (current / max / temp / nonlethal) | **Present** | Sheet inputs; **`tempSources`** array + derived **`tempSourcesSum`**; **dying**, stabilization, death threshold, massive damage — not automated |
+| Constitution changes & HP | **Present** | On **character** actors, client that edits **Constitution `value`** adjusts **`hp.max`** and **`hp.value`** by **ΔCon modifier × total level** (PHB-style); see `actor-character-mechanics.mjs` |
 | Level (total) | **Present** | Sum of **class** item levels (`actor.mjs`) |
-| Experience points & next level | **Partial** | Fields exist; wizards; **XP awards**, **multiclass XP penalty**, **LA buyoff** — not modeled |
-| Favored class / multiclass XP penalty | **Missing** | |
+| Experience points & next level | **Partial** | **`system.details.level.xp`** on sheet; legacy **`xpValue`** mirrored once; **`details.laBuyoffXp`** field for notes; **XP awards**, **multiclass penalty math**, **buyoff rules** — not automated |
+| Favored class / multiclass XP penalty | **Partial** | **`details.favoredClass`**, **`details.racialFavoredClass`** + derived **`details.xpMulticlassHint`** (PHB reminder only); **no Table 3–6 math** |
 | Race (SRD quick picks) | **Partial** | `config.mjs` racial presets + **race** items; **traits not auto-applied** to speed/abilities/skills centrally |
-| Size category | **Present** | `traits.size`; feeds AC size mod & grapple |
-| Reach by size / creature | **Partial** | Not on token; no default reach table wired to combat |
-| Speed — land / fly / swim / climb / burrow | **Partial** | Stored + fly maneuverability; **armor speed**, **encumbrance speed**, **difficult terrain** — not applied |
+| Size category | **Present** | `traits.size`; feeds AC size mod & grapple; default **reach** table in **`CTSDND35.sizeReachFt`** (`config.mjs`) |
+| Reach by size / creature | **Partial** | Derived **`traits.reachFt`** (+ **`traits.reachOverride`**) on actor/sheet header; **token reach / grid enforcement** still manual in Foundry |
+| Speed — land / fly / swim / climb / burrow | **Partial** | **Land `total`**: base − **armor speed penalty** (item field or medium/heavy inference) − **encumbrance** (medium/heavy/overload) − **difficult terrain** (halve); **`armorPenaltyFt`** exposed; fly/swim/climb/burrow copy **base→total** only (no armor/encumbrance pipeline) |
 | Alignment | **Present** | Stored; used in **feat** prereq checks |
 | Deity, gender, biography, notes | **Present** | Narrative fields |
-| Age, height, weight, eyes/hair | **Missing** | Optional descriptive fields not standardized |
-| Languages | **Missing** | No language list / literacy tracker |
-| Vision & senses (darkvision, low-light, etc.) | **Missing** | Not aggregated to actor/token (contrast D35E feat-granted senses) |
-| Level drain / negative levels | **Missing** | |
-| Creature type / subtype (PC) | **Missing** | Monsters rely on manual stats; no PC type field |
-| Humanoid subtype / racial traits as flags | **Missing** | |
-| Polymorph / wild shape “replacement stats” mode | **Missing** | |
-| Aging bonuses & penalties (optional v3.5 tables) | **Missing** | |
-| Fractional ability scores (effects that grant +2 vs +1) | **Missing** | Whole-number abilities only |
-| Temporary HP sources (spells, rage) separate tracking | **Partial** | **temp** HP field exists; **no** auto-expire by source |
+| Age, height, weight, eyes/hair | **Present** | **`system.details`**: `age`, `height`, `weight`, `eyes`, `hair` — Identity partial (+ NPC bio partial) |
+| Languages | **Present** | **`details.languages`** text + **`details.literate`** (Yes/No); no structured tag list |
+| Vision & senses (darkvision, low-light, etc.) | **Partial** | **`system.traits.senses`** (ranges + low-light/scent flags + notes) on sheet; **not** pushed to token vision / automation (contrast D35E) |
+| Level drain / negative levels | **Present** | **`attributes.negativeLevels`** subtracts from **saves**, **skills**, **init**, **grapple**; **`bab.attackPenalty`** for display; **effective caster level / SLAs / HD-based abilities** — not reduced automatically |
+| Creature type / subtype (PC) | **Present** | **`details.creatureType`**, **`details.creatureSubtype`** (free text); monsters still often manual stat blocks |
+| Humanoid subtype / racial traits as flags | **Partial** | **`details.humanoidSubtype`** text; **no** feat/prerequisite wiring from subtype flags |
+| Polymorph / wild shape “replacement stats” mode | **Present** | **`system.traits.polymorph`**: enable + replacement **Str/Dex/Con**; damage/drain/aging still apply on top |
+| Aging bonuses & penalties (optional v3.5 tables) | **Partial** | Per-ability **`aging`** penalty points toward effective score; **no** baked-in middle-age/venerable tables |
+| Fractional ability scores (effects that grant +2 vs +1) | **Present** | **`abilities.<key>.bonus`** with fractional **`step`** on sheet; effective uses **`floor(value + bonus − penalties)`** |
+| Temporary HP sources (spells, rage) separate tracking | **Partial** | **`hp.tempSources`** rows (add/remove in **`actor-sheet.mjs`**) + **`tempSourcesSum`**; **manual `hp.temp`** still separate; **no** auto-expire by source or round tracking |
+
+**Testing §1:** step-by-step checklist → [`CHARACTER-FUNDAMENTALS-TEST-CHECKLIST.md`](./CHARACTER-FUNDAMENTALS-TEST-CHECKLIST.md).
 
 ---
 
@@ -71,7 +75,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Cross-class max half-ranks ceiling | **Present** | Via cap formula; sheet editing can still error |
 | Starting wealth / gear at level 1 | **Missing** | Not enforced |
 | Wealth-by-level for higher starts | **Missing** | |
-| Level drain affecting effective level for abilities | **Missing** | Tied to negative levels row in §1 |
+| Level drain affecting effective level for abilities | **Partial** | §1 **negative levels** penalize saves/skills/init/grapple/BAB display; **caster level / SLAs / features keyed to HD or level** — still manual |
 | Prestige classes | **Partial** | Same **class** item; **entry requirements** beyond feats not systematically enforced |
 | Class feature grants by level (automated) | **Partial** | `getClassFeatureGrants` in progression-rules; **application** to sheet mostly manual |
 | Gestalt | **Partial** | `enableGestalt` setting; depth depends on wizard |

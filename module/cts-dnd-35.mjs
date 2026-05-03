@@ -16,6 +16,7 @@ import { CTSDND35ItemSheet } from "./sheets/item-sheet.mjs";
 import { CTSDND35 } from "./helpers/config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { registerActorFactionGroupHooks } from "./hooks/actor-faction-groups.mjs";
+import { registerActorCharacterMechanicsHooks } from "./hooks/actor-character-mechanics.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -151,6 +152,7 @@ Hooks.once("init", function () {
   });
 
   registerActorFactionGroupHooks();
+  registerActorCharacterMechanicsHooks();
 
   Hooks.on("updateItem", (first, second) => {
     if (isFactionBulkPushActive()) return;

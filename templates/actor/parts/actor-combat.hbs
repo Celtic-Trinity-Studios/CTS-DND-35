@@ -12,12 +12,34 @@
   </div>
   <div class="stat-box">
     <div class="stat-label">Temp HP</div>
-    <input type="number" name="system.attributes.hp.temp" value="{{system.attributes.hp.temp}}" />
+    <input type="number" name="system.attributes.hp.temp" value="{{system.attributes.hp.temp}}" title="Manual temp HP total" />
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Temp (tracked)</div>
+    <span class="stat-value derived" title="Sum of sources below">{{system.attributes.hp.tempSourcesSum}}</span>
   </div>
   <div class="stat-box">
     <div class="stat-label">Nonlethal</div>
     <input type="number" name="system.attributes.hp.nonlethal" value="{{system.attributes.hp.nonlethal}}" />
   </div>
+  <div class="stat-box">
+    <div class="stat-label">Neg. levels</div>
+    <input type="number" name="system.attributes.negativeLevels" value="{{system.attributes.negativeLevels}}" min="0" step="1" title="−1 saves/skills/init/grapple per level (SRD)" />
+  </div>
+</div>
+
+<div class="cts-temp-hp-sources mb-md">
+  <span class="stat-label">Temp HP sources</span>
+  {{#each system.attributes.hp.tempSources}}
+  <div class="flexrow cts-temp-hp-row" data-index="{{@index}}">
+    <input type="text" name="system.attributes.hp.tempSources.{{@index}}.label" value="{{this.label}}" placeholder="Source" class="flex-grow" />
+    <input type="number" name="system.attributes.hp.tempSources.{{@index}}.amount" value="{{this.amount}}" min="0" step="1" style="width:56px;" />
+    <button type="button" class="cts-icon-btn cts-remove-temp-hp" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></button>
+  </div>
+  {{else}}
+  <p class="notes">No rows — add one for rage, aid, etc.</p>
+  {{/each}}
+  <button type="button" class="cts-btn secondary cts-add-temp-hp"><i class="fas fa-plus"></i> Add temp HP source</button>
 </div>
 
 {{!-- AC — computed, read-only display --}}
@@ -44,7 +66,7 @@
 <div class="combat-stats mb-md">
   <div class="stat-box">
     <div class="stat-label">BAB</div>
-    <div class="stat-value derived">{{cts-sign system.attributes.bab.total}}</div>
+    <div class="stat-value derived" title="Negative levels apply −1 per level on attacks">{{cts-sign system.attributes.bab.total}}{{#if system.attributes.bab.attackPenalty}} <small>(−{{system.attributes.bab.attackPenalty}} atk)</small>{{/if}}</div>
   </div>
   <div class="stat-box">
     <div class="stat-label">Grapple</div>
@@ -79,8 +101,42 @@
 {{!-- Speed --}}
 <div class="combat-stats mb-md">
   <div class="stat-box">
-    <div class="stat-label">Land</div>
+    <div class="stat-label">Land base</div>
     <input type="number" name="system.attributes.speed.land.base" value="{{system.attributes.speed.land.base}}" /> ft
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Land total</div>
+    <span class="stat-value derived" title="After armor speed penalty, encumbrance, difficult terrain">{{system.attributes.speed.land.total}} ft</span>
+  </div>
+  {{#if system.attributes.speed.land.armorPenaltyFt}}
+  <div class="stat-box">
+    <div class="stat-label">Armor spd −</div>
+    <span class="stat-value derived">{{system.attributes.speed.land.armorPenaltyFt}} ft</span>
+  </div>
+  {{/if}}
+  <div class="stat-box">
+    <div class="stat-label">Reach</div>
+    <span class="stat-value derived" title="Default by size; override on Identity if needed">{{system.traits.reachFt}} ft</span>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Reach ovrd</div>
+    <input type="number" name="system.traits.reachOverride" value="{{system.traits.reachOverride}}" placeholder="auto" title="Blank = size default" style="width:52px;" /> ft
+  </div>
+  <div class="stat-box">
+    <label class="stat-label">Encumbrance</label>
+    <select name="system.traits.encumbrance">
+      <option value="none" {{#if (cts-eq system.traits.encumbrance "none")}}selected{{/if}}>None</option>
+      <option value="medium" {{#if (cts-eq system.traits.encumbrance "medium")}}selected{{/if}}>Medium</option>
+      <option value="heavy" {{#if (cts-eq system.traits.encumbrance "heavy")}}selected{{/if}}>Heavy</option>
+      <option value="overload" {{#if (cts-eq system.traits.encumbrance "overload")}}selected{{/if}}>Overload</option>
+    </select>
+  </div>
+  <div class="stat-box">
+    <label class="stat-label" title="Half speed again">Terrain</label>
+    <select name="system.traits.difficultTerrain">
+      <option value="false" {{#unless system.traits.difficultTerrain}}selected{{/unless}}>Normal</option>
+      <option value="true" {{#if system.traits.difficultTerrain}}selected{{/if}}>Difficult (−½)</option>
+    </select>
   </div>
   <div class="stat-box">
     <div class="stat-label">Fly</div>

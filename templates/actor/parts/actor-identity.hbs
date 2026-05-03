@@ -1,0 +1,74 @@
+<section class="cts-panel-block cts-identity">
+  <h3><i class="fas fa-id-card"></i> Identity, languages &amp; type</h3>
+  <div class="cts-identity-grid">
+    <label>Age <input type="text" name="system.details.age" value="{{system.details.age}}" placeholder="e.g. 22 years" /></label>
+    <label>Height <input type="text" name="system.details.height" value="{{system.details.height}}" /></label>
+    <label>Weight <input type="text" name="system.details.weight" value="{{system.details.weight}}" /></label>
+    <label>Eyes <input type="text" name="system.details.eyes" value="{{system.details.eyes}}" /></label>
+    <label>Hair <input type="text" name="system.details.hair" value="{{system.details.hair}}" /></label>
+  </div>
+  <label class="cts-full-width">Languages<br />
+    <textarea name="system.details.languages" rows="2" placeholder="Common, Elven, Draconic…">{{system.details.languages}}</textarea>
+  </label>
+  <label class="cts-inline-checkbox">Literate
+    <select name="system.details.literate">
+      <option value="true" {{#if system.details.literate}}selected{{/if}}>Yes</option>
+      <option value="false" {{#unless system.details.literate}}selected{{/unless}}>No</option>
+    </select>
+  </label>
+
+  <h4>Multiclass &amp; XP (PHB)</h4>
+  <div class="cts-identity-grid">
+    <label>Favored class (player choice) <input type="text" name="system.details.favoredClass" value="{{system.details.favoredClass}}" placeholder="Class name" /></label>
+    <label>Racial favored class <input type="text" name="system.details.racialFavoredClass" value="{{system.details.racialFavoredClass}}" /></label>
+    <label>LA buyoff XP spent <input type="number" name="system.details.laBuyoffXp" value="{{system.details.laBuyoffXp}}" min="0" step="1" title="Track XP spent to reduce level adjustment" /></label>
+  </div>
+  {{#if system.details.xpMulticlassHint}}
+  <p class="cts-hint-block">{{system.details.xpMulticlassHint}}</p>
+  {{/if}}
+
+  <h4>Creature type (character)</h4>
+  <div class="cts-identity-grid">
+    <label>Type <input type="text" name="system.details.creatureType" value="{{system.details.creatureType}}" placeholder="e.g. Humanoid" /></label>
+    <label>Subtype <input type="text" name="system.details.creatureSubtype" value="{{system.details.creatureSubtype}}" placeholder="e.g. Elf" /></label>
+    <label>Humanoid subtype <input type="text" name="system.details.humanoidSubtype" value="{{system.details.humanoidSubtype}}" placeholder="If humanoid" /></label>
+  </div>
+
+  <h4>Senses (aggregate for sheet; sync token vision manually)</h4>
+  <div class="cts-identity-grid">
+    <label>Darkvision (ft) <input type="number" name="system.traits.senses.darkvision" value="{{system.traits.senses.darkvision}}" min="0" step="5" /></label>
+    <label class="cts-inline-checkbox">Low-light
+      <select name="system.traits.senses.lowLightVision">
+        <option value="false" {{#unless system.traits.senses.lowLightVision}}selected{{/unless}}>No</option>
+        <option value="true" {{#if system.traits.senses.lowLightVision}}selected{{/if}}>Yes</option>
+      </select>
+    </label>
+    <label>Blindsense (ft) <input type="number" name="system.traits.senses.blindsense" value="{{system.traits.senses.blindsense}}" min="0" step="5" /></label>
+    <label>Blindsight (ft) <input type="number" name="system.traits.senses.blindsight" value="{{system.traits.senses.blindsight}}" min="0" step="5" /></label>
+    <label>Tremorsense (ft) <input type="number" name="system.traits.senses.tremorsense" value="{{system.traits.senses.tremorsense}}" min="0" step="5" /></label>
+    <label class="cts-inline-checkbox">Scent
+      <select name="system.traits.senses.scent">
+        <option value="false" {{#unless system.traits.senses.scent}}selected{{/unless}}>No</option>
+        <option value="true" {{#if system.traits.senses.scent}}selected{{/if}}>Yes</option>
+      </select>
+    </label>
+  </div>
+  <label class="cts-full-width">Sense notes<br />
+    <input type="text" name="system.traits.senses.notes" value="{{system.traits.senses.notes}}" class="flex-grow" placeholder="See in darkness, etc." />
+  </label>
+
+  <h4>Polymorph / wild shape (physical stats)</h4>
+  <p class="cts-hint-block">When enabled, <strong>Str / Dex / Con</strong> modifiers use the scores below instead of the normal ability fields (still apply damage/drain/aging to those polymorph scores).</p>
+  <label class="cts-inline-checkbox">Replace physical scores
+    <select name="system.traits.polymorph.enabled">
+      <option value="false" {{#unless system.traits.polymorph.enabled}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.traits.polymorph.enabled}}selected{{/if}}>Yes (polymorph / wild shape)</option>
+    </select>
+  </label>
+  <div class="cts-identity-grid">
+    <label>Polymorph STR <input type="number" name="system.traits.polymorph.str" value="{{system.traits.polymorph.str}}" min="1" max="99" /></label>
+    <label>Polymorph DEX <input type="number" name="system.traits.polymorph.dex" value="{{system.traits.polymorph.dex}}" min="1" max="99" /></label>
+    <label>Polymorph CON <input type="number" name="system.traits.polymorph.con" value="{{system.traits.polymorph.con}}" min="1" max="99" /></label>
+  </div>
+  <label class="cts-full-width">Polymorph notes <input type="text" name="system.traits.polymorph.notes" value="{{system.traits.polymorph.notes}}" /></label>
+</section>

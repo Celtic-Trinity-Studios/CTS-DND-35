@@ -275,6 +275,23 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       await this.actor.update({ "system.details.raceModsSelling": rows });
       this.render(false);
     });
+
+    html.find(".cts-add-temp-hp").click(async (ev) => {
+      ev.preventDefault();
+      const src = foundry.utils.deepClone(this.actor.system.attributes?.hp?.tempSources ?? []);
+      src.push({ label: "", amount: 0 });
+      await this.actor.update({ "system.attributes.hp.tempSources": src });
+      this.render(false);
+    });
+
+    html.on("click", ".cts-remove-temp-hp", async (ev) => {
+      ev.preventDefault();
+      const idx = Number(ev.currentTarget.dataset.index);
+      const src = foundry.utils.deepClone(this.actor.system.attributes?.hp?.tempSources ?? []);
+      src.splice(idx, 1);
+      await this.actor.update({ "system.attributes.hp.tempSources": src });
+      this.render(false);
+    });
   }
 
   /**
