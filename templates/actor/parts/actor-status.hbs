@@ -15,7 +15,7 @@
         <div class="cts-condition-grid">
           {{#each statusConditionRows}}
           <label class="cts-condition-chip {{#if this.on}}is-on{{/if}}">
-            <input type="checkbox" data-condition-key="{{this.key}}" {{#if this.on}}checked{{/if}}{{#unless editable}} disabled="disabled"{{/unless}} />
+            <input type="checkbox" data-condition-key="{{this.key}}" {{#if this.on}}checked{{/if}} />
             <span>{{this.label}}</span>
           </label>
           {{/each}}

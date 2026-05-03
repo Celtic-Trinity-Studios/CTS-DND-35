@@ -23,7 +23,7 @@ function parseSpellLevel(levelStr) {
     return match ? parseInt(match[0], 10) : 0;
 }
 
-/** Core `icons/svg/*` paths (Foundry install) — SRD pack has no per-spell artwork. */
+/** Core `icons/svg/*` paths (Foundry install). `raw_spells.json` has no per-spell `img` field; set `row.img` to a URL/path if you add art. */
 function spellIconForSchool(school) {
     const s = String(school || "").toLowerCase();
     if (s.includes("abjur")) return "icons/svg/shield.svg";
@@ -127,7 +127,10 @@ async function packData() {
     for (const row of rawSpells) {
         const comp = row.components ? row.components.toUpperCase() : "";
         const item = {
-            _id: generateId(), name: row.name, type: "spell", img: spellIconForSchool(row.school),
+            _id: generateId(),
+            name: row.name,
+            type: "spell",
+            img: (typeof row.img === "string" && row.img.trim()) ? row.img.trim() : spellIconForSchool(row.school),
             system: {
                 description: row.full_text || row.description || "", source: row.reference || "",
                 spellLevel: parseSpellLevel(row.level), school: row.school || "",

@@ -80,7 +80,7 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 | ✓ | Step | Expected |
 |---|------|----------|
 | ☐ | Open **Status** tab. | **Conditions | Spells** sub-tabs appear; **Conditions** shows a compact checkbox grid, vitality, and notes; **Spells** lists spell items (or empty hint). |
-| ☐ | Toggle several **condition** checkboxes. | Each updates `system.details.status.conditions.<key>`; refresh sheet — states persist. |
+| ☐ | Toggle several **condition** checkboxes (must not be `disabled` in DOM). | Each updates `system.details.status.conditions.<key>`; refresh sheet — states persist. |
 | ☐ | Set vitality to **Unconscious**, add notes, save. | `system.details.status` persists (vitality is separate from condition checkboxes). |
 | ☐ | Drag a **Buff** item onto the actor; open item → **Details** → set **Active**. | Status tab shows ✓ for active buff. |
 

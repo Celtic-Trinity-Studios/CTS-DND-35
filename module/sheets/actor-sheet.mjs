@@ -102,6 +102,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
     context.sheetVisualTheme = game.settings.get("CTS-DND-35", "actorSheetVisualTheme") || "angled";
 
+    context.editable = this.isEditable;
+
     return context;
   }
 

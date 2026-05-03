@@ -1762,6 +1762,8 @@ select.cts-actor-group-filter {
 }
 
 .cts-condition-chip {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1774,6 +1776,7 @@ select.cts-actor-group-filter {
   font-size: 11px;
   color: #e7dcc0;
   line-height: 1.2;
+  pointer-events: auto;
 }
 
 .cts-condition-chip:hover {
