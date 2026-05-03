@@ -124,6 +124,10 @@
     "FactionPresetsName": "Faction / group name presets",
     "FactionPresetsHint": "One name per line. Used as suggestions in the Actors sidebar filter dropdown.",
 
+    "SidebarTabNpcs": "NPCs",
+    "SidebarTabSpells": "Spells",
+    "SidebarTabFactions": "Factions",
+
     "FactionRefreshSheets": "Apply to all actors & refresh sheets",
     "FactionRefreshSheetsHint": "GM only: saves this faction from the form (even if you have not closed the sheet), updates every matching faction item on all world actors (same compendium/source link, or same name), syncs group strings for everyone, then redraws open CTS sheets. Same display name on different factions will all be updated.",
     "FactionRefreshNeedsGM": "Only a GM can push faction changes to all actors.",

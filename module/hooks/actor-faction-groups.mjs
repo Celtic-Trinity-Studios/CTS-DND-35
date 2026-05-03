@@ -7,9 +7,14 @@ import { actorFactionFilterTokens, syncActorGroupsFromFactionItems } from "../ut
 import { getItemAndActorFromHookArgs, getUpdateItemHookContext } from "../utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "../utils/faction-bulk-push-guard.mjs";
 
-const STORAGE_KEY = "CTS-DND-35.actorGroupDirectoryFilter";
+const STORAGE_KEY_BASE = "CTS-DND-35.actorGroupDirectoryFilter";
 /** @type {WeakMap<HTMLSelectElement, HTMLElement>} */
 const directoryRootByFilterSelect = new WeakMap();
+
+/** @param {HTMLSelectElement} sel */
+function _storageKeyForSelect(sel) {
+  return sel.dataset.ctsFilterStorageKey || STORAGE_KEY_BASE;
+}
 
 function _rootEl(html) {
   if (!html) return null;
@@ -48,19 +53,32 @@ function _actorMatchesFilter(actor, filterToken) {
   return tokens.some((g) => g.toLowerCase() === want);
 }
 
+function _actorTypeConstraintForRoot(htmlRoot) {
+  const fromRoot = htmlRoot?.dataset?.ctsDirectoryActorType;
+  if (fromRoot) return fromRoot;
+  return htmlRoot?.querySelector(".cts-actor-group-toolbar")?.dataset?.ctsActorType || "";
+}
+
 function applyDirectoryGroupFilter(htmlRoot, filterToken) {
   const list = htmlRoot.querySelector(".directory-list");
   if (!list) return;
+  const typeWant = _actorTypeConstraintForRoot(htmlRoot);
   for (const li of list.querySelectorAll("li.directory-item[data-document-id]")) {
     const id = li.dataset.documentId;
     const actor = game.actors?.get(id);
     if (!actor) continue;
-    const show = _actorMatchesFilter(actor, filterToken);
+    const typeOk = !typeWant || actor.type === typeWant;
+    const show = typeOk && _actorMatchesFilter(actor, filterToken);
     li.style.display = show ? "" : "none";
     const tokens = actorFactionFilterTokens(actor);
     li.dataset.ctsGroups = tokens.join("|");
     li.title = tokens.length ? `${game.i18n.localize("CTSDND35.Groups")}: ${tokens.join(", ")}` : "";
   }
+}
+
+/** Re-run actor row visibility (faction filter + optional actor type from directory root). */
+export function applyActorFactionDirectoryVisualFilter(htmlRoot, filterToken = "") {
+  applyDirectoryGroupFilter(htmlRoot, filterToken);
 }
 
 function _repopulateFilterSelect(sel, htmlRoot) {
@@ -76,7 +94,7 @@ function _repopulateFilterSelect(sel, htmlRoot) {
     o.textContent = name;
     sel.appendChild(o);
   }
-  const saved = sessionStorage.getItem(STORAGE_KEY) ?? "";
+  const saved = sessionStorage.getItem(_storageKeyForSelect(sel)) ?? "";
   const opts = _allFilterOptions();
   const pick = opts.includes(cur) ? cur : opts.includes(saved) ? saved : "";
   if (pick && [...sel.options].some((o) => o.value === pick)) sel.value = pick;
@@ -96,12 +114,17 @@ export function refreshActorDirectoryFactionFilters() {
   _refreshAllDirectoryGroupFilters();
 }
 
-function _injectDirectoryToolbar(htmlRoot) {
+/**
+ * @param {HTMLElement} htmlRoot
+ * @param {{ storageKeySuffix?: string; actorTypeConstraint?: string }} [options]
+ */
+function _injectDirectoryToolbar(htmlRoot, options = {}) {
   const header = htmlRoot.querySelector(".directory-header");
   if (!header || htmlRoot.querySelector(".cts-actor-group-toolbar")) return;
 
   const wrap = document.createElement("div");
   wrap.className = "cts-actor-group-toolbar flexrow";
+  if (options.actorTypeConstraint) wrap.dataset.ctsActorType = options.actorTypeConstraint;
   wrap.innerHTML = `
     <label class="cts-actor-group-filter-label flexrow">
       <span class="cts-actor-group-filter-title">${game.i18n.localize("CTSDND35.GroupFilter")}</span>
@@ -113,13 +136,23 @@ function _injectDirectoryToolbar(htmlRoot) {
 
   const sel = wrap.querySelector("select.cts-actor-group-filter");
   directoryRootByFilterSelect.set(sel, htmlRoot);
+  const storageKey = options.storageKeySuffix ? `${STORAGE_KEY_BASE}.${options.storageKeySuffix}` : STORAGE_KEY_BASE;
+  sel.dataset.ctsFilterStorageKey = storageKey;
 
   _repopulateFilterSelect(sel, htmlRoot);
 
   sel.addEventListener("change", () => {
-    sessionStorage.setItem(STORAGE_KEY, sel.value);
+    sessionStorage.setItem(_storageKeyForSelect(sel), sel.value);
     applyDirectoryGroupFilter(htmlRoot, sel.value);
   });
+}
+
+/**
+ * @param {HTMLElement} htmlRoot
+ * @param {{ storageKeySuffix?: string; actorTypeConstraint?: string }} [options]
+ */
+export function injectActorFactionDirectoryToolbar(htmlRoot, options = {}) {
+  _injectDirectoryToolbar(htmlRoot, options);
 }
 
 function _scheduleFactionGroupSync(actor) {

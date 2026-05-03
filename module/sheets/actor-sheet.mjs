@@ -21,20 +21,16 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    const parent = super.defaultOptions;
-    const parentDrag = parent.dragDrop ?? [];
-    const dragDrop = parentDrag.length
-      ? parentDrag.map((entry) =>
-          entry?.dropSelector === ".sheet-body"
-            ? foundry.utils.mergeObject(foundry.utils.duplicate(entry), { dropSelector: "form" })
-            : foundry.utils.duplicate(entry),
-        )
-      : [{ dragSelector: ".item-list .item", dropSelector: "form" }];
-    return foundry.utils.mergeObject(parent, {
+    const base = foundry.utils.duplicate(super.defaultOptions);
+    return foundry.utils.mergeObject(base, {
       classes: ["cts-dnd-35", "sheet", "actor"],
       width: 720,
       height: 920,
-      dragDrop,
+      /**
+       * One drop zone on the whole sheet `form` so compendium / sidebar Item drops work on the
+       * card header and all tabs (core default used `.sheet-body` only, which misses most of our UI).
+       */
+      dragDrop: [{ dragSelector: ".item-list .item", dropSelector: "form" }],
     });
   }
 
@@ -223,6 +219,24 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+
+    const form = this.form;
+    if (form && !form.dataset.ctsDragAccept) {
+      form.dataset.ctsDragAccept = "1";
+      form.addEventListener(
+        "dragover",
+        (ev) => {
+          if (!this.isEditable) return;
+          ev.preventDefault();
+          try {
+            ev.dataTransfer.dropEffect = "copy";
+          } catch {
+            /* ignore */
+          }
+        },
+        { passive: false },
+      );
+    }
 
     // Rollable ability checks
     html.on("click", ".ability-roll", this._onAbilityRoll.bind(this));

@@ -16,6 +16,7 @@ import { CTSDND35ItemSheet } from "./sheets/item-sheet.mjs";
 import { CTSDND35 } from "./helpers/config.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { registerActorFactionGroupHooks } from "./hooks/actor-faction-groups.mjs";
+import { registerCtsSidebarTabs } from "./sidebar/cts-sidebar-tabs.mjs";
 import { registerActorCharacterMechanicsHooks } from "./hooks/actor-character-mechanics.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
@@ -80,6 +81,8 @@ Hooks.once("init", function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = CTSDND35Actor;
   CONFIG.Item.documentClass = CTSDND35Item;
+
+  registerCtsSidebarTabs();
 
   // System settings
   game.settings.register("CTS-DND-35", "enableGestalt", {
