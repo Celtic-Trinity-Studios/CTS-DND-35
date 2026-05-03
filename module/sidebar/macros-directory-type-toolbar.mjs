@@ -1,3 +1,4 @@
+import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldMacroDirectoryRows } from "./world-macro-directory-rows.mjs";
 
 const MacroDirectory = foundry.applications.sidebar.tabs.MacroDirectory;
@@ -195,7 +196,7 @@ export function registerMacrosDirectoryTypeToolbar() {
   _hooked = true;
 
   Hooks.on("renderMacroDirectory", (app) => {
-    if (!game.settings.get("CTS-DND-35", "directoryTypeToolbars")) return;
+    if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldMacroDirectory(app)) return;
     injectToolbar(app);
   });

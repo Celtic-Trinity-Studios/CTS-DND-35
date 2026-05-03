@@ -1,3 +1,4 @@
+import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { applyActorFactionDirectoryVisualFilter } from "../hooks/actor-faction-groups.mjs";
 import { tagWorldActorDirectoryRows } from "./world-actor-directory-rows.mjs";
 
@@ -180,7 +181,7 @@ export function registerActorsDirectoryTypeToolbar() {
   _hooked = true;
 
   Hooks.on("renderActorDirectory", (app) => {
-    if (!game.settings.get("CTS-DND-35", "directoryTypeToolbars")) return;
+    if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldActorDirectory(app)) return;
     injectToolbar(app);
   });

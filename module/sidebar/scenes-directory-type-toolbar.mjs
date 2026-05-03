@@ -1,3 +1,4 @@
+import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldSceneDirectoryRows } from "./world-scene-directory-rows.mjs";
 
 const SceneDirectory = foundry.applications.sidebar.tabs.SceneDirectory;
@@ -189,7 +190,7 @@ export function registerScenesDirectoryTypeToolbar() {
   _hooked = true;
 
   Hooks.on("renderSceneDirectory", (app) => {
-    if (!game.settings.get("CTS-DND-35", "directoryTypeToolbars")) return;
+    if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldSceneDirectory(app)) return;
     injectToolbar(app);
   });

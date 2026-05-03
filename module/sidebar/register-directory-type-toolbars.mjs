@@ -1,3 +1,4 @@
+import { pruneLegacyCtsSidebarTabEntries } from "./directory-type-toolbars-shared.mjs";
 import { registerItemsDirectoryTypeToolbar, cleanupItemsDirectoryTypeToolbar } from "./items-directory-type-rail.mjs";
 import { registerActorsDirectoryTypeToolbar, cleanupActorsDirectoryTypeToolbar } from "./actors-directory-type-toolbar.mjs";
 import { registerMacrosDirectoryTypeToolbar, cleanupMacrosDirectoryTypeToolbar } from "./macros-directory-type-toolbar.mjs";
@@ -9,6 +10,7 @@ import { tagWorldSceneDirectoryRows } from "./world-scene-directory-rows.mjs";
 
 let _settingRegistered = false;
 let _refreshHooks = false;
+let _readyPrune = false;
 
 function refreshAllDirectoryTags() {
   queueMicrotask(() => {
@@ -33,7 +35,7 @@ function registerDirectoryTypeToolbarsSetting() {
     type: Boolean,
     default: true,
     onChange: (enabled) => {
-      if (!enabled) {
+      if (enabled === false) {
         cleanupItemsDirectoryTypeToolbar();
         cleanupActorsDirectoryTypeToolbar();
         cleanupMacrosDirectoryTypeToolbar();
@@ -74,10 +76,23 @@ function registerWorldDocumentRefreshHooks() {
 
 /** One client toggle + in-panel chips for Items, Actors, Macros, and Scenes directories. */
 export function registerDirectoryTypeToolbars() {
+  pruneLegacyCtsSidebarTabEntries();
   registerDirectoryTypeToolbarsSetting();
   registerItemsDirectoryTypeToolbar();
   registerActorsDirectoryTypeToolbar();
   registerMacrosDirectoryTypeToolbar();
   registerScenesDirectoryTypeToolbar();
   registerWorldDocumentRefreshHooks();
+
+  if (!_readyPrune) {
+    _readyPrune = true;
+    Hooks.once("ready", () => {
+      pruneLegacyCtsSidebarTabEntries();
+      try {
+        ui?.sidebar?.render?.(false);
+      } catch {
+        /* ignore */
+      }
+    });
+  }
 }

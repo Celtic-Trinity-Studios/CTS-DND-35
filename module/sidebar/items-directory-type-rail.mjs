@@ -1,3 +1,4 @@
+import { isDirectoryTypeToolbarsEnabled } from "./directory-type-toolbars-shared.mjs";
 import { DIRECTORY_ROW_SELECTOR, tagWorldItemDirectoryRows } from "./world-item-directory-rows.mjs";
 
 const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
@@ -206,7 +207,7 @@ export function registerItemsDirectoryTypeToolbar() {
   _hooked = true;
 
   Hooks.on("renderItemDirectory", (app) => {
-    if (!game.settings.get("CTS-DND-35", "directoryTypeToolbars")) return;
+    if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldItemDirectory(app)) return;
     injectToolbar(app);
   });
