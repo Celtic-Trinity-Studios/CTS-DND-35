@@ -21,10 +21,20 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
+    const parent = super.defaultOptions;
+    const parentDrag = parent.dragDrop ?? [];
+    const dragDrop = parentDrag.length
+      ? parentDrag.map((entry) =>
+          entry?.dropSelector === ".sheet-body"
+            ? foundry.utils.mergeObject(foundry.utils.duplicate(entry), { dropSelector: "form" })
+            : foundry.utils.duplicate(entry),
+        )
+      : [{ dragSelector: ".item-list .item", dropSelector: "form" }];
+    return foundry.utils.mergeObject(parent, {
       classes: ["cts-dnd-35", "sheet", "actor"],
       width: 720,
       height: 920,
+      dragDrop,
     });
   }
 

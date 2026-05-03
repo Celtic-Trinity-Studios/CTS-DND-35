@@ -23,6 +23,21 @@ function parseSpellLevel(levelStr) {
     return match ? parseInt(match[0], 10) : 0;
 }
 
+/** Core `icons/svg/*` paths (Foundry install) — SRD pack has no per-spell artwork. */
+function spellIconForSchool(school) {
+    const s = String(school || "").toLowerCase();
+    if (s.includes("abjur")) return "icons/svg/shield.svg";
+    if (s.includes("conjur")) return "icons/svg/chest.svg";
+    if (s.includes("divin")) return "icons/svg/mystery-man.svg";
+    if (s.includes("enchant")) return "icons/svg/book.svg";
+    if (s.includes("evoc")) return "icons/svg/lightning.svg";
+    if (s.includes("illus")) return "icons/svg/holy-shield.svg";
+    if (s.includes("necro")) return "icons/svg/combat.svg";
+    if (s.includes("trans")) return "icons/svg/upgrade.svg";
+    if (s.includes("univers")) return "icons/svg/book.svg";
+    return "icons/svg/book.svg";
+}
+
 function stripHtml(value) {
     return String(value || "")
         .replace(/<br\s*\/?>/gi, "\n")
@@ -112,7 +127,7 @@ async function packData() {
     for (const row of rawSpells) {
         const comp = row.components ? row.components.toUpperCase() : "";
         const item = {
-            _id: generateId(), name: row.name, type: "spell", img: "icons/svg/book.svg",
+            _id: generateId(), name: row.name, type: "spell", img: spellIconForSchool(row.school),
             system: {
                 description: row.full_text || row.description || "", source: row.reference || "",
                 spellLevel: parseSpellLevel(row.level), school: row.school || "",

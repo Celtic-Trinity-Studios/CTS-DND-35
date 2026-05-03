@@ -1,7 +1,7 @@
 {{!-- Status tab: sub-panels Conditions | Spells, then buffs --}}
 <section class="cts-panel-block cts-status-panel">
   <h3><i class="fas fa-notes-medical"></i> Status</h3>
-  <p class="cts-tab-hint cts-status-hint">Tick conditions on <strong>Conditions</strong>. Known spells live on <strong>Spells</strong>. Vitality, notes, and buff items stay for anything else.</p>
+  <p class="cts-tab-hint cts-status-hint">Tick conditions on <strong>Conditions</strong>. Dragging from the <strong>SRD Spells</strong> compendium adds <strong>Spell</strong> items — open the <strong>Spells</strong> sub-tab to see them (they are not buffs). Use <strong>Buff</strong> items only in the section below for ongoing effects you model as items.</p>
 
   <nav class="cts-status-subtabs" aria-label="Status sections">
     <button type="button" class="item active" data-cts-status-sub="conditions">Conditions</button>
@@ -54,7 +54,7 @@
 
 <section class="cts-panel-block cts-status-buffs">
   <h3><i class="fas fa-bolt"></i> Buffs &amp; effects (items)</h3>
-  <p class="cts-tab-hint cts-status-buffs-hint">Drag <strong>Buff</strong> items onto the actor. Open an item → <strong>Details</strong> to mark <strong>Active</strong>.</p>
+  <p class="cts-tab-hint cts-status-buffs-hint">Only <strong>type: Buff</strong> items appear here (create in Items, or import a buff compendium if you add one). Spells from compendia are <strong>Spell</strong> items — use the <strong>Spells</strong> sub-tab. Drop items onto <strong>anywhere on this character sheet form</strong> or onto the actor in the sidebar.</p>
   {{#each items.buffs}}
   <div class="cts-line item" data-item-id="{{this._id}}">
     <img class="item-img" src="{{this.img}}" alt="" />
