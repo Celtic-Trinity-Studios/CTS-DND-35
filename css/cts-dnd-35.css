@@ -1526,6 +1526,85 @@ select.cts-actor-group-filter {
   );
 }
 
+/* --- PC character sheet (card) — tabbed body fills window --- */
+.cts-dnd-35.sheet.actor .window-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.cts-dnd-35.sheet.actor form.cts-card-sheet {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.cts-dnd-35.sheet.actor form.cts-card-sheet > .sheet-body.cts-pc-sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding-right: 2px;
+}
+
+.cts-dnd-35.sheet.actor form.cts-card-sheet > .sheet-body.cts-pc-sheet-body > .tab {
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+}
+
+.cts-pc-sheet-tabs {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.cts-card-sheet .cts-pc-sheet-tabs.sheet-tabs {
+  border-bottom-color: rgba(125, 106, 53, 0.75);
+}
+
+.cts-card-sheet .cts-pc-sheet-tabs .item {
+  color: #bfae79;
+}
+
+.cts-card-sheet .cts-pc-sheet-tabs .item:hover {
+  color: #ead7a5;
+  background: rgba(30, 40, 68, 0.6);
+}
+
+.cts-card-sheet .cts-pc-sheet-tabs .item.active {
+  color: #f2e6c4;
+  background: rgba(22, 30, 52, 0.95);
+  border-color: #7d6a35;
+  border-bottom-color: transparent;
+}
+
+.cts-tab-hint {
+  font-size: 11px;
+  opacity: 0.85;
+  margin: 10px 0 0;
+  line-height: 1.4;
+  color: #c4b998;
+}
+
+.cts-features-tab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .cts-features-tab {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cts-skills-tab-column {
+  max-width: 100%;
+}
+
 /* Character fundamentals — identity, ability adjustments, temp HP sources */
 .cts-extra-panels {
   display: flex;

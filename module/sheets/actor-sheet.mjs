@@ -9,6 +9,16 @@ import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
+  constructor(object, options = {}) {
+    const tabInitial = object.type === "character" ? "main" : "combat";
+    super(
+      object,
+      foundry.utils.mergeObject(options, {
+        tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: tabInitial }],
+      }),
+    );
+  }
+
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {

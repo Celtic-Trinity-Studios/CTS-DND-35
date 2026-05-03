@@ -6,7 +6,7 @@ Use this after pulling changes that touch **`module/documents/actor.mjs`**, **`m
 
 For each row: run the steps, then check **Expected**. Note failures with Foundry version, module list, and console errors.
 
-**PC main strip:** **Combat Stats → HP** uses two **number inputs** (current / max) on `actor-character-sheet.hbs`. Temp HP, nonlethal, negative levels, and temp-HP **source rows** still live on the **NPC** combat partial (`actor-combat.hbs`) unless you add that partial to the PC sheet elsewhere.
+**PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
 
 ---
 
