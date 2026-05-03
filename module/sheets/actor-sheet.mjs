@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Actor Sheet
+ * CTS DND 3.5 — Actor Sheet
  * Extends ActorSheet to display character / NPC data.
  */
 

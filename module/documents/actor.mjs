@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Actor Document
+ * CTS DND 3.5 — Actor Document
  * Extends the base Actor class to implement system-specific logic.
  */
 

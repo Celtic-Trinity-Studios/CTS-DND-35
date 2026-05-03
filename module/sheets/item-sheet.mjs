@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Item Sheet
+ * CTS DND 3.5 — Item Sheet
  * Extends ItemSheet to display item data.
  */
 

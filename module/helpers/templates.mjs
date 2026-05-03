@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Handlebars Template Preloading
+ * CTS DND 3.5 — Handlebars Template Preloading
  * Define a set of template paths to pre-load.
  * Pre-loaded templates are compiled and cached for fast access when rendering.
  */

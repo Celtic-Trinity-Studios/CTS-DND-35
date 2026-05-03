@@ -1,4 +1,4 @@
-# CTS DND 35 — Custom D&D 3.5 Edition System
+# CTS DND 3.5 — Custom D&D 3.5 Edition System
 
 A clean, extensible Foundry VTT system for D&D 3.5 Edition, built from scratch by **Celtic Trinity Studios**.
 

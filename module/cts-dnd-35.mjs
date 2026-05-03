@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Main System Entry Point
+ * CTS DND 3.5 — Main System Entry Point
  * A custom D&D 3.5 Edition system for Foundry VTT
  * by Celtic Trinity Studios
  */
@@ -65,7 +65,7 @@ function _buildFiveFootGridPatch(source) {
 /* -------------------------------------------- */
 
 Hooks.once("init", function () {
-  console.log("CTS DND 35 | Initializing CTS DND 35 System");
+  console.log("CTS DND 3.5 | Initializing CTS DND 3.5 System");
 
   // Expose the system API on the game object
   game.ctsdnd35 = {
@@ -179,7 +179,7 @@ Hooks.once("init", function () {
 /* -------------------------------------------- */
 
 Hooks.once("ready", async function () {
-  console.log("CTS DND 35 | System Ready");
+  console.log("CTS DND 3.5 | System Ready");
 
   CONFIG.Item.typeLabels = foundry.utils.mergeObject(CONFIG.Item.typeLabels ?? {}, {
     faction: game.i18n.localize("CTSDND35.ItemTypeFaction"),
@@ -191,7 +191,7 @@ Hooks.once("ready", async function () {
     try {
       await game.settings.set("core", "gridDiagonals", _getD35DiagonalRuleValue());
     } catch (err) {
-      console.warn("CTS DND 35 | Unable to set core diagonal movement rule.", err);
+      console.warn("CTS DND 3.5 | Unable to set core diagonal movement rule.", err);
     }
   }
 
@@ -202,7 +202,7 @@ Hooks.once("ready", async function () {
       try {
         await scene.update(patch);
       } catch (err) {
-        console.warn(`CTS DND 35 | Unable to update grid scale for scene ${scene.name}.`, err);
+        console.warn(`CTS DND 3.5 | Unable to update grid scale for scene ${scene.name}.`, err);
       }
     }
   }

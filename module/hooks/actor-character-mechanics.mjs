@@ -38,7 +38,7 @@ export function registerActorCharacterMechanicsHooks() {
     try {
       await actor.update({ "system.attributes.hp.max": max, "system.attributes.hp.value": value });
     } catch (err) {
-      console.warn("CTS DND 35 | Could not apply Con-based HP adjustment:", err);
+      console.warn("CTS DND 3.5 | Could not apply Con-based HP adjustment:", err);
     }
   });
 }

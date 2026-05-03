@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — System Configuration Constants
+ * CTS DND 3.5 — System Configuration Constants
  */
 
 export const CTSDND35 = {};

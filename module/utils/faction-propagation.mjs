@@ -55,7 +55,7 @@ export async function propagateFactionSnapshotToAllActors(masterDoc, snapshot) {
     try {
       await masterDoc.update({ name, img, system: mergedSystem });
     } catch (err) {
-      console.warn("CTS DND 35 | Faction refresh could not update this faction item document:", err);
+      console.warn("CTS DND 3.5 | Faction refresh could not update this faction item document:", err);
     }
 
     let embeddedUpdated = 0;

@@ -1,5 +1,5 @@
 /**
- * CTS DND 35 — Item Document
+ * CTS DND 3.5 — Item Document
  * Extends the base Item class to implement system-specific logic.
  */
 

@@ -1,6 +1,6 @@
 {
   "CTSDND35": {
-    "System": "CTS DND 35",
+    "System": "CTS DND 3.5",
 
     "AbilityStr": "Strength",
     "AbilityStrAbbr": "STR",
@@ -109,8 +109,8 @@
     "Save": "Save",
     "Check": "Check",
 
-    "SheetActorDefault": "CTS DND 35 Actor Sheet",
-    "SheetItemDefault": "CTS DND 35 Item Sheet",
+    "SheetActorDefault": "CTS DND 3.5 Actor Sheet",
+    "SheetItemDefault": "CTS DND 3.5 Item Sheet",
 
     "ActorSheetVisualTheme": "Character sheet shape theme",
     "ActorSheetVisualThemeHint": "Rounded cards or angled / hex-style panels on the character sheet (client setting).",

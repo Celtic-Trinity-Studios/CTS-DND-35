@@ -82,7 +82,7 @@ function _logTypedPanelDiagnostics(app, root, primary) {
       collectionKey: doc?.collection?.collectionName ?? null,
     });
   }
-  console.groupCollapsed(`CTS DND 35 | sidebar diagnostic [${primary}]`);
+  console.groupCollapsed(`CTS DND 3.5 | sidebar diagnostic [${primary}]`);
   console.log("app:", app?.constructor?.name, "id:", app?.id, "tabName:", app?.tabName);
   console.log("root id:", root.id, "data-cts-typed-panel:", root.dataset.ctsTypedPanel);
   console.log("counts:", {
@@ -334,7 +334,7 @@ function _registerSidebarDiagnosticSetting() {
 /** Call from `Hooks.once("init")` before the UI is constructed. */
 export function registerCtsSidebarTabs() {
   if (!foundry?.applications?.sidebar?.Sidebar?.TABS) {
-    console.warn("CTS DND 35 | Sidebar.TABS unavailable; CTS sidebar tabs not registered.");
+    console.warn("CTS DND 3.5 | Sidebar.TABS unavailable; CTS sidebar tabs not registered.");
     return;
   }
   _mergeSidebarTabDescriptors();
