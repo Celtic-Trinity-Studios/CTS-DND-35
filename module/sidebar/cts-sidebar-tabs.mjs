@@ -1,6 +1,9 @@
 /**
  * Extra sidebar tabs: NPCs-only actors, spells-only items, faction items only.
  * Registered on CONFIG.ui + Sidebar.TABS during init (Foundry v14 ApplicationV2 sidebar).
+ *
+ * Each tab must use a unique Application `id` / `uniqueId` (see DEFAULT_OPTIONS). Without that,
+ * subclasses still used the core `#items` / `#actors` roots and every tab showed the same panel.
  */
 
 import {
@@ -12,6 +15,28 @@ const ActorDirectory = foundry.applications.sidebar.tabs.ActorDirectory;
 const ItemDirectory = foundry.applications.sidebar.tabs.ItemDirectory;
 const Sidebar = foundry.applications.sidebar.Sidebar;
 
+/**
+ * @param {typeof ActorDirectory | typeof ItemDirectory} BaseCls
+ * @param {string} elementId
+ */
+function _directoryDefaultOptions(BaseCls, elementId) {
+  const base = foundry.utils.duplicate(BaseCls.DEFAULT_OPTIONS);
+  return foundry.utils.mergeObject(base, { id: elementId, uniqueId: elementId });
+}
+
+/** @param {HTMLElement | null} root @param {string[]} types */
+function _applyItemTypeRowFilter(root, types) {
+  if (!root) return;
+  const allow = new Set(types);
+  for (const li of root.querySelectorAll("li.directory-item")) {
+    const id = li.dataset?.documentId ?? li.getAttribute("data-document-id");
+    if (!id) continue;
+    const doc = game.items?.get(id);
+    const show = !!(doc && allow.has(doc.type));
+    li.style.display = show ? "" : "none";
+  }
+}
+
 /** @param {unknown} html */
 function _rootFromHtml(html) {
   if (!html) return null;
@@ -22,9 +47,14 @@ function _rootFromHtml(html) {
 
 export class CtsNpcActorDirectory extends ActorDirectory {
   static tabName = "ctsNpcs";
+  static DEFAULT_OPTIONS = _directoryDefaultOptions(ActorDirectory, "ctsNpcs");
 
   /** @type {string[]} */
   static _ctsActorTypes = ["npc"];
+
+  get title() {
+    return game.i18n.localize("CTSDND35.SidebarTabNpcs");
+  }
 
   async _postRender(context, options) {
     await super._postRender(context, options);
@@ -54,26 +84,22 @@ export class CtsNpcActorDirectory extends ActorDirectory {
 
 export class CtsSpellItemDirectory extends ItemDirectory {
   static tabName = "ctsSpells";
+  static DEFAULT_OPTIONS = _directoryDefaultOptions(ItemDirectory, "ctsSpells");
 
   /** @type {string[]} */
   static _ctsItemTypes = ["spell"];
 
-  _ctsDocMatches(doc) {
-    return this.constructor._ctsItemTypes.includes(doc.type);
+  get title() {
+    return game.i18n.localize("CTSDND35.SidebarTabSpells");
+  }
+
+  _ctsApplyItemRowVisibility() {
+    _applyItemTypeRowFilter(this.element, this.constructor._ctsItemTypes);
   }
 
   async _postRender(context, options) {
     await super._postRender(context, options);
     this._ctsApplyItemRowVisibility();
-  }
-
-  _ctsApplyItemRowVisibility() {
-    const root = this.element;
-    if (!root) return;
-    for (const li of root.querySelectorAll("li.directory-item[data-document-id]")) {
-      const doc = game.items?.get(li.dataset.documentId);
-      li.hidden = !!(doc && !this._ctsDocMatches(doc));
-    }
   }
 
   /** @override */
@@ -95,26 +121,22 @@ export class CtsSpellItemDirectory extends ItemDirectory {
 
 export class CtsFactionItemDirectory extends ItemDirectory {
   static tabName = "ctsFactions";
+  static DEFAULT_OPTIONS = _directoryDefaultOptions(ItemDirectory, "ctsFactions");
 
   /** @type {string[]} */
   static _ctsItemTypes = ["faction"];
 
-  _ctsDocMatches(doc) {
-    return this.constructor._ctsItemTypes.includes(doc.type);
+  get title() {
+    return game.i18n.localize("CTSDND35.SidebarTabFactions");
+  }
+
+  _ctsApplyItemRowVisibility() {
+    _applyItemTypeRowFilter(this.element, this.constructor._ctsItemTypes);
   }
 
   async _postRender(context, options) {
     await super._postRender(context, options);
     this._ctsApplyItemRowVisibility();
-  }
-
-  _ctsApplyItemRowVisibility() {
-    const root = this.element;
-    if (!root) return;
-    for (const li of root.querySelectorAll("li.directory-item[data-document-id]")) {
-      const doc = game.items?.get(li.dataset.documentId);
-      li.hidden = !!(doc && !this._ctsDocMatches(doc));
-    }
   }
 
   /** @override */
