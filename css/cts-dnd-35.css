@@ -1095,10 +1095,19 @@
   margin: 0 0 2px;
   border-bottom: 1px solid var(--color-border-light-primary, rgba(255, 255, 255, 0.12));
   flex-shrink: 0;
-  /* Fits ~3 wrapped rows of chips for default item types without inner scroll */
+  overflow-x: hidden;
+}
+
+/* Items panel: show the full wrapped type grid (no inner scrollbar) like the reference layout */
+.cts-items-type-toolbar[data-cts-toolbar-kind="items"] {
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* Other directories keep a bounded chip area */
+.cts-items-type-toolbar:not([data-cts-toolbar-kind="items"]) {
   max-height: 10rem;
   overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .cts-items-rail-btn {

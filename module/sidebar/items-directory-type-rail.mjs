@@ -226,9 +226,28 @@ export function registerItemsDirectoryTypeToolbar() {
   if (_hooked) return;
   _hooked = true;
 
-  Hooks.on("renderItemDirectory", (app, html) => {
+  const scheduleIfItems = (app, html) => {
     if (!isDirectoryTypeToolbarsEnabled()) return;
     if (!isCoreWorldItemDirectory(app)) return;
     scheduleItemDirectoryInject(app, html);
+  };
+
+  Hooks.on("renderItemDirectory", (app, html) => {
+    scheduleIfItems(app, html);
+  });
+
+  /* Some v14 builds only emit the generic Application hook reliably (avoid running for every app). */
+  Hooks.on("renderApplication", (app, html) => {
+    if (app?.constructor?.name !== "ItemDirectory") return;
+    scheduleIfItems(app, html);
+  });
+
+  Hooks.once("ready", () => {
+    if (!isDirectoryTypeToolbarsEnabled()) return;
+    try {
+      if (ui?.items?.rendered) ui.items.render(false);
+    } catch {
+      /* ignore */
+    }
   });
 }
