@@ -30,9 +30,20 @@ function _directoryDefaultOptions(BaseCls, elementId) {
 /** @param {unknown} entry */
 function _entryDocumentType(entry) {
   if (!entry || typeof entry !== "object") return null;
-  const doc = /** @type {any} */ (entry).document ?? /** @type {any} */ (entry).doc ?? entry;
-  if (doc?.documentName === "Item" || doc?.constructor?.name === "Item") return doc.type ?? null;
-  return /** @type {any} */ (entry).type ?? null;
+  const any = /** @type {any} */ (entry);
+  if (any.documentName === "Folder") return null;
+
+  const ItemCls = CONFIG.Item?.documentClass;
+  if (ItemCls) {
+    if (any instanceof ItemCls) return any.type ?? null;
+    const doc = any.document ?? any.doc;
+    if (doc instanceof ItemCls) return doc.type ?? null;
+  }
+
+  const labels = CONFIG.Item?.typeLabels;
+  const t = typeof any.type === "string" ? any.type : null;
+  if (t && labels && Object.prototype.hasOwnProperty.call(labels, t)) return t;
+  return null;
 }
 
 /**
@@ -77,7 +88,8 @@ function _worldItemFromDirectoryId(id) {
       /* ignore */
     }
   }
-  return doc?.parent ? null : doc;
+  if (!doc || doc.isEmbedded) return null;
+  return doc;
 }
 
 /** @param {HTMLElement | null} root @param {string[]} types */
