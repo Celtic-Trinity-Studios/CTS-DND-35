@@ -4,8 +4,8 @@
 
 While playing, open the **in-game help window**:
 
-1. Press **ESC** (or open the **sidebar gear → Settings** tab), then **Configure Settings** — click **CTS DND 3.5 system help** in the dialog footer, **or**
-2. On the **sidebar Settings** tab, click **System help** at the top.
+1. Open the **sidebar (gear) → Settings** tab. Under **Help and Documentation**, click **CTS DND 3.5 — Help** (same area as Support & Issues / Documentation / Community Wiki).
+2. Or press **ESC → Configure Settings** and use **CTS DND 3.5 system help** in the dialog footer.
 
 From a script macro or the console: `game.ctsdnd35.openHelp()`.
 

@@ -2143,18 +2143,11 @@ button.cts-open-system-help {
   margin-inline-end: 8px;
 }
 
-.cts-sidebar-help-banner {
-  padding: 8px 10px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid var(--cts-border);
-  background: var(--cts-bg-dark);
-}
-
-button.cts-sidebar-help-btn {
-  width: 100%;
-  justify-content: center;
-}
-
 .cts-help-settings-group {
   margin-top: 8px;
+}
+
+/* Sidebar: button lives inside #settings-documentation with core buttons */
+#settings-documentation #cts-dnd-35-help-sidebar {
+  flex-shrink: 0;
 }

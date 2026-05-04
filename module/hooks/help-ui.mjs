@@ -28,26 +28,50 @@ function _injectConfigureSettingsButton(html) {
   }
 }
 
+/**
+ * Help & Documentation block in the sidebar Settings tab (Support / Documentation / Wiki).
+ * Prefer #settings-documentation (v10+); fall back to the section whose heading matches.
+ */
+function _findHelpDocumentationSection(root) {
+  const byId = root.querySelector("#settings-documentation");
+  if (byId) return byId;
+  for (const h2 of root.querySelectorAll("h2")) {
+    const t = (h2.textContent || "").trim().toLowerCase();
+    if (t.includes("help") && t.includes("documentation")) return h2.parentElement;
+  }
+  return null;
+}
+
 function _injectSidebarHelpButton(html) {
   const el = html instanceof HTMLElement ? html : html?.get?.(0) ?? html?.[0];
   if (!el?.querySelector) return;
-  if (el.querySelector(".cts-sidebar-help-btn")) return;
+  if (el.querySelector("#cts-dnd-35-help-sidebar")) return;
 
-  const wrap = document.createElement("div");
-  wrap.className = "cts-sidebar-help-banner";
-  wrap.innerHTML = `<button type="button" class="cts-sidebar-help-btn"><i class="fas fa-book-open"></i> ${game.i18n.localize(
-    "CTSDND35.Help.OpenShort",
-  )}</button>`;
-  wrap.querySelector("button")?.addEventListener("click", (ev) => {
+  const docSection = _findHelpDocumentationSection(el);
+  if (!docSection) return;
+
+  const buttons = docSection.querySelectorAll("button");
+  const refBtn = buttons.length ? buttons[buttons.length - 1] : null;
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.id = "cts-dnd-35-help-sidebar";
+  btn.setAttribute("data-cts-action", "system-help");
+
+  const label = game.i18n.localize("CTSDND35.Help.SidebarLabel");
+  btn.className = refBtn?.className || "button";
+  const icon = document.createElement("i");
+  icon.className = "fas fa-book-open";
+  const span = document.createElement("span");
+  span.textContent = label;
+  btn.append(icon, span);
+
+  btn.addEventListener("click", (ev) => {
     ev.preventDefault();
     game.ctsdnd35?.openHelp?.();
   });
 
-  const docBlock = el.querySelector("#settings-documentation");
-  const gameBlock = el.querySelector("#settings-game");
-  if (docBlock) docBlock.insertAdjacentElement("afterbegin", wrap);
-  else if (gameBlock) gameBlock.insertAdjacentElement("afterbegin", wrap);
-  else el.insertAdjacentElement("afterbegin", wrap);
+  docSection.appendChild(btn);
 }
 
 export function registerInGameHelpHooks() {

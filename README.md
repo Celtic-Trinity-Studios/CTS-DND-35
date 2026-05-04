@@ -64,7 +64,7 @@ CTS-DND-35/
 
 ## Using features in your game
 
-**In Foundry:** press **ESC → Configure Settings** and use **CTS DND 3.5 system help**, or **sidebar gear → Settings tab → System help**. Same content covers merchants, coins, and trade rules. From code or macros: `game.ctsdnd35.openHelp()`.
+**In Foundry:** **sidebar gear → Settings → Help and Documentation → CTS DND 3.5 — Help**, or **ESC → Configure Settings → CTS DND 3.5 system help**. Same content covers merchants, coins, and trade rules. From code or macros: `game.ctsdnd35.openHelp()`.
 
 Written reference: **[docs/WORLD-FEATURES.md](docs/WORLD-FEATURES.md)** (also bundled under `systems/CTS-DND-35/docs/` in the release zip).
 

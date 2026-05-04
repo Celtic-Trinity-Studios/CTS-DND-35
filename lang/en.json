@@ -182,7 +182,8 @@
     "Help.Title": "CTS DND 3.5 — Help",
     "Help.Open": "CTS DND 3.5 system help",
     "Help.OpenShort": "System help",
-    "Help.Intro": "This window explains how to use built-in world features for this system: merchant shops, coins, and trade modifiers. Open it anytime from the sidebar (gear → Settings tab) or from Game Settings → Configure Settings.",
+    "Help.SidebarLabel": "CTS DND 3.5 — Help",
+    "Help.Intro": "This window explains how to use built-in world features for this system: merchant shops, coins, and trade modifiers. Open it from the sidebar gear → Settings tab → Help and Documentation (CTS DND 3.5 — Help), or from Game Settings → Configure Settings.",
 
     "Help.MerchantH2": "NPC merchant shop",
     "Help.MerchantLead": "Buy from an NPC's inventory and optionally sell eligible gear back. You do not need the Item Piles module for this.",
