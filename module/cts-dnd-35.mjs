@@ -18,6 +18,8 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { registerActorFactionGroupHooks } from "./hooks/actor-faction-groups.mjs";
 import { registerCtsSidebarTabs } from "./sidebar/cts-sidebar-tabs.mjs";
 import { registerActorCharacterMechanicsHooks } from "./hooks/actor-character-mechanics.mjs";
+import { registerMerchantSockets } from "./hooks/merchant-socket.mjs";
+import { MerchantApp } from "./apps/merchant-app.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -73,7 +75,10 @@ Hooks.once("init", function () {
     CTSDND35Item,
     computeGearPricePercentTotal,
     adjustedGearPrice,
+    openMerchantShop: (merchant, buyer) => MerchantApp.open(merchant, buyer),
   };
+
+  registerMerchantSockets();
 
   // Store config on the global CONFIG object
   CONFIG.CTSDND35 = CTSDND35;
@@ -242,5 +247,10 @@ Handlebars.registerHelper("cts-or", function () {
   const args = Array.from(arguments);
   args.pop(); // Remove Handlebars options hash
   return args.some(Boolean);
+});
+
+Handlebars.registerHelper("cts-fixed2", function (value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(2) : "0.00";
 });
 

@@ -1973,3 +1973,95 @@ select.cts-actor-group-filter {
   align-items: center;
   gap: 6px;
 }
+
+/* --- Merchant shop app --- */
+.cts-dnd-35.merchant-app .window-content {
+  overflow-y: auto;
+}
+
+.cts-merchant-block {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--cts-border-dark);
+  border-radius: var(--cts-radius);
+  background: var(--cts-bg-dark);
+}
+
+.cts-merchant-block h3 {
+  margin: 0 0 8px 0;
+  font-family: var(--cts-font-heading);
+  color: var(--cts-secondary);
+}
+
+.cts-merchant-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--cts-border);
+}
+
+.cts-merchant-wallet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.9em;
+  color: var(--cts-text-light);
+}
+
+.cts-merchant-wallet-equiv {
+  color: var(--cts-text);
+}
+
+.cts-merchant-section h3 {
+  font-family: var(--cts-font-heading);
+  font-size: 1.05em;
+  margin: 12px 0 6px 0;
+  color: var(--cts-secondary);
+}
+
+.cts-merchant-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+  margin-bottom: 8px;
+}
+
+.cts-merchant-table th,
+.cts-merchant-table td {
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--cts-border);
+  vertical-align: middle;
+}
+
+.cts-merchant-table th {
+  text-align: left;
+  color: var(--cts-text-light);
+  font-weight: 600;
+}
+
+.cts-merchant-img img {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--cts-border);
+  border-radius: 2px;
+  object-fit: cover;
+}
+
+.cts-merchant-qty {
+  width: 52px;
+}
+
+button.cts-merchant-btn {
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.cts-merchant-footnote {
+  font-size: 0.85em;
+  color: var(--cts-text-light);
+  margin-top: 10px;
+}

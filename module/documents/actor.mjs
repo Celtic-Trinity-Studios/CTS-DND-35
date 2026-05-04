@@ -121,6 +121,15 @@ export class CTSDND35Actor extends Actor {
     systemData.skills ??= {};
     systemData.spellcasting ??= {};
     systemData.spellcasting.classes ??= {};
+
+    if (this.type === "npc") {
+      systemData.merchant ??= {
+        enabled: false,
+        purchaseOnly: false,
+        buyMultiplier: 1,
+        sellMultiplier: 0.5,
+      };
+    }
   }
 
   /**

@@ -1,0 +1,86 @@
+<div class="cts-merchant-app-inner">
+  {{#if invalid}}
+  <p class="notification warning">{{localize "CTSDND35.MerchantErrorInvalidActor"}}</p>
+  {{else}}
+  <header class="cts-merchant-header">
+    <div>
+      <strong>{{localize "CTSDND35.MerchantBuyer"}}:</strong> {{buyerName}}
+    </div>
+    <div class="cts-merchant-wallet" title="{{localize "CTSDND35.Currency"}}">
+      <span>CP {{wallet.cp}}</span>
+      <span>SP {{wallet.sp}}</span>
+      <span>GP {{wallet.gp}}</span>
+      <span>PP {{wallet.pp}}</span>
+      <span class="cts-merchant-wallet-equiv">(<span data-tooltip="{{localize "CTSDND35.MerchantWalletEquivHint"}}">≈ {{walletGpEquiv}} {{localize "CTSDND35.CurrencyGP"}}</span>)</span>
+    </div>
+  </header>
+
+  <section class="cts-merchant-section">
+    <h3>{{localize "CTSDND35.MerchantBuyTitle"}}</h3>
+    {{#if stock.length}}
+    <table class="cts-merchant-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>{{localize "CTSDND35.MerchantColItem"}}</th>
+          <th>{{localize "CTSDND35.MerchantColStock"}}</th>
+          <th>{{localize "CTSDND35.MerchantColUnitBuy"}}</th>
+          <th>{{localize "CTSDND35.Quantity"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each stock}}
+        <tr>
+          <td class="cts-merchant-img"><img src="{{this.img}}" alt="" /></td>
+          <td>{{this.name}}</td>
+          <td>{{this.qty}}</td>
+          <td>{{cts-fixed2 this.unitBuyGp}} {{localize "CTSDND35.CurrencyGP"}}</td>
+          <td><input type="number" class="cts-merchant-qty" min="1" max="{{this.qty}}" value="1" data-buy-qty="{{this.id}}" /></td>
+          <td><button type="button" class="cts-merchant-btn" data-merchant-buy data-item-id="{{this.id}}">{{localize "CTSDND35.MerchantBuy"}}</button></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+    <p class="cts-hint">{{localize "CTSDND35.MerchantEmptyStock"}}</p>
+    {{/if}}
+  </section>
+
+  {{#unless purchaseOnly}}
+  <section class="cts-merchant-section">
+    <h3>{{localize "CTSDND35.MerchantSellTitle"}}</h3>
+    {{#if sellRows.length}}
+    <table class="cts-merchant-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>{{localize "CTSDND35.MerchantColItem"}}</th>
+          <th>{{localize "CTSDND35.MerchantColStock"}}</th>
+          <th>{{localize "CTSDND35.MerchantColUnitSell"}}</th>
+          <th>{{localize "CTSDND35.Quantity"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sellRows}}
+        <tr>
+          <td class="cts-merchant-img"><img src="{{this.img}}" alt="" /></td>
+          <td>{{this.name}}</td>
+          <td>{{this.qty}}</td>
+          <td>{{cts-fixed2 this.unitSellGp}} {{localize "CTSDND35.CurrencyGP"}}</td>
+          <td><input type="number" class="cts-merchant-qty" min="1" max="{{this.qty}}" value="1" data-sell-qty="{{this.id}}" /></td>
+          <td><button type="button" class="cts-merchant-btn" data-merchant-sell data-item-id="{{this.id}}">{{localize "CTSDND35.MerchantSell"}}</button></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+    <p class="cts-hint">{{localize "CTSDND35.MerchantNothingToSell"}}</p>
+    {{/if}}
+  </section>
+  {{/unless}}
+
+  <p class="cts-merchant-footnote">{{localize "CTSDND35.MerchantFootnote"}}</p>
+  {{/if}}
+</div>

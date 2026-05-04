@@ -6,6 +6,7 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
 import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
+import { MerchantApp } from "../apps/merchant-app.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
@@ -211,7 +212,26 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
         ? foundry.utils.deepClone(formData)
         : foundry.utils.expandObject(formData);
     if (updateData.system?.details) this._normalizeRaceTradeSubmitData(updateData.system.details);
+    if (updateData.system?.merchant) this._normalizeMerchantSubmitData(updateData.system.merchant);
     return super._updateObject(event, updateData);
+  }
+
+  _normalizeMerchantSubmitData(merchant) {
+    if (!merchant || typeof merchant !== "object") return;
+    merchant.enabled = merchant.enabled === true || merchant.enabled === "true";
+    merchant.purchaseOnly = merchant.purchaseOnly === true || merchant.purchaseOnly === "true";
+    if (merchant.buyMultiplier != null) merchant.buyMultiplier = Math.max(0, Number(merchant.buyMultiplier) || 1);
+    if (merchant.sellMultiplier != null) merchant.sellMultiplier = Math.max(0, Number(merchant.sellMultiplier) || 0.5);
+  }
+
+  /** Buyer for shop UI: controlled token character, else user's assigned character. */
+  _resolveMerchantBuyerActor() {
+    const controlled = canvas.tokens?.controlled?.[0];
+    const fromTok = controlled?.actor;
+    if (fromTok?.type === "character") return fromTok;
+    const ch = game.user?.character;
+    if (ch?.type === "character") return ch;
+    return null;
   }
 
   /* -------------------------------------------- */
@@ -285,6 +305,22 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     html.find(".open-levelup").click(ev => {
       ev.preventDefault();
       new LevelUpWizard(this.actor).render(true);
+    });
+
+    html.find(".cts-open-merchant-shop").click((ev) => {
+      ev.preventDefault();
+      if (this.actor.type !== "npc") return;
+      const en = this.actor.system?.merchant?.enabled;
+      if (!(en === true || en === "true")) {
+        ui.notifications.warn(game.i18n.localize("CTSDND35.MerchantErrorNotEnabled"));
+        return;
+      }
+      const buyer = this._resolveMerchantBuyerActor();
+      if (!buyer) {
+        ui.notifications.warn(game.i18n.localize("CTSDND35.MerchantErrorNoBuyer"));
+        return;
+      }
+      MerchantApp.open(this.actor, buyer);
     });
 
     html.find(".cts-add-race-trade-row").click(async (ev) => {
