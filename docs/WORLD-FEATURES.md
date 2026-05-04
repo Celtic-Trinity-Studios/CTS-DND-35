@@ -98,6 +98,10 @@ When in doubt, open the merchant window: unit prices shown already include those
 
 ---
 
-## Release packaging
+## Where to find this after install
 
-This file lives under `docs/` in the repository so it is easy to read on GitHub. The downloadable **system zip** for Foundry includes `README.md` but not the whole `docs/` tree; keep critical table instructions duplicated in **README** if you need them inside the installed package.
+After you install or update the system, this guide is on disk next to the rest of the package:
+
+`Data/systems/CTS-DND-35/docs/WORLD-FEATURES.md`
+
+You can open it in any text editor, or browse it on the project repository on GitHub.

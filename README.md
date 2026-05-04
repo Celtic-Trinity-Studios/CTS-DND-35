@@ -68,7 +68,9 @@ In-world setup for merchants, currency, and trade rules is documented here:
 
 **[docs/WORLD-FEATURES.md](docs/WORLD-FEATURES.md)** — NPC shop (stocking, pricing, buy/sell, permissions), trade modifiers, and troubleshooting.
 
-That file is aimed at GMs and players; mechanic gaps and audits stay under `docs/` as separate references.
+Installed worlds also have a copy under **`systems/CTS-DND-35/docs/WORLD-FEATURES.md`** inside your Foundry user Data folder (bundled in the system zip since v0.4.85).
+
+Mechanic gaps and audits stay under `docs/` as separate references.
 
 ## What's Included
 

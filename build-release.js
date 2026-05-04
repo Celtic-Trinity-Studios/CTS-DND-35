@@ -50,7 +50,7 @@ filesToInclude.forEach(file => {
 });
 
 // Top level directories to include entirely
-const dirsToInclude = ['assets', 'css', 'lang', 'module', 'templates'];
+const dirsToInclude = ['assets', 'css', 'docs', 'lang', 'module', 'templates'];
 dirsToInclude.forEach(dir => {
     if (fs.existsSync(path.join(__dirname, dir))) {
         archive.directory(path.join(__dirname, dir), dir);
