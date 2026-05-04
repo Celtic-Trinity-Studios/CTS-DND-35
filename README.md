@@ -62,6 +62,14 @@ CTS-DND-35/
     └── release.yml          # Automated release pipeline
 ```
 
+## Using features in your game
+
+In-world setup for merchants, currency, and trade rules is documented here:
+
+**[docs/WORLD-FEATURES.md](docs/WORLD-FEATURES.md)** — NPC shop (stocking, pricing, buy/sell, permissions), trade modifiers, and troubleshooting.
+
+That file is aimed at GMs and players; mechanic gaps and audits stay under `docs/` as separate references.
+
 ## What's Included
 
 - **Actor Types**: Character, NPC
