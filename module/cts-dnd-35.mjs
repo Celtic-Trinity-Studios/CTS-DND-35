@@ -20,6 +20,8 @@ import { registerCtsSidebarTabs } from "./sidebar/cts-sidebar-tabs.mjs";
 import { registerActorCharacterMechanicsHooks } from "./hooks/actor-character-mechanics.mjs";
 import { registerMerchantSockets } from "./hooks/merchant-socket.mjs";
 import { MerchantApp } from "./apps/merchant-app.mjs";
+import { CTSDND35HelpApp } from "./apps/help-app.mjs";
+import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -76,9 +78,11 @@ Hooks.once("init", function () {
     computeGearPricePercentTotal,
     adjustedGearPrice,
     openMerchantShop: (merchant, buyer) => MerchantApp.open(merchant, buyer),
+    openHelp: () => CTSDND35HelpApp.open(),
   };
 
   registerMerchantSockets();
+  registerInGameHelpHooks();
 
   // Store config on the global CONFIG object
   CONFIG.CTSDND35 = CTSDND35;

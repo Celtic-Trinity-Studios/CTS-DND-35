@@ -2065,3 +2065,96 @@ button.cts-merchant-btn {
   color: var(--cts-text-light);
   margin-top: 10px;
 }
+
+/* --- In-game system help --- */
+.cts-dnd-35.help-app .window-content {
+  overflow-y: auto;
+  padding: 0;
+}
+
+.cts-help-body {
+  padding: 10px 14px 16px;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.cts-help-intro {
+  margin-top: 0;
+  color: var(--cts-text-light);
+}
+
+.cts-help-body h2 {
+  font-family: var(--cts-font-heading);
+  font-size: 1.25em;
+  margin: 18px 0 8px;
+  color: var(--cts-secondary);
+  border-bottom: 1px solid var(--cts-border);
+  padding-bottom: 4px;
+}
+
+.cts-help-body h3 {
+  font-family: var(--cts-font-heading);
+  font-size: 1.05em;
+  margin: 14px 0 6px;
+  color: var(--cts-text);
+}
+
+.cts-help-body ul,
+.cts-help-body ol {
+  margin: 6px 0 10px 1.25em;
+  padding: 0;
+}
+
+.cts-help-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+  margin: 8px 0 12px;
+}
+
+.cts-help-table th,
+.cts-help-table td {
+  padding: 6px 8px;
+  border: 1px solid var(--cts-border);
+  vertical-align: top;
+}
+
+.cts-help-table th {
+  background: var(--cts-bg-dark);
+  font-weight: 600;
+}
+
+.cts-help-code {
+  background: var(--cts-bg-dark);
+  border: 1px solid var(--cts-border);
+  border-radius: var(--cts-radius);
+  padding: 10px 12px;
+  font-size: 12px;
+  overflow-x: auto;
+}
+
+.cts-help-docfile {
+  font-size: 0.88em;
+  color: var(--cts-text-light);
+  margin-top: 16px;
+}
+
+button.cts-open-system-help {
+  margin-inline-end: 8px;
+}
+
+.cts-sidebar-help-banner {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--cts-border);
+  background: var(--cts-bg-dark);
+}
+
+button.cts-sidebar-help-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.cts-help-settings-group {
+  margin-top: 8px;
+}

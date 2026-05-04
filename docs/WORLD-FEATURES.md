@@ -1,5 +1,16 @@
 # Using CTS DND 3.5 features in your world
 
+## Inside Foundry (fastest)
+
+While playing, open the **in-game help window**:
+
+1. Press **ESC** (or open the **sidebar gear → Settings** tab), then **Configure Settings** — click **CTS DND 3.5 system help** in the dialog footer, **or**
+2. On the **sidebar Settings** tab, click **System help** at the top.
+
+From a script macro or the console: `game.ctsdnd35.openHelp()`.
+
+---
+
 This guide is for **GMs and players** setting up and playing with world-facing mechanics that ship in the system (merchant shops, coin, and trade modifiers). It assumes your game is already using the **CTS DND 3.5** system.
 
 > **Note:** Detailed mechanics audits live in other docs (for example `MECHANICS-GAP-ANALYSIS.md`). This file focuses on **what to click** and **what to configure** at the table.

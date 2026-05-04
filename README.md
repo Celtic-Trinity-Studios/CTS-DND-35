@@ -64,11 +64,9 @@ CTS-DND-35/
 
 ## Using features in your game
 
-In-world setup for merchants, currency, and trade rules is documented here:
+**In Foundry:** press **ESC → Configure Settings** and use **CTS DND 3.5 system help**, or **sidebar gear → Settings tab → System help**. Same content covers merchants, coins, and trade rules. From code or macros: `game.ctsdnd35.openHelp()`.
 
-**[docs/WORLD-FEATURES.md](docs/WORLD-FEATURES.md)** — NPC shop (stocking, pricing, buy/sell, permissions), trade modifiers, and troubleshooting.
-
-Installed worlds also have a copy under **`systems/CTS-DND-35/docs/WORLD-FEATURES.md`** inside your Foundry user Data folder (bundled in the system zip since v0.4.85).
+Written reference: **[docs/WORLD-FEATURES.md](docs/WORLD-FEATURES.md)** (also bundled under `systems/CTS-DND-35/docs/` in the release zip).
 
 Mechanic gaps and audits stay under `docs/` as separate references.
 

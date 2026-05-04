@@ -177,6 +177,75 @@
     "MerchantErrorMerchantFunds": "The merchant does not have enough coin on hand.",
     "MerchantErrorPurchaseOnly": "This merchant does not purchase goods from characters.",
     "MerchantErrorGeneric": "Trade could not be completed.",
-    "MerchantErrorTimeout": "Timed out waiting for the GM."
+    "MerchantErrorTimeout": "Timed out waiting for the GM.",
+
+    "Help.Title": "CTS DND 3.5 — Help",
+    "Help.Open": "CTS DND 3.5 system help",
+    "Help.OpenShort": "System help",
+    "Help.Intro": "This window explains how to use built-in world features for this system: merchant shops, coins, and trade modifiers. Open it anytime from the sidebar (gear → Settings tab) or from Game Settings → Configure Settings.",
+
+    "Help.MerchantH2": "NPC merchant shop",
+    "Help.MerchantLead": "Buy from an NPC's inventory and optionally sell eligible gear back. You do not need the Item Piles module for this.",
+
+    "Help.GmSetupH3": "GM: make an NPC a merchant",
+    "Help.GmSetup1": "Create or open an NPC actor.",
+    "Help.GmSetup2": "Open the Inventory tab.",
+    "Help.GmSetup3": "In the Shop section, enable \"This NPC is a merchant\".",
+    "Help.GmSetup4": "Save the sheet so the flag persists.",
+
+    "Help.OptionsH3": "Optional merchant settings",
+    "Help.ColSetting": "Setting",
+    "Help.ColPurpose": "Purpose",
+    "Help.RowPurchaseOnly": "Purchase only",
+    "Help.RowPurchaseOnlyDesc": "Customers can buy but cannot sell items back.",
+    "Help.RowBuyMult": "Listed buy price ×",
+    "Help.RowBuyMultDesc": "Multiplier on each item's Price before racial/faction trade rules (default 1).",
+    "Help.RowSellMult": "Sell-back price ×",
+    "Help.RowSellMultDesc": "Multiplier when the NPC buys loot from PCs (default 0.5).",
+
+    "Help.StockH3": "GM: stock the store",
+    "Help.Stock1": "Add goods on the NPC's Inventory tab (drag from compendiums or the Items sidebar).",
+    "Help.Stock2": "Supported types: weapon, armor, equipment, consumable.",
+    "Help.Stock3": "Set each item's Price (gp book value).",
+    "Help.Stock4": "Use quantity for stackables (arrows, potions).",
+    "Help.StockNote": "Spells, feats, classes, and similar types never appear in the shop lists.",
+
+    "Help.CoinH3": "GM: merchant coin for buybacks",
+    "Help.CoinBody": "When a PC sells to the merchant, the NPC pays from its Currency fields on the Inventory tab. If it cannot afford the payout, the sale fails. Give the NPC enough PP/GP/SP/CP before play.",
+
+    "Help.OpenShopH3": "Opening the shop",
+    "Help.OpenShop1": "The buyer must be a player character. Select that PC's token on the canvas, or set an assigned character in your user configuration.",
+    "Help.OpenShop2": "On the merchant NPC sheet → Inventory → Shop, click Open shop.",
+    "Help.OpenShopBullet1": "You see the buyer's coins and buy/sell tables with final prices.",
+    "Help.OpenShopBullet2": "Sell is hidden if Purchase only is enabled.",
+    "Help.OpenShopBullet3": "Listed prices include Trade & factions modifiers for the current buyer.",
+    "Help.SocketNote": "If you are a player and the GM owns the merchant, trades are sent to the GM briefly so inventory and coins update correctly.",
+
+    "Help.ApiH3": "Macros (advanced)",
+    "Help.ApiNote": "Use when you want a toolbar macro instead of opening the NPC sheet.",
+
+    "Help.TradeH2": "Trade and factions",
+    "Help.TradeP1": "Faction items and Trade & factions rows adjust percentages the same way for merchant windows as elsewhere.",
+    "Help.TradeLi1": "Enter race text on buyer and seller when using race-based rows.",
+    "Help.TradeLi2": "NPC sheet \"race mods selling\" pairs with the buyer's \"race trade mods\".",
+    "Help.TradeP2": "When unsure, read the prices in the shop window—they already reflect the selected buyer.",
+
+    "Help.CurrencyH2": "Coins",
+    "Help.CurrencyLi1": "Actor wallets use CP, SP, GP, PP on the sheet.",
+    "Help.CurrencyLi2": "Shops use standard exchange: 10 cp = 1 sp, 10 sp = 1 gp, 10 gp = 1 pp.",
+
+    "Help.FixH2": "Quick fixes",
+    "Help.FixColIssue": "Issue",
+    "Help.FixColCheck": "What to check",
+    "Help.FixRow1Issue": "Open shop warns or does nothing",
+    "Help.FixRow1Check": "Merchant enabled and saved? Buyer token selected or assigned character set?",
+    "Help.FixRow2Issue": "Sell fails (merchant cannot pay)",
+    "Help.FixRow2Check": "Add coins to the NPC merchant actor.",
+    "Help.FixRow3Issue": "Prices look wrong",
+    "Help.FixRow3Check": "Item Price field, merchant multipliers, Trade tab, faction items.",
+    "Help.FixRow4Issue": "Player cannot trade",
+    "Help.FixRow4Check": "They must own their character (Foundry permissions).",
+
+    "Help.DocFileNote": "The same text ships as WORLD-FEATURES.md under systems/CTS-DND-35/docs if you want to read or search it outside Foundry."
   }
 }
