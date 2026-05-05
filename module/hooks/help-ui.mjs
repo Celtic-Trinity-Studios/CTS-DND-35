@@ -63,6 +63,28 @@ function _findHelpDocumentationSectionInRoot(root) {
   return null;
 }
 
+/** v11: help links are often sequential siblings after the section h2 (no #settings-documentation). */
+function _findWikiSiblingAfterHelpHeading(root) {
+  if (!root?.querySelectorAll) return null;
+  for (const h2 of root.querySelectorAll("h2")) {
+    const t = (h2.textContent || "").trim().toLowerCase();
+    if (!t.includes("help") || !t.includes("documentation")) continue;
+    const collected = [];
+    let n = h2.nextElementSibling;
+    while (n && !n.matches?.("h2")) {
+      if (n.matches?.("button")) collected.push(n);
+      for (const b of n.querySelectorAll?.(":scope > button") ?? []) collected.push(b);
+      n = n.nextElementSibling;
+    }
+    const wiki = collected.find((b) => {
+      const bt = (b.textContent || "").trim().toLowerCase();
+      return bt.includes("wiki");
+    });
+    if (wiki) return wiki;
+  }
+  return null;
+}
+
 /** Last core “Help & Documentation” control — insert after (v14 when no #settings-documentation). */
 function _findLastCoreHelpDocControl(sidebar) {
   if (!sidebar?.querySelectorAll) return null;
@@ -136,6 +158,11 @@ function _tryInjectCtsHelpSidebar() {
       _injectSidebarHelpInto(strict);
       return;
     }
+    const wikiHeading = _findWikiSiblingAfterHelpHeading(root);
+    if (wikiHeading) {
+      _injectSidebarHelpAfterAnchor(wikiHeading);
+      return;
+    }
     const anchor = _findLastCoreHelpDocControl(root);
     if (anchor) {
       _injectSidebarHelpAfterAnchor(anchor);
@@ -185,13 +212,10 @@ export function registerInGameHelpHooks() {
     _injectConfigureSettingsButton(html);
   });
 
-  Hooks.on("renderSidebarTab", (_app, html, data) => {
-    const tabName =
-      typeof data === "string"
-        ? data
-        : data?.tabName ?? data?.tab ?? data?.id ?? "";
-    if (tabName !== "settings") return;
-    _injectSidebarHelpButton(html);
+  /* v11: tab id in third arg is unreliable; always re-scan after any sidebar tab render. */
+  Hooks.on("renderSidebarTab", (_app, html) => {
+    if (html) _injectSidebarHelpButton(html);
+    _debouncedInject();
   });
 
   Hooks.on("renderApplicationV2", (app, element) => {
