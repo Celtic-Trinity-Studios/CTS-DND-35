@@ -49,6 +49,14 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     // Add the actor's data to context for easier access in templates
     context.system = this.actor.system;
     context.flags = this.actor.flags;
+    if (this.actor.type === "npc") {
+      context.system.merchant ??= {
+        enabled: false,
+        purchaseOnly: false,
+        buyMultiplier: 1,
+        sellMultiplier: 0.5,
+      };
+    }
 
     // Add system config
     context.config = CTSDND35;
