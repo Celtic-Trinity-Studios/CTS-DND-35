@@ -83,7 +83,11 @@ Hooks.once("init", function () {
   };
 
   registerMerchantSockets();
-  registerInGameHelpHooks();
+  try {
+    registerInGameHelpHooks();
+  } catch (err) {
+    console.warn("CTS DND 3.5 | In-game help hooks failed to register; continuing.", err);
+  }
 
   // Store config on the global CONFIG object
   CONFIG.CTSDND35 = CTSDND35;
@@ -146,14 +150,18 @@ Hooks.once("init", function () {
     default: true,
   });
 
-  game.settings.registerMenu("CTS-DND-35", "systemHelp", {
-    name: game.i18n.localize("CTSDND35.Help.MenuName"),
-    label: game.i18n.localize("CTSDND35.Help.MenuLabel"),
-    hint: game.i18n.localize("CTSDND35.Help.MenuHint"),
-    icon: "fas fa-book-open",
-    type: CTSDND35HelpMenuApp,
-    restricted: false,
-  });
+  try {
+    game.settings.registerMenu("CTS-DND-35", "systemHelp", {
+      name: game.i18n.localize("CTSDND35.Help.MenuName"),
+      label: game.i18n.localize("CTSDND35.Help.MenuLabel"),
+      hint: game.i18n.localize("CTSDND35.Help.MenuHint"),
+      icon: "fas fa-book-open",
+      type: CTSDND35HelpMenuApp,
+      restricted: false,
+    });
+  } catch (err) {
+    console.warn("CTS DND 3.5 | Help settings menu failed to register; continuing.", err);
+  }
 
   // Register Actor sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
