@@ -1,6 +1,6 @@
 /**
  * Inject “System help” into Foundry UI.
- * v11–v13: renderSidebarTab. v14+: renderApplicationV2 + changeSidebarTab (ApplicationV2 sidebar).
+ * v11–v13: renderSidebarTab. v14+: ApplicationV2 + DOM heuristics (wiki / documentation ids).
  */
 
 function _injectConfigureSettingsButton(html) {
@@ -29,13 +29,33 @@ function _injectConfigureSettingsButton(html) {
   }
 }
 
-/**
- * Help & Documentation block (Support / Documentation / Wiki).
- */
-function _findHelpDocumentationSection(root) {
+/** Prefer #sidebar; v14 layouts sometimes nest under #interface / #ui-right. */
+function _sidebarRoots() {
+  const roots = [
+    document.getElementById("sidebar"),
+    document.querySelector("aside#sidebar"),
+    document.querySelector("#interface aside.sidebar"),
+    document.querySelector("#ui-right"),
+    document.querySelector("nav#sidebar-tabs")?.closest?.("aside"),
+    document.getElementById("interface"),
+  ];
+  return [...new Set(roots.filter(Boolean))];
+}
+
+function _findDocContainerStrict(sidebar) {
+  if (!sidebar?.querySelector) return null;
+  return (
+    sidebar.querySelector("#settings-documentation") ??
+    sidebar.querySelector("[data-application-part='documentation']") ??
+    null
+  );
+}
+
+/** Legacy partial HTML (v11–v13): heading-based block inside a passed root. */
+function _findHelpDocumentationSectionInRoot(root) {
   if (!root?.querySelector) return null;
-  const byId = root.querySelector("#settings-documentation");
-  if (byId) return byId;
+  const strict = _findDocContainerStrict(root);
+  if (strict) return strict;
   for (const h2 of root.querySelectorAll("h2")) {
     const t = (h2.textContent || "").trim().toLowerCase();
     if (t.includes("help") && t.includes("documentation")) return h2.parentElement;
@@ -43,33 +63,32 @@ function _findHelpDocumentationSection(root) {
   return null;
 }
 
-/** v14 may pass a fragment; fall back to live DOM under #sidebar. */
-function _resolveDocSection(localRoot) {
-  return (
-    _findHelpDocumentationSection(localRoot) ??
-    _findHelpDocumentationSection(document.getElementById("sidebar")) ??
-    document.querySelector("#settings-documentation")
+/** Last core “Help & Documentation” control — insert after (v14 when no #settings-documentation). */
+function _findLastCoreHelpDocControl(sidebar) {
+  if (!sidebar?.querySelectorAll) return null;
+
+  const wikiByAction = sidebar.querySelector(
+    'button[data-action="wiki"], button[data-action="communityWiki"], a[data-action="wiki"]',
   );
+  if (wikiByAction) return wikiByAction;
+
+  const buttons = [...sidebar.querySelectorAll("button")];
+  const wikiByText = buttons.find((b) => {
+    const t = (b.textContent || "").trim().toLowerCase();
+    return t.includes("wiki") && (t.includes("community") || t.includes("commun"));
+  });
+  if (wikiByText) return wikiByText;
+
+  const docByText = buttons.find((b) => {
+    const t = (b.textContent || "").trim().toLowerCase();
+    return t === "documentation" || t.endsWith(" documentation");
+  });
+  if (docByText) return docByText;
+
+  return sidebar.querySelector('button[data-action="issues"], button[data-action="support"]');
 }
 
-function _isSettingsSidebarTab(app) {
-  if (!app) return false;
-  const optId = app.options?.id ?? app.options?.uniqueId;
-  if (optId === "settings") return true;
-  if (app.id === "settings") return true;
-  if (app.tab === "settings" || app.tabName === "settings") return true;
-  const nm = app.constructor?.name ?? "";
-  if (nm === "Settings") return true;
-  return false;
-}
-
-function _injectSidebarHelpInto(docSection) {
-  if (!docSection?.appendChild) return;
-  if (docSection.querySelector("#cts-dnd-35-help-sidebar")) return;
-
-  const buttons = docSection.querySelectorAll("button");
-  const refBtn = buttons.length ? buttons[buttons.length - 1] : null;
-
+function _createCtsHelpSidebarButton(refBtn) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.id = "cts-dnd-35-help-sidebar";
@@ -87,26 +106,78 @@ function _injectSidebarHelpInto(docSection) {
     ev.preventDefault();
     game.ctsdnd35?.openHelp?.();
   });
+  return btn;
+}
 
-  docSection.appendChild(btn);
+function _injectSidebarHelpInto(docSection) {
+  if (!docSection?.appendChild) return;
+  if (docSection.querySelector("#cts-dnd-35-help-sidebar")) return;
+
+  const buttons = docSection.querySelectorAll("button");
+  const refBtn = buttons.length ? buttons[buttons.length - 1] : null;
+  docSection.appendChild(_createCtsHelpSidebarButton(refBtn));
+}
+
+function _injectSidebarHelpAfterAnchor(anchor) {
+  if (!anchor?.insertAdjacentElement) return;
+  if (anchor.nextElementSibling?.id === "cts-dnd-35-help-sidebar") return;
+
+  const refBtn = anchor.tagName === "BUTTON" ? anchor : anchor.querySelector?.("button");
+  const btn = _createCtsHelpSidebarButton(refBtn ?? anchor);
+  anchor.insertAdjacentElement("afterend", btn);
+}
+
+function _tryInjectCtsHelpSidebar() {
+  if (document.querySelector("#cts-dnd-35-help-sidebar")) return;
+
+  for (const root of _sidebarRoots()) {
+    const strict = _findDocContainerStrict(root);
+    if (strict) {
+      _injectSidebarHelpInto(strict);
+      return;
+    }
+    const anchor = _findLastCoreHelpDocControl(root);
+    if (anchor) {
+      _injectSidebarHelpAfterAnchor(anchor);
+      return;
+    }
+  }
 }
 
 function _injectSidebarHelpButton(html) {
   const el = html instanceof HTMLElement ? html : html?.get?.(0) ?? html?.[0];
   const local = el?.querySelector ? el : null;
-  const docSection = _resolveDocSection(local);
-  if (!docSection) return;
-  _injectSidebarHelpInto(docSection);
+  if (local) {
+    const docSection = _findHelpDocumentationSectionInRoot(local);
+    if (docSection) {
+      _injectSidebarHelpInto(docSection);
+      return;
+    }
+  }
+  _tryInjectCtsHelpSidebar();
+}
+
+function _isSettingsSidebarTab(app) {
+  if (!app) return false;
+  const optId = app.options?.id ?? app.options?.uniqueId;
+  if (optId === "settings") return true;
+  if (app.id === "settings") return true;
+  if (app.tab === "settings" || app.tabName === "settings") return true;
+  const nm = app.constructor?.name ?? "";
+  if (nm === "Settings") return true;
+  return false;
 }
 
 let _sidebarObserver = null;
-
-function _tryInjectFromSidebarDom() {
-  const docSection = _resolveDocSection(document.getElementById("sidebar"));
-  if (docSection) _injectSidebarHelpInto(docSection);
-}
+/** @type {() => void} */
+let _debouncedInject = () => {};
 
 export function registerInGameHelpHooks() {
+  _debouncedInject =
+    typeof foundry.utils?.debounce === "function"
+      ? foundry.utils.debounce(() => _tryInjectCtsHelpSidebar(), 100)
+      : () => _tryInjectCtsHelpSidebar();
+
   Hooks.on("renderGameSettings", (_app, html) => {
     _injectConfigureSettingsButton(html);
   });
@@ -114,7 +185,6 @@ export function registerInGameHelpHooks() {
     _injectConfigureSettingsButton(html);
   });
 
-  /* Legacy (v11–v13) */
   Hooks.on("renderSidebarTab", (_app, html, data) => {
     const tabName =
       typeof data === "string"
@@ -124,7 +194,6 @@ export function registerInGameHelpHooks() {
     _injectSidebarHelpButton(html);
   });
 
-  /* Foundry v14+ ApplicationV2 — renderSidebarTab no longer exists; use this + DOM id. */
   Hooks.on("renderApplicationV2", (app, element) => {
     const direct = element?.querySelector?.("#settings-documentation");
     if (direct) {
@@ -132,20 +201,26 @@ export function registerInGameHelpHooks() {
       return;
     }
     if (_isSettingsSidebarTab(app)) _injectSidebarHelpButton(element);
+    _debouncedInject();
   });
 
-  Hooks.on("changeSidebarTab", (app) => {
-    if (!_isSettingsSidebarTab(app)) return;
-    queueMicrotask(() => _tryInjectFromSidebarDom());
+  /* Some v14 builds name the hook after the Settings sidebar application. */
+  Hooks.on("renderSettings", () => {
+    _debouncedInject();
+  });
+
+  Hooks.on("changeSidebarTab", () => {
+    queueMicrotask(() => _debouncedInject());
   });
 
   Hooks.once("ready", () => {
-    const sidebar = document.getElementById("sidebar");
-    if (!sidebar || _sidebarObserver) return;
-    _sidebarObserver = new MutationObserver(() => {
-      _tryInjectFromSidebarDom();
-    });
-    _sidebarObserver.observe(sidebar, { childList: true, subtree: true });
-    _tryInjectFromSidebarDom();
+    if (_sidebarObserver) return;
+    const watch = _sidebarRoots()[0] ?? document.getElementById("interface");
+    if (!watch) return;
+    _sidebarObserver = new MutationObserver(() => _debouncedInject());
+    _sidebarObserver.observe(watch, { childList: true, subtree: true });
+    queueMicrotask(() => _debouncedInject());
+    window.setTimeout(() => _tryInjectCtsHelpSidebar(), 500);
+    window.setTimeout(() => _tryInjectCtsHelpSidebar(), 2000);
   });
 }
