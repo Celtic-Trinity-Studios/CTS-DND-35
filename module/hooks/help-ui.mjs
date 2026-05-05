@@ -202,6 +202,22 @@ function _tryInjectCtsHelpSidebar() {
   }
 }
 
+/**
+ * Final fallback: locate the visible "Community Wiki" control anywhere and append after it.
+ * This survives theme/layout changes where settings containers and hooks differ.
+ */
+function _tryInjectNearCommunityWikiGlobal() {
+  if (document.querySelector("#cts-dnd-35-help-sidebar")) return;
+  const candidates = [...document.querySelectorAll("button, a, .button")];
+  const wiki = candidates.find((el) => {
+    if (!el || el.id === "cts-dnd-35-help-sidebar") return false;
+    const t = (el.textContent || "").trim().toLowerCase();
+    return t.includes("community") && t.includes("wiki");
+  });
+  if (!wiki || !wiki.insertAdjacentElement) return;
+  _injectSidebarHelpAfterAnchor(wiki);
+}
+
 function _injectSidebarHelpButton(html) {
   const el = html instanceof HTMLElement ? html : html?.get?.(0) ?? html?.[0];
   const local = el?.querySelector ? el : null;
@@ -258,6 +274,7 @@ export function registerInGameHelpHooks() {
     }
     if (_isSettingsSidebarTab(app)) _injectSidebarHelpButton(element);
     _debouncedInject();
+    _tryInjectNearCommunityWikiGlobal();
   });
 
   /* Some v14 builds name the hook after the Settings sidebar application. */
@@ -267,6 +284,7 @@ export function registerInGameHelpHooks() {
 
   Hooks.on("changeSidebarTab", () => {
     queueMicrotask(() => _debouncedInject());
+    queueMicrotask(() => _tryInjectNearCommunityWikiGlobal());
   });
 
   Hooks.once("ready", () => {
@@ -276,7 +294,10 @@ export function registerInGameHelpHooks() {
     _sidebarObserver = new MutationObserver(() => _debouncedInject());
     _sidebarObserver.observe(watch, { childList: true, subtree: true });
     queueMicrotask(() => _debouncedInject());
+    queueMicrotask(() => _tryInjectNearCommunityWikiGlobal());
     window.setTimeout(() => _tryInjectCtsHelpSidebar(), 500);
+    window.setTimeout(() => _tryInjectNearCommunityWikiGlobal(), 600);
     window.setTimeout(() => _tryInjectCtsHelpSidebar(), 2000);
+    window.setTimeout(() => _tryInjectNearCommunityWikiGlobal(), 2200);
   });
 }
