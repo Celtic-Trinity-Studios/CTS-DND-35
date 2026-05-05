@@ -21,6 +21,7 @@ import { registerActorCharacterMechanicsHooks } from "./hooks/actor-character-me
 import { registerMerchantSockets } from "./hooks/merchant-socket.mjs";
 import { MerchantApp } from "./apps/merchant-app.mjs";
 import { CTSDND35HelpApp } from "./apps/help-app.mjs";
+import { CTSDND35HelpMenuApp } from "./apps/help-menu-app.mjs";
 import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
@@ -143,6 +144,15 @@ Hooks.once("init", function () {
     config: true,
     type: Boolean,
     default: true,
+  });
+
+  game.settings.registerMenu("CTS-DND-35", "systemHelp", {
+    name: game.i18n.localize("CTSDND35.Help.MenuName"),
+    label: game.i18n.localize("CTSDND35.Help.MenuLabel"),
+    hint: game.i18n.localize("CTSDND35.Help.MenuHint"),
+    icon: "fas fa-book-open",
+    type: CTSDND35HelpMenuApp,
+    restricted: false,
   });
 
   // Register Actor sheet application classes

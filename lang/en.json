@@ -183,6 +183,9 @@
     "Help.Open": "CTS DND 3.5 system help",
     "Help.OpenShort": "System help",
     "Help.SidebarLabel": "CTS DND 3.5 — Help",
+    "Help.MenuName": "System Help",
+    "Help.MenuLabel": "Open",
+    "Help.MenuHint": "Open the CTS DND 3.5 in-game help guide (merchants, coins, trade modifiers, and troubleshooting).",
     "Help.Intro": "This window explains how to use built-in world features for this system: merchant shops, coins, and trade modifiers. Open it from the sidebar gear → Settings tab → Help and Documentation (CTS DND 3.5 — Help), or from Game Settings → Configure Settings.",
 
     "Help.MerchantH2": "NPC merchant shop",
