@@ -6,6 +6,7 @@
     <span class="skill-col">Mod</span>
     <span class="skill-col">Ranks</span>
     <span class="skill-col">Misc</span>
+    <span class="skill-col" title="Buffs / Active Effects">{{localize "CTSDND35.SkillFx"}}</span>
     <span class="skill-col">Total</span>
   </div>
   {{#each skillList}}
@@ -18,6 +19,7 @@
     <span class="skill-col">{{cts-sign this.abilityMod}}</span>
     <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.ranks" value="{{this.ranks}}" data-dtype="Number" />
     <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.misc" value="{{this.misc}}" data-dtype="Number" />
+    <span class="skill-col derived" title="From buffs & Active Effects">{{cts-sign this.effectBonus}}</span>
     <span class="skill-col skill-total rollable skill-roll" data-skill="{{this.key}}">{{cts-sign this.total}}</span>
   </div>
   {{/each}}

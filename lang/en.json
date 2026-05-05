@@ -117,6 +117,20 @@
     "SheetThemeClassic": "Classic (rounded)",
     "SheetThemeAngled": "Angled / hex",
 
+    "EncumbranceMode": "Encumbrance automation",
+    "EncumbranceModeHint": "How carrying capacity interacts with armor for speed, max Dex to AC, and armor/load skill check penalties. Merge matches SRD “use worse” between manual selector, carried weight, and worn armor tier.",
+    "EncumbranceMerge": "Merge manual + weight + armor (recommended)",
+    "EncumbranceWeight": "Weight + armor only (ignore manual encumbrance selector)",
+    "EncumbranceManual": "Manual selector only (speed from sheet; ignore carried weight for limits)",
+
+    "EncCarriedWeight": "Carried (lb)",
+    "EncLoadBand": "Load",
+    "EncSpeedTier": "Speed tier",
+    "EncEffectiveACP": "Check penalty",
+    "EncMaxDexCap": "Max Dex (eff.)",
+    "EncASF": "Arcane spell failure",
+    "SkillFx": "Fx",
+
     "Groups": "Groups / factions",
     "GroupFilter": "Filter by group",
     "GroupFilterHint": "Show actors that have a matching Faction item or legacy groups text.",

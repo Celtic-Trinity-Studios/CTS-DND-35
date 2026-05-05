@@ -16,7 +16,17 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>{{localize "CTSDND35.Weight"}} (lb)</label>
+          <input type="number" name="system.weight" value="{{system.weight}}" step="0.1" min="0" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>{{localize "CTSDND35.Quantity"}}</label>
+          <input type="number" name="system.quantity" value="{{system.quantity}}" step="1" min="1" />
+        </div>
+      </div>
+      <p class="notes">Weight counts toward carrying capacity (world setting: encumbrance automation).</p>
     </div>
   </section>
 </form>

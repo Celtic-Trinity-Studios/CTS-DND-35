@@ -16,7 +16,58 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      <div class="form-group flexrow">
+        <label class="flex-shrink"><input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} /> Equipped</label>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select name="system.armorType">
+          {{#each config.armorTypes as |label key|}}
+          <option value="{{key}}" {{#if (cts-eq ../system.armorType key)}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>AC bonus</label>
+          <input type="number" name="system.acBonus" value="{{system.acBonus}}" step="1" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Enhancement</label>
+          <input type="number" name="system.enhancement" value="{{system.enhancement}}" step="1" min="0" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Max Dex bonus</label>
+          <input type="number" name="system.maxDex" value="{{system.maxDex}}" step="1" min="0" placeholder="—" title="Blank = no cap" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Speed penalty (ft)</label>
+          <input type="number" name="system.speedPenalty" value="{{system.speedPenalty}}" step="1" min="0" placeholder="auto" title="Blank: medium −5, heavy −10" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Armor check penalty</label>
+          <input type="number" name="system.checkPenalty" value="{{system.checkPenalty}}" step="1" min="0" title="Enter magnitude (e.g. 5 for −5)" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Arcane spell failure %</label>
+          <input type="number" name="system.arcaneSpellFailure" value="{{system.arcaneSpellFailure}}" step="1" min="0" max="100" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>{{localize "CTSDND35.Weight"}} (lb)</label>
+          <input type="number" name="system.weight" value="{{system.weight}}" step="0.1" min="0" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>{{localize "CTSDND35.Quantity"}}</label>
+          <input type="number" name="system.quantity" value="{{system.quantity}}" step="1" min="1" />
+        </div>
+      </div>
+      <p class="notes">ACP and ASF apply from all equipped armor and shields (SRD: use worse between armor and load for skills). Total ASF is shown on the actor Combat tab.</p>
     </div>
   </section>
 </form>

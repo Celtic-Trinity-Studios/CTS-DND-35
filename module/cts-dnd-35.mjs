@@ -26,6 +26,7 @@ import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
+import { ACTIVE_EFFECT_ATTRIBUTE_KEYS } from "./helpers/modifier-pipeline.mjs";
 
 function _getD35DiagonalRuleValue() {
   const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
@@ -80,6 +81,8 @@ Hooks.once("init", function () {
     adjustedGearPrice,
     openMerchantShop: (merchant, buyer) => MerchantApp.open(merchant, buyer),
     openHelp: () => CTSDND35HelpApp.open(),
+    /** Documented Active Effect attribute keys for this system */
+    activeEffectAttributeKeys: ACTIVE_EFFECT_ATTRIBUTE_KEYS,
   };
 
   registerMerchantSockets();
@@ -139,6 +142,20 @@ Hooks.once("init", function () {
     config: true,
     type: Boolean,
     default: true,
+  });
+
+  game.settings.register("CTS-DND-35", "encumbranceMode", {
+    name: game.i18n.localize("CTSDND35.EncumbranceMode"),
+    hint: game.i18n.localize("CTSDND35.EncumbranceModeHint"),
+    scope: "world",
+    config: true,
+    type: String,
+    choices: {
+      merge: game.i18n.localize("CTSDND35.EncumbranceMerge"),
+      weight: game.i18n.localize("CTSDND35.EncumbranceWeight"),
+      manual: game.i18n.localize("CTSDND35.EncumbranceManual"),
+    },
+    default: "merge",
   });
 
   game.settings.register("CTS-DND-35", "enforceD35Diagonals", {

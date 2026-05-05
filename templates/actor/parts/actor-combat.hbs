@@ -60,6 +60,35 @@
     <div class="stat-label">Natural</div>
     <input type="number" name="system.attributes.ac.naturalArmor" value="{{system.attributes.ac.naturalArmor}}" title="Natural Armor (manual override)" />
   </div>
+  {{#if system.attributes.ac.effectiveMaxDex}}
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncMaxDexCap"}}</div>
+    <span class="stat-value derived">{{system.attributes.ac.effectiveMaxDex}}</span>
+  </div>
+  {{/if}}
+</div>
+
+<div class="combat-stats mb-md cts-encumbrance-summary" title="Carrying capacity vs armor (world setting encumbrance automation)">
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncCarriedWeight"}}</div>
+    <span class="stat-value derived">{{system.attributes.encumbrance.weightLb}}</span>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncLoadBand"}}</div>
+    <span class="stat-value derived">{{system.attributes.encumbrance.weightBand}}</span>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncSpeedTier"}}</div>
+    <span class="stat-value derived">{{system.attributes.encumbrance.speedTier}}</span>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncEffectiveACP"}}</div>
+    <span class="stat-value derived">−{{system.attributes.encumbrance.effectiveCheckPenaltyMag}}</span>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">{{localize "CTSDND35.EncASF"}}</div>
+    <span class="stat-value derived">{{system.spellcasting.arcaneSpellFailureTotal}}%</span>
+  </div>
 </div>
 
 {{!-- BAB / Grapple / Init / SR --}}

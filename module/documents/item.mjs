@@ -18,8 +18,22 @@ export class CTSDND35Item extends Item {
     const itemData = this;
     const systemData = itemData.system;
 
+    systemData.quantity ??= 1;
+    systemData.weight ??= 0;
+
     if (itemData.type === "buff") {
       systemData.active = systemData.active === true || systemData.active === "true";
+      systemData.modifiers ??= {};
+    }
+
+    if (itemData.type === "armor") {
+      systemData.equipped ??= false;
+      systemData.acBonus ??= 0;
+      systemData.enhancement ??= 0;
+      systemData.armorType ??= "light";
+      systemData.speedPenalty ??= null;
+      systemData.checkPenalty ??= 0;
+      systemData.arcaneSpellFailure ??= 0;
     }
 
     // Add type-specific preparation

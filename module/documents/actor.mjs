@@ -4,8 +4,21 @@
  */
 
 import { CTSDND35 } from "../helpers/config.mjs";
+import { getAdjustedCarryingLimits, getLoadBandFromWeight } from "../helpers/carrying-capacity.mjs";
+import { resetActorEffectBuckets } from "../helpers/modifier-pipeline.mjs";
 
 export class CTSDND35Actor extends Actor {
+
+  /**
+   * Reset fields mutated by Active Effects before effects apply each preparation cycle.
+   * @override
+   */
+  prepareBaseData() {
+    super.prepareBaseData();
+    if (!this.system) return;
+    this._ensureSystemData(this.system);
+    resetActorEffectBuckets(this.system);
+  }
 
   _ensureSystemData(systemData) {
     if (!systemData) return;
@@ -26,20 +39,21 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.hp.tempSources ??= [];
     systemData.attributes.negativeLevels ??= 0;
     systemData.attributes.ac ??= { normal: 10, touch: 10, flatFooted: 10, naturalArmor: 0 };
-    systemData.attributes.init ??= { value: 0, bonus: 0, total: 0 };
-    systemData.attributes.bab ??= { value: 0, total: 0, attackPenalty: 0 };
-    systemData.attributes.grapple ??= { value: 0, total: 0 };
+    systemData.attributes.ac.bonuses ??= {};
+    systemData.attributes.init ??= { value: 0, bonus: 0, effectBonus: 0, total: 0 };
+    systemData.attributes.bab ??= { value: 0, total: 0, attackPenalty: 0, effectBonus: 0 };
+    systemData.attributes.grapple ??= { value: 0, total: 0, effectBonus: 0 };
     systemData.attributes.sr ??= { value: 0, formula: "" };
     systemData.attributes.speed ??= {};
-    systemData.attributes.speed.land ??= { base: 30, total: 30 };
+    systemData.attributes.speed.land ??= { base: 30, total: 30, effectBonus: 0 };
     systemData.attributes.speed.fly ??= { base: 0, total: 0, maneuverability: "average" };
     systemData.attributes.speed.swim ??= { base: 0, total: 0 };
     systemData.attributes.speed.climb ??= { base: 0, total: 0 };
     systemData.attributes.speed.burrow ??= { base: 0, total: 0 };
     systemData.attributes.savingThrows ??= {
-      fort: { base: 0, ability: "con", bonus: 0, total: 0 },
-      ref: { base: 0, ability: "dex", bonus: 0, total: 0 },
-      will: { base: 0, ability: "wis", bonus: 0, total: 0 },
+      fort: { base: 0, ability: "con", bonus: 0, effectBonus: 0, total: 0 },
+      ref: { base: 0, ability: "dex", bonus: 0, effectBonus: 0, total: 0 },
+      will: { base: 0, ability: "wis", bonus: 0, effectBonus: 0, total: 0 },
     };
 
     systemData.details ??= {};
@@ -121,6 +135,8 @@ export class CTSDND35Actor extends Actor {
     systemData.skills ??= {};
     systemData.spellcasting ??= {};
     systemData.spellcasting.classes ??= {};
+    systemData.spellcasting.arcaneSpellFailureTotal ??= 0;
+    systemData.attributes.encumbrance ??= {};
 
     if (this.type === "npc") {
       systemData.merchant ??= {
@@ -150,12 +166,195 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.negativeLevels = nl;
     systemData.attributes.attackRollPenalty = nl;
 
+    this._applyBuffItemModifiers(systemData);
+    this._prepareEncumbrance(systemData);
+
     this._prepareSpeed(systemData);
     this._prepareCombatStats(systemData, nl);
     this._prepareSkills(systemData, nl);
 
     systemData.details.xpMulticlassHint = this._multiclassXpHint(actorData, systemData);
     systemData.attributes.hp.tempSourcesSum = this._sumTempHpSources(systemData);
+  }
+
+  /**
+   * Sum numeric modifiers from Buff items marked active (parallel to Active Effects).
+   */
+  _applyBuffItemModifiers(systemData) {
+    const acb = systemData.attributes.ac.bonuses;
+    const nz = (x) => Math.floor(Number(x) || 0);
+    for (const item of this.items) {
+      if (item.type !== "buff") continue;
+      const active = item.system.active === true || item.system.active === "true";
+      if (!active) continue;
+      const m = item.system.modifiers || {};
+      acb.dodge += nz(m.dodge);
+      acb.deflection += nz(m.deflection);
+      acb.insight += nz(m.insight);
+      acb.luck += nz(m.luck);
+      acb.sacred += nz(m.sacred);
+      acb.profane += nz(m.profane);
+      acb.circumstance += nz(m.circumstance);
+      acb.morale += nz(m.morale);
+      acb.misc += nz(m.ac) + nz(m.acMisc);
+      systemData.attributes.savingThrows.fort.effectBonus += nz(m.fort);
+      systemData.attributes.savingThrows.ref.effectBonus += nz(m.ref);
+      systemData.attributes.savingThrows.will.effectBonus += nz(m.will);
+      systemData.attributes.init.effectBonus += nz(m.init);
+      systemData.attributes.bab.effectBonus += nz(m.bab);
+      systemData.attributes.grapple.effectBonus += nz(m.grapple);
+      systemData.attributes.speed.land.effectBonus += nz(m.landSpeed);
+      const allSk = nz(m.allSkills);
+      if (allSk) {
+        for (const key of Object.keys(CTSDND35.skills)) {
+          systemData.skills[key].effectBonus += allSk;
+        }
+      }
+      const sk = m.skills || {};
+      if (sk && typeof sk === "object") {
+        for (const [k, v] of Object.entries(sk)) {
+          if (systemData.skills[k]) systemData.skills[k].effectBonus += nz(v);
+        }
+      }
+    }
+  }
+
+  _inventoryWeightLb() {
+    const types = new Set(["weapon", "armor", "equipment", "consumable"]);
+    let sum = 0;
+    for (const item of this.items) {
+      if (!types.has(item.type)) continue;
+      const wt = Math.max(0, Number(item.system.weight) || 0);
+      const qty = Math.max(1, Math.floor(Number(item.system.quantity) || 1));
+      sum += wt * qty;
+    }
+    return sum;
+  }
+
+  static _normalizeCheckPenaltyMag(raw) {
+    const n = Number(raw);
+    if (!Number.isFinite(n) || n === 0) return 0;
+    return Math.abs(n);
+  }
+
+  /**
+   * Equipped armor/shields: lowest max Dex (Infinity if uncapped), summed ACP magnitude, summed ASF %.
+   */
+  _equippedArmorDerived() {
+    let lowestMaxDex = Number.POSITIVE_INFINITY;
+    let acpSum = 0;
+    let asfSum = 0;
+    for (const armor of this.items.filter((i) => i.type === "armor")) {
+      if (!armor.system.equipped) continue;
+      if (armor.system.armorType === "shield") {
+        acpSum += CTSDND35Actor._normalizeCheckPenaltyMag(armor.system.checkPenalty);
+        asfSum += Math.max(0, Math.min(100, Number(armor.system.arcaneSpellFailure) || 0));
+        continue;
+      }
+      const md = armor.system.maxDex;
+      if (md != null && md !== "") {
+        const cap = Math.max(0, Number(md));
+        if (cap < lowestMaxDex) lowestMaxDex = cap;
+      }
+      acpSum += CTSDND35Actor._normalizeCheckPenaltyMag(armor.system.checkPenalty);
+      asfSum += Math.max(0, Math.min(100, Number(armor.system.arcaneSpellFailure) || 0));
+    }
+    return { lowestMaxDex, acpSum, asfSum };
+  }
+
+  static _loadTierRank(t) {
+    const o = { light: 0, medium: 1, heavy: 2, overload: 3, none: 0 };
+    return o[t] ?? 0;
+  }
+
+  static _worseLoadTier(a, b) {
+    return CTSDND35Actor._loadTierRank(a) >= CTSDND35Actor._loadTierRank(b) ? a : b;
+  }
+
+  _traitEncumbranceTier(systemData) {
+    const e = String(systemData.traits?.encumbrance || "none");
+    if (e === "overload") return "overload";
+    if (e === "heavy") return "heavy";
+    if (e === "medium") return "medium";
+    return "light";
+  }
+
+  _armorBodyWorstTier() {
+    let worst = "light";
+    for (const armor of this.items.filter((i) => i.type === "armor")) {
+      if (!armor.system.equipped || armor.system.armorType === "shield") continue;
+      const t = armor.system.armorType;
+      worst = CTSDND35Actor._worseLoadTier(worst, t === "heavy" ? "heavy" : t === "medium" ? "medium" : "light");
+    }
+    return worst;
+  }
+
+  /**
+   * Resolve speed / max-Dex / check columns from encumbrance automation setting.
+   */
+  _resolveEncumbranceTiers(systemData, weightBand, mode) {
+    const traitT = this._traitEncumbranceTier(systemData);
+    const armorT = this._armorBodyWorstTier();
+
+    if (mode === "manual") {
+      return {
+        speedTier: CTSDND35Actor._worseLoadTier(traitT, "light"),
+        weightRuleTier: "light",
+        displayWeightBand: weightBand,
+      };
+    }
+    if (mode === "weight") {
+      const speedTier = CTSDND35Actor._worseLoadTier(weightBand, armorT);
+      return { speedTier, weightRuleTier: weightBand, displayWeightBand: weightBand };
+    }
+    const speedTier = CTSDND35Actor._worseLoadTier(CTSDND35Actor._worseLoadTier(weightBand, armorT), traitT);
+    return { speedTier, weightRuleTier: weightBand, displayWeightBand: weightBand };
+  }
+
+  _prepareEncumbrance(systemData) {
+    const strScore = systemData.abilities?.str?.effective ?? systemData.abilities?.str?.value ?? 10;
+    const sizeKey = systemData.traits?.size || "med";
+    const limits = getAdjustedCarryingLimits(strScore, sizeKey);
+    const weightLb = this._inventoryWeightLb();
+    const weightBand = getLoadBandFromWeight(weightLb, limits);
+    const { lowestMaxDex, acpSum, asfSum } = this._equippedArmorDerived();
+
+    const mode =
+      typeof game !== "undefined" && game.settings?.get
+        ? game.settings.get("CTS-DND-35", "encumbranceMode")
+        : "merge";
+    const loadBandForRules = mode === "manual" ? "light" : weightBand;
+    const loadFx = CTSDND35.loadEncumbranceEffects[loadBandForRules] || CTSDND35.loadEncumbranceEffects.light;
+    const loadMaxDexCap = loadFx.maxDexBonus === Number.POSITIVE_INFINITY ? Number.POSITIVE_INFINITY : loadFx.maxDexBonus;
+    const armorDexCap = Number.isFinite(lowestMaxDex) ? lowestMaxDex : Number.POSITIVE_INFINITY;
+    const effectiveMaxDexToAc = Math.min(armorDexCap, loadMaxDexCap);
+
+    const loadCheckMag = loadFx.checkPenalty || 0;
+    const effectiveCheckPenaltyMag = Math.max(acpSum, loadCheckMag);
+
+    const tierInfo = this._resolveEncumbranceTiers(systemData, weightBand, mode);
+
+    systemData.attributes.encumbrance = {
+      weightLb,
+      weightBand,
+      lightMax: limits.lightMax,
+      mediumMax: limits.mediumMax,
+      heavyMax: limits.heavyMax,
+      speedTier: tierInfo.speedTier,
+      weightRuleTier: tierInfo.weightRuleTier,
+      armorMaxDexCap: Number.isFinite(armorDexCap) ? armorDexCap : null,
+      loadMaxDexCap: Number.isFinite(loadMaxDexCap) ? loadMaxDexCap : null,
+      effectiveMaxDexToAc: Number.isFinite(effectiveMaxDexToAc) ? effectiveMaxDexToAc : null,
+      armorCheckPenalty: acpSum,
+      loadCheckPenalty: loadCheckMag,
+      effectiveCheckPenaltyMag,
+      arcaneSpellFailure: Math.min(100, asfSum),
+    };
+
+    systemData.spellcasting.arcaneSpellFailureTotal = systemData.attributes.encumbrance.arcaneSpellFailure;
+
+    systemData.attributes.ac.effectiveMaxDex = Number.isFinite(effectiveMaxDexToAc) ? effectiveMaxDexToAc : null;
+    systemData.attributes.skillsCheckPenaltyMag = effectiveCheckPenaltyMag;
   }
 
   _sumTempHpSources(systemData) {
@@ -247,13 +446,20 @@ export class CTSDND35Actor extends Actor {
   _prepareSpeed(systemData) {
     const landBase = Math.max(0, Number(systemData.attributes.speed.land.base) || 0);
     const armorPen = this._armorSpeedPenaltyFt();
-    let land = Math.max(5, landBase - armorPen);
+    const speedArmor = Math.max(5, landBase - armorPen);
 
-    const enc = String(systemData.traits?.encumbrance || "none");
-    if (enc === "medium") land = Math.max(5, Math.floor((land * 2) / 3));
-    else if (enc === "heavy" || enc === "overload") land = Math.max(5, Math.floor(land / 2));
+    const enc = systemData.attributes.encumbrance || {};
+    const tier = enc.speedTier || "light";
+    let speedLoad = landBase;
+    if (tier === "overload") speedLoad = 5;
+    else if (tier === "medium" || tier === "heavy") speedLoad = CTSDND35.speedFromLoadEncumbrance(landBase);
+
+    let land = Math.max(5, Math.min(speedArmor, speedLoad));
 
     if (systemData.traits?.difficultTerrain) land = Math.max(5, Math.floor(land / 2));
+
+    land += Math.floor(Number(systemData.attributes.speed.land.effectBonus) || 0);
+    land = Math.max(5, land);
 
     systemData.attributes.speed.land.total = land;
     systemData.attributes.speed.land.armorPenaltyFt = armorPen;
@@ -282,7 +488,12 @@ export class CTSDND35Actor extends Actor {
     const saves = systemData.attributes?.savingThrows ?? {};
     for (const [, save] of Object.entries(saves)) {
       const abilityMod = systemData.abilities[save.ability]?.mod || 0;
-      save.total = (save.base || 0) + abilityMod + (save.bonus || 0) - nl;
+      save.total =
+        (save.base || 0) +
+        abilityMod +
+        (save.bonus || 0) +
+        Math.floor(Number(save.effectBonus) || 0) -
+        nl;
     }
 
     let totalBAB = 0;
@@ -293,6 +504,7 @@ export class CTSDND35Actor extends Actor {
       const table = CTSDND35.babProgression[progression] || CTSDND35.babProgression.med;
       totalBAB += table[level - 1] || 0;
     }
+    totalBAB += Math.floor(Number(systemData.attributes.bab.effectBonus) || 0);
     systemData.attributes.bab.total = totalBAB;
     systemData.attributes.bab.attackPenalty = nl;
 
@@ -304,7 +516,6 @@ export class CTSDND35Actor extends Actor {
 
     let armorBonus = 0;
     let shieldBonus = 0;
-    let lowestMaxDex = Infinity;
     const armorItems = this.items.filter((i) => i.type === "armor");
     for (const armor of armorItems) {
       if (!armor.system.equipped) continue;
@@ -314,23 +525,50 @@ export class CTSDND35Actor extends Actor {
       } else {
         armorBonus += bonus;
       }
-      if (armor.system.maxDex != null && armor.system.maxDex < lowestMaxDex) {
-        lowestMaxDex = armor.system.maxDex;
-      }
     }
 
-    const effectiveDex = lowestMaxDex < Infinity ? Math.min(dexMod, lowestMaxDex) : dexMod;
+    const effCap = systemData.attributes.ac.effectiveMaxDex;
+    const effectiveDex =
+      effCap != null && Number.isFinite(effCap) ? Math.min(dexMod, effCap) : dexMod;
+
+    const bon = systemData.attributes.ac.bonuses || {};
+    const dodgeBonus = Math.floor(Number(bon.dodge) || 0);
+    const bonusAcSum =
+      dodgeBonus +
+      Math.floor(Number(bon.deflection) || 0) +
+      Math.floor(Number(bon.insight) || 0) +
+      Math.floor(Number(bon.luck) || 0) +
+      Math.floor(Number(bon.sacred) || 0) +
+      Math.floor(Number(bon.profane) || 0) +
+      Math.floor(Number(bon.circumstance) || 0) +
+      Math.floor(Number(bon.morale) || 0) +
+      Math.floor(Number(bon.misc) || 0);
+    const flatFootedBonusAc = bonusAcSum - dodgeBonus;
 
     systemData.attributes.ac.normal =
-      10 + armorBonus + shieldBonus + effectiveDex + sizeMods.attack + naturalArmor;
-    systemData.attributes.ac.touch = 10 + effectiveDex + sizeMods.attack;
-    systemData.attributes.ac.flatFooted = 10 + armorBonus + shieldBonus + sizeMods.attack + naturalArmor;
+      10 +
+      armorBonus +
+      shieldBonus +
+      effectiveDex +
+      sizeMods.attack +
+      naturalArmor +
+      bonusAcSum;
+    systemData.attributes.ac.touch = 10 + effectiveDex + sizeMods.attack + bonusAcSum;
+    systemData.attributes.ac.flatFooted =
+      10 + armorBonus + shieldBonus + sizeMods.attack + naturalArmor + flatFootedBonusAc;
 
     systemData.attributes.init.total =
-      (systemData.abilities.dex?.mod || 0) + (systemData.attributes.init.bonus || 0) - nl;
+      (systemData.abilities.dex?.mod || 0) +
+      (systemData.attributes.init.bonus || 0) +
+      Math.floor(Number(systemData.attributes.init.effectBonus) || 0) -
+      nl;
 
     systemData.attributes.grapple.total =
-      totalBAB + (systemData.abilities.str?.mod || 0) + (sizeMods.grapple || 0) - nl;
+      totalBAB +
+      (systemData.abilities.str?.mod || 0) +
+      (sizeMods.grapple || 0) +
+      Math.floor(Number(systemData.attributes.grapple.effectBonus) || 0) -
+      nl;
   }
 
   /**
@@ -340,13 +578,25 @@ export class CTSDND35Actor extends Actor {
   _prepareSkills(systemData, nl) {
     if (!systemData.skills) systemData.skills = {};
 
+    const penMag = Math.floor(Number(systemData.attributes.skillsCheckPenaltyMag) || 0);
+
     for (const [key, skillDef] of Object.entries(CTSDND35.skills)) {
       if (!systemData.skills[key]) {
-        systemData.skills[key] = { ranks: 0, misc: 0, classSkill: false };
+        systemData.skills[key] = { ranks: 0, misc: 0, effectBonus: 0, classSkill: false };
       }
       const skill = systemData.skills[key];
       const abilityMod = systemData.abilities[skillDef.ability]?.mod || 0;
-      skill.total = (skill.ranks || 0) + abilityMod + (skill.misc || 0) - nl;
+      let armorEncPen = 0;
+      if (CTSDND35.skillsArmorCheck.has(key)) {
+        armorEncPen = penMag * (key === "swm" ? 2 : 1);
+      }
+      skill.total =
+        (skill.ranks || 0) +
+        abilityMod +
+        (skill.misc || 0) +
+        Math.floor(Number(skill.effectBonus) || 0) -
+        armorEncPen -
+        nl;
     }
   }
 

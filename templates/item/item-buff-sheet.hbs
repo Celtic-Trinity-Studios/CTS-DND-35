@@ -23,7 +23,21 @@
           <option value="true" {{#if system.active}}selected{{/if}}>Active</option>
         </select>
       </div>
-      <p class="notes">Use <strong>Description</strong> for mechanical notes (bonus type, duration, source).</p>
+      <h4>Modifiers (stack with Active Effects)</h4>
+      <p class="notes">Numeric bonuses while active. Use Active Effects on the actor for richer formulas.</p>
+      <div class="flexrow" style="gap:8px;flex-wrap:wrap;">
+        <div class="form-group"><label>AC misc</label><input type="number" name="system.modifiers.ac" value="{{system.modifiers.ac}}" step="1" /></div>
+        <div class="form-group"><label>Dodge</label><input type="number" name="system.modifiers.dodge" value="{{system.modifiers.dodge}}" step="1" /></div>
+        <div class="form-group"><label>Deflect</label><input type="number" name="system.modifiers.deflection" value="{{system.modifiers.deflection}}" step="1" /></div>
+        <div class="form-group"><label>Fort</label><input type="number" name="system.modifiers.fort" value="{{system.modifiers.fort}}" step="1" /></div>
+        <div class="form-group"><label>Ref</label><input type="number" name="system.modifiers.ref" value="{{system.modifiers.ref}}" step="1" /></div>
+        <div class="form-group"><label>Will</label><input type="number" name="system.modifiers.will" value="{{system.modifiers.will}}" step="1" /></div>
+        <div class="form-group"><label>Init</label><input type="number" name="system.modifiers.init" value="{{system.modifiers.init}}" step="1" /></div>
+        <div class="form-group"><label>BAB</label><input type="number" name="system.modifiers.bab" value="{{system.modifiers.bab}}" step="1" /></div>
+        <div class="form-group"><label>Grapple</label><input type="number" name="system.modifiers.grapple" value="{{system.modifiers.grapple}}" step="1" /></div>
+        <div class="form-group"><label>Land spd</label><input type="number" name="system.modifiers.landSpeed" value="{{system.modifiers.landSpeed}}" step="1" /></div>
+        <div class="form-group"><label>All skills</label><input type="number" name="system.modifiers.allSkills" value="{{system.modifiers.allSkills}}" step="1" /></div>
+      </div>
     </div>
   </section>
 </form>

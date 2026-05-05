@@ -89,6 +89,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
         abilityMod,
         ranks: skillData.ranks || 0,
         misc: skillData.misc || 0,
+        effectBonus: skillData.effectBonus || 0,
         total: skillData.total || 0,
         classSkill: skillData.classSkill || false,
         untrained: skillDef.untrained,

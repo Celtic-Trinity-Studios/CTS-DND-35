@@ -4,6 +4,7 @@
  */
 
 import { CTSDND35ActorSheet } from "./actor-sheet.mjs";
+import { CTSDND35 } from "../helpers/config.mjs";
 import { propagateFactionSnapshotToAllActors } from "../utils/faction-propagation.mjs";
 
 export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
@@ -44,6 +45,8 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
       context.system.description || "",
       { async: true }
     );
+
+    context.config = CTSDND35;
 
     return context;
   }

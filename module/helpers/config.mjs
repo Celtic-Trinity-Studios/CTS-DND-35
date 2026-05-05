@@ -120,6 +120,44 @@ CTSDND35.armorTypes = {
   shield: "Shield",
 };
 
+/** Skills that take armor check penalty & load check penalty (SRD). Swim is doubled in code. */
+CTSDND35.skillsArmorCheck = new Set(["bal", "clm", "esc", "hid", "jmp", "mov", "soh", "swm", "tmb"]);
+
+/** Max Dex bonus to AC and check penalty magnitude by load (excluding armor); light = no extra limit. */
+CTSDND35.loadEncumbranceEffects = {
+  light: { maxDexBonus: Number.POSITIVE_INFINITY, checkPenalty: 0 },
+  medium: { maxDexBonus: 3, checkPenalty: 3 },
+  heavy: { maxDexBonus: 1, checkPenalty: 6 },
+  overload: { maxDexBonus: 0, checkPenalty: 6 },
+};
+
+/**
+ * Land speed from load encumbrance (SRD Table: Carrying Loads).
+ * Medium and heavy load share the same movement column for a given base speed.
+ * @param {number} baseFt
+ * @returns {number}
+ */
+CTSDND35.speedFromLoadEncumbrance = function speedFromLoadEncumbrance(baseFt) {
+  const b = Math.max(0, Math.floor(Number(baseFt) || 0));
+  const table = [
+    [15, 10],
+    [20, 15],
+    [30, 20],
+    [40, 30],
+    [50, 40],
+    [60, 45],
+    [70, 50],
+    [80, 55],
+    [90, 60],
+    [100, 70],
+  ];
+  let enc = Math.max(5, Math.floor((b * 2) / 3));
+  for (const [base, spd] of table) {
+    if (b >= base) enc = spd;
+  }
+  return Math.max(5, enc);
+};
+
 /**
  * Spell schools
  */
