@@ -1,7 +1,7 @@
 /**
  * Settings menu wrapper so help appears under Configure Settings -> CTS DND 3.5.
  */
-export class CTSDND35HelpMenuApp extends FormApplication {
+export class CTSDND35HelpMenuApp extends foundry.appv1.api.FormApplication {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "cts-dnd-35-help-menu",
