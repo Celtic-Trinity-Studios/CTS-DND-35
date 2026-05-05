@@ -16,6 +16,7 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/CTS-DND-35/templates/actor/parts/actor-biography.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-factions-relations.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-faction-items-block.hbs",
+    "systems/CTS-DND-35/templates/actor/parts/actor-merchant.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-identity.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-ability-adjustments.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-status.hbs",

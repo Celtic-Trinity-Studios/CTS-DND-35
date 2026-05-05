@@ -22,7 +22,6 @@ import { registerMerchantSockets } from "./hooks/merchant-socket.mjs";
 import { MerchantApp } from "./apps/merchant-app.mjs";
 import { CTSDND35HelpApp } from "./apps/help-app.mjs";
 import { CTSDND35HelpMenuApp } from "./apps/help-menu-app.mjs";
-import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -83,11 +82,6 @@ Hooks.once("init", function () {
   };
 
   registerMerchantSockets();
-  try {
-    registerInGameHelpHooks();
-  } catch (err) {
-    console.warn("CTS DND 3.5 | In-game help hooks failed to register; continuing.", err);
-  }
 
   // Store config on the global CONFIG object
   CONFIG.CTSDND35 = CTSDND35;
