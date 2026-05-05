@@ -2147,6 +2147,11 @@ button.cts-open-system-help {
   margin-top: 8px;
 }
 
+.cts-open-help-gamesettings {
+  margin-top: 6px;
+  width: 100%;
+}
+
 /* Sidebar: button lives inside #settings-documentation with core buttons */
 #settings-documentation #cts-dnd-35-help-sidebar {
   flex-shrink: 0;

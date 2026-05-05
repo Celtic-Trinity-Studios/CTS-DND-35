@@ -29,6 +29,37 @@ function _injectConfigureSettingsButton(html) {
   }
 }
 
+/**
+ * Inject a help launcher directly in Game Settings under the CTS DND 3.5 category.
+ * This targets the exact panel the user opened (Core / CTS DND 3.5 list).
+ */
+function _injectGameSettingsCategoryHelp(html) {
+  const root = html instanceof HTMLElement ? html : html?.get?.(0) ?? html?.[0];
+  if (!root?.querySelectorAll) return;
+  if (root.querySelector("#cts-open-help-gamesettings")) return;
+
+  const nodes = [
+    ...root.querySelectorAll(".category, .settings-list > li, .settings-list > section, li, section, div"),
+  ];
+  const target = nodes.find((n) => {
+    const t = (n.textContent || "").trim().toLowerCase();
+    return t.includes("cts dnd 3.5");
+  });
+  if (!target) return;
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.id = "cts-open-help-gamesettings";
+  btn.className = "button cts-open-help-gamesettings";
+  btn.innerHTML = `<i class="fas fa-book-open"></i><span>${game.i18n.localize("CTSDND35.Help.OpenShort")}</span>`;
+  btn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    game.ctsdnd35?.openHelp?.();
+  });
+
+  target.appendChild(btn);
+}
+
 /** Prefer #sidebar; v14 layouts sometimes nest under #interface / #ui-right. */
 function _sidebarRoots() {
   const roots = [
@@ -207,6 +238,7 @@ export function registerInGameHelpHooks() {
 
   Hooks.on("renderGameSettings", (_app, html) => {
     _injectConfigureSettingsButton(html);
+    _injectGameSettingsCategoryHelp(html);
   });
   Hooks.on("renderSettingsConfig", (_app, html) => {
     _injectConfigureSettingsButton(html);
