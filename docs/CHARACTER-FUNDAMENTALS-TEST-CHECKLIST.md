@@ -4,6 +4,8 @@ Use this after pulling changes that touch **`module/documents/actor.mjs`**, **`m
 
 **Environment:** Foundry **v14** (per `system.json`), load **CTS-DND-35**, create or open a **character** actor and an **NPC** actor if your sheet differs.
 
+**Saving on the actor sheet:** There is no **Submit** button inside the sheet. Edits normally apply when you **leave the field** (Tab / click elsewhere) or when you **close the sheet** (× on the sheet window’s title bar). Use the sheet header **Edit** control if the sheet is locked read-only.
+
 For each row: run the steps, then check **Expected**. Note failures with Foundry version, module list, and console errors.
 
 **PC character sheet** uses **tabs** (Main, Combat, Skills, Features, Inventory, Status, Details). **Main** has the quick combat strip (HP / AC / Init) and attacks/saves. **Combat** embeds the full `actor-combat.hbs` partial (temp HP, negative levels, save bases, speed, etc.). **Status** has inner **Conditions | Spells** toggles (condition grid + vitality/notes vs spell item list), then **Buff** items. **Details** holds identity, senses, polymorph, and ability damage/drain/aging.
@@ -15,7 +17,7 @@ For each row: run the steps, then check **Expected**. Note failures with Foundry
 | ✓ | Step | Expected |
 |---|------|----------|
 | ☐ | Open character sheet → expand **Ability damage / drain / aging** (extra panels). | Table shows **Bonus**, **Damage**, **Drain**, **Aging**, **Effective** per ability. |
-| ☐ | Set Str **value** 18, **bonus** `0`, note modifier. Set **bonus** to `0.5`, submit/close field. | Modifier matches **`floor((floor(18.5 − penalties) − 10) / 2)`** (effective row shows integer effective score). |
+| ☐ | Set Str **value** 18, **bonus** `0`, note modifier. Set **bonus** to `0.5`, then **Tab out** or click outside the field (or close the sheet). | Modifier matches **`floor((floor(18.5 − penalties) − 10) / 2)`** (effective row shows integer effective score). |
 | ☐ | Set **damage** 2 on Dex (value 14, no bonus). | Effective drops by 2; mod updates; tooltip/header tiles reflect **effective** where wired. |
 | ☐ | Add **drain** and **aging** on same ability. | All three penalties reduce effective score together. |
 | ☐ | Enable **polymorph** replacement (Identity) with Str **10**, base sheet Str still 18. | Physical abilities use replacement base + penalties; Int/Wis/Cha ignore polymorph scores. |
