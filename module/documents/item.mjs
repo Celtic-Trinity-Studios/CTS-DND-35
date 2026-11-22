@@ -5,6 +5,7 @@
 
 import { applyEnergyToDamage, resolveClassCombatProgression } from "../helpers/combat-rules.mjs";
 import { concealmentNote } from "../helpers/lighting.mjs";
+import { applyDamageReduction } from "../helpers/open-rules.mjs";
 
 export class CTSDND35Item extends Item {
 
@@ -155,18 +156,35 @@ export class CTSDND35Item extends Item {
         await damage.evaluate();
         rolls.push(damage);
         const applied = applyEnergyToDamage(damage.total, derived.damageType, actor.system.attributes?.energy);
+        const reduced = applyDamageReduction(applied.amount, {
+          magic: derived.magic,
+          material: derived.material,
+          alignment: derived.alignment,
+          dr: actor.system.attributes?.dr,
+        });
         const typeNote = derived.damageType ? ` ${derived.damageType}` : "";
-        const resistNote = applied.note ? ` (${applied.note} → ${applied.amount})` : "";
-        lines.push(`Damage${typeNote}: <strong>${damage.total}</strong>${resistNote}`);
+        const resistNote = applied.note ? ` (${applied.note})` : "";
+        const drNote = reduced.applied ? ` after DR ${reduced.applied}/${reduced.bypass || "—"}` : "";
+        const lethal = derived.nonlethal ? " nonlethal" : "";
+        lines.push(`Damage${typeNote}${lethal}: <strong>${reduced.amount}</strong>${resistNote}${drNote}`);
       } catch (err) {
         lines.push(`Damage formula could not be rolled (${derived.damageFormula}).`);
         console.warn("CTS DND 3.5 | Damage roll failed", err);
       }
     }
 
-    const dr = Array.isArray(actor.system.attributes?.dr) ? actor.system.attributes.dr : [];
-    if (dr.length) {
-      lines.push(`DR: ${dr.map((row) => `${row.amount ?? 0}/${row.bypass || "—"}`).join(", ")} (apply bypass at the table)`);
+    const concealment = Math.max(0, Math.floor(Number(actor.system.attributes?.combat?.concealment) || 0));
+    if (concealment) {
+      const miss = new foundry.dice.Roll("1d100");
+      await miss.evaluate();
+      rolls.push(miss);
+      lines.push(`Concealment ${concealment}%: rolled <strong>${miss.total}</strong> — ${miss.total <= concealment ? "miss" : "the attack can hit"}`);
+    }
+    const consumeAmmo = this.system.consumeAmmo === true || this.system.consumeAmmo === "true";
+    if (consumeAmmo && Math.floor(Number(this.system.quantity) || 0) > 0) {
+      const left = Math.max(0, Math.floor(Number(this.system.quantity) || 0) - 1);
+      await this.update({ "system.quantity": left });
+      lines.push(`Ammunition left: ${left}`);
     }
 
     return foundry.documents.BaseChatMessage.create({
@@ -192,6 +210,7 @@ export class CTSDND35Item extends Item {
     }
     if (derived.slotLevel != null && derived.slotLevel !== level) lines.push(`Slot level ${derived.slotLevel}`);
     if (derived.empower) lines.push("Empowered: multiply damage by 1.5");
+    if (derived.halfOnSave) lines.push("A successful save deals half damage.");
     if (derived.preparation === "prepared") {
       const count = Math.max(0, Math.floor(Number(derived.prepared) || 0));
       if (count <= 0) lines.push("Not prepared.");

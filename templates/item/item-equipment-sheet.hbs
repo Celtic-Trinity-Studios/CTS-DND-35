@@ -25,6 +25,11 @@
           <label>{{localize "CTSDND35.Quantity"}}</label>
           <input type="number" name="system.quantity" value="{{system.quantity}}" step="1" min="1" />
         </div>
+        <div class="form-group flex-grow">
+          <label>Body slot</label>
+          <input type="text" name="system.slot" value="{{system.slot}}" placeholder="ring, head, neck" />
+        </div>
+        <label class="flex-shrink"><input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}} /> Equipped</label>
       </div>
     </div>
   </section>

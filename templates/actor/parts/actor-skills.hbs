@@ -20,7 +20,7 @@
     <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.ranks" value="{{this.ranks}}" data-dtype="Number" />
     <input class="skill-col skill-input" type="number" name="system.skills.{{this.key}}.misc" value="{{this.misc}}" data-dtype="Number" />
     <span class="skill-col derived" title="From buffs & Active Effects">{{cts-sign this.effectBonus}}</span>
-    <span class="skill-col skill-total rollable skill-roll" data-skill="{{this.key}}">{{cts-sign this.total}}</span>
+    <span class="skill-col skill-total rollable skill-roll" data-skill="{{this.key}}" title="Synergy {{cts-sign this.synergy}}. Take 10: {{this.take10}}. Take 20: {{this.take20}}.{{#if this.untrainedBlocked}} Untrained use is not allowed.{{/if}}">{{cts-sign this.total}}</span>
   </div>
   {{/each}}
 </div>

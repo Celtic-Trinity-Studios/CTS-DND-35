@@ -9,6 +9,7 @@
       <div class="flex-row">
         <label>CR:</label>
         <input type="number" name="system.details.cr" value="{{system.details.cr}}" style="width: 50px;" />
+        {{#if system.details.xpAward}}<span title="DMG experience for this CR">{{system.details.xpAward}} XP</span>{{/if}}
         <label>Size:</label>
         <select name="system.traits.size">
           {{#each config.sizes as |label key|}}

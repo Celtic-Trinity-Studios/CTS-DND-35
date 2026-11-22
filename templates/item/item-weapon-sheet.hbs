@@ -70,6 +70,26 @@
       </div>
       <div class="flexrow" style="gap:8px;">
         <div class="form-group flex-grow">
+          <label>Range increments</label>
+          <input type="number" name="system.rangeIncrements" value="{{system.rangeIncrements}}" min="1" step="1" title="How many increments away. Each after the first is −2." />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Material</label>
+          <input type="text" name="system.material" value="{{system.material}}" placeholder="silver, adamantine" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Alignment</label>
+          <input type="text" name="system.alignment" value="{{system.alignment}}" placeholder="good, chaotic" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+        <label><select name="system.keen"><option value="false" {{#unless system.keen}}selected{{/unless}}>Not keen</option><option value="true" {{#if system.keen}}selected{{/if}}>Keen (doubles threat)</option></select></label>
+        <label><select name="system.magic"><option value="false" {{#unless system.magic}}selected{{/unless}}>Magic from enhancement</option><option value="true" {{#if system.magic}}selected{{/if}}>Counts as magic</option></select></label>
+        <label><select name="system.nonlethal"><option value="false" {{#unless system.nonlethal}}selected{{/unless}}>Lethal</option><option value="true" {{#if system.nonlethal}}selected{{/if}}>Nonlethal</option></select></label>
+        <label><select name="system.consumeAmmo"><option value="false" {{#unless system.consumeAmmo}}selected{{/unless}}>Do not spend ammo</option><option value="true" {{#if system.consumeAmmo}}selected{{/if}}>Spend 1 quantity per roll</option></select></label>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
           <label>Threat (natural)</label>
           <input type="number" name="system.critRange" value="{{system.critRange}}" min="1" max="20" placeholder="20" />
         </div>

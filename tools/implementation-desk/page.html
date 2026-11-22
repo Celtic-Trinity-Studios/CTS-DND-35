@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Feature desk · CTS D&amp;D 3.5</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23e0b15a' width='16' height='16' rx='3'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #14110e;
+      --raise: #221c17;
+      --sink: #0f0d0b;
+      --line: #3f362c;
+      --ink: #f6efe4;
+      --muted: #cbbba6;
+      --faint: #b6a492;
+      --brass: #e0b15a;
+      --brass-ink: #1b140b;
+      --good: #8fceab;
+      --bad: #ef8b72;
+      --park: #c4b6e4;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .35);
+      --serif: Georgia, "Palatino Linotype", Palatino, serif;
+      --sans: "Segoe UI", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    details:not([open]) > :not(summary) { display: none !important; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font: 15px/1.45 var(--sans);
+      background:
+        radial-gradient(1100px 420px at 8% -10%, rgba(224, 177, 90, .09), transparent 55%),
+        var(--bg);
+      color-scheme: dark;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    button, input, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+    ::selection { background: rgba(224, 177, 90, .35); }
+    .skip {
+      position: absolute;
+      left: 8px;
+      top: -40px;
+      background: var(--brass);
+      color: var(--brass-ink);
+      padding: 6px 10px;
+      border-radius: 8px;
+      z-index: 9;
+    }
+    .skip:focus { top: 8px; }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(15, 13, 11, .9);
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      text-align: left;
+      min-width: 180px;
+    }
+    .mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: var(--brass);
+      color: var(--brass-ink);
+      font-family: var(--serif);
+      font-weight: 700;
+    }
+    .brand strong { display: block; font-size: 15px; letter-spacing: .01em; }
+    .brand span { display: block; color: var(--faint); font-size: 12px; }
+    .pages {
+      display: flex;
+      gap: 4px;
+      padding: 3px;
+      background: var(--sink);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-left: auto;
+    }
+    .pages button {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      border-radius: 9px;
+      padding: 7px 12px;
+    }
+    .pages button[aria-selected="true"] {
+      background: var(--raise);
+      color: var(--ink);
+    }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .stat {
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 6px 10px;
+      text-align: right;
+      min-width: 108px;
+    }
+    .stat b { display: block; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .stat span { color: var(--faint); font-size: 11px; }
+    button.ghost, button.primary {
+      border-radius: 8px;
+      padding: 7px 11px;
+    }
+    button.ghost { background: transparent; border: 1px solid var(--line); }
+    button.primary { background: var(--brass); color: var(--brass-ink); border: 0; font-weight: 650; }
+    button.primary:disabled, button.ghost:disabled { opacity: .4; cursor: default; }
+    details.more { position: relative; }
+    details.more summary {
+      list-style: none;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 11px;
+    }
+    details.more summary::-webkit-details-marker { display: none; }
+    details.more .menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 6px);
+      background: var(--raise);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+      z-index: 6;
+      box-shadow: var(--shadow);
+    }
+    details.more .menu button { background: transparent; border: 0; text-align: left; border-radius: 8px; padding: 8px 10px; }
+    details.more .menu button:hover { background: rgba(255, 255, 255, .04); }
+    .meter { height: 3px; background: #2a241c; }
+    .meter span { display: block; height: 100%; background: var(--brass); width: 0; }
+
+    .view { flex: 1; min-height: 0; }
+    #view-list { display: flex; }
+    #view-list[hidden], #view-tick[hidden], #view-roadmap[hidden], #view-notes[hidden] { display: none; }
+    .nav {
+      width: 248px;
+      flex: none;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: var(--sink);
+      padding: 10px;
+    }
+    .nav-label {
+      margin: 14px 8px 4px;
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .nav button.area {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-radius: 8px;
+      padding: 7px 8px;
+      color: var(--muted);
+    }
+    .nav button.area[aria-current="true"] { background: rgba(224, 177, 90, .14); color: var(--ink); }
+    .nav button.area small { color: var(--brass); font-variant-numeric: tabular-nums; font-size: 12px; }
+    .nav button.area.off small { color: var(--faint); }
+    .nav button.area .name { min-width: 0; }
+    .content-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .toolbar input[type="search"] {
+      flex: 1 1 180px;
+      min-width: 140px;
+      background: var(--sink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+    .chips button {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--faint);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 13px;
+    }
+    .chips button[aria-pressed="true"] {
+      border-color: var(--line);
+      color: var(--ink);
+      background: var(--raise);
+    }
+    #result-count { color: var(--faint); font-size: 12px; margin-left: auto; }
+    .scroller { overflow: auto; padding: 8px 18px 48px; }
+    .intro {
+      max-width: 78ch;
+      color: var(--muted);
+      padding: 12px 8px 4px;
+    }
+    .intro p { margin: 0 0 8px; }
+    .intro details { margin-top: 4px; }
+    .intro summary { cursor: pointer; color: var(--brass); }
+    .intro li { margin: 4px 0; }
+    .banner {
+      margin: 10px 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--raise);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cat { margin-top: 8px; }
+    .cat-head {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 14px 8px 8px;
+      background: rgba(20, 17, 14, .94);
+      backdrop-filter: blur(8px);
+    }
+    .cat-head h2 { margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 600; }
+    .cat-head .blurb { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+    .cat-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+    .subhead {
+      margin: 12px 8px 4px;
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .item { border-bottom: 1px solid var(--line); }
+    .item.open { background: rgba(255, 255, 255, .025); }
+    .row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 8px;
+      align-items: start;
+      padding: 8px;
+    }
+    .item.active { background: rgba(224, 177, 90, .06); }
+    button.tick {
+      width: 28px;
+      height: 28px;
+      margin-top: 1px;
+      border-radius: 7px;
+      border: 1.5px solid #8a6a32;
+      background: transparent;
+      color: var(--brass-ink);
+      font-size: 16px;
+      line-height: 1;
+    }
+    button.tick[aria-pressed="true"] { background: var(--brass); }
+    button.tick.later {
+      color: var(--park);
+      border-color: #6d6288;
+      font-weight: 700;
+    }
+    button.body {
+      background: transparent;
+      border: 0;
+      text-align: left;
+      padding: 0;
+      min-width: 0;
+    }
+    button.body .title { display: block; }
+    .item.done button.body .title { color: var(--muted); }
+    .gapline {
+      display: block;
+      color: var(--faint);
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge {
+      font-size: 10px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .badge.missing { color: var(--bad); border-color: rgba(239, 139, 114, .45); }
+    .badge.partial { color: var(--brass); border-color: rgba(224, 177, 90, .5); }
+    .badge.present { color: var(--good); border-color: rgba(143, 206, 171, .45); }
+    .badge.out { color: var(--park); border-color: rgba(196, 182, 228, .5); }
+    .noted { color: var(--brass); font-size: 11px; }
+    .drawer { padding: 0 12px 14px 52px; }
+    .drawer .gap { margin: 0 0 8px; max-width: 78ch; color: var(--ink); }
+    .meta { margin: 0 0 8px; color: var(--faint); font-size: 12px; }
+      textarea, .copy-fallback {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      background: var(--sink);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      line-height: 1.45;
+    }
+    .drawer-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .area-notes { margin: 4px 8px 8px; max-width: 78ch; }
+    .area-notes summary { cursor: pointer; color: var(--faint); font-size: 13px; }
+    .keys { color: var(--faint); font-size: 12px; padding: 16px 8px 0; }
+
+    .sheet {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 22px 64px;
+    }
+    .sheet h1 { font-family: var(--serif); font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 8px; }
+    .eyebrow { color: var(--brass); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px; }
+    .tick-gap { font-size: 17px; line-height: 1.5; max-width: 62ch; margin: 12px 0; }
+    .tick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+    .tick-actions .primary { padding: 10px 16px; }
+    .tick-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--faint);
+    }
+    .scope-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--faint); font-size: 13px; }
+    label.block { display: block; margin-top: 14px; color: var(--muted); }
+    label.block textarea { margin-top: 6px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .empty {
+      padding: 28px 8px;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      margin: 0 0 18px;
+    }
+    .step-index {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      font-family: var(--serif);
+    }
+    .step.done .step-index { background: var(--brass); color: var(--brass-ink); border-color: var(--brass); }
+    .step h2 { margin: 4px 0; font-family: var(--serif); font-size: 22px; }
+    .step p { margin: 0 0 8px; color: var(--muted); }
+    .step ul { list-style: none; margin: 0; padding: 0; }
+    .step li { border-top: 1px solid var(--line); }
+    .step li button {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: 8px 0;
+    }
+    .step li button span { display: block; color: var(--faint); font-size: 13px; }
+    .footer-note { color: var(--faint); font-size: 12px; margin-top: 28px; }
+    #toast {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--raise);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      max-width: min(520px, calc(100vw - 32px));
+      z-index: 8;
+    }
+    #saved { color: var(--faint); font-size: 12px; padding: 0 8px 8px; }
+    @media (max-width: 860px) {
+      body { overflow: auto; }
+      .view { overflow: visible; }
+      #view-list { display: block; }
+      #view-list[hidden] { display: none; }
+      .nav { width: auto; display: flex; gap: 6px; overflow: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .nav-label { display: none; }
+      .nav button.area { width: auto; white-space: nowrap; }
+      .scroller { overflow: visible; }
+      .split { grid-template-columns: 1fr; }
+      .cat-head { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#list-scroll">Skip to checklist</a>
+  <header>
+    <button class="brand" id="home" type="button">
+      <div class="mark">3.5</div>
+      <div>
+        <strong>Feature desk</strong>
+        <span>What still needs building</span>
+      </div>
+    </button>
+    <nav class="pages" aria-label="Pages">
+      <button type="button" data-page="list" role="tab">Checklist</button>
+      <button type="button" data-page="tick" role="tab">Tick through</button>
+      <button type="button" data-page="roadmap" role="tab">Roadmap</button>
+      <button type="button" data-page="notes" role="tab">Notes</button>
+    </nav>
+    <div class="header-actions">
+      <button class="stat" id="stat" type="button" title="Start ticking the main list"></button>
+      <button class="ghost" id="export" type="button">Export</button>
+      <button class="ghost" id="import" type="button">Import</button>
+      <input id="import-file" type="file" accept="application/json" hidden>
+      <details class="more">
+        <summary>More</summary>
+        <div class="menu">
+          <button type="button" id="copy">Copy summary</button>
+          <button type="button" id="show-intro">Show introduction</button>
+          <button type="button" id="reset">Reset this browser</button>
+        </div>
+      </details>
+    </div>
+  </header>
+  <div class="meter" aria-hidden="true"><span id="meter-bar"></span></div>
+
+  <section id="view-list" class="view">
+    <aside class="nav" id="nav" aria-label="Areas"></aside>
+    <div class="content-col">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search rules" aria-label="Search rules" autocomplete="off">
+        <div class="chips" role="group" aria-label="Filter">
+          <button type="button" data-filter="todo" aria-pressed="true">To do</button>
+          <button type="button" data-filter="missing">Not built</button>
+          <button type="button" data-filter="partial">Partly there</button>
+          <button type="button" data-filter="checked">Checked</button>
+          <button type="button" data-filter="insystem">Already in</button>
+          <button type="button" data-filter="parked">Parked</button>
+          <button type="button" data-filter="all">All</button>
+        </div>
+        <div id="result-count" aria-live="polite"></div>
+      </div>
+      <div class="scroller" id="list-scroll">
+        <div class="banner" id="rebuild-banner" hidden>
+          <span>The checklist was rebuilt from the gap analysis. Checks and notes already saved in this browser were kept.</span>
+          <button class="ghost" id="dismiss-rebuild" type="button">Dismiss</button>
+        </div>
+        <div class="intro" id="intro">
+          <p id="intro-lead"></p>
+          <details>
+            <summary>How these areas differ from the audit</summary>
+            <ul id="regroup-list"></ul>
+          </details>
+          <div class="cat-actions">
+            <button class="ghost" id="hide-intro" type="button">Hide this</button>
+          </div>
+        </div>
+        <div id="list"></div>
+        <p class="keys">Keys: J and K move, X checks, P parks, Enter opens tick-through, / searches.</p>
+        <p class="footer-note" id="list-foot"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-tick" class="view" hidden>
+    <div class="scroller"><div class="sheet" id="tick-root"></div></div>
+  </section>
+
+  <section id="view-roadmap" class="view" hidden>
+    <div class="scroller"><div class="sheet" id="roadmap-root"></div></div>
+  </section>
+
+  <section id="view-notes" class="view" hidden>
+    <div class="scroller">
+      <div class="sheet">
+        <p class="eyebrow">Notes</p>
+        <h1>Scratch space</h1>
+        <p class="meta">Kept with your checks in this browser. Per-rule notes live on each row.</p>
+        <label class="block">Working notes
+          <textarea id="note-working" spellcheck="true" placeholder="What you are in the middle of"></textarea>
+        </label>
+        <div class="split">
+          <label class="block">Decisions
+            <textarea id="note-decisions" spellcheck="true" placeholder="Choices you do not want to relitigate"></textarea>
+          </label>
+          <label class="block">Open questions
+            <textarea id="note-questions" spellcheck="true" placeholder="Rules you still need to look up"></textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" role="status" hidden></div>
+  <script>
+    window.DESK_DATA = __DESK_DATA__;
+  </script>
+  <script>
+    const DATA = window.DESK_DATA;
+    if (!DATA || !Array.isArray(DATA.items)) {
+      document.body.textContent = "This page has no checklist data. Open index.html in tools/implementation-desk.";
+      throw new Error("missing desk data");
+    }
+
+    const KEY = "cts-dnd35-feature-desk-v1";
+    const byId = new Map(DATA.items.map((item) => [item.id, item]));
+    const catById = (id) => DATA.categories.find((cat) => cat.id === id);
+    const AUDIT_LABEL = { missing: "Not built", partial: "Partly there", present: "In the system", out: "Out of scope" };
+
+    const openDrawers = new Set();
+    const openAreaNotes = new Set();
+    let query = "";
+    let activeId = null;
+    let toastTimer = 0;
+    let tickPainted = null;
+
+    function load() {
+      const blank = {
+        v: 1,
+        items: {},
+        notes: { working: "", decisions: "", questions: "" },
+        categoryNotes: {},
+        include: {},
+        ui: { filter: "todo", cat: "pipeline", scope: "main", tickId: null, hideIntro: false },
+        seenBuild: null,
+      };
+      try {
+        const raw = JSON.parse(localStorage.getItem(KEY) || "null");
+        if (!raw || typeof raw !== "object") return blank;
+        return {
+          ...blank,
+          ...raw,
+          notes: { ...blank.notes, ...(raw.notes || {}) },
+          categoryNotes: raw.categoryNotes || {},
+          include: raw.include || {},
+          items: raw.items || {},
+          ui: { ...blank.ui, ...(raw.ui || {}) },
+        };
+      } catch {
+        return blank;
+      }
+    }
+
+    const state = load();
+
+    function save() {
+      const label = document.getElementById("saved-flag");
+      try {
+        localStorage.setItem(KEY, JSON.stringify(state));
+        if (label) label.textContent = "Saved in this browser";
+      } catch {
+        if (label) label.textContent = "Could not save — export a backup";
+      }
+    }
+
+    function baseState(item) {
+      const saved = state.items[item.id] && state.items[item.id].state;
+      if (saved === "todo" || saved === "done" || saved === "later") return saved;
+      if (item.audit === "present") return "done";
+      if (item.audit === "out") return "later";
+      return "todo";
+    }
+
+    function inPool(item) {
+      const cat = catById(item.cat);
+      if (cat && cat.parked && !state.include[item.cat]) return false;
+      const st = baseState(item);
+      if (st === "later") return false;
+      if (item.audit === "present" && st !== "todo") return false;
+      return st === "todo" || st === "done";
+    }
+
+    function pool() {
+      return DATA.items.filter(inPool);
+    }
+
+    function searchMatch(item) {
+      const q = query.trim().toLowerCase();
+      if (!q) return true;
+      const note = (state.items[item.id] && state.items[item.id].note) || "";
+      const cat = catById(item.cat);
+      const hay = [item.title, item.gap, note, item.sectionTitle, cat ? cat.title : ""].join(" ").toLowerCase();
+      return hay.includes(q);
+    }
+
+    function filterOk(item) {
+      const st = baseState(item);
+      const saved = state.items[item.id] && state.items[item.id].state;
+      const f = state.ui.filter;
+      if (f === "all") return true;
+      if (f === "todo") return st === "todo";
+      if (f === "missing") return st === "todo" && item.audit === "missing";
+      if (f === "partial") return st === "todo" && item.audit === "partial";
+      if (f === "checked") return st === "done" && !(item.audit === "present" && !saved);
+      if (f === "insystem") return item.audit === "present" && st === "done";
+      if (f === "parked") return st === "later";
+      return true;
+    }
+
+    function hiddenOptional(item) {
+      if (state.ui.cat !== "all") return false;
+      const cat = catById(item.cat);
+      if (!cat || !cat.parked || state.include[item.cat]) return false;
+      return !state.items[item.id];
+    }
+
+    function catHasTodo(catId) {
+      return DATA.items.some((item) => item.cat === catId && baseState(item) === "todo" && searchMatch(item));
+    }
+
+    function listed(item) {
+      const searching = query.trim().length > 0;
+      if (!searching && state.ui.cat !== "all" && item.cat !== state.ui.cat) return false;
+      if (!searching && hiddenOptional(item)) return false;
+      if (!searchMatch(item)) return false;
+      if (filterOk(item)) return true;
+      if (searching && state.ui.filter === "todo" && baseState(item) === "later") return true;
+      const showDormant = !searching
+        && state.ui.cat === item.cat
+        && state.ui.filter === "todo"
+        && !catHasTodo(item.cat)
+        && baseState(item) === "later";
+      return showDormant;
+    }
+
+    function listedItems() {
+      return DATA.items.filter(listed).sort((a, b) => {
+        const rank = (item) => {
+          const st = baseState(item);
+          const auditRank = { missing: 0, partial: 1, present: 2, out: 3 }[item.audit] ?? 4;
+          const stateRank = st === "todo" ? 0 : st === "later" ? 1 : 2;
+          return stateRank * 10 + auditRank;
+        };
+        return rank(a) - rank(b) || a.order - b.order;
+      });
+    }
+
+    function workRank(item) {
+      return { missing: 0, partial: 1, present: 2, out: 3 }[item.audit] ?? 4;
+    }
+
+    function workQueue() {
+      const scope = state.ui.scope || "main";
+      return DATA.items.filter((item) => {
+        if (baseState(item) !== "todo") return false;
+        if (!searchMatch(item)) return false;
+        if (scope.startsWith("step:")) return item.roadmap === scope.slice(5);
+        if (scope.startsWith("cat:")) return item.cat === scope.slice(4);
+        if (state.ui.filter === "missing" && item.audit !== "missing") return false;
+        if (state.ui.filter === "partial" && item.audit !== "partial") return false;
+        if (state.ui.cat !== "all" && item.cat !== state.ui.cat) return false;
+        return inPool(item) || (state.ui.cat !== "all" && item.cat === state.ui.cat);
+      }).sort((a, b) => workRank(a) - workRank(b) || a.order - b.order);
+    }
+
+    function scopeLabel() {
+      const scope = state.ui.scope || "main";
+      if (scope.startsWith("cat:")) {
+        const cat = catById(scope.slice(4));
+        return cat ? cat.short : "This area";
+      }
+      if (scope.startsWith("step:")) {
+        const step = DATA.roadmap.find((row) => row.id === scope.slice(5));
+        return step ? "Roadmap · " + step.title : "Roadmap";
+      }
+      if (state.ui.cat !== "all") {
+        const cat = catById(state.ui.cat);
+        return cat ? cat.short : "Main list";
+      }
+      return "Main list";
+    }
+
+    function el(tag, attrs, children) {
+      const node = document.createElement(tag);
+      if (tag === "button" && !(attrs && attrs.type)) node.type = "button";
+      for (const [key, value] of Object.entries(attrs || {})) {
+        if (value == null) continue;
+        if (key === "class") node.className = value;
+        else if (key === "text") node.textContent = value;
+        else if (key === "hidden") node.hidden = Boolean(value);
+        else if (key === "value") node.value = value;
+        else if (typeof value === "function" && key.startsWith("on")) node.addEventListener(key.slice(2).toLowerCase(), value);
+        else if (typeof value === "boolean") {
+          if (value) node.setAttribute(key, "");
+          else node.removeAttribute(key);
+        } else node.setAttribute(key, String(value));
+      }
+      for (const child of [].concat(children || [])) {
+        if (child == null || child === false) continue;
+        node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+      }
+      return node;
+    }
+
+    function snapshot(id) {
+      const data = state.items[id] ? JSON.parse(JSON.stringify(state.items[id])) : null;
+      return { id, data, tickId: state.ui.tickId, activeId };
+    }
+
+    function restore(snap) {
+      if (snap.data) state.items[snap.id] = snap.data;
+      else delete state.items[snap.id];
+      state.ui.tickId = snap.tickId;
+      activeId = snap.activeId;
+      save();
+      refreshAll();
+    }
+
+    function setItemState(id, next) {
+      if (!state.items[id]) state.items[id] = {};
+      state.items[id].state = next;
+      save();
+    }
+
+    function toast(message, undo) {
+      const node = document.getElementById("toast");
+      node.replaceChildren(el("span", { text: message }));
+      if (undo) node.append(el("button", { class: "ghost", text: "Undo", onClick: () => { undo(); hideToast(); } }));
+      node.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(hideToast, 6000);
+    }
+
+    function hideToast() {
+      document.getElementById("toast").hidden = true;
+    }
+
+    function groupLabel(item) {
+      const st = baseState(item);
+      if (st === "later") return "Parked";
+      if (st === "done" && item.audit === "present") return "Already in the system";
+      if (st === "done") return "Checked off";
+      if (item.audit === "missing") return "Not built";
+      if (item.audit === "partial") return "Partly there";
+      if (item.audit === "present") return "Reopened";
+      return "Out of scope";
+    }
+
+    function updateStat() {
+      const rows = pool();
+      const todo = rows.filter((item) => baseState(item) === "todo").length;
+      const done = rows.filter((item) => baseState(item) === "done").length;
+      const rawPct = rows.length ? (done / rows.length) * 100 : 100;
+      const pct = rawPct > 0 && rawPct < 1 ? 1 : Math.round(rawPct);
+      const stat = document.getElementById("stat");
+      stat.replaceChildren(
+        el("b", { text: todo ? todo + " to do" : "All caught up" }),
+        el("span", { text: done + " checked · " + pct + "%" })
+      );
+      const missing = rows.filter((item) => baseState(item) === "todo" && item.audit === "missing").length;
+      const partial = rows.filter((item) => baseState(item) === "todo" && item.audit === "partial").length;
+      stat.title = missing + " not built, " + partial + " partly there, " + done + " checked. Start ticking.";
+      document.getElementById("meter-bar").style.width = pct + "%";
+    }
+
+    function syncChips() {
+      for (const button of document.querySelectorAll("[data-filter]")) {
+        button.setAttribute("aria-pressed", button.dataset.filter === state.ui.filter ? "true" : "false");
+      }
+      for (const button of document.querySelectorAll("[data-page]")) {
+        button.setAttribute("aria-selected", button.dataset.page === currentPage() ? "true" : "false");
+      }
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("nav");
+      nav.replaceChildren();
+      const mainTodo = pool().filter((item) => baseState(item) === "todo").length;
+      const allBtn = el("button", {
+        class: "area",
+        onClick: () => { state.ui.cat = "all"; save(); refreshAll(); },
+      });
+      if (state.ui.cat === "all") allBtn.setAttribute("aria-current", "true");
+      nav.append(allBtn);
+      allBtn.append(el("span", { class: "name", text: "All areas" }), el("small", { text: String(mainTodo) }));
+
+      let lastGroup = "";
+      for (const cat of DATA.categories) {
+        if (cat.group !== lastGroup) {
+          nav.append(el("div", { class: "nav-label", text: cat.group }));
+          lastGroup = cat.group;
+        }
+        const raw = DATA.items.filter((item) => item.cat === cat.id && baseState(item) === "todo").length;
+        const optional = cat.parked && !state.include[cat.id];
+        const button = el("button", {
+          class: "area" + (optional ? " off" : ""),
+          title: optional ? "Not on the main count" : cat.blurb,
+          onClick: () => { state.ui.cat = cat.id; save(); refreshAll(); },
+        });
+        if (state.ui.cat === cat.id) button.setAttribute("aria-current", "true");
+        button.append(el("span", { class: "name", text: cat.short }), el("small", { text: optional ? raw + " · opt" : String(raw) }));
+        nav.append(button);
+      }
+    }
+
+    function renderList() {
+      const scroller = document.getElementById("list-scroll");
+      const y = scroller.scrollTop;
+      const root = document.getElementById("list");
+      root.replaceChildren();
+      const rows = listedItems();
+      const searching = query.trim().length > 0;
+      const scopeNote = searching && state.ui.cat !== "all" ? " in all areas" : "";
+      document.getElementById("result-count").textContent = rows.length + (rows.length === 1 ? " row" : " rows") + scopeNote;
+
+      if (!rows.length) {
+        root.append(el("div", { class: "empty", text: "Nothing in this filter. Try All, or pick another area." }));
+      }
+
+      for (const cat of DATA.categories) {
+        const catRows = rows.filter((item) => item.cat === cat.id);
+        if (!catRows.length) continue;
+        const section = el("section", { class: "cat", id: "cat-" + cat.id });
+        const head = el("div", { class: "cat-head" });
+        head.append(el("h2", { text: cat.title }), el("p", { class: "blurb", text: cat.blurb }));
+        const actions = el("div", { class: "cat-actions" });
+        actions.append(el("button", {
+          class: "ghost",
+          text: "Tick through these",
+          onClick: () => {
+            state.ui.scope = "cat:" + cat.id;
+            state.ui.cat = cat.id;
+            const first = workQueue()[0];
+            state.ui.tickId = first ? first.id : null;
+            save();
+            go("tick");
+          },
+        }));
+        if (cat.parked) {
+          actions.append(el("button", {
+            class: "ghost",
+            text: state.include[cat.id] ? "On the main list" : "Include on the main list",
+            onClick: () => {
+              state.include[cat.id] = !state.include[cat.id];
+              save();
+              toast(state.include[cat.id] ? cat.short + " counts toward progress." : cat.short + " is off the main count.");
+              refreshAll();
+            },
+          }));
+        }
+        head.append(actions);
+        const noteText = state.categoryNotes[cat.id] || "";
+        const details = el("details", { class: "area-notes" });
+        if (openAreaNotes.has(cat.id)) details.open = true;
+        details.append(el("summary", { text: noteText.trim() ? "Area notes · saved" : "Area notes" }));
+        const areaBox = el("textarea", {
+          spellcheck: "true",
+          placeholder: "Notes for this whole area",
+          value: noteText,
+        });
+        areaBox.addEventListener("input", () => {
+          state.categoryNotes[cat.id] = areaBox.value;
+          save();
+          details.querySelector("summary").textContent = areaBox.value.trim() ? "Area notes · saved" : "Area notes";
+        });
+        details.addEventListener("toggle", () => {
+          if (details.open) openAreaNotes.add(cat.id);
+          else openAreaNotes.delete(cat.id);
+        });
+        details.append(areaBox);
+        head.append(details);
+        section.append(head);
+
+        const dormant = catRows.every((item) => baseState(item) === "later");
+        if (dormant) {
+          section.append(el("p", {
+            class: "meta",
+            text: "Nothing in this area is on your list. Put a row back if you mean to build it.",
+          }));
+        }
+
+        let last = "";
+        for (const item of catRows) {
+          const label = groupLabel(item);
+          if (label !== last) {
+            section.append(el("div", { class: "subhead", text: label }));
+            last = label;
+          }
+          section.append(renderItem(item));
+        }
+        root.append(section);
+      }
+
+      if (activeId) {
+        const current = root.querySelector('.item[data-id="' + CSS.escape(activeId) + '"]');
+        if (current) current.classList.add("active");
+        else activeId = root.querySelector(".item")?.dataset.id || null;
+        if (activeId) root.querySelector('.item[data-id="' + CSS.escape(activeId) + '"]')?.classList.add("active");
+      }
+      scroller.scrollTop = y;
+    }
+
+    function renderItem(item) {
+      const st = baseState(item);
+      const wrap = el("article", { class: "item" + (st === "done" ? " done" : "") + (openDrawers.has(item.id) ? " open" : ""), "data-id": item.id });
+      const row = el("div", { class: "row" });
+      const tick = el("button", {
+        class: "tick" + (st === "later" ? " later" : ""),
+        "aria-pressed": st === "done" ? "true" : "false",
+        "aria-label": st === "done" ? "Put back on the list" : st === "later" ? "Put on the list" : "Mark done",
+        text: st === "done" ? "✓" : st === "later" ? "–" : "",
+        onClick: () => onCheck(item),
+      });
+      const body = el("button", { class: "body", onClick: () => toggleDrawer(item.id) });
+      body.append(el("span", { class: "title", text: item.title }));
+      if (item.gap) body.append(el("span", { class: "gapline", text: item.gap }));
+      const side = el("div", { class: "side" });
+      const note = (state.items[item.id] && state.items[item.id].note) || "";
+      if (note.trim()) side.append(el("span", { class: "noted", text: "Note" }));
+      side.append(el("span", { class: "badge " + item.audit, text: AUDIT_LABEL[item.audit] || item.audit }));
+      row.append(tick, body, side);
+      wrap.append(row);
+
+      if (openDrawers.has(item.id)) {
+        const drawer = el("div", { class: "drawer" });
+        if (item.gap) drawer.append(el("p", { class: "gap", text: item.gap }));
+        else drawer.append(el("p", { class: "gap", text: "The audit lists this with no further detail." }));
+        const cat = catById(item.cat);
+        let meta = "Audit §" + item.section + " · " + item.sectionTitle;
+        if (item.moved && cat) meta += " · listed under " + cat.short;
+        drawer.append(el("p", { class: "meta", text: meta }));
+        const box = el("textarea", {
+          spellcheck: "true",
+          placeholder: "What you tried, what is left, decisions",
+          value: note,
+          "aria-label": "Notes for " + item.title,
+        });
+        box.addEventListener("input", () => {
+          if (!state.items[item.id]) state.items[item.id] = {};
+          state.items[item.id].note = box.value;
+          if (!state.items[item.id].state && !box.value) delete state.items[item.id];
+          save();
+          let flag = side.querySelector(".noted");
+          if (box.value.trim() && !flag) side.prepend(el("span", { class: "noted", text: "Note" }));
+          if (!box.value.trim() && flag) flag.remove();
+        });
+        const actions = el("div", { class: "drawer-actions" });
+        if (st === "later") {
+          actions.append(el("button", { class: "ghost", text: "Put on the list", onClick: () => onCheck(item) }));
+        } else {
+          actions.append(el("button", { class: "ghost", text: "Park", onClick: () => park(item) }));
+        }
+        actions.append(el("button", {
+          class: "ghost",
+          text: "Open in tick-through",
+          onClick: () => {
+            state.ui.scope = "cat:" + item.cat;
+            state.ui.tickId = item.id;
+            save();
+            go("tick");
+          },
+        }));
+        drawer.append(box, actions);
+        wrap.append(drawer);
+      }
+      return wrap;
+    }
+
+    function toggleDrawer(id) {
+      if (openDrawers.has(id)) openDrawers.delete(id);
+      else openDrawers.add(id);
+      activeId = id;
+      renderList();
+    }
+
+    function neighborId(id, dir) {
+      const ids = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+      const index = ids.indexOf(id);
+      if (index < 0) return ids[0] || null;
+      return ids[index + dir] || ids[index] || null;
+    }
+
+    function onCheck(item) {
+      const rows = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+      const index = rows.indexOf(item.id);
+      const snap = snapshot(item.id);
+      const st = baseState(item);
+      const next = st === "todo" ? "done" : "todo";
+      setItemState(item.id, next);
+      activeId = next === "done" && (state.ui.filter === "todo" || state.ui.filter === "missing" || state.ui.filter === "partial")
+        ? (rows[index + 1] || rows[index - 1] || null)
+        : item.id;
+      toast((next === "done" ? "Checked: " : "Back on the list: ") + item.title, () => restore(snap));
+      refreshAll();
+    }
+
+    function park(item) {
+      const snap = snapshot(item.id);
+      setItemState(item.id, "later");
+      activeId = neighborId(item.id, 1);
+      toast("Parked: " + item.title, () => restore(snap));
+      refreshAll();
+    }
+
+    function renderTick(force) {
+      const root = document.getElementById("tick-root");
+      const queue = workQueue();
+      let id = state.ui.tickId;
+      if (!id || !byId.has(id)) id = queue[0] ? queue[0].id : null;
+      state.ui.tickId = id;
+      if (!id) {
+        tickPainted = null;
+        root.replaceChildren(
+          el("p", { class: "eyebrow", text: scopeLabel() }),
+          el("h1", { text: "Nothing left in this queue" }),
+          el("p", { class: "tick-gap", text: "Everything in this view is checked, parked, or already in the system." }),
+          el("div", { class: "tick-actions" }, [
+            el("button", { class: "primary", text: "Back to the checklist", onClick: () => go("list") }),
+            el("button", { class: "ghost", text: "Widen to the main list", onClick: () => { state.ui.scope = "main"; state.ui.cat = "all"; state.ui.filter = "todo"; save(); renderTick(true); updateStat(); renderNav(); syncChips(); } }),
+          ])
+        );
+        return;
+      }
+      if (!force && tickPainted === id && document.getElementById("tick-note")) {
+        paintTickPosition(queue, id);
+        return;
+      }
+      const item = byId.get(id);
+      const st = baseState(item);
+      const cat = catById(item.cat);
+      root.replaceChildren();
+      const eyebrow = el("div", { class: "scope-row" });
+      eyebrow.append(el("span", { text: scopeLabel() + " · " + (cat ? cat.short : "") }));
+      if ((state.ui.scope || "main") !== "main") {
+        eyebrow.append(el("button", {
+          class: "ghost",
+          text: "Widen to the main list",
+          onClick: () => { state.ui.scope = "main"; state.ui.cat = "all"; save(); renderTick(true); },
+        }));
+      }
+      root.append(eyebrow);
+      root.append(el("p", { class: "eyebrow", text: (AUDIT_LABEL[item.audit] || "") + " · Audit §" + item.section }));
+      root.append(el("h1", { text: item.title }));
+      root.append(el("p", { class: "tick-gap", text: item.gap || "The audit lists this with no further detail." }));
+      if (item.moved && cat) {
+        root.append(el("p", { class: "meta", text: "Filed under " + cat.short + " · from §" + item.section + " " + item.sectionTitle }));
+      }
+      const actions = el("div", { class: "tick-actions" });
+      actions.append(el("button", {
+        class: "primary",
+        text: st === "done" ? "Checked" : "Done",
+        disabled: st === "done",
+        onClick: () => markFromTick("done"),
+      }));
+      actions.append(el("button", { class: "ghost", text: "Skip", onClick: () => moveTick(1) }));
+      if (st === "later") {
+        actions.append(el("button", { class: "ghost", text: "Put on the list", onClick: () => { setItemState(item.id, "todo"); toast("On the list: " + item.title); renderTick(true); refreshQuiet(); } }));
+      } else {
+        actions.append(el("button", { class: "ghost", text: "Park", onClick: () => markFromTick("later") }));
+      }
+      if (st === "done" || st === "later") {
+        actions.append(el("button", { class: "ghost", text: "Back to to-do", onClick: () => { setItemState(item.id, "todo"); renderTick(true); refreshQuiet(); } }));
+      }
+      root.append(actions);
+      const box = el("textarea", {
+        id: "tick-note",
+        spellcheck: "true",
+        placeholder: "Notes for this rule",
+        value: (state.items[item.id] && state.items[item.id].note) || "",
+        "aria-label": "Notes for " + item.title,
+      });
+      box.addEventListener("input", () => {
+        if (!state.items[item.id]) state.items[item.id] = {};
+        state.items[item.id].note = box.value;
+        save();
+      });
+      root.append(el("label", { class: "block", text: "Notes" }, [box]));
+      const foot = el("div", { class: "tick-foot" });
+      foot.append(
+        el("button", { class: "ghost", id: "tick-prev", text: "Previous", onClick: () => moveTick(-1) }),
+        el("span", { id: "tick-pos", text: "" }),
+        el("button", { class: "ghost", id: "tick-next", text: "Next", onClick: () => moveTick(1) })
+      );
+      root.append(foot);
+      root.append(el("p", { class: "keys", text: "Keys: X marks done, P parks, arrow keys move. Notes stay when you move on." }));
+      paintTickPosition(queue, id);
+      tickPainted = id;
+    }
+
+    function paintTickPosition(queue, id) {
+      const index = queue.findIndex((item) => item.id === id);
+      const pos = document.getElementById("tick-pos");
+      if (pos) pos.textContent = index >= 0 ? (index + 1) + " of " + queue.length : "Outside this queue";
+      const prev = document.getElementById("tick-prev");
+      const next = document.getElementById("tick-next");
+      if (prev) prev.disabled = index <= 0;
+      if (next) next.disabled = index < 0 || index >= queue.length - 1;
+    }
+
+    function moveTick(dir) {
+      const queue = workQueue();
+      const index = queue.findIndex((item) => item.id === state.ui.tickId);
+      const next = queue[index + dir];
+      if (!next) return;
+      state.ui.tickId = next.id;
+      save();
+      renderTick(true);
+    }
+
+    function markFromTick(nextState) {
+      const id = state.ui.tickId;
+      const item = byId.get(id);
+      if (!item) return;
+      const queue = workQueue();
+      const index = queue.findIndex((row) => row.id === id);
+      let follow = queue[index + 1]?.id || queue[index - 1]?.id || null;
+      if (follow === id) follow = null;
+      const snap = snapshot(id);
+      setItemState(id, nextState);
+      state.ui.tickId = follow;
+      save();
+      toast((nextState === "done" ? "Checked: " : "Parked: ") + item.title, () => restore(snap));
+      renderTick(true);
+      refreshQuiet();
+    }
+
+    function refreshQuiet() {
+      updateStat();
+      syncChips();
+      renderNav();
+    }
+
+    function renderRoadmap() {
+      const root = document.getElementById("roadmap-root");
+      root.replaceChildren();
+      root.append(el("p", { class: "eyebrow", text: "Build order" }));
+      root.append(el("h1", { text: "Nine steps, then the rest" }));
+      root.append(el("p", {
+        class: "tick-gap",
+        text: "The audit reads like the rulebook. This page reads like the work. Each row still names its audit section, so nothing was dropped.",
+      }));
+      DATA.roadmap.forEach((step, index) => {
+        const rows = DATA.items.filter((item) => item.roadmap === step.id);
+        const open = rows.filter((item) => baseState(item) === "todo" && inPool(item));
+        const block = el("article", { class: "step" + (open.length ? "" : " done") });
+        block.append(el("div", { class: "step-index", text: String(index + 1) }));
+        const body = el("div");
+        body.append(el("h2", { text: step.title }));
+        body.append(el("p", { text: step.blurb }));
+        body.append(el("p", { class: "meta", text: open.length ? open.length + " still open" : "Nothing open on the main list" }));
+        const list = el("ul");
+        for (const item of open) {
+          const li = el("li");
+          const button = el("button", { onClick: () => openStepItem(step.id, item.id) });
+          button.append(item.title, el("span", { text: AUDIT_LABEL[item.audit] + (item.gap ? " — " + item.gap : "") }));
+          li.append(button);
+          list.append(li);
+        }
+        if (!open.length) list.append(el("li", {}, [el("span", { class: "meta", text: "Checked, parked, or already in the system." })]));
+        body.append(list);
+        const parked = rows.filter((item) => inPool(item) && baseState(item) === "done").length;
+        const already = rows.filter((item) => item.audit === "present" && baseState(item) === "done").length;
+        if (parked || already) {
+          body.append(el("p", { class: "meta", text: parked + " checked in this step · " + already + " already in the system" }));
+        }
+        block.append(body);
+        root.append(block);
+      });
+
+      root.append(el("h2", { text: "Also to build" }));
+      root.append(el("p", { text: DATA.offpathBlurb }));
+      const offCats = DATA.categories.filter((cat) => DATA.items.some((item) => item.cat === cat.id && !item.roadmap && baseState(item) === "todo" && inPool(item)));
+      if (!offCats.length) root.append(el("p", { class: "meta", text: "Nothing else is open on the main list." }));
+      for (const cat of offCats) {
+        const open = DATA.items.filter((item) => item.cat === cat.id && !item.roadmap && baseState(item) === "todo" && inPool(item));
+        const details = el("details");
+        details.append(el("summary", { text: cat.short + " · " + open.length + " open" }));
+        const list = el("ul");
+        for (const item of open) {
+          const li = el("li");
+          li.append(el("button", { text: item.title, onClick: () => openStepItem(null, item.id, cat.id) }));
+          list.append(li);
+        }
+        details.append(list);
+        root.append(details);
+      }
+      root.append(el("p", { class: "footer-note", id: "saved-flag", text: "Saved in this browser" }));
+    }
+
+    function openStepItem(stepId, itemId, catId) {
+      state.ui.scope = stepId ? "step:" + stepId : "cat:" + catId;
+      state.ui.tickId = itemId;
+      if (catId) state.ui.cat = catId;
+      save();
+      go("tick");
+    }
+
+    function currentPage() {
+      const hash = location.hash.replace("#", "");
+      if (hash === "tick" || hash === "roadmap" || hash === "notes") return hash;
+      return "list";
+    }
+
+    function show(page) {
+      if (page === "tick" && !["todo", "missing", "partial", "all"].includes(state.ui.filter)) {
+        state.ui.filter = "todo";
+      }
+      for (const name of ["list", "tick", "roadmap", "notes"]) {
+        document.getElementById("view-" + name).hidden = name !== page;
+      }
+      syncChips();
+      updateStat();
+      if (page === "list") {
+        renderNav();
+        renderList();
+      } else if (page === "tick") {
+        renderTick(true);
+      } else if (page === "roadmap") {
+        renderRoadmap();
+      }
+      state.ui.page = page;
+      save();
+    }
+
+    function go(page) {
+      const hash = page === "list" ? "#checklist" : "#" + page;
+      if (location.hash !== hash) location.hash = hash;
+      else show(page);
+    }
+
+    function summaryText() {
+      const lines = ["# CTS D&D 3.5 feature desk", ""];
+      const rows = pool();
+      const todo = rows.filter((item) => baseState(item) === "todo").length;
+      const done = rows.filter((item) => baseState(item) === "done").length;
+      lines.push(todo + " to do · " + done + " checked", "");
+      for (const cat of DATA.categories) {
+        const items = DATA.items.filter((item) => item.cat === cat.id && (inPool(item) || ((state.items[item.id] && state.items[item.id].note) || "").trim()));
+        if (!items.length) continue;
+        lines.push("## " + cat.title, "");
+        for (const item of items) {
+          const st = baseState(item);
+          const mark = st === "done" ? "x" : " ";
+          lines.push("- [" + mark + "] " + item.title + " — " + (AUDIT_LABEL[item.audit] || item.audit));
+          const note = (state.items[item.id] && state.items[item.id].note || "").trim();
+          if (note) lines.push("  - " + note.replace(/\s+/g, " "));
+        }
+        const area = (state.categoryNotes[cat.id] || "").trim();
+        if (area) lines.push("", "Area notes: " + area.replace(/\s+/g, " "));
+        lines.push("");
+      }
+      for (const [name, text] of [["Working notes", state.notes.working], ["Decisions", state.notes.decisions], ["Open questions", state.notes.questions]]) {
+        if ((text || "").trim()) {
+          lines.push("## " + name, "", text.trim(), "");
+        }
+      }
+      return lines.join("\n");
+    }
+
+    async function copySummary() {
+      const text = summaryText();
+      try {
+        await navigator.clipboard.writeText(text);
+        toast("Summary copied.");
+      } catch {
+        const box = el("textarea", { class: "copy-fallback", value: text });
+        const holder = document.getElementById("toast");
+        holder.replaceChildren(el("span", { text: "Clipboard blocked. Select and copy:" }), box);
+        holder.hidden = false;
+        box.focus();
+        box.select();
+      }
+    }
+
+    function exportJson() {
+      const blob = new Blob([JSON.stringify({
+        v: 1,
+        exported: new Date().toISOString(),
+        builtAt: DATA.builtAt,
+        items: state.items,
+        notes: state.notes,
+        categoryNotes: state.categoryNotes,
+        include: state.include,
+      }, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "cts-dnd35-feature-desk.json";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function fillNotes() {
+      for (const key of ["working", "decisions", "questions"]) {
+        const node = document.getElementById("note-" + key);
+        const value = state.notes[key] || "";
+        if (node.value !== value) node.value = value;
+      }
+    }
+
+    function bind() {
+      document.getElementById("home").addEventListener("click", () => {
+        state.ui.cat = "all";
+        state.ui.scope = "main";
+        save();
+        go("list");
+      });
+      document.getElementById("stat").addEventListener("click", () => {
+        state.ui.scope = "main";
+        state.ui.cat = "all";
+        state.ui.filter = "todo";
+        state.ui.tickId = null;
+        save();
+        go("tick");
+      });
+      for (const button of document.querySelectorAll("[data-page]")) {
+        button.addEventListener("click", () => {
+          if (button.dataset.page === "tick") {
+            state.ui.scope = state.ui.cat === "all" ? "main" : "cat:" + state.ui.cat;
+            const queue = workQueue();
+            if (!queue.some((item) => item.id === state.ui.tickId)) state.ui.tickId = queue[0] ? queue[0].id : null;
+            save();
+          }
+          go(button.dataset.page);
+        });
+      }
+      for (const button of document.querySelectorAll("[data-filter]")) {
+        button.addEventListener("click", () => {
+          state.ui.filter = button.dataset.filter;
+          save();
+          syncChips();
+          renderList();
+          updateStat();
+        });
+      }
+      const search = document.getElementById("q");
+      search.addEventListener("input", () => { query = search.value; renderList(); });
+      search.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (search.value) {
+            search.value = "";
+            query = "";
+            renderList();
+          } else search.blur();
+        }
+      });
+      document.getElementById("export").addEventListener("click", exportJson);
+      document.getElementById("import").addEventListener("click", () => document.getElementById("import-file").click());
+      document.getElementById("import-file").addEventListener("change", async (event) => {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = "";
+        if (!file) return;
+        try {
+          const data = JSON.parse(await file.text());
+          if (!data || typeof data.items !== "object") throw new Error("bad file");
+          state.items = data.items || {};
+          state.notes = { working: "", decisions: "", questions: "", ...(data.notes || {}) };
+          state.categoryNotes = data.categoryNotes || {};
+          state.include = data.include || {};
+          save();
+          fillNotes();
+          refreshAll();
+          toast("Imported.");
+        } catch {
+          toast("That file is not a feature-desk backup.");
+        }
+      });
+      document.getElementById("copy").addEventListener("click", () => {
+        document.querySelector("details.more").open = false;
+        copySummary();
+      });
+      document.getElementById("show-intro").addEventListener("click", () => {
+        state.ui.hideIntro = false;
+        save();
+        document.getElementById("intro").hidden = false;
+        document.querySelector("details.more").open = false;
+        go("list");
+      });
+      document.getElementById("reset").addEventListener("click", () => {
+        if (!confirm("Clear every check, park, and note saved in this browser?")) return;
+        localStorage.removeItem(KEY);
+        location.reload();
+      });
+      document.getElementById("hide-intro").addEventListener("click", () => {
+        state.ui.hideIntro = true;
+        save();
+        document.getElementById("intro").hidden = true;
+      });
+      document.getElementById("dismiss-rebuild").addEventListener("click", () => {
+        state.seenBuild = DATA.builtAt;
+        save();
+        document.getElementById("rebuild-banner").hidden = true;
+      });
+      for (const key of ["working", "decisions", "questions"]) {
+        document.getElementById("note-" + key).addEventListener("input", (event) => {
+          state.notes[key] = event.target.value;
+          save();
+        });
+      }
+      window.addEventListener("hashchange", () => show(currentPage()));
+      document.addEventListener("keydown", (event) => {
+        const typing = event.target.matches("input, textarea, select");
+        if (event.key === "/" && !typing) {
+          event.preventDefault();
+          go("list");
+          queueMicrotask(() => document.getElementById("q").focus());
+          return;
+        }
+        if (typing) return;
+        const page = currentPage();
+        if (page === "tick") {
+          if (event.key === "ArrowRight") { event.preventDefault(); moveTick(1); }
+          if (event.key === "ArrowLeft") { event.preventDefault(); moveTick(-1); }
+          if (event.key === "x" || event.key === "X") { event.preventDefault(); markFromTick("done"); }
+          if (event.key === "p" || event.key === "P") { event.preventDefault(); markFromTick("later"); }
+          return;
+        }
+        if (page !== "list") return;
+        const ids = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+        if (!ids.length) return;
+        if (!activeId || !ids.includes(activeId)) activeId = ids[0];
+        const index = ids.indexOf(activeId);
+        if (event.key === "j" || event.key === "J" || event.key === "ArrowDown") {
+          event.preventDefault();
+          activeId = ids[Math.min(ids.length - 1, index + 1)];
+          paintActive();
+        } else if (event.key === "k" || event.key === "K" || event.key === "ArrowUp") {
+          event.preventDefault();
+          activeId = ids[Math.max(0, index - 1)];
+          paintActive();
+        } else if (event.key === "x" || event.key === "X") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (item) onCheck(item);
+        } else if (event.key === "p" || event.key === "P") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (item) park(item);
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (!item) return;
+          state.ui.scope = "cat:" + item.cat;
+          state.ui.tickId = item.id;
+          save();
+          go("tick");
+        }
+      });
+    }
+
+    function paintActive() {
+      for (const node of document.querySelectorAll("#list .item")) node.classList.toggle("active", node.dataset.id === activeId);
+      document.querySelector('#list .item[data-id="' + CSS.escape(activeId) + '"]')?.scrollIntoView({ block: "nearest" });
+    }
+
+    function refreshAll() {
+      updateStat();
+      syncChips();
+      const page = currentPage();
+      if (page === "list") {
+        renderNav();
+        renderList();
+      } else if (page === "tick") {
+        renderTick(true);
+      } else if (page === "roadmap") {
+        renderRoadmap();
+      } else {
+        renderNav();
+      }
+    }
+
+    function init() {
+      document.getElementById("intro-lead").textContent = DATA.intro;
+      const regroup = document.getElementById("regroup-list");
+      for (const row of DATA.regroup) {
+        const li = document.createElement("li");
+        const strong = document.createElement("strong");
+        strong.textContent = row.title;
+        li.append(strong, document.createTextNode(" " + row.text));
+        regroup.append(li);
+      }
+      document.getElementById("intro").hidden = !!state.ui.hideIntro;
+      if (state.seenBuild && state.seenBuild !== DATA.builtAt) {
+        document.getElementById("rebuild-banner").hidden = false;
+      } else if (!state.seenBuild) {
+        state.seenBuild = DATA.builtAt;
+        save();
+      }
+      const foot = document.getElementById("list-foot");
+      foot.textContent = "Rows generated from " + DATA.source + ". To pick up audit edits: node tools/implementation-desk/build.mjs";
+      fillNotes();
+      bind();
+      if (!location.hash) location.hash = "#checklist";
+      else show(currentPage());
+    }
+
+    init();
+  </script>
+</body>
+</html>

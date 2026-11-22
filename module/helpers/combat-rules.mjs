@@ -3,6 +3,7 @@
  * Pure functions so actor/item preparation and rolls share one path.
  */
 
+import { expandedThreat, rangeIncrementPenalty } from "./open-rules.mjs";
 import { isFinesseWeapon, metamagicProfile, schoolBonus, weaponChosen } from "./table-combat.mjs";
 
 /** Core classes whose compendium rows were imported as BAB medium / all saves low. */
@@ -207,6 +208,20 @@ export function summarizeConditions(conditions = {}) {
     verbalFail = 20;
     notes.push("Deafened: +20% failure on spells with verbal components");
   }
+  if (on(conditions, "fascinated")) {
+    cannotAttack = true;
+    notes.push("Fascinated: no actions until the fascination ends");
+  }
+  if (on(conditions, "confused")) notes.push("Confused: roll 1d100 for the round's action");
+  if (on(conditions, "dying") || on(conditions, "unconscious")) {
+    cannotAttack = true;
+    notes.push("Dying or unconscious: no actions");
+  }
+  if (on(conditions, "disabled") || on(conditions, "staggered")) {
+    notes.push("Disabled or staggered: a single move or standard action, not both");
+  }
+  if (on(conditions, "invisible")) notes.push("Invisible: attackers without a way to see you miss half the time");
+  if (on(conditions, "incorporeal")) notes.push("Incorporeal: 50% miss chance against nonmagical attacks");
 
   return {
     strPen,
@@ -341,16 +356,40 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     attackBonuses.unshift(attackBonuses[0]);
     notes.push("Rapid Shot −2, extra attack");
   }
+  if (ranged && ctx.manyshot) {
+    notes.push("Manyshot: extra arrows use this attack roll and their own damage");
+  }
 
+  const increments = Math.max(1, Math.floor(Number(system.rangeIncrements) || 1));
+  if (ranged && increments > 1) {
+    const rangePen = rangeIncrementPenalty(increments);
+    attackBonuses = attackBonuses.map((bonus) => bonus - rangePen);
+    notes.push(`Range increment ${increments}: −${rangePen}`);
+  }
+
+  const sneakDice = Math.max(0, Math.floor(Number(ctx.sneakDice) || 0));
   const baseFormula = damageFormulaFromItem(system);
   let damageFormula = baseFormula;
   if (damageAbility) damageFormula = baseFormula ? `${baseFormula} + ${damageAbility}` : String(damageAbility);
   if (!damageFormula) damageFormula = "0";
+  const sneakNow = ctx.sneakAttack && sneakDice && (!ranged || ctx.pointBlank);
+  if (sneakNow) damageFormula = `${damageFormula} + ${sneakDice}d6`;
 
   const threatSource = system.critRange != null && system.critRange !== "" ? system.critRange : system.critical?.range;
   const multiplierSource = system.critMultiplier != null && system.critMultiplier !== "" ? system.critMultiplier : system.critical?.multiplier;
-  const threat = Math.min(20, Math.max(1, Math.floor(Number(threatSource) || 20)));
+  const rawThreat = Math.min(20, Math.max(1, Math.floor(Number(threatSource) || 20)));
+  let critDoubles = 0;
+  const keen = truthy(system.keen) || String(ctx.itemName || "").toLowerCase().includes("keen");
+  if (keen) critDoubles += 1;
+  if (weaponChosen(ctx.itemName, ctx.improvedCritical)) critDoubles += 1;
+  const threat = expandedThreat(rawThreat, critDoubles);
+  if (critDoubles) notes.push(`Threat ${threat}–20`);
   const multiplier = Math.max(2, Math.floor(Number(multiplierSource) || 2));
+  if (ctx.sneakAttack && sneakDice && !ranged) {
+    notes.push(`Sneak attack +${sneakDice}d6`);
+  } else if (ctx.sneakAttack && sneakDice && ranged && ctx.pointBlank) {
+    notes.push(`Sneak attack +${sneakDice}d6 (point-blank)`);
+  }
   const damageType = String(system.damageType || system.damage?.parts?.[0]?.[1] || "");
   const attackLabel = attackBonuses.map((n) => (n >= 0 ? `+${n}` : `${n}`)).join("/");
 
@@ -361,6 +400,10 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     damageType,
     threat,
     multiplier,
+    magic: enhancement > 0 || truthy(system.magic),
+    material: String(system.material || "").toLowerCase(),
+    alignment: String(system.alignment || system.weaponAlignment || "").toLowerCase(),
+    nonlethal: truthy(system.nonlethal),
     cannotAttack: !!ctx.cannotAttack,
     proficient,
     notes,
@@ -434,6 +477,7 @@ export function buildSpellDerived(spellSystem = {}, summary = [], actorSystem = 
     spellPenetration: Math.floor(Number(actorSystem.attributes?.featProfile?.spellPenetration) || 0),
     empower: meta.empower,
     concentrationDc: 15 + level + meta.slotIncrease,
+    halfOnSave: truthy(spellSystem.save?.half) || /half damage/i.test(String(spellSystem.description || "")),
   };
 }
 

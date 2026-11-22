@@ -94,6 +94,10 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
         total: skillData.total || 0,
         classSkill: skillData.classSkill || false,
         untrained: skillDef.untrained,
+        synergy: skillData.synergy || 0,
+        take10: skillData.take10 || 0,
+        take20: skillData.take20 || 0,
+        untrainedBlocked: !!skillData.untrainedBlocked,
       });
     }
     context.skillList = skillList;

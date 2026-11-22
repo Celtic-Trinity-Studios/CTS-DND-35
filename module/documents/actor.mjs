@@ -7,6 +7,19 @@ import { CTSDND35 } from "../helpers/config.mjs";
 import { getAdjustedCarryingLimits, getLoadBandFromWeight } from "../helpers/carrying-capacity.mjs";
 import { resetActorEffectBuckets } from "../helpers/modifier-pipeline.mjs";
 import {
+  agingAdjustments,
+  classFeatureList,
+  multiclassXpPenalty,
+  paceSpeed,
+  psionPowerPoints,
+  slotLoad,
+  experienceForCr,
+  sneakDiceForClasses,
+  synergyForSkill,
+  xpToReachNextLevel,
+} from "../helpers/open-rules.mjs";
+import { getClassFeatureGrants } from "../helpers/progression-rules.mjs";
+import {
   bonusSpellsForScore,
   buildSpellDerived,
   buildWeaponDerived,
@@ -147,6 +160,13 @@ export class CTSDND35Actor extends Actor {
     systemData.traits.polymorph.enabled =
       systemData.traits.polymorph.enabled === true ||
       systemData.traits.polymorph.enabled === "true";
+    systemData.traits.applyRacialAdjustments =
+      systemData.traits.applyRacialAdjustments === true ||
+      systemData.traits.applyRacialAdjustments === "true";
+    systemData.traits.applyAgingTable =
+      systemData.traits.applyAgingTable === true ||
+      systemData.traits.applyAgingTable === "true";
+    systemData.details.ageCategory ??= "";
 
     systemData.currency ??= { cp: 0, sp: 0, gp: 0, pp: 0 };
     systemData.skills ??= {};
@@ -174,6 +194,9 @@ export class CTSDND35Actor extends Actor {
     combat.combatExpertise ??= 0;
     combat.aooSpent ??= 0;
     combat.concentrationDc ??= 15;
+    combat.sneakAttack = combat.sneakAttack === true || combat.sneakAttack === "true";
+    combat.manyshot = combat.manyshot === true || combat.manyshot === "true";
+    combat.concealment = Math.max(0, Math.floor(Number(combat.concealment) || 0));
     systemData.attributes.turning ??= {};
     systemData.attributes.turning.expended ??= 0;
 
@@ -217,6 +240,7 @@ export class CTSDND35Actor extends Actor {
     this._prepareAttacksAndSpells(systemData);
     systemData.attributes.typeNotes = creatureTypeNotes(systemData.details?.creatureType);
 
+    this._prepareProgress(actorData, systemData);
     systemData.details.xpMulticlassHint = this._multiclassXpHint(actorData, systemData);
     systemData.attributes.hp.tempSourcesSum = this._sumTempHpSources(systemData);
   }
@@ -491,10 +515,43 @@ export class CTSDND35Actor extends Actor {
     const classes = actorData.items.filter((i) => i.type === "class" && (i.system.level || 0) > 0);
     if (classes.length <= 1) return "";
     const names = classes.map((c) => c.name).join(", ");
-    const fav = String(systemData.details?.favoredClass || "").trim();
-    const rfav = String(systemData.details?.racialFavoredClass || "").trim();
-    const favNote = fav ? `Favored class (chosen): ${fav}. ` : rfav ? `Racial favored: ${rfav}. ` : "Set favored class on Identity. ";
-    return `${favNote}Classes: ${names}. Verify XP penalty vs PHB Table 3–6 when levels diverge.`;
+    const fav = String(systemData.details?.favoredClass || systemData.details?.racialFavoredClass || "").trim();
+    const penalty = systemData.details.xpPenalty || { percent: 0, counted: [] };
+    const hit = penalty.percent ? `XP penalty ${penalty.percent}% (${penalty.counted.join(", ")}). ` : "No multiclass XP penalty at these levels. ";
+    return `${hit}Favored: ${fav || "not set"}. Classes: ${names}.`;
+  }
+
+  _prepareProgress(actorData, systemData) {
+    const level = Math.max(0, Math.floor(Number(systemData.details?.level?.value) || 0));
+    systemData.details.level.xpNext = xpToReachNextLevel(Math.max(1, level));
+    const classes = actorData.items
+      .filter((item) => item.type === "class")
+      .map((item) => ({ name: item.name, level: item.system?.level || 0 }));
+    const favored = systemData.details?.favoredClass || systemData.details?.racialFavoredClass || "";
+    systemData.details.xpPenalty = multiclassXpPenalty(classes, favored);
+    systemData.attributes.classFeatures = classFeatureList(
+      actorData.items.filter((item) => item.type === "class"),
+      getClassFeatureGrants
+    );
+    systemData.attributes.slots = slotLoad(actorData.items);
+    let powerPoints = 0;
+    for (const row of classes) {
+      let kind = "";
+      let key = "";
+      if (/psychic warrior/i.test(row.name)) {
+        kind = "warrior";
+        key = "wis";
+      } else if (/wilder/i.test(row.name)) {
+        kind = "wilder";
+        key = "cha";
+      } else if (/psion/i.test(row.name)) {
+        kind = "psion";
+        key = "int";
+      }
+      if (!kind) continue;
+      powerPoints += psionPowerPoints(row.level, systemData.abilities?.[key]?.mod || 0, kind);
+    }
+    if (powerPoints) systemData.spellcasting.powerPoints = powerPoints;
   }
 
   /**
@@ -503,16 +560,27 @@ export class CTSDND35Actor extends Actor {
   _effectiveAbilityScore(key, ability, systemData) {
     const poly = systemData.traits?.polymorph;
     const usePoly = poly?.enabled && (key === "str" || key === "dex" || key === "con");
+    const useAging = systemData.traits?.applyAgingTable === true;
+    const tableAging = useAging ? agingAdjustments(systemData.details?.ageCategory)[key] || 0 : 0;
+    const agingPenalty = useAging ? -tableAging : Math.floor(Number(ability.aging) || 0);
+    const racial = systemData.traits?.applyRacialAdjustments ? (this._racialAdjustment(systemData, key)) : 0;
     const penal =
       Math.floor(Number(ability.damage) || 0) +
       Math.floor(Number(ability.drain) || 0) +
-      Math.floor(Number(ability.aging) || 0);
+      agingPenalty;
     if (usePoly) {
       const baseScore = Math.max(1, Math.floor(Number(poly[key]) || 10));
-      return Math.max(1, baseScore - penal);
+      return Math.max(1, baseScore + racial - penal);
     }
-    const combined = (Number(ability.value) || 10) + (Number(ability.bonus) || 0);
+    const combined = (Number(ability.value) || 10) + (Number(ability.bonus) || 0) + racial;
     return Math.max(1, Math.floor(combined - penal));
+  }
+
+  _racialAdjustment(systemData, key) {
+    const label = String(systemData.details?.race || "").trim().toLowerCase();
+    if (!label) return 0;
+    const match = Object.values(CTSDND35.races).find((race) => race.label.toLowerCase() === label);
+    return Math.floor(Number(match?.abilities?.[key]) || 0);
   }
 
   /**
@@ -555,8 +623,9 @@ export class CTSDND35Actor extends Actor {
   /**
    * Prepare NPC-specific derived data.
    */
-  _prepareNpcData(_actorData, _systemData) {
-    // Derive XP from CR if desired
+  _prepareNpcData(_actorData, systemData) {
+    const cr = systemData.details?.cr ?? systemData.details?.challengeRating;
+    if (cr != null && cr !== "") systemData.details.xpAward = experienceForCr(cr);
   }
 
   _armorSpeedPenaltyFt() {
@@ -600,14 +669,24 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.speed.land.total = land;
     systemData.attributes.speed.land.armorPenaltyFt = armorPen;
 
-    const fly = Math.max(0, Number(systemData.attributes.speed.fly.base) || 0);
-    systemData.attributes.speed.fly.total = fly;
-    const swim = Math.max(0, Number(systemData.attributes.speed.swim.base) || 0);
-    systemData.attributes.speed.swim.total = swim;
-    const climb = Math.max(0, Number(systemData.attributes.speed.climb.base) || 0);
-    systemData.attributes.speed.climb.total = climb;
-    const burrow = Math.max(0, Number(systemData.attributes.speed.burrow.base) || 0);
-    systemData.attributes.speed.burrow.total = burrow;
+    const loadedSpeed = (base) => {
+      if (tier === "overload") return 5;
+      if (tier === "medium" || tier === "heavy") return CTSDND35.speedFromLoadEncumbrance(base);
+      return base;
+    };
+    const mode = (key) => {
+      const base = Math.max(0, Number(systemData.attributes.speed[key].base) || 0);
+      const effect = Math.floor(Number(systemData.attributes.speed[key].effectBonus) || 0);
+      systemData.attributes.speed[key].total = paceSpeed(base, {
+        armorPenalty: armorPen,
+        encumberedSpeed: base > 0 ? loadedSpeed(base) : 0,
+        effect,
+      });
+    };
+    mode("fly");
+    mode("swim");
+    mode("climb");
+    mode("burrow");
 
     const sizeKey = systemData.traits?.size || "med";
     const defaultReach = CTSDND35.sizeReachFt[sizeKey] ?? CTSDND35.sizeReachFt.med;
@@ -758,14 +837,23 @@ export class CTSDND35Actor extends Actor {
       if (CTSDND35.skillsArmorCheck.has(key)) {
         armorEncPen = penMag * (key === "swm" ? 2 : 1);
       }
+      const synergy = synergyForSkill(key, systemData.skills);
+      skill.synergy = synergy.bonus;
+      const sizeHide = key === "hid" ? (CTSDND35.sizeMods[systemData.traits?.size || "med"] || CTSDND35.sizeMods.med).hide || 0 : 0;
+      skill.sizeBonus = sizeHide;
+      skill.untrainedBlocked = skillDef.untrained === false && Math.floor(Number(skill.ranks) || 0) < 1;
       skill.total =
         (skill.ranks || 0) +
         abilityMod +
         (skill.misc || 0) +
+        synergy.bonus +
+        sizeHide +
         Math.floor(Number(skill.effectBonus) || 0) -
         armorEncPen -
         conditionPen -
         nl;
+      skill.take10 = 10 + skill.total;
+      skill.take20 = 20 + skill.total;
     }
   }
 
@@ -907,6 +995,10 @@ export class CTSDND35Actor extends Actor {
       greaterWeaponFocus: feats.greaterWeaponFocus || [],
       weaponSpec: feats.weaponSpec || [],
       greaterWeaponSpec: feats.greaterWeaponSpec || [],
+      improvedCritical: feats.improvedCritical || [],
+      manyshot: !!feats.manyshot && !!systemData.attributes.combat?.manyshot,
+      sneakDice: sneakDiceForClasses(this.items),
+      sneakAttack: !!systemData.attributes.combat?.sneakAttack,
       twf: resolveTwf(this.items, feats),
     };
     const summary = systemData.spellcasting.summary || [];

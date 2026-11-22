@@ -141,6 +141,24 @@
     </select>
   </div>
   <div class="form-group">
+    <label>Sneak attack</label>
+    <select name="system.attributes.combat.sneakAttack" title="Adds rogue sneak attack dice. Ranged sneak attack also needs Point blank.">
+      <option value="false" {{#unless system.attributes.combat.sneakAttack}}selected{{/unless}}>Off</option>
+      <option value="true" {{#if system.attributes.combat.sneakAttack}}selected{{/if}}>On</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Manyshot</label>
+    <select name="system.attributes.combat.manyshot" title="Needs the Manyshot feat. Extra arrows are noted on the attack.">
+      <option value="false" {{#unless system.attributes.combat.manyshot}}selected{{/unless}}>Off</option>
+      <option value="true" {{#if system.attributes.combat.manyshot}}selected{{/if}}>On</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Concealment %</label>
+    <input type="number" name="system.attributes.combat.concealment" value="{{system.attributes.combat.concealment}}" min="0" max="100" step="1" title="20 or 50. The attack chat rolls 1d100." />
+  </div>
+  <div class="form-group">
     <label>Cast defensively</label>
     <select name="system.attributes.combat.castDefensively">
       <option value="false" {{#unless (cts-eq system.attributes.combat.castDefensively "true")}}selected{{/unless}}>No</option>

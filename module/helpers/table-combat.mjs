@@ -58,6 +58,9 @@ export function analyzeFeats(items = []) {
     greaterWeaponSpec: choices(feats, /^greater weapon specialization\b/i),
     spellFocus: choices(feats, /^spell focus\b/i),
     greaterSpellFocus: choices(feats, /^greater spell focus\b/i),
+    improvedCritical: choices(feats, /^improved critical\b/i),
+    manyshot: hasFeat(feats, /^manyshot$/i),
+    pointBlankShot: hasFeat(feats, /^point blank shot$/i),
   };
 }
 

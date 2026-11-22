@@ -48,6 +48,13 @@
           <label>DC override</label>
           <input type="number" name="system.save.dc" value="{{system.save.dc}}" placeholder="auto" />
         </div>
+        <div class="form-group flex-grow">
+          <label>Half on save</label>
+          <select name="system.save.half">
+            <option value="false" {{#unless system.save.half}}selected{{/unless}}>No</option>
+            <option value="true" {{#if system.save.half}}selected{{/if}}>Yes</option>
+          </select>
+        </div>
       </div>
       <div class="flexrow" style="gap:8px;">
         <div class="form-group flex-grow">

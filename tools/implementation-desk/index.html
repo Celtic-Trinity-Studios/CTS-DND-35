@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Feature desk · CTS D&amp;D 3.5</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23e0b15a' width='16' height='16' rx='3'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #14110e;
+      --raise: #221c17;
+      --sink: #0f0d0b;
+      --line: #3f362c;
+      --ink: #f6efe4;
+      --muted: #cbbba6;
+      --faint: #b6a492;
+      --brass: #e0b15a;
+      --brass-ink: #1b140b;
+      --good: #8fceab;
+      --bad: #ef8b72;
+      --park: #c4b6e4;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .35);
+      --serif: Georgia, "Palatino Linotype", Palatino, serif;
+      --sans: "Segoe UI", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    details:not([open]) > :not(summary) { display: none !important; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font: 15px/1.45 var(--sans);
+      background:
+        radial-gradient(1100px 420px at 8% -10%, rgba(224, 177, 90, .09), transparent 55%),
+        var(--bg);
+      color-scheme: dark;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    button, input, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+    ::selection { background: rgba(224, 177, 90, .35); }
+    .skip {
+      position: absolute;
+      left: 8px;
+      top: -40px;
+      background: var(--brass);
+      color: var(--brass-ink);
+      padding: 6px 10px;
+      border-radius: 8px;
+      z-index: 9;
+    }
+    .skip:focus { top: 8px; }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(15, 13, 11, .9);
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      text-align: left;
+      min-width: 180px;
+    }
+    .mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: var(--brass);
+      color: var(--brass-ink);
+      font-family: var(--serif);
+      font-weight: 700;
+    }
+    .brand strong { display: block; font-size: 15px; letter-spacing: .01em; }
+    .brand span { display: block; color: var(--faint); font-size: 12px; }
+    .pages {
+      display: flex;
+      gap: 4px;
+      padding: 3px;
+      background: var(--sink);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-left: auto;
+    }
+    .pages button {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      border-radius: 9px;
+      padding: 7px 12px;
+    }
+    .pages button[aria-selected="true"] {
+      background: var(--raise);
+      color: var(--ink);
+    }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .stat {
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 6px 10px;
+      text-align: right;
+      min-width: 108px;
+    }
+    .stat b { display: block; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .stat span { color: var(--faint); font-size: 11px; }
+    button.ghost, button.primary {
+      border-radius: 8px;
+      padding: 7px 11px;
+    }
+    button.ghost { background: transparent; border: 1px solid var(--line); }
+    button.primary { background: var(--brass); color: var(--brass-ink); border: 0; font-weight: 650; }
+    button.primary:disabled, button.ghost:disabled { opacity: .4; cursor: default; }
+    details.more { position: relative; }
+    details.more summary {
+      list-style: none;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 11px;
+    }
+    details.more summary::-webkit-details-marker { display: none; }
+    details.more .menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 6px);
+      background: var(--raise);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+      z-index: 6;
+      box-shadow: var(--shadow);
+    }
+    details.more .menu button { background: transparent; border: 0; text-align: left; border-radius: 8px; padding: 8px 10px; }
+    details.more .menu button:hover { background: rgba(255, 255, 255, .04); }
+    .meter { height: 3px; background: #2a241c; }
+    .meter span { display: block; height: 100%; background: var(--brass); width: 0; }
+
+    .view { flex: 1; min-height: 0; }
+    #view-list { display: flex; }
+    #view-list[hidden], #view-tick[hidden], #view-roadmap[hidden], #view-notes[hidden] { display: none; }
+    .nav {
+      width: 248px;
+      flex: none;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: var(--sink);
+      padding: 10px;
+    }
+    .nav-label {
+      margin: 14px 8px 4px;
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .nav button.area {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      border-radius: 8px;
+      padding: 7px 8px;
+      color: var(--muted);
+    }
+    .nav button.area[aria-current="true"] { background: rgba(224, 177, 90, .14); color: var(--ink); }
+    .nav button.area small { color: var(--brass); font-variant-numeric: tabular-nums; font-size: 12px; }
+    .nav button.area.off small { color: var(--faint); }
+    .nav button.area .name { min-width: 0; }
+    .content-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .toolbar input[type="search"] {
+      flex: 1 1 180px;
+      min-width: 140px;
+      background: var(--sink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+    .chips button {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--faint);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 13px;
+    }
+    .chips button[aria-pressed="true"] {
+      border-color: var(--line);
+      color: var(--ink);
+      background: var(--raise);
+    }
+    #result-count { color: var(--faint); font-size: 12px; margin-left: auto; }
+    .scroller { overflow: auto; padding: 8px 18px 48px; }
+    .intro {
+      max-width: 78ch;
+      color: var(--muted);
+      padding: 12px 8px 4px;
+    }
+    .intro p { margin: 0 0 8px; }
+    .intro details { margin-top: 4px; }
+    .intro summary { cursor: pointer; color: var(--brass); }
+    .intro li { margin: 4px 0; }
+    .banner {
+      margin: 10px 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--raise);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cat { margin-top: 8px; }
+    .cat-head {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 14px 8px 8px;
+      background: rgba(20, 17, 14, .94);
+      backdrop-filter: blur(8px);
+    }
+    .cat-head h2 { margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 600; }
+    .cat-head .blurb { margin: 4px 0 0; color: var(--muted); max-width: 70ch; }
+    .cat-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
+    .subhead {
+      margin: 12px 8px 4px;
+      color: var(--faint);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .item { border-bottom: 1px solid var(--line); }
+    .item.open { background: rgba(255, 255, 255, .025); }
+    .row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      gap: 8px;
+      align-items: start;
+      padding: 8px;
+    }
+    .item.active { background: rgba(224, 177, 90, .06); }
+    button.tick {
+      width: 28px;
+      height: 28px;
+      margin-top: 1px;
+      border-radius: 7px;
+      border: 1.5px solid #8a6a32;
+      background: transparent;
+      color: var(--brass-ink);
+      font-size: 16px;
+      line-height: 1;
+    }
+    button.tick[aria-pressed="true"] { background: var(--brass); }
+    button.tick.later {
+      color: var(--park);
+      border-color: #6d6288;
+      font-weight: 700;
+    }
+    button.body {
+      background: transparent;
+      border: 0;
+      text-align: left;
+      padding: 0;
+      min-width: 0;
+    }
+    button.body .title { display: block; }
+    .item.done button.body .title { color: var(--muted); }
+    .gapline {
+      display: block;
+      color: var(--faint);
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .badge {
+      font-size: 10px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .badge.missing { color: var(--bad); border-color: rgba(239, 139, 114, .45); }
+    .badge.partial { color: var(--brass); border-color: rgba(224, 177, 90, .5); }
+    .badge.present { color: var(--good); border-color: rgba(143, 206, 171, .45); }
+    .badge.out { color: var(--park); border-color: rgba(196, 182, 228, .5); }
+    .noted { color: var(--brass); font-size: 11px; }
+    .drawer { padding: 0 12px 14px 52px; }
+    .drawer .gap { margin: 0 0 8px; max-width: 78ch; color: var(--ink); }
+    .meta { margin: 0 0 8px; color: var(--faint); font-size: 12px; }
+      textarea, .copy-fallback {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      background: var(--sink);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      line-height: 1.45;
+    }
+    .drawer-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .area-notes { margin: 4px 8px 8px; max-width: 78ch; }
+    .area-notes summary { cursor: pointer; color: var(--faint); font-size: 13px; }
+    .keys { color: var(--faint); font-size: 12px; padding: 16px 8px 0; }
+
+    .sheet {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 22px 64px;
+    }
+    .sheet h1 { font-family: var(--serif); font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 8px; }
+    .eyebrow { color: var(--brass); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px; }
+    .tick-gap { font-size: 17px; line-height: 1.5; max-width: 62ch; margin: 12px 0; }
+    .tick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+    .tick-actions .primary { padding: 10px 16px; }
+    .tick-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--faint);
+    }
+    .scope-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--faint); font-size: 13px; }
+    label.block { display: block; margin-top: 14px; color: var(--muted); }
+    label.block textarea { margin-top: 6px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .empty {
+      padding: 28px 8px;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      margin: 0 0 18px;
+    }
+    .step-index {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      font-family: var(--serif);
+    }
+    .step.done .step-index { background: var(--brass); color: var(--brass-ink); border-color: var(--brass); }
+    .step h2 { margin: 4px 0; font-family: var(--serif); font-size: 22px; }
+    .step p { margin: 0 0 8px; color: var(--muted); }
+    .step ul { list-style: none; margin: 0; padding: 0; }
+    .step li { border-top: 1px solid var(--line); }
+    .step li button {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: 0;
+      padding: 8px 0;
+    }
+    .step li button span { display: block; color: var(--faint); font-size: 13px; }
+    .footer-note { color: var(--faint); font-size: 12px; margin-top: 28px; }
+    #toast {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--raise);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      max-width: min(520px, calc(100vw - 32px));
+      z-index: 8;
+    }
+    #saved { color: var(--faint); font-size: 12px; padding: 0 8px 8px; }
+    @media (max-width: 860px) {
+      body { overflow: auto; }
+      .view { overflow: visible; }
+      #view-list { display: block; }
+      #view-list[hidden] { display: none; }
+      .nav { width: auto; display: flex; gap: 6px; overflow: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .nav-label { display: none; }
+      .nav button.area { width: auto; white-space: nowrap; }
+      .scroller { overflow: visible; }
+      .split { grid-template-columns: 1fr; }
+      .cat-head { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#list-scroll">Skip to checklist</a>
+  <header>
+    <button class="brand" id="home" type="button">
+      <div class="mark">3.5</div>
+      <div>
+        <strong>Feature desk</strong>
+        <span>What still needs building</span>
+      </div>
+    </button>
+    <nav class="pages" aria-label="Pages">
+      <button type="button" data-page="list" role="tab">Checklist</button>
+      <button type="button" data-page="tick" role="tab">Tick through</button>
+      <button type="button" data-page="roadmap" role="tab">Roadmap</button>
+      <button type="button" data-page="notes" role="tab">Notes</button>
+    </nav>
+    <div class="header-actions">
+      <button class="stat" id="stat" type="button" title="Start ticking the main list"></button>
+      <button class="ghost" id="export" type="button">Export</button>
+      <button class="ghost" id="import" type="button">Import</button>
+      <input id="import-file" type="file" accept="application/json" hidden>
+      <details class="more">
+        <summary>More</summary>
+        <div class="menu">
+          <button type="button" id="copy">Copy summary</button>
+          <button type="button" id="show-intro">Show introduction</button>
+          <button type="button" id="reset">Reset this browser</button>
+        </div>
+      </details>
+    </div>
+  </header>
+  <div class="meter" aria-hidden="true"><span id="meter-bar"></span></div>
+
+  <section id="view-list" class="view">
+    <aside class="nav" id="nav" aria-label="Areas"></aside>
+    <div class="content-col">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search rules" aria-label="Search rules" autocomplete="off">
+        <div class="chips" role="group" aria-label="Filter">
+          <button type="button" data-filter="todo" aria-pressed="true">To do</button>
+          <button type="button" data-filter="missing">Not built</button>
+          <button type="button" data-filter="partial">Partly there</button>
+          <button type="button" data-filter="checked">Checked</button>
+          <button type="button" data-filter="insystem">Already in</button>
+          <button type="button" data-filter="parked">Parked</button>
+          <button type="button" data-filter="all">All</button>
+        </div>
+        <div id="result-count" aria-live="polite"></div>
+      </div>
+      <div class="scroller" id="list-scroll">
+        <div class="banner" id="rebuild-banner" hidden>
+          <span>The checklist was rebuilt from the gap analysis. Checks and notes already saved in this browser were kept.</span>
+          <button class="ghost" id="dismiss-rebuild" type="button">Dismiss</button>
+        </div>
+        <div class="intro" id="intro">
+          <p id="intro-lead"></p>
+          <details>
+            <summary>How these areas differ from the audit</summary>
+            <ul id="regroup-list"></ul>
+          </details>
+          <div class="cat-actions">
+            <button class="ghost" id="hide-intro" type="button">Hide this</button>
+          </div>
+        </div>
+        <div id="list"></div>
+        <p class="keys">Keys: J and K move, X checks, P parks, Enter opens tick-through, / searches.</p>
+        <p class="footer-note" id="list-foot"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-tick" class="view" hidden>
+    <div class="scroller"><div class="sheet" id="tick-root"></div></div>
+  </section>
+
+  <section id="view-roadmap" class="view" hidden>
+    <div class="scroller"><div class="sheet" id="roadmap-root"></div></div>
+  </section>
+
+  <section id="view-notes" class="view" hidden>
+    <div class="scroller">
+      <div class="sheet">
+        <p class="eyebrow">Notes</p>
+        <h1>Scratch space</h1>
+        <p class="meta">Kept with your checks in this browser. Per-rule notes live on each row.</p>
+        <label class="block">Working notes
+          <textarea id="note-working" spellcheck="true" placeholder="What you are in the middle of"></textarea>
+        </label>
+        <div class="split">
+          <label class="block">Decisions
+            <textarea id="note-decisions" spellcheck="true" placeholder="Choices you do not want to relitigate"></textarea>
+          </label>
+          <label class="block">Open questions
+            <textarea id="note-questions" spellcheck="true" placeholder="Rules you still need to look up"></textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast" role="status" hidden></div>
+  <script>
+    window.DESK_DATA = {"builtAt":"2026-11-22T13:36:35.614Z","source":"docs/MECHANICS-GAP-ANALYSIS.md","intro":"Every row is a D&D 3.5 rule the gap analysis still calls missing or only partly built. Areas follow the order you would build them, not the rulebook’s chapters. Badges are the audit — it can lag the code, so reopen anything that is not actually done. Checks and notes stay in this browser. Export a backup if you will open this file somewhere else.","regroup":[{"title":"One bonus path","text":"pulls typed bonuses, stacking, and active effects out of skills, feats, attacks, and defense."},{"title":"Armor and load","text":"pulls check penalty, weight, and speed loss out of skills, the character, and gear."},{"title":"Battlefield and wild","text":"joins wilderness hazards with tokens, vision, and reach."},{"title":"Talk and coin","text":"joins social downtime with prices and crafting. Faction trade that already works stays here as in the system."},{"title":"The old UX grab-bag","text":"is split: threat goes to the battlefield, the combat tracker to the round, ammunition to gear, treasure to monsters."}],"offpathBlurb":"These still need building. They are real rules, and they are not on the nine steps because they do not unblock the rest: identity, leveling detail, skill special cases, feat catalogs, leftover gear, town procedures, and wilderness hazards.","categories":[{"id":"pipeline","group":"First","short":"One bonus path","title":"Start here — one bonus path","blurb":"Feats, items, buffs, and conditions should change AC, saves, skills, and attacks through one stacking path. Later rules get much smaller once this exists."},{"id":"armor","group":"First","short":"Armor and load","title":"Armor, weight, and the penalties they cause","blurb":"Armor check penalty, spell failure, speed loss, and carrying capacity — including the skills those penalties touch."},{"id":"character","group":"Play","short":"The character","title":"The character","blurb":"Scores, hit points, senses, movement, and identity that are still incomplete."},{"id":"levels","group":"Play","short":"Levels and classes","title":"Levels and class gains","blurb":"Hit dice, skill points, features granted by level, prestige entry, familiars, and multiclass math."},{"id":"skills","group":"Play","short":"Skills","title":"Skills","blurb":"Synergies, take 10, opposed checks, and the individual skills that still have no procedure."},{"id":"feats","group":"Play","short":"Feats and features","title":"Feats and features","blurb":"Prerequisites, bonus-feat budgets, metamagic, and class or race features that should change the sheet."},{"id":"attacking","group":"Play","short":"Attacking","title":"Attacking","blurb":"The attack roll, extra attacks, critical hits, and damage that is still applied by hand."},{"id":"defense","group":"Play","short":"Defense","title":"Defense","blurb":"What is left of AC, saves, damage reduction, energy, and miss chance after the shared bonus path."},{"id":"round","group":"Play","short":"The combat round","title":"The combat round","blurb":"Actions, movement, attacks of opportunity, flanking, and maneuvers."},{"id":"conditions","group":"Play","short":"Conditions","title":"Conditions and recovery","blurb":"Status effects, poison, dying, and healing."},{"id":"gear","group":"Play","short":"Gear","title":"Gear","blurb":"Hands, materials, ammunition, charges, and body slots."},{"id":"spells","group":"Play","short":"Spellcasting","title":"Spellcasting","blurb":"Preparing, spending slots, and getting a spell from the sheet into the world."},{"id":"monsters","group":"Play","short":"Monsters","title":"Monsters and encounters","blurb":"Type traits, special attacks, challenge ratings, and treasure."},{"id":"place","group":"Play","short":"Battlefield and wild","title":"The battlefield and the wild","blurb":"Terrain, hazards, light, and token rules that should match the sheet."},{"id":"town","group":"Play","short":"Talk and coin","title":"Talk, time, and coin","blurb":"Social checks, downtime, crafting, and prices. Faction trade that already works stays in this area, marked in the system."},{"id":"authoring","group":"Play","short":"Authoring","title":"Authoring","blurb":"Formula help and documented hooks, so the remaining gaps can be scripted."},{"id":"psionics","group":"Optional","parked":true,"short":"Psionics","title":"Psionics","blurb":"Expanded Psionics Handbook. Off the main count until you include it."},{"id":"books","group":"Optional","parked":true,"short":"Other books","title":"Other books","blurb":"Epic, incarnum, the Tomes, and setting books. Left off on purpose. Put one on the list only if you mean to build it."}],"roadmap":[{"id":"pipeline","title":"One bonus path","blurb":"One route from equipped items, buffs, and conditions into AC, saves, skills, speed, attack, and damage."},{"id":"armor","title":"Armor and load","blurb":"Check penalty, spell failure, speed, weight, and the skill penalties that follow from them."},{"id":"combat","title":"Combat math","blurb":"Attack breakdowns, critical hits, damage reduction, and energy. Iterative attacks already roll."},{"id":"spells","title":"Spellcasting","blurb":"Slots, difficulty class, caster level, concentration, and armor failure, from the sheet through the cast."},{"id":"actions","title":"The combat round","blurb":"Attacks of opportunity, flanking, reach, and the maneuvers around them."},{"id":"canvas","title":"The map","blurb":"Threat and vision that follow the sheet. Worth doing after reach is trustworthy."},{"id":"conditions","title":"Conditions and healing","blurb":"Status effects that change numbers, plus dying and stable."},{"id":"monsters","title":"Monsters","blurb":"Treasure, spell-like counters, and type tags before a full trait engine."},{"id":"authoring","title":"Authoring","blurb":"Formulas and documented hooks for the gaps you still resolve by hand."}],"items":[{"id":"1-ability-scores-modifiers","title":"Ability scores & modifiers","audit":"present","gap":"Effective score → mod = floor((effective−10)/2); effective accounts for polymorph base, damage/drain/aging, optional fractional bonus (actor.mjs, ability-adjustments partial)","section":1,"sectionTitle":"Character fundamentals","order":0,"cat":"character","moved":false,"roadmap":null},{"id":"1-ability-damage-drain-burn","title":"Ability damage / drain / burn","audit":"partial","gap":"Per-ability damage, drain, aging fields reduce effective score; burn not a separate column (treat as drain or misc if needed)","section":1,"sectionTitle":"Character fundamentals","order":1,"cat":"character","moved":false,"roadmap":null},{"id":"1-hit-points-current-max-temp-nonlethal","title":"Hit points (current / max / temp / nonlethal)","audit":"present","gap":"Sheet inputs; tempSources array + derived tempSourcesSum; dying, stabilization, death threshold, massive damage — not automated","section":1,"sectionTitle":"Character fundamentals","order":2,"cat":"character","moved":false,"roadmap":null},{"id":"1-constitution-changes-hp","title":"Constitution changes & HP","audit":"present","gap":"On character actors, client that edits Constitution value adjusts hp.max and hp.value by ΔCon modifier × total level (PHB-style); see actor-character-mechanics.mjs","section":1,"sectionTitle":"Character fundamentals","order":3,"cat":"character","moved":false,"roadmap":null},{"id":"1-level-total","title":"Level (total)","audit":"present","gap":"Sum of class item levels (actor.mjs)","section":1,"sectionTitle":"Character fundamentals","order":4,"cat":"character","moved":false,"roadmap":null},{"id":"1-experience-points-next-level","title":"Experience points & next level","audit":"partial","gap":"details.level.xp on the sheet and derived details.level.xpNext from the PHB table (after 20, +20,000). Awards and buyoff rules stay manual. NPC details.cr derives details.xpAward from the DMG table","section":1,"sectionTitle":"Character fundamentals","order":5,"cat":"character","moved":false,"roadmap":null},{"id":"1-favored-class-multiclass-xp-penalty","title":"Favored class / multiclass XP penalty","audit":"present","gap":"Favored class is excluded once. Each other class more than one level behind the highest is −20%. The Identity hint shows the percent","section":1,"sectionTitle":"Character fundamentals","order":6,"cat":"character","moved":false,"roadmap":null},{"id":"1-race-srd-quick-picks","title":"Race (SRD quick picks)","audit":"partial","gap":"config.mjs racial presets + race items; traits not auto-applied to speed/abilities/skills centrally","section":1,"sectionTitle":"Character fundamentals","order":7,"cat":"character","moved":false,"roadmap":null},{"id":"1-size-category","title":"Size category","audit":"present","gap":"traits.size; feeds AC size mod & grapple; default reach table in CTSDND35.sizeReachFt (config.mjs)","section":1,"sectionTitle":"Character fundamentals","order":8,"cat":"character","moved":false,"roadmap":null},{"id":"1-reach-by-size-creature","title":"Reach by size / creature","audit":"partial","gap":"Derived traits.reachFt (+ traits.reachOverride) on actor/sheet header; token reach / grid enforcement still manual in Foundry","section":1,"sectionTitle":"Character fundamentals","order":9,"cat":"character","moved":false,"roadmap":null},{"id":"1-speed-land-fly-swim-climb-burrow","title":"Speed — land / fly / swim / climb / burrow","audit":"partial","gap":"Land, and fly/swim/climb/burrow when the base is above 0, take the worse of the armor speed penalty and the encumbrance speed. Difficult terrain still halves land only. A base of 0 stays 0","section":1,"sectionTitle":"Character fundamentals","order":10,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"1-alignment","title":"Alignment","audit":"present","gap":"Stored; used in feat prereq checks","section":1,"sectionTitle":"Character fundamentals","order":11,"cat":"character","moved":false,"roadmap":null},{"id":"1-deity-gender-biography-notes","title":"Deity, gender, biography, notes","audit":"present","gap":"Narrative fields","section":1,"sectionTitle":"Character fundamentals","order":12,"cat":"character","moved":false,"roadmap":null},{"id":"1-age-height-weight-eyes-hair","title":"Age, height, weight, eyes/hair","audit":"present","gap":"system.details: age, height, weight, eyes, hair — Identity partial (+ NPC bio partial)","section":1,"sectionTitle":"Character fundamentals","order":13,"cat":"character","moved":false,"roadmap":null},{"id":"1-languages","title":"Languages","audit":"present","gap":"details.languages text + details.literate (Yes/No); no structured tag list","section":1,"sectionTitle":"Character fundamentals","order":14,"cat":"character","moved":false,"roadmap":null},{"id":"1-vision-senses-darkvision-low-light-etc","title":"Vision & senses (darkvision, low-light, etc.)","audit":"partial","gap":"system.traits.senses (ranges + low-light/scent flags + notes) on sheet; not pushed to token vision / automation (contrast D35E)","section":1,"sectionTitle":"Character fundamentals","order":15,"cat":"character","moved":false,"roadmap":null},{"id":"1-level-drain-negative-levels","title":"Level drain / negative levels","audit":"present","gap":"attributes.negativeLevels subtracts from saves, skills, init, grapple; bab.attackPenalty for display; effective caster level / SLAs / HD-based abilities — not reduced automatically","section":1,"sectionTitle":"Character fundamentals","order":16,"cat":"character","moved":false,"roadmap":null},{"id":"1-creature-type-subtype-pc","title":"Creature type / subtype (PC)","audit":"present","gap":"details.creatureType, details.creatureSubtype (free text); monsters still often manual stat blocks","section":1,"sectionTitle":"Character fundamentals","order":17,"cat":"character","moved":false,"roadmap":null},{"id":"1-humanoid-subtype-racial-traits-as-flags","title":"Humanoid subtype / racial traits as flags","audit":"partial","gap":"details.humanoidSubtype text; no feat/prerequisite wiring from subtype flags","section":1,"sectionTitle":"Character fundamentals","order":18,"cat":"character","moved":false,"roadmap":null},{"id":"1-polymorph-wild-shape-replacement-stats-mode","title":"Polymorph / wild shape “replacement stats” mode","audit":"present","gap":"system.traits.polymorph: enable + replacement Str/Dex/Con; damage/drain/aging still apply on top","section":1,"sectionTitle":"Character fundamentals","order":19,"cat":"character","moved":false,"roadmap":null},{"id":"1-aging-bonuses-penalties-optional-v3-5-tables","title":"Aging bonuses & penalties (optional v3.5 tables)","audit":"partial","gap":"Per-ability aging still subtracts when the table is off. Identity applyAgingTable plus ageCategory (middle / old / venerable) applies the PHB table instead. applyRacialAdjustments adds the core race row when the Race name matches. Both default off so scores that already include race or age are not doubled","section":1,"sectionTitle":"Character fundamentals","order":20,"cat":"character","moved":false,"roadmap":null},{"id":"1-fractional-ability-scores-effects-that-grant-2-vs-1","title":"Fractional ability scores (effects that grant +2 vs +1)","audit":"present","gap":"abilities.\u003ckey>.bonus with fractional step on sheet; effective uses floor(value + bonus − penalties)","section":1,"sectionTitle":"Character fundamentals","order":21,"cat":"character","moved":false,"roadmap":null},{"id":"1-temporary-hp-sources-spells-rage-separate-tracking","title":"Temporary HP sources (spells, rage) separate tracking","audit":"partial","gap":"hp.tempSources rows (add/remove in actor-sheet.mjs) + tempSourcesSum; manual hp.temp still separate; no auto-expire by source or round tracking","section":1,"sectionTitle":"Character fundamentals","order":22,"cat":"character","moved":false,"roadmap":null},{"id":"2-class-as-item","title":"Class as Item","audit":"present","gap":"Levels, BAB progression type, tied to wizards","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":23,"cat":"levels","moved":false,"roadmap":null},{"id":"2-bab-derived-from-all-class-levels","title":"BAB derived from all class levels","audit":"present","gap":"Tables in config.mjs; summed in actor.mjs","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":24,"cat":"levels","moved":false,"roadmap":null},{"id":"2-fractional-bab-saves-optional-variant","title":"Fractional BAB / saves (optional variant)","audit":"missing","gap":"Standard integer BAB/saves only","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":25,"cat":"levels","moved":false,"roadmap":null},{"id":"2-base-saves-from-class-level","title":"Base saves from class + level","audit":"present","gap":"Class items’ high/low saves (core classes use SRD lines while the compendium stub is untouched) sum into Fort/Ref/Will; misc bonus stays manual (actor.mjs)","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":26,"cat":"levels","moved":false,"roadmap":null},{"id":"2-hit-dice-hp-at-level-1-beyond","title":"Hit dice / HP at level 1 & beyond","audit":"partial","gap":"Level-up wizard supports fixed / roll / manual style flow; full HD averaging rules table-side","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":27,"cat":"levels","moved":false,"roadmap":null},{"id":"2-max-hp-vs-rolled-hp-history","title":"Max HP vs rolled HP history","audit":"missing","gap":"No audit trail per level","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":28,"cat":"levels","moved":false,"roadmap":null},{"id":"2-skill-points-per-level","title":"Skill points per level","audit":"partial","gap":"Wizard + getSkillRankCap; multiclass class skill lists merged from packs","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":29,"cat":"levels","moved":false,"roadmap":null},{"id":"2-human-bonus-skill-point-at-1st","title":"Human bonus skill point at 1st","audit":"partial","gap":"Wizard narrative; not enforced as +4 vs +1 rule universally","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":30,"cat":"levels","moved":false,"roadmap":null},{"id":"2-max-ranks-class-cross-class","title":"Max ranks (class / cross-class)","audit":"present","gap":"getSkillRankCap","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":31,"cat":"levels","moved":false,"roadmap":null},{"id":"2-class-skill-flags-on-sheet","title":"Class skill flags on sheet","audit":"present","gap":"Per-skill class checkbox","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":32,"cat":"levels","moved":false,"roadmap":null},{"id":"2-cross-class-max-half-ranks-ceiling","title":"Cross-class max half-ranks ceiling","audit":"present","gap":"Via cap formula; sheet editing can still error","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":33,"cat":"levels","moved":false,"roadmap":null},{"id":"2-starting-wealth-gear-at-level-1","title":"Starting wealth / gear at level 1","audit":"missing","gap":"Not enforced","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":34,"cat":"levels","moved":false,"roadmap":null},{"id":"2-wealth-by-level-for-higher-starts","title":"Wealth-by-level for higher starts","audit":"missing","gap":"","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":35,"cat":"levels","moved":false,"roadmap":null},{"id":"2-level-drain-affecting-effective-level-for-abilities","title":"Level drain affecting effective level for abilities","audit":"partial","gap":"§1 negative levels penalize saves/skills/init/grapple/BAB display; caster level / SLAs / features keyed to HD or level — still manual","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":36,"cat":"levels","moved":false,"roadmap":null},{"id":"2-prestige-classes","title":"Prestige classes","audit":"partial","gap":"Same class item; entry requirements beyond feats not systematically enforced","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":37,"cat":"levels","moved":false,"roadmap":null},{"id":"2-class-feature-grants-by-level-automated","title":"Class feature grants by level (automated)","audit":"partial","gap":"Identity lists grants from each class item’s feature table through the current level. The sheet does not create feature items","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":38,"cat":"levels","moved":false,"roadmap":null},{"id":"2-gestalt","title":"Gestalt","audit":"partial","gap":"enableGestalt setting; depth depends on wizard","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":39,"cat":"levels","moved":false,"roadmap":null},{"id":"2-npc-class-vs-pc-class","title":"NPC class vs PC class","audit":"partial","gap":"Data can exist in packs; no separate NPC-class workflow","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":40,"cat":"levels","moved":false,"roadmap":null},{"id":"2-monster-racial-hd-vs-class-levels","title":"Monster racial HD vs class levels","audit":"missing","gap":"No first-class “HD stack” model on actor","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":41,"cat":"levels","moved":false,"roadmap":null},{"id":"2-spellcasting-progression-metadata","title":"Spellcasting progression metadata","audit":"partial","gap":"getSpellcastingProgression etc. in progression-rules; slot/spells-known execution thin","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":42,"cat":"levels","moved":false,"roadmap":null},{"id":"2-multiclass-spellcaster-combined-slots-um-rules","title":"Multiclass spellcaster “combined slots” (UM rules)","audit":"missing","gap":"","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":43,"cat":"levels","moved":false,"roadmap":null},{"id":"2-familiar-animal-companion-mount-as-linked-actors","title":"Familiar / animal companion / mount as linked actors","audit":"missing","gap":"Foundry could link tokens; no system workflow","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":44,"cat":"levels","moved":false,"roadmap":null},{"id":"2-rebuilding-phb-replacement-levels","title":"Rebuilding / PHB replacement levels","audit":"missing","gap":"","section":2,"sectionTitle":"Classes, leveling, multiclass, prestige","order":45,"cat":"levels","moved":false,"roadmap":null},{"id":"3-full-srd-skill-list","title":"Full SRD skill list","audit":"present","gap":"CTSDND35.skills","section":3,"sectionTitle":"Skills","order":46,"cat":"skills","moved":false,"roadmap":null},{"id":"3-trained-only-skills","title":"Trained-only skills","audit":"present","gap":"untrained flag in config; enforcement on roll — soft","section":3,"sectionTitle":"Skills","order":47,"cat":"skills","moved":false,"roadmap":null},{"id":"3-rank-0-trained-only-retry-behavior","title":"“Rank 0” trained-only retry behavior","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":48,"cat":"skills","moved":false,"roadmap":null},{"id":"3-ranks-ability-mod-misc-total","title":"Ranks, ability mod, misc, total","audit":"present","gap":"actor.mjs _prepareSkills","section":3,"sectionTitle":"Skills","order":49,"cat":"skills","moved":false,"roadmap":null},{"id":"3-circumstance-competence-insight-bonuses-typed","title":"Circumstance / competence / insight bonuses (typed)","audit":"missing","gap":"Single misc bucket only","section":3,"sectionTitle":"Skills","order":50,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"3-class-skill-vs-cross-class-cost","title":"Class skill vs cross-class cost","audit":"partial","gap":"getSkillPointCost exists; wizard applies; sheet direct-edit can desync","section":3,"sectionTitle":"Skills","order":51,"cat":"skills","moved":false,"roadmap":null},{"id":"3-skill-synergies","title":"Skill synergies","audit":"present","gap":"Five ranks in the source skill add +2 on the PHB pairs (Bluff to Diplomacy / Intimidate / Sleight of Hand, Tumble to Balance and Jump, and the other core pairs). The bonus is inside the skill total; hover the total for the amount","section":3,"sectionTitle":"Skills","order":52,"cat":"skills","moved":false,"roadmap":null},{"id":"3-armor-check-penalty-on-skills","title":"Armor check penalty on skills","audit":"missing","gap":"Armor has no ACP field wired to skills","section":3,"sectionTitle":"Skills","order":53,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"3-double-armor-penalty-e-g-swim","title":"Double armor penalty (e.g. Swim)","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":54,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"3-fatigue-encumbrance-to-skills","title":"Fatigue / encumbrance to skills","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":55,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"3-tools-masterwork-tools","title":"Tools & masterwork tools","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":56,"cat":"skills","moved":false,"roadmap":null},{"id":"3-skill-tricks-substitution-non-srd-supplements","title":"Skill tricks / substitution (non-SRD supplements)","audit":"missing","gap":"Out of scope unless you add packs","section":3,"sectionTitle":"Skills","order":57,"cat":"skills","moved":false,"roadmap":null},{"id":"3-taking-10-taking-20","title":"Taking 10 / Taking 20","audit":"partial","gap":"Each skill stores take10 and take20 (10 or 20 plus the modifier). Distractions that forbid taking 10 are not detected","section":3,"sectionTitle":"Skills","order":58,"cat":"skills","moved":false,"roadmap":null},{"id":"3-distractions-forbidding-take-10","title":"Distractions forbidding take 10","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":59,"cat":"skills","moved":false,"roadmap":null},{"id":"3-aid-another","title":"Aid another","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":60,"cat":"skills","moved":false,"roadmap":null},{"id":"3-opposed-checks-bluff-vs-sense-motive-etc","title":"Opposed checks (Bluff vs Sense Motive, etc.)","audit":"missing","gap":"Flat rolls only","section":3,"sectionTitle":"Skills","order":61,"cat":"skills","moved":false,"roadmap":null},{"id":"3-retry-rules-special-durations","title":"Retry rules / special durations","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":62,"cat":"skills","moved":false,"roadmap":null},{"id":"3-individual-skill-apis-e-g-craft-income-decipher-page-week","title":"Individual skill APIs (e.g. Craft income, Decipher page/week)","audit":"missing","gap":"Use narrative / manual","section":3,"sectionTitle":"Skills","order":63,"cat":"skills","moved":false,"roadmap":null},{"id":"3-appraise-tied-to-trade-pricing","title":"Appraise tied to trade pricing","audit":"partial","gap":"trade-modifiers exists; skill DC for values not integrated","section":3,"sectionTitle":"Skills","order":64,"cat":"town","moved":true,"roadmap":null},{"id":"3-knowledge-checks-vs-dc-tables","title":"Knowledge checks vs DC tables","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":65,"cat":"skills","moved":false,"roadmap":null},{"id":"3-survival-track-endure-elements-forecast-dc-scaffolding","title":"Survival (track, endure elements, forecast) DC scaffolding","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":66,"cat":"skills","moved":false,"roadmap":null},{"id":"3-use-magic-device-emulate-ability-score-race-alignment","title":"Use Magic Device (emulate ability score / race / alignment)","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":67,"cat":"skills","moved":false,"roadmap":null},{"id":"3-speak-language-literacy-if-using-house-list","title":"Speak Language / literacy (if using house list)","audit":"missing","gap":"Pairs with §1 languages","section":3,"sectionTitle":"Skills","order":68,"cat":"skills","moved":false,"roadmap":null},{"id":"3-use-rope-swim-with-armor","title":"Use Rope, Swim with armor","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":69,"cat":"skills","moved":false,"roadmap":null},{"id":"3-jump-runs-off-moved-speed-restriction","title":"Jump runs off moved speed (restriction)","audit":"missing","gap":"Speed not rule-validated","section":3,"sectionTitle":"Skills","order":70,"cat":"skills","moved":false,"roadmap":null},{"id":"3-balance-tumble-vs-narrow-surface-dcs","title":"Balance / Tumble vs narrow surface DCs","audit":"missing","gap":"","section":3,"sectionTitle":"Skills","order":71,"cat":"skills","moved":false,"roadmap":null},{"id":"4-feat-items-list","title":"Feat items & list","audit":"present","gap":"Character sheet list","section":4,"sectionTitle":"Feats, traits, class features","order":72,"cat":"feats","moved":false,"roadmap":null},{"id":"4-prerequisite-parser","title":"Prerequisite parser","audit":"partial","gap":"evaluateFeatPrerequisites: abilities, BAB, level, alignment axes, feat names, some skills/race/features","section":4,"sectionTitle":"Feats, traits, class features","order":73,"cat":"feats","moved":false,"roadmap":null},{"id":"4-prereq-spellcasting-caster-level-specific-spells-known","title":"Prereq: spellcasting / caster level / specific spells known","audit":"missing","gap":"Parser gaps","section":4,"sectionTitle":"Feats, traits, class features","order":74,"cat":"feats","moved":false,"roadmap":null},{"id":"4-prereq-race-type-e-g-undead-creature-subtype","title":"Prereq: race type (e.g. Undead) / creature subtype","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":75,"cat":"feats","moved":false,"roadmap":null},{"id":"4-fighter-bonus-feat-slots-scaling","title":"Fighter bonus feat slots / scaling","audit":"partial","gap":"Wizard tracks selections; no global “feat slot budget” vs sources","section":4,"sectionTitle":"Feats, traits, class features","order":76,"cat":"feats","moved":false,"roadmap":null},{"id":"4-wizard-bonus-metamagic-item-creation-lists","title":"Wizard bonus metamagic / item creation lists","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":77,"cat":"feats","moved":false,"roadmap":null},{"id":"4-stacking-rules-same-source-bonuses","title":"Stacking rules (same-source bonuses)","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":78,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"4-metamagic-feats","title":"Metamagic feats","audit":"missing","gap":"No heightening workflow tied to spells","section":4,"sectionTitle":"Feats, traits, class features","order":79,"cat":"feats","moved":false,"roadmap":null},{"id":"4-item-creation-feats","title":"Item creation feats","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":80,"cat":"feats","moved":false,"roadmap":null},{"id":"4-leadership-cohort-followers","title":"Leadership / cohort / followers","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":81,"cat":"feats","moved":false,"roadmap":null},{"id":"4-passive-numeric-bonuses-from-feats","title":"Passive numeric bonuses from feats","audit":"partial","gap":"Named feats apply on their own (initiative, saves, Dodge, Toughness note, Combat Casting, finesse weapons, spell penetration). Weapon Focus / Specialization / Spell Focus need the feat Choice field (table-combat.mjs)","section":4,"sectionTitle":"Feats, traits, class features","order":82,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"4-feature-items-class-features","title":"Feature items (class features)","audit":"present","gap":"Stored; mechanics manual","section":4,"sectionTitle":"Feats, traits, class features","order":83,"cat":"feats","moved":false,"roadmap":null},{"id":"4-race-items","title":"Race items","audit":"present","gap":"Stored; mechanics manual","section":4,"sectionTitle":"Feats, traits, class features","order":84,"cat":"feats","moved":false,"roadmap":null},{"id":"4-alternate-racial-traits-subraces","title":"Alternate racial traits / subraces","audit":"partial","gap":"Pack content only","section":4,"sectionTitle":"Feats, traits, class features","order":85,"cat":"feats","moved":false,"roadmap":null},{"id":"4-regional-background-feats-if-used","title":"Regional / background feats (if used)","audit":"missing","gap":"Data-only via packs at best","section":4,"sectionTitle":"Feats, traits, class features","order":86,"cat":"feats","moved":false,"roadmap":null},{"id":"4-flaws-traits-ua-style-optional","title":"Flaws / traits (UA-style, optional)","audit":"missing","gap":"","section":4,"sectionTitle":"Feats, traits, class features","order":87,"cat":"feats","moved":false,"roadmap":null},{"id":"5-weapon-attack-items","title":"Weapon / attack items","audit":"present","gap":"Types exist","section":5,"sectionTitle":"Combat — attacks & damage","order":88,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-melee-attack-bonus-decomposition","title":"Melee attack bonus decomposition","audit":"partial","gap":"Not one pipeline (BAB + Str/Dex + size + enhancement + morale + luck + …)","section":5,"sectionTitle":"Combat — attacks & damage","order":89,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"5-str-vs-dex-on-melee-finesse-rapier-exception","title":"Str vs Dex on melee (finesse, rapier exception)","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":90,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-off-hand-light-weapon-penalties","title":"Off-hand light weapon penalties","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":91,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-ranged-attacks","title":"Ranged attacks","audit":"partial","gap":"Weapon rangeIncrements subtracts 2 per increment after the first. Cover on the target is still a Combat-tab select","section":5,"sectionTitle":"Combat — attacks & damage","order":92,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-range-increments-cumulative-2","title":"Range increments & cumulative −2","audit":"present","gap":"Weapon details field. One increment is no penalty","section":5,"sectionTitle":"Combat — attacks & damage","order":93,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-projectile-vs-thrown-weapon-rules","title":"Projectile vs thrown weapon rules","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":94,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-iterative-attacks-bab-5-10","title":"Iterative attacks (BAB −5, −10, …)","audit":"present","gap":"Weapon and attack items roll each iterative; off-hand and secondary natural attacks stay a single strike (combat-rules.mjs)","section":5,"sectionTitle":"Combat — attacks & damage","order":95,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-natural-weapons-secondary-attacks","title":"Natural weapons & secondary attacks","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":96,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-primary-secondary-natural-attack-bab-offset","title":"Primary / secondary natural attack BAB offset","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":97,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-unarmed-strike-monk-progression","title":"Unarmed strike & monk progression","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":98,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-touch-attacks-ranged-touch","title":"Touch attacks / ranged touch","audit":"partial","gap":"AC touch computed; attack mode not distinguished in automation","section":5,"sectionTitle":"Combat — attacks & damage","order":99,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-holding-charge-touch-spell-through-weapon","title":"Holding charge / touch spell through weapon","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":100,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-critical-threat-confirmation-multiplier","title":"Critical threat / confirmation / multiplier","audit":"partial","gap":"A natural roll in the widened threat range adds a confirmation roll and shows the multiplier. Critical immunity and fortification are not applied","section":5,"sectionTitle":"Combat — attacks & damage","order":101,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-keen-improved-critical-stacking-limits","title":"Keen / Improved Critical stacking limits","audit":"present","gap":"Keen on the weapon (or the word Keen in the name) and Improved Critical whose Choice matches the weapon each double the threat width, and they stack (20 becomes 19, then 17)","section":5,"sectionTitle":"Combat — attacks & damage","order":102,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-damage-rolls-chat-cards","title":"Damage rolls & chat cards","audit":"partial","gap":"Basic Item.roll() chat output","section":5,"sectionTitle":"Combat — attacks & damage","order":103,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-damage-types-b-s-p-energy-types","title":"Damage types (B/S/P) & energy types","audit":"partial","gap":"Schema varies by item; DR interaction missing","section":5,"sectionTitle":"Combat — attacks & damage","order":104,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-half-damage-on-successful-save-spells","title":"Half damage on successful save (spells)","audit":"partial","gap":"Spell save.half, or “half damage” in the description, notes it on the spell card. The sheet does not roll spell damage","section":5,"sectionTitle":"Combat — attacks & damage","order":105,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-precision-damage-sneak-attack-etc","title":"Precision damage (sneak attack, etc.)","audit":"partial","gap":"Combat-tab Sneak attack adds rogue dice (ceil(level/2)) to the damage formula. Ranged sneak attack also needs Point blank. Other precision damage is not included","section":5,"sectionTitle":"Combat — attacks & damage","order":106,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-critical-immunity-fortification-interaction","title":"Critical immunity / fortification interaction","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":107,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-nonlethal-damage","title":"Nonlethal damage","audit":"partial","gap":"HP nonlethal field remains. A weapon Nonlethal flag labels the damage line. The roll does not move that number into the HP field","section":5,"sectionTitle":"Combat — attacks & damage","order":108,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-splash-weapons-alchemy-etc","title":"Splash weapons (alchemy, etc.)","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":109,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-weapon-size-inappropriate-size","title":"Weapon size / inappropriate size","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":110,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-reach-weapon-dead-zone-10-ft-no-adjacent","title":"Reach weapon “dead zone” (10 ft. no adjacent)","audit":"missing","gap":"","section":5,"sectionTitle":"Combat — attacks & damage","order":111,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-two-weapon-fighting-penalties","title":"Two-weapon fighting penalties","audit":"partial","gap":"An off-hand weapon applies the light/heavy penalty table, including Two-Weapon Fighting and extra off-hand attacks from Improved and Greater","section":5,"sectionTitle":"Combat — attacks & damage","order":112,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-manyshot-rapid-shot-flurry-linkage","title":"Manyshot / Rapid Shot / Flurry linkage","audit":"partial","gap":"Rapid Shot adds the extra attack at −2. Manyshot (feat plus Combat-tab toggle) notes that extra arrows use the same attack roll. Flurry of blows is not built","section":5,"sectionTitle":"Combat — attacks & damage","order":113,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-power-attack-combat-expertise-sliders","title":"Power Attack / Combat Expertise sliders","audit":"present","gap":"Combat tab values, capped by BAB and the feat","section":5,"sectionTitle":"Combat — attacks & damage","order":114,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-charge-attack-bonus-ac-penalty","title":"Charge attack bonus / AC penalty","audit":"present","gap":"Posture select on the Combat tab","section":5,"sectionTitle":"Combat — attacks & damage","order":115,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"5-fighting-defensively-total-defense-modifiers","title":"Fighting defensively / total defense modifiers","audit":"present","gap":"Posture select","section":5,"sectionTitle":"Combat — attacks & damage","order":116,"cat":"attacking","moved":false,"roadmap":"combat"},{"id":"6-ac-normal","title":"AC (normal)","audit":"partial","gap":"10 + armor + shield + capped Dex + size + natural","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":117,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-touch-ac","title":"Touch AC","audit":"present","gap":"Derived line","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":118,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-flat-footed-ac","title":"Flat-footed AC","audit":"present","gap":"Derived line","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":119,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-lose-dex-to-ac-when-applicable","title":"Lose Dex to AC (when applicable)","audit":"missing","gap":"Flat-footed uses formula but condition-driven loss not wired","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":120,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-dodge-deflection-insight-sacred-profane-luck-misc-ac","title":"Dodge, deflection, insight, sacred, profane, luck, misc AC","audit":"missing","gap":"Not item-driven; use house manual change to natural/bonus fields if at all","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":121,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"6-max-dex-bonus-from-armor","title":"Max Dex bonus from armor","audit":"present","gap":"Lowest equipped armor maxDex caps Dex to AC","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":122,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-multiple-armor-pieces-equipped-edge-case","title":"Multiple armor pieces equipped edge case","audit":"partial","gap":"Equipped armor still sums. Equipment and armor have a slot field. Identity lists slots worn past the cap (rings allow two). It does not stop the extra item","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":123,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-shield-spell-force-effects","title":"Shield spell / force effects","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":124,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-saving-throws-fort-ref-will-total","title":"Saving throws (Fort / Ref / Will total)","audit":"partial","gap":"Base + ability + misc; base should tie to classes","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":125,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-saving-throw-bonuses-by-source","title":"Saving throw bonuses by source","audit":"missing","gap":"No typed stacking","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":126,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"6-circumstance-bonuses-on-saves-good-neutral-evil-aura-etc","title":"Circumstance bonuses on saves (good/neutral/evil aura, etc.)","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":127,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"6-damage-reduction-dr","title":"Damage reduction (DR)","audit":"present","gap":"The attack chat subtracts the highest DR row the weapon does not bypass. Rows do not stack","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":128,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-dr-bypass-materials-alignment-magic","title":"DR bypass materials / alignment / magic","audit":"present","gap":"Weapon enhancement or the Magic flag, Material, and Alignment are matched against the bypass text. A dash bypass is never skipped","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":129,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-energy-resistance-immunity","title":"Energy resistance / immunity","audit":"partial","gap":"Fire, cold, acid, electricity, and sonic resistance or immunity on the Combat tab adjust matching weapon damage in chat","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":130,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-vulnerability-healing-amp-for-energy","title":"Vulnerability / healing amp for energy","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":131,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-spell-resistance-sr","title":"Spell resistance (SR)","audit":"partial","gap":"Numeric field; no caster check workflow","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":132,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-hardness-object-hp","title":"Hardness & object HP","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":133,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-attacking-objects-breaking-doors","title":"Attacking objects / breaking doors","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":134,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-miss-chance-concealment-blur-displacement","title":"Miss chance (concealment / blur / displacement)","audit":"partial","gap":"Combat-tab concealment percent rolls 1d100 on the attack card. Blur and displacement are not separate effects","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":135,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-incorporeal-50-miss-vs-nonmagical","title":"Incorporeal 50% miss vs nonmagical","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":136,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"6-fortification-crit-immunity","title":"Fortification (crit immunity %)","audit":"missing","gap":"","section":6,"sectionTitle":"Combat — AC, saves, resistances","order":137,"cat":"defense","moved":false,"roadmap":"combat"},{"id":"7-initiative-order","title":"Initiative order","audit":"present","gap":"Foundry combat + sheet initiative roll","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":138,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-initiative-modifiers-feat-familiar-etc","title":"Initiative modifiers (feat, familiar, etc.)","audit":"partial","gap":"Dex + misc init bonus field only","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":139,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-flat-footed-until-first-turn","title":"Flat-footed until first turn","audit":"missing","gap":"Not flagged automatically","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":140,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-turn-structure-standard-move-swift-immediate-full-round","title":"Turn structure (standard / move / swift / immediate / full-round)","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":141,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-full-round-action-lock-no-5-ft-step","title":"Full-round action lock (no 5-ft step)","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":142,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-delay-ready","title":"Delay / ready","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":143,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-charge-withdraw-run-tumble-through-threatened-squares","title":"Charge, withdraw, run, tumble through threatened squares","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":144,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-run-4-speed-straight-line-limit","title":"Run ×4 speed & straight-line limit","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":145,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-5-foot-step","title":"5-foot step","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":146,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-difficult-terrain-half-speed","title":"Difficult terrain (half speed)","audit":"missing","gap":"Foundry terrain ≠ rule enforcement","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":147,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-hampered-movement-climb-swim-balance","title":"Hampered movement (climb/swim/balance)","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":148,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-grappling-rules-initiate-hold-pin-damage-escape","title":"Grappling rules (initiate, hold, pin, damage, escape)","audit":"missing","gap":"Grapple modifier shown only","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":149,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-grapple-size-modifier-table","title":"Grapple size modifier table","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":150,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-trip-bull-rush-overrun-disarm-sunder-feint","title":"Trip, bull rush, overrun, disarm, sunder, feint","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":151,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-improved-trip-stand-from-prone-interactions","title":"Improved Trip / Stand from prone interactions","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":152,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-mounted-combat","title":"Mounted combat","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":153,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-mounted-archery-charge-leap","title":"Mounted archery / charge / leap","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":154,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-reach-weapons-threatened-squares","title":"Reach weapons & threatened squares","audit":"missing","gap":"No geometry (D35E-style overlays absent)","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":155,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-flanking-2-melee","title":"Flanking (+2 melee)","audit":"partial","gap":"Combat tab toggle. The sheet does not detect it from token positions","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":156,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-soft-cover-from-allies-precise-shot-gate","title":"Soft cover from allies (Precise Shot gate)","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":157,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-attacks-of-opportunity","title":"Attacks of opportunity","audit":"partial","gap":"Pool from Dexterity and Combat Reflexes, spend/reset, and a refresh when that creature's turn starts. Provoking movement is not detected","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":158,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-provoking-casting-in-threat-ranged-in-threat-movement","title":"Provoking: casting in threat, ranged in threat, movement","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":159,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-tumble-through-threatened-vs-aoo","title":"Tumble through threatened (vs AoO)","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":160,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-cover-concealment-modifiers","title":"Cover / concealment modifiers","audit":"partial","gap":"Cover on you and cover on the target are Combat tab selects. Concealment percent rolls 1d100 on the attack card","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":161,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-higher-ground-squeezing","title":"Higher ground, squeezing","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":162,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-teleport-dimension-door-aoos","title":"Teleport / dimension door & AoOs","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":163,"cat":"round","moved":false,"roadmap":"actions"},{"id":"7-underwater-combat-penalties","title":"Underwater combat penalties","audit":"missing","gap":"","section":7,"sectionTitle":"Combat — actions, movement, positioning","order":164,"cat":"round","moved":false,"roadmap":"actions"},{"id":"8-buff-item-type","title":"Buff item type","audit":"present","gap":"Exists; duration / combat-round automation thin","section":8,"sectionTitle":"Conditions, healing, death","order":165,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-srd-condition-catalog-applied-effects","title":"SRD condition catalog (applied effects)","audit":"partial","gap":"Status checkboxes apply the common numeric penalties (fear, sickened, fatigue, grappled, helpless, prone AC, slowed, deafened spell failure). Durations and action locks are noted, not enforced","section":8,"sectionTitle":"Conditions, healing, death","order":166,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-foundry-active-effects-driving-mods","title":"Foundry Active Effects driving mods","audit":"missing","gap":"prepareDerivedData does not consume unified effects","section":8,"sectionTitle":"Conditions, healing, death","order":167,"cat":"pipeline","moved":true,"roadmap":"pipeline"},{"id":"8-condition-duration-rounds-minutes-dismissible","title":"Condition duration (rounds / minutes / Dismissible)","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":168,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-fatigued-exhausted-track","title":"Fatigued / exhausted track","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":169,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-shaken-frightened-panicked","title":"Shaken / frightened / panicked","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":170,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-confused-fascinated","title":"Confused / fascinated","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":171,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-nauseated-sickened","title":"Nauseated / sickened","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":172,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-stunned-dazed-helpless","title":"Stunned / dazed / helpless","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":173,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-paralyzed-petrified","title":"Paralyzed / petrified","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":174,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-sleeping-unconscious","title":"Sleeping / unconscious","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":175,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-prone-modifiers-melee-vs-ranged","title":"Prone modifiers (melee vs ranged)","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":176,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-invisible-blind","title":"Invisible / blind","audit":"missing","gap":"Foundry vision separate from 3.5 miss rules","section":8,"sectionTitle":"Conditions, healing, death","order":177,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-deafened-silence-interaction","title":"Deafened / silence interaction","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":178,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-poison-disease-frequency-dc-track","title":"Poison & disease (frequency, DC track)","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":179,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-ability-damage-drain-over-time","title":"Ability damage / drain over time","audit":"missing","gap":"See §1","section":8,"sectionTitle":"Conditions, healing, death","order":180,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-energy-drain-stacking","title":"Energy drain stacking","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":181,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-stable-dying-dead","title":"Stable / dying / dead","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":182,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-coup-de-gr-ce-auto-hit-crit","title":"Coup de grâce auto-hit / crit","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":183,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-massive-damage-fort-save","title":"Massive damage Fort save","audit":"partial","gap":"game.ctsdnd35.massiveDamageDc() is 15. The sheet does not start the save","section":8,"sectionTitle":"Conditions, healing, death","order":184,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-natural-healing-long-term-care","title":"Natural healing / long-term care","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":185,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-fast-healing-regeneration","title":"Fast healing / regeneration","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":186,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-raise-dead-resurrection-restoration-spell-effects","title":"Raise dead / resurrection / restoration (spell effects)","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":187,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"8-construct-undead-immunity-bundles","title":"Construct / undead immunity bundles","audit":"missing","gap":"","section":8,"sectionTitle":"Conditions, healing, death","order":188,"cat":"conditions","moved":false,"roadmap":"conditions"},{"id":"9-weapons-armor-shields-goods","title":"Weapons, armor, shields, goods","audit":"present","gap":"Item types + sheets","section":9,"sectionTitle":"Equipment & inventory","order":189,"cat":"gear","moved":false,"roadmap":null},{"id":"9-equipped-flag-armor-shield","title":"Equipped flag (armor/shield)","audit":"present","gap":"Feeds AC","section":9,"sectionTitle":"Equipment & inventory","order":190,"cat":"gear","moved":false,"roadmap":null},{"id":"9-multiple-weapon-equip-main-hand-off-hand","title":"Multiple weapon equip / main-hand off-hand","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":191,"cat":"gear","moved":false,"roadmap":null},{"id":"9-weapon-stats-damage-crit-type-reach-flags-in-data","title":"Weapon stats (damage, crit, type, reach flags in data?)","audit":"partial","gap":"Pack-dependent; not validated","section":9,"sectionTitle":"Equipment & inventory","order":192,"cat":"gear","moved":false,"roadmap":null},{"id":"9-armor-stats-bonus-max-dex-acp-arcane-spell-failure-speed","title":"Armor stats (bonus, max Dex, ACP, arcane spell failure, speed)","audit":"partial","gap":"AC bonus & maxDex used; ACP / ASF / speed penalty fields if present — not wired globally","section":9,"sectionTitle":"Equipment & inventory","order":193,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"9-masterwork-1-nonmagical","title":"Masterwork (+1 nonmagical)","audit":"partial","gap":"Pack data possible; rule not centralized","section":9,"sectionTitle":"Equipment & inventory","order":194,"cat":"gear","moved":false,"roadmap":null},{"id":"9-magic-enhancement-1-armor-weapon","title":"Magic enhancement (+1 armor / weapon)","audit":"partial","gap":"Some fields on armor","section":9,"sectionTitle":"Equipment & inventory","order":195,"cat":"gear","moved":false,"roadmap":null},{"id":"9-enhancement-bonus-caps-stacking-with-mw","title":"Enhancement bonus caps & stacking with MW","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":196,"cat":"gear","moved":false,"roadmap":null},{"id":"9-ghost-touch-holy-axiomatic-weapon-props-vs-dr","title":"Ghost touch / holy / axiomatic weapon props vs DR","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":197,"cat":"gear","moved":false,"roadmap":null},{"id":"9-material-cold-iron-silver-adamantine","title":"Material (cold iron, silver, adamantine)","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":198,"cat":"gear","moved":false,"roadmap":null},{"id":"9-adamantine-bypass-hardness","title":"Adamantine bypass hardness","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":199,"cat":"gear","moved":false,"roadmap":null},{"id":"9-weapon-sizing-handedness","title":"Weapon sizing & handedness","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":200,"cat":"gear","moved":false,"roadmap":null},{"id":"9-double-weapons-two-bladed-swords","title":"Double weapons / two-bladed swords","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":201,"cat":"gear","moved":false,"roadmap":null},{"id":"9-ammunition-consumption","title":"Ammunition & consumption","audit":"missing","gap":"No ammo items workflow (see D35E patterns for reference only)","section":9,"sectionTitle":"Equipment & inventory","order":202,"cat":"gear","moved":false,"roadmap":null},{"id":"9-thrown-weapon-returning-replenishing","title":"Thrown weapon returning / replenishing","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":203,"cat":"gear","moved":false,"roadmap":null},{"id":"9-charges-per-day-item-uses","title":"Charges / per-day item uses","audit":"partial","gap":"Schema possible; no universal UI","section":9,"sectionTitle":"Equipment & inventory","order":204,"cat":"gear","moved":false,"roadmap":null},{"id":"9-staff-wand-potion-identification","title":"Staff / wand / potion identification","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":205,"cat":"gear","moved":false,"roadmap":null},{"id":"9-weight-encumbrance","title":"Weight & encumbrance","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":206,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"9-load-limits-by-strength","title":"Load limits by Strength","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":207,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"9-medium-heavy-encumbrance-penalties","title":"Medium / heavy encumbrance penalties","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":208,"cat":"armor","moved":true,"roadmap":"armor"},{"id":"9-body-slots-ring-2-head-eyes","title":"Body slots (ring ×2, head, eyes, …)","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":209,"cat":"gear","moved":false,"roadmap":null},{"id":"9-slotless-combining-rules","title":"Slotless / combining rules","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":210,"cat":"gear","moved":false,"roadmap":null},{"id":"9-drawing-sheathing-dropping","title":"Drawing / sheathing / dropping","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":211,"cat":"gear","moved":false,"roadmap":null},{"id":"9-breaking-sundering-gear","title":"Breaking / sundering gear","audit":"missing","gap":"","section":9,"sectionTitle":"Equipment & inventory","order":212,"cat":"gear","moved":false,"roadmap":null},{"id":"9-inventory-sort-container-nesting","title":"Inventory sort / container nesting","audit":"partial","gap":"Flat item list; Foundry folders manual","section":9,"sectionTitle":"Equipment & inventory","order":213,"cat":"gear","moved":false,"roadmap":null},{"id":"10-spell-items-per-level-lists","title":"Spell items & per-level lists","audit":"partial","gap":"Sheet lists by level","section":10,"sectionTitle":"Spells & divine casting","order":214,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spell-preparation-vancian","title":"Spell preparation (Vancian)","audit":"partial","gap":"Prepared casters track a prepared count per spell and spend one on a cast. Spontaneous casters spend the metamagic-adjusted slot","section":10,"sectionTitle":"Spells & divine casting","order":215,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spellbook-known-spells-list-per-class","title":"Spellbook / known spells list per class","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":216,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spontaneous-casting-known-spells-slots","title":"Spontaneous casting (known spells / slots)","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":217,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spell-slots-per-level","title":"Spell slots per level","audit":"partial","gap":"Slots per day from the class progression plus ability bonus spells; Use / restore on the Spells list tracks expended slots","section":10,"sectionTitle":"Spells & divine casting","order":218,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-bonus-spells-from-high-ability","title":"Bonus spells from high ability","audit":"present","gap":"PHB Table 1–1 added only for spell levels the class can already cast (bonusSpellsForScore)","section":10,"sectionTitle":"Spells & divine casting","order":219,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-domain-spell-slots","title":"Domain spell slots","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":220,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-specialist-wizard-forbidden-schools","title":"Specialist wizard forbidden schools","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":221,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-caster-level-global-per-class","title":"Caster level (global per class)","audit":"partial","gap":"Not centralized on actor for checks","section":10,"sectionTitle":"Spells & divine casting","order":222,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-penetration-vs-sr-spell-penetration-feats","title":"Penetration vs SR (Spell Penetration feats)","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":223,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spell-dc-10-level-ability","title":"Spell DC (10 + level + ability)","audit":"present","gap":"Shown per spell and per slot; click a spell to post DC and an arcane failure check","section":10,"sectionTitle":"Spells & divine casting","order":224,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-heightened-empowered-metamagic-adjusted-dc-level","title":"Heightened / empowered metamagic adjusted DC & level","audit":"partial","gap":"Spell sheet: Heighten changes DC and slot level. Empower, Extend, Still, Silent, and Quicken adjust the slot. Still ignores armor failure. Silent ignores deafened failure","section":10,"sectionTitle":"Spells & divine casting","order":225,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-spell-resistance-check","title":"Spell resistance check","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":226,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-concentration-dc-10-damage-spell-level-etc","title":"Concentration (DC = 10 + damage + spell level, etc.)","audit":"partial","gap":"Combat tab rolls Concentration against a DC you type. Combat Casting adds +4","section":10,"sectionTitle":"Spells & divine casting","order":227,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-defensive-casting-option","title":"Defensive casting option","audit":"partial","gap":"Combat tab toggle. Casting a spell then rolls Concentration vs 15 + slot level","section":10,"sectionTitle":"Spells & divine casting","order":228,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-components-v-s-m-f-df-xp","title":"Components V / S / M / F / DF / XP","audit":"partial","gap":"Text on items at best","section":10,"sectionTitle":"Spells & divine casting","order":229,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-arcane-spell-failure-chance","title":"Arcane spell failure chance","audit":"partial","gap":"Equipped armor/shield ASF (and deafened verbal failure) is rolled when an arcane spell is cast","section":10,"sectionTitle":"Spells & divine casting","order":230,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-divine-focus-inexpensive-material-defaults","title":"Divine focus / inexpensive material defaults","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":231,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-somatic-components-in-grapple","title":"Somatic components in grapple","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":232,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-counterspells","title":"Counterspells","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":233,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-dispel-magic-greater-dispel-checks","title":"Dispel magic / greater dispel checks","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":234,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-buff-stacking-same-spell-multiple-times","title":"Buff stacking (same spell multiple times)","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":235,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-persistent-metamagic-rods","title":"Persistent / metamagic rods","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":236,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-swift-immediate-action-spells","title":"Swift / immediate action spells","audit":"missing","gap":"Action economy missing","section":10,"sectionTitle":"Spells & divine casting","order":237,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-summon-lists-augmented-summons","title":"Summon lists & augmented summons","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":238,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-antimagic-field-dead-magic-areas","title":"Antimagic field / dead magic areas","audit":"missing","gap":"Canvas zones absent","section":10,"sectionTitle":"Spells & divine casting","order":239,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-domains-domain-spells","title":"Domains & domain spells","audit":"partial","gap":"srd-domains pack; linkage to preparation missing","section":10,"sectionTitle":"Spells & divine casting","order":240,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-turn-rebuke-undead","title":"Turn / rebuke undead","audit":"partial","gap":"Turn check and 2d6 damage from cleric level and paladin (as a cleric three levels lower). Uses per day include Extra Turning","section":10,"sectionTitle":"Spells & divine casting","order":241,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-turning-damage-destruction-thresholds","title":"Turning damage / destruction thresholds","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":242,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-divine-metamagic-divine-feats","title":"Divine metamagic / divine feats","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":243,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-divine-spell-morality-cleric-alignment","title":"Divine spell morality (cleric alignment)","audit":"missing","gap":"","section":10,"sectionTitle":"Spells & divine casting","order":244,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"10-paladin-ranger-spell-lists-by-level","title":"Paladin / ranger spell lists by level","audit":"partial","gap":"Pack-only","section":10,"sectionTitle":"Spells & divine casting","order":245,"cat":"spells","moved":false,"roadmap":"spells"},{"id":"11-power-item-compendium","title":"Power Item compendium","audit":"partial","gap":"srd-powers pack exists","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":246,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-power-points-reserve-spend-regain","title":"Power points (reserve / spend / regain)","audit":"partial","gap":"Identity shows a suggested reserve for psion (Intelligence), wilder (Charisma), and psychic warrior (Wisdom): class table plus that ability’s modifier. Spending, regaining, and the full bonus-point table are not tracked","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":247,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-manifester-level-discipline","title":"Manifester level / discipline","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":248,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-display-augment","title":"Display / augment","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":249,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-power-resistance-vs-powers","title":"Power resistance vs powers","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":250,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-psi-like-abilities-monsters","title":"Psi-like abilities ( monsters )","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":251,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-dorjes-power-stones-cognizance-crystals","title":"Dorjes / power stones / cognizance crystals","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":252,"cat":"psionics","moved":false,"roadmap":null},{"id":"11-wild-surge-enervation-class-variants","title":"Wild surge / enervation (class variants)","audit":"missing","gap":"","section":11,"sectionTitle":"Psionics (SRD Expanded — if used)","order":253,"cat":"psionics","moved":false,"roadmap":null},{"id":"12-npc-actor-sheet","title":"NPC actor sheet","audit":"present","gap":"Includes trade / factions tab","section":12,"sectionTitle":"Monsters & NPCs","order":254,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-challenge-rating-field","title":"Challenge Rating field","audit":"partial","gap":"The NPC header shows DMG experience for that CR. Encounter CR for a mixed group is not calculated","section":12,"sectionTitle":"Monsters & NPCs","order":255,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-encounter-el-mixed-cr-calculator","title":"Encounter EL / mixed CR calculator","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":256,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-monster-ability-scores-skills","title":"Monster ability scores & skills","audit":"partial","gap":"Same model as PCs, including skill synergy. Good saves stay on the class or HD row","section":12,"sectionTitle":"Monsters & NPCs","order":257,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-monster-type-subtype-traits-construct-undead-swarm","title":"Monster type / subtype traits (construct, undead, swarm…)","audit":"missing","gap":"No trait engine","section":12,"sectionTitle":"Monsters & NPCs","order":258,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-special-attacks-qualities","title":"Special attacks & qualities","audit":"partial","gap":"Narrative + manual stats","section":12,"sectionTitle":"Monsters & NPCs","order":259,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-breath-weapon-dc-10-hd-con-automation","title":"Breath weapon DC (10 + ½ HD + Con) automation","audit":"partial","gap":"game.ctsdnd35.breathWeaponDc(hitDice, conMod). The NPC sheet does not fill a breath attack from it","section":12,"sectionTitle":"Monsters & NPCs","order":260,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-spell-like-abilities-per-day","title":"Spell-like abilities per day","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":261,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-treasure-type-encounter-loot-tables","title":"Treasure type / encounter loot tables","audit":"missing","gap":"D35E-style treasure % + generator — absent","section":12,"sectionTitle":"Monsters & NPCs","order":262,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-advancement-by-hd-templates","title":"Advancement by HD / templates","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":263,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-half-celestial-half-fiend-lich-template-toggles","title":"Half-celestial / half-fiend / lich template toggles","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":264,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-summoned-creatures-generic-tokens","title":"Summoned creatures / generic tokens","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":265,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-mob-rules-swarm-math","title":"Mob rules / swarm math","audit":"missing","gap":"","section":12,"sectionTitle":"Monsters & NPCs","order":266,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"12-bestiary-compendium","title":"Bestiary compendium","audit":"present","gap":"srd-monsters pack","section":12,"sectionTitle":"Monsters & NPCs","order":267,"cat":"monsters","moved":false,"roadmap":"monsters"},{"id":"13-falling-damage","title":"Falling damage","audit":"partial","gap":"game.ctsdnd35.fallingDamageDice(feet) is 1d6 per 10 feet, maximum 20d6. No chat roll","section":13,"sectionTitle":"Environment & hazards","order":268,"cat":"place","moved":false,"roadmap":null},{"id":"13-falling-object-damage","title":"Falling object damage","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":269,"cat":"place","moved":false,"roadmap":null},{"id":"13-suffocation-drowning","title":"Suffocation / drowning","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":270,"cat":"place","moved":false,"roadmap":null},{"id":"13-fire-cold-environmental-damage","title":"Fire / cold environmental damage","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":271,"cat":"place","moved":false,"roadmap":null},{"id":"13-lava-acid-immersion","title":"Lava / acid immersion","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":272,"cat":"place","moved":false,"roadmap":null},{"id":"13-starvation-thirst-forced-con-damage","title":"Starvation / thirst / forced Con damage","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":273,"cat":"place","moved":false,"roadmap":null},{"id":"13-extreme-heat-cold-fort-cycles","title":"Extreme heat / cold (Fort cycles)","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":274,"cat":"place","moved":false,"roadmap":null},{"id":"13-light-sources-vs-darkvision-radius","title":"Light sources vs darkvision radius","audit":"partial","gap":"Scene Light presets (day, overcast, dusk, moonlight, dark, magical darkness) set darkness and global light together. Low-light treats dim light as bright. Radius is still the light’s own bright/dim, not a doubled SRD radius.","section":13,"sectionTitle":"Environment & hazards","order":275,"cat":"place","moved":false,"roadmap":null},{"id":"13-magical-darkness-vs-mundane-light","title":"Magical darkness vs mundane light","audit":"partial","gap":"Magical darkness preset suppresses darkvision. Placed lights stay until the GM turns them off.","section":13,"sectionTitle":"Environment & hazards","order":276,"cat":"place","moved":false,"roadmap":null},{"id":"13-weather-forced-saves","title":"Weather & forced saves","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":277,"cat":"place","moved":false,"roadmap":null},{"id":"13-wind-effects-on-ranged-attacks-flight","title":"Wind effects on ranged attacks / flight","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":278,"cat":"place","moved":false,"roadmap":null},{"id":"13-traps-search-disable-reflex","title":"Traps (Search / Disable / Reflex)","audit":"missing","gap":"","section":13,"sectionTitle":"Environment & hazards","order":279,"cat":"place","moved":false,"roadmap":null},{"id":"13-haunts-encounters-tied-to-scenes","title":"Haunts / encounters tied to scenes","audit":"missing","gap":"Foundry journals manual","section":13,"sectionTitle":"Environment & hazards","order":280,"cat":"place","moved":false,"roadmap":null},{"id":"14-diplomacy-gather-information-dc-scaffolding","title":"Diplomacy / Gather Information DC scaffolding","audit":"missing","gap":"Skills roll only","section":14,"sectionTitle":"Social play & downtime","order":281,"cat":"town","moved":false,"roadmap":null},{"id":"14-npc-attitude-track-hostile-helpful","title":"NPC attitude track (hostile → helpful)","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":282,"cat":"town","moved":false,"roadmap":null},{"id":"14-sense-motive-vs-bluff","title":"Sense Motive vs Bluff","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":283,"cat":"town","moved":false,"roadmap":null},{"id":"14-intimidate-demoralize","title":"Intimidate / demoralize","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":284,"cat":"town","moved":false,"roadmap":null},{"id":"14-perform-bardic-performance-hooks","title":"Perform / bardic performance hooks","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":285,"cat":"town","moved":false,"roadmap":null},{"id":"14-urban-encounters-reputation","title":"Urban encounters / reputation","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":286,"cat":"town","moved":false,"roadmap":null},{"id":"14-research-knowledge-library-downtime","title":"Research / knowledge library downtime","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":287,"cat":"town","moved":false,"roadmap":null},{"id":"14-training-for-new-languages-or-ranks-time-gold","title":"Training for new languages or ranks (time + gold)","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":288,"cat":"town","moved":false,"roadmap":null},{"id":"14-spell-research-item-crafting-downtime","title":"Spell research / item crafting downtime","audit":"missing","gap":"","section":14,"sectionTitle":"Social play & downtime","order":289,"cat":"town","moved":false,"roadmap":null},{"id":"15-currency-cp-sp-gp-pp","title":"Currency (cp/sp/gp/pp)","audit":"present","gap":"Actor field","section":15,"sectionTitle":"Economy & CTS-specific systems","order":290,"cat":"town","moved":false,"roadmap":null},{"id":"15-selling-gear-half-base-price-masterwork-magic","title":"Selling gear (half base price, masterwork, magic)","audit":"partial","gap":"game.ctsdnd35.sellAtHalf(priceGp) is half price, keeping a half-gold. Masterwork and magic pricing stay in the trade helpers","section":15,"sectionTitle":"Economy & CTS-specific systems","order":291,"cat":"town","moved":false,"roadmap":null},{"id":"15-trade-goods-gems-art-objects","title":"Trade goods / gems / art objects","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":292,"cat":"town","moved":false,"roadmap":null},{"id":"15-loans-letters-of-credit-banks","title":"Loans / letters of credit / banks","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":293,"cat":"town","moved":false,"roadmap":null},{"id":"15-craft-profession-income","title":"Craft / Profession income","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":294,"cat":"town","moved":false,"roadmap":null},{"id":"15-item-crafting-cost-time-feats-spells","title":"Item crafting cost & time (feats + spells)","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":295,"cat":"town","moved":false,"roadmap":null},{"id":"15-treasure-allocation","title":"Treasure allocation","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":296,"cat":"town","moved":false,"roadmap":null},{"id":"15-party-loot-sheet-merchant-actor","title":"Party loot sheet / merchant actor","audit":"missing","gap":"Foundry workaround only","section":15,"sectionTitle":"Economy & CTS-specific systems","order":297,"cat":"town","moved":false,"roadmap":null},{"id":"15-faction-items-gear-stacking","title":"Faction items & Gear % stacking","audit":"present","gap":"Trade buyer modifiers","section":15,"sectionTitle":"Economy & CTS-specific systems","order":298,"cat":"town","moved":false,"roadmap":null},{"id":"15-race-based-buyer-seller-trade","title":"Race-based buyer/seller trade %","audit":"present","gap":"NPC sheet + computeGearPricePercentTotal","section":15,"sectionTitle":"Economy & CTS-specific systems","order":299,"cat":"town","moved":false,"roadmap":null},{"id":"15-item-pricing-helpers","title":"Item pricing helpers","audit":"partial","gap":"adjustedGearPrice; full SRD price tables not enforced","section":15,"sectionTitle":"Economy & CTS-specific systems","order":300,"cat":"town","moved":false,"roadmap":null},{"id":"15-cost-adjustment-by-settlement-size-optional-house-rule","title":"Cost adjustment by settlement size (optional house rule)","audit":"missing","gap":"","section":15,"sectionTitle":"Economy & CTS-specific systems","order":301,"cat":"town","moved":false,"roadmap":null},{"id":"16-token-actor-link","title":"Token ↔ actor link","audit":"present","gap":"Foundry default","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":302,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-vision-modes-on-token","title":"Vision modes on token","audit":"present","gap":"Foundry; not driven by 3.5 sense aggregation","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":303,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-darkvision-low-light-radius-from-actor","title":"Darkvision / low-light radius from actor","audit":"partial","gap":"Changing senses writes darkvision, low-light, or blindsight onto the token. Low-light upgrades shadowy light to bright. Magical darkness on the scene suppresses darkvision.","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":304,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-multi-token-linked-summons","title":"Multi-token linked summons","audit":"missing","gap":"","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":305,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-elevation-flight-bands","title":"Elevation / flight bands","audit":"partial","gap":"Foundry scene features; not tied to 3.5 maneuverability","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":306,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-grid-diagonal-policy-3-5-style","title":"Grid diagonal policy (3.5 style)","audit":"present","gap":"System setting enforces 5-10-5 option","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":307,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-enforce-5-ft-square-scale","title":"Enforce 5-ft square scale","audit":"present","gap":"World setting option in system init","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":308,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-template-placement-areas","title":"Template placement / areas","audit":"missing","gap":"Foundry tools manual","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":309,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-measured-templates-spell-areas","title":"Measured templates & spell areas","audit":"missing","gap":"Not spell-aware","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":310,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-walls-doors-blocking-los-movement","title":"Walls / doors blocking LoS & movement","audit":"present","gap":"Foundry walls; system does not validate 3.5 cover rules","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":311,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"16-ruler-waypoints-movement-audit","title":"Ruler & waypoints (movement audit)","audit":"present","gap":"Foundry core","section":16,"sectionTitle":"Canvas, tokens & Foundry integration","order":312,"cat":"place","moved":false,"roadmap":"canvas"},{"id":"17-threatened-area-overlay-reach-aware-melee","title":"Threatened-area overlay & reach-aware melee","audit":"partial","gap":"Reach ring around tokens (world setting). A circle, not a square-by-square map","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":313,"cat":"place","moved":true,"roadmap":"canvas"},{"id":"17-automatic-flanking-threat-detection-at-attack-time","title":"Automatic flanking / threat detection at attack time","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":314,"cat":"round","moved":true,"roadmap":"actions"},{"id":"17-formula-builder-variable-picker-on-item-fields","title":"Formula builder / @variable picker on item fields","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":315,"cat":"authoring","moved":false,"roadmap":"authoring"},{"id":"17-equipment-slot-enforcement-bonus-slots-from-effects","title":"Equipment slot enforcement + bonus slots from effects","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":316,"cat":"gear","moved":true,"roadmap":null},{"id":"17-advanced-ammunition-no-consume-ammo-damage-riders","title":"Advanced ammunition (no consume / ammo damage riders)","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":317,"cat":"gear","moved":true,"roadmap":null},{"id":"17-npc-treasure-blocks-treasure-generator-hooks","title":"NPC treasure blocks & treasure generator hooks","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":318,"cat":"monsters","moved":true,"roadmap":"monsters"},{"id":"17-optional-heavy-combat-tracker-actions-aoos-buff-ticks","title":"Optional heavy combat tracker (actions, AoOs, buff ticks)","audit":"missing","gap":"","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":319,"cat":"round","moved":true,"roadmap":"actions"},{"id":"17-encounter-initiative-extensions-beyond-core-foundry","title":"Encounter / initiative extensions beyond core Foundry","audit":"partial","gap":"Core combat only","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":320,"cat":"round","moved":true,"roadmap":"actions"},{"id":"17-compendium-drag-drop-onto-sheet","title":"Compendium drag-drop onto sheet","audit":"present","gap":"Foundry + your item types","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":321,"cat":"authoring","moved":false,"roadmap":"authoring"},{"id":"17-system-hooks-documented-for-macro-authors","title":"System hooks documented for macro authors","audit":"partial","gap":"game.ctsdnd35 API surface small","section":17,"sectionTitle":"UX, macros & authoring (benchmark vs D35E 3.0)","order":322,"cat":"authoring","moved":false,"roadmap":"authoring"},{"id":"20-epic-levels-epic-feats","title":"Epic levels / epic feats","audit":"out","gap":"Out of scope unless added as packs + progression","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":323,"cat":"books","moved":false,"roadmap":null},{"id":"20-incarnum-magic-of-incarnum","title":"Incarnum (Magic of Incarnum)","audit":"out","gap":"Out of scope","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":324,"cat":"books","moved":false,"roadmap":null},{"id":"20-tome-of-battle-martial-adepts","title":"Tome of Battle (martial adepts)","audit":"out","gap":"Out of scope","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":325,"cat":"books","moved":false,"roadmap":null},{"id":"20-tome-of-magic-binders-shadow-truename","title":"Tome of Magic (binders/shadow/truename)","audit":"out","gap":"Out of scope","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":326,"cat":"books","moved":false,"roadmap":null},{"id":"20-setting-specific-classes-eberron-faer-n","title":"Setting-specific classes (Eberron, Faerûn)","audit":"out","gap":"Pack content only","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":327,"cat":"books","moved":false,"roadmap":null},{"id":"20-unearthed-arcana-variants-gestalt-already-flagged","title":"Unearthed Arcana variants (gestalt already flagged)","audit":"out","gap":"Case-by-case","section":20,"sectionTitle":"Appendix — optional / non-SRD scope","order":328,"cat":"books","moved":false,"roadmap":null}]};
+  </script>
+  <script>
+    const DATA = window.DESK_DATA;
+    if (!DATA || !Array.isArray(DATA.items)) {
+      document.body.textContent = "This page has no checklist data. Open index.html in tools/implementation-desk.";
+      throw new Error("missing desk data");
+    }
+
+    const KEY = "cts-dnd35-feature-desk-v1";
+    const byId = new Map(DATA.items.map((item) => [item.id, item]));
+    const catById = (id) => DATA.categories.find((cat) => cat.id === id);
+    const AUDIT_LABEL = { missing: "Not built", partial: "Partly there", present: "In the system", out: "Out of scope" };
+
+    const openDrawers = new Set();
+    const openAreaNotes = new Set();
+    let query = "";
+    let activeId = null;
+    let toastTimer = 0;
+    let tickPainted = null;
+
+    function load() {
+      const blank = {
+        v: 1,
+        items: {},
+        notes: { working: "", decisions: "", questions: "" },
+        categoryNotes: {},
+        include: {},
+        ui: { filter: "todo", cat: "pipeline", scope: "main", tickId: null, hideIntro: false },
+        seenBuild: null,
+      };
+      try {
+        const raw = JSON.parse(localStorage.getItem(KEY) || "null");
+        if (!raw || typeof raw !== "object") return blank;
+        return {
+          ...blank,
+          ...raw,
+          notes: { ...blank.notes, ...(raw.notes || {}) },
+          categoryNotes: raw.categoryNotes || {},
+          include: raw.include || {},
+          items: raw.items || {},
+          ui: { ...blank.ui, ...(raw.ui || {}) },
+        };
+      } catch {
+        return blank;
+      }
+    }
+
+    const state = load();
+
+    function save() {
+      const label = document.getElementById("saved-flag");
+      try {
+        localStorage.setItem(KEY, JSON.stringify(state));
+        if (label) label.textContent = "Saved in this browser";
+      } catch {
+        if (label) label.textContent = "Could not save — export a backup";
+      }
+    }
+
+    function baseState(item) {
+      const saved = state.items[item.id] && state.items[item.id].state;
+      if (saved === "todo" || saved === "done" || saved === "later") return saved;
+      if (item.audit === "present") return "done";
+      if (item.audit === "out") return "later";
+      return "todo";
+    }
+
+    function inPool(item) {
+      const cat = catById(item.cat);
+      if (cat && cat.parked && !state.include[item.cat]) return false;
+      const st = baseState(item);
+      if (st === "later") return false;
+      if (item.audit === "present" && st !== "todo") return false;
+      return st === "todo" || st === "done";
+    }
+
+    function pool() {
+      return DATA.items.filter(inPool);
+    }
+
+    function searchMatch(item) {
+      const q = query.trim().toLowerCase();
+      if (!q) return true;
+      const note = (state.items[item.id] && state.items[item.id].note) || "";
+      const cat = catById(item.cat);
+      const hay = [item.title, item.gap, note, item.sectionTitle, cat ? cat.title : ""].join(" ").toLowerCase();
+      return hay.includes(q);
+    }
+
+    function filterOk(item) {
+      const st = baseState(item);
+      const saved = state.items[item.id] && state.items[item.id].state;
+      const f = state.ui.filter;
+      if (f === "all") return true;
+      if (f === "todo") return st === "todo";
+      if (f === "missing") return st === "todo" && item.audit === "missing";
+      if (f === "partial") return st === "todo" && item.audit === "partial";
+      if (f === "checked") return st === "done" && !(item.audit === "present" && !saved);
+      if (f === "insystem") return item.audit === "present" && st === "done";
+      if (f === "parked") return st === "later";
+      return true;
+    }
+
+    function hiddenOptional(item) {
+      if (state.ui.cat !== "all") return false;
+      const cat = catById(item.cat);
+      if (!cat || !cat.parked || state.include[item.cat]) return false;
+      return !state.items[item.id];
+    }
+
+    function catHasTodo(catId) {
+      return DATA.items.some((item) => item.cat === catId && baseState(item) === "todo" && searchMatch(item));
+    }
+
+    function listed(item) {
+      const searching = query.trim().length > 0;
+      if (!searching && state.ui.cat !== "all" && item.cat !== state.ui.cat) return false;
+      if (!searching && hiddenOptional(item)) return false;
+      if (!searchMatch(item)) return false;
+      if (filterOk(item)) return true;
+      if (searching && state.ui.filter === "todo" && baseState(item) === "later") return true;
+      const showDormant = !searching
+        && state.ui.cat === item.cat
+        && state.ui.filter === "todo"
+        && !catHasTodo(item.cat)
+        && baseState(item) === "later";
+      return showDormant;
+    }
+
+    function listedItems() {
+      return DATA.items.filter(listed).sort((a, b) => {
+        const rank = (item) => {
+          const st = baseState(item);
+          const auditRank = { missing: 0, partial: 1, present: 2, out: 3 }[item.audit] ?? 4;
+          const stateRank = st === "todo" ? 0 : st === "later" ? 1 : 2;
+          return stateRank * 10 + auditRank;
+        };
+        return rank(a) - rank(b) || a.order - b.order;
+      });
+    }
+
+    function workRank(item) {
+      return { missing: 0, partial: 1, present: 2, out: 3 }[item.audit] ?? 4;
+    }
+
+    function workQueue() {
+      const scope = state.ui.scope || "main";
+      return DATA.items.filter((item) => {
+        if (baseState(item) !== "todo") return false;
+        if (!searchMatch(item)) return false;
+        if (scope.startsWith("step:")) return item.roadmap === scope.slice(5);
+        if (scope.startsWith("cat:")) return item.cat === scope.slice(4);
+        if (state.ui.filter === "missing" && item.audit !== "missing") return false;
+        if (state.ui.filter === "partial" && item.audit !== "partial") return false;
+        if (state.ui.cat !== "all" && item.cat !== state.ui.cat) return false;
+        return inPool(item) || (state.ui.cat !== "all" && item.cat === state.ui.cat);
+      }).sort((a, b) => workRank(a) - workRank(b) || a.order - b.order);
+    }
+
+    function scopeLabel() {
+      const scope = state.ui.scope || "main";
+      if (scope.startsWith("cat:")) {
+        const cat = catById(scope.slice(4));
+        return cat ? cat.short : "This area";
+      }
+      if (scope.startsWith("step:")) {
+        const step = DATA.roadmap.find((row) => row.id === scope.slice(5));
+        return step ? "Roadmap · " + step.title : "Roadmap";
+      }
+      if (state.ui.cat !== "all") {
+        const cat = catById(state.ui.cat);
+        return cat ? cat.short : "Main list";
+      }
+      return "Main list";
+    }
+
+    function el(tag, attrs, children) {
+      const node = document.createElement(tag);
+      if (tag === "button" && !(attrs && attrs.type)) node.type = "button";
+      for (const [key, value] of Object.entries(attrs || {})) {
+        if (value == null) continue;
+        if (key === "class") node.className = value;
+        else if (key === "text") node.textContent = value;
+        else if (key === "hidden") node.hidden = Boolean(value);
+        else if (key === "value") node.value = value;
+        else if (typeof value === "function" && key.startsWith("on")) node.addEventListener(key.slice(2).toLowerCase(), value);
+        else if (typeof value === "boolean") {
+          if (value) node.setAttribute(key, "");
+          else node.removeAttribute(key);
+        } else node.setAttribute(key, String(value));
+      }
+      for (const child of [].concat(children || [])) {
+        if (child == null || child === false) continue;
+        node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+      }
+      return node;
+    }
+
+    function snapshot(id) {
+      const data = state.items[id] ? JSON.parse(JSON.stringify(state.items[id])) : null;
+      return { id, data, tickId: state.ui.tickId, activeId };
+    }
+
+    function restore(snap) {
+      if (snap.data) state.items[snap.id] = snap.data;
+      else delete state.items[snap.id];
+      state.ui.tickId = snap.tickId;
+      activeId = snap.activeId;
+      save();
+      refreshAll();
+    }
+
+    function setItemState(id, next) {
+      if (!state.items[id]) state.items[id] = {};
+      state.items[id].state = next;
+      save();
+    }
+
+    function toast(message, undo) {
+      const node = document.getElementById("toast");
+      node.replaceChildren(el("span", { text: message }));
+      if (undo) node.append(el("button", { class: "ghost", text: "Undo", onClick: () => { undo(); hideToast(); } }));
+      node.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(hideToast, 6000);
+    }
+
+    function hideToast() {
+      document.getElementById("toast").hidden = true;
+    }
+
+    function groupLabel(item) {
+      const st = baseState(item);
+      if (st === "later") return "Parked";
+      if (st === "done" && item.audit === "present") return "Already in the system";
+      if (st === "done") return "Checked off";
+      if (item.audit === "missing") return "Not built";
+      if (item.audit === "partial") return "Partly there";
+      if (item.audit === "present") return "Reopened";
+      return "Out of scope";
+    }
+
+    function updateStat() {
+      const rows = pool();
+      const todo = rows.filter((item) => baseState(item) === "todo").length;
+      const done = rows.filter((item) => baseState(item) === "done").length;
+      const rawPct = rows.length ? (done / rows.length) * 100 : 100;
+      const pct = rawPct > 0 && rawPct < 1 ? 1 : Math.round(rawPct);
+      const stat = document.getElementById("stat");
+      stat.replaceChildren(
+        el("b", { text: todo ? todo + " to do" : "All caught up" }),
+        el("span", { text: done + " checked · " + pct + "%" })
+      );
+      const missing = rows.filter((item) => baseState(item) === "todo" && item.audit === "missing").length;
+      const partial = rows.filter((item) => baseState(item) === "todo" && item.audit === "partial").length;
+      stat.title = missing + " not built, " + partial + " partly there, " + done + " checked. Start ticking.";
+      document.getElementById("meter-bar").style.width = pct + "%";
+    }
+
+    function syncChips() {
+      for (const button of document.querySelectorAll("[data-filter]")) {
+        button.setAttribute("aria-pressed", button.dataset.filter === state.ui.filter ? "true" : "false");
+      }
+      for (const button of document.querySelectorAll("[data-page]")) {
+        button.setAttribute("aria-selected", button.dataset.page === currentPage() ? "true" : "false");
+      }
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("nav");
+      nav.replaceChildren();
+      const mainTodo = pool().filter((item) => baseState(item) === "todo").length;
+      const allBtn = el("button", {
+        class: "area",
+        onClick: () => { state.ui.cat = "all"; save(); refreshAll(); },
+      });
+      if (state.ui.cat === "all") allBtn.setAttribute("aria-current", "true");
+      nav.append(allBtn);
+      allBtn.append(el("span", { class: "name", text: "All areas" }), el("small", { text: String(mainTodo) }));
+
+      let lastGroup = "";
+      for (const cat of DATA.categories) {
+        if (cat.group !== lastGroup) {
+          nav.append(el("div", { class: "nav-label", text: cat.group }));
+          lastGroup = cat.group;
+        }
+        const raw = DATA.items.filter((item) => item.cat === cat.id && baseState(item) === "todo").length;
+        const optional = cat.parked && !state.include[cat.id];
+        const button = el("button", {
+          class: "area" + (optional ? " off" : ""),
+          title: optional ? "Not on the main count" : cat.blurb,
+          onClick: () => { state.ui.cat = cat.id; save(); refreshAll(); },
+        });
+        if (state.ui.cat === cat.id) button.setAttribute("aria-current", "true");
+        button.append(el("span", { class: "name", text: cat.short }), el("small", { text: optional ? raw + " · opt" : String(raw) }));
+        nav.append(button);
+      }
+    }
+
+    function renderList() {
+      const scroller = document.getElementById("list-scroll");
+      const y = scroller.scrollTop;
+      const root = document.getElementById("list");
+      root.replaceChildren();
+      const rows = listedItems();
+      const searching = query.trim().length > 0;
+      const scopeNote = searching && state.ui.cat !== "all" ? " in all areas" : "";
+      document.getElementById("result-count").textContent = rows.length + (rows.length === 1 ? " row" : " rows") + scopeNote;
+
+      if (!rows.length) {
+        root.append(el("div", { class: "empty", text: "Nothing in this filter. Try All, or pick another area." }));
+      }
+
+      for (const cat of DATA.categories) {
+        const catRows = rows.filter((item) => item.cat === cat.id);
+        if (!catRows.length) continue;
+        const section = el("section", { class: "cat", id: "cat-" + cat.id });
+        const head = el("div", { class: "cat-head" });
+        head.append(el("h2", { text: cat.title }), el("p", { class: "blurb", text: cat.blurb }));
+        const actions = el("div", { class: "cat-actions" });
+        actions.append(el("button", {
+          class: "ghost",
+          text: "Tick through these",
+          onClick: () => {
+            state.ui.scope = "cat:" + cat.id;
+            state.ui.cat = cat.id;
+            const first = workQueue()[0];
+            state.ui.tickId = first ? first.id : null;
+            save();
+            go("tick");
+          },
+        }));
+        if (cat.parked) {
+          actions.append(el("button", {
+            class: "ghost",
+            text: state.include[cat.id] ? "On the main list" : "Include on the main list",
+            onClick: () => {
+              state.include[cat.id] = !state.include[cat.id];
+              save();
+              toast(state.include[cat.id] ? cat.short + " counts toward progress." : cat.short + " is off the main count.");
+              refreshAll();
+            },
+          }));
+        }
+        head.append(actions);
+        const noteText = state.categoryNotes[cat.id] || "";
+        const details = el("details", { class: "area-notes" });
+        if (openAreaNotes.has(cat.id)) details.open = true;
+        details.append(el("summary", { text: noteText.trim() ? "Area notes · saved" : "Area notes" }));
+        const areaBox = el("textarea", {
+          spellcheck: "true",
+          placeholder: "Notes for this whole area",
+          value: noteText,
+        });
+        areaBox.addEventListener("input", () => {
+          state.categoryNotes[cat.id] = areaBox.value;
+          save();
+          details.querySelector("summary").textContent = areaBox.value.trim() ? "Area notes · saved" : "Area notes";
+        });
+        details.addEventListener("toggle", () => {
+          if (details.open) openAreaNotes.add(cat.id);
+          else openAreaNotes.delete(cat.id);
+        });
+        details.append(areaBox);
+        head.append(details);
+        section.append(head);
+
+        const dormant = catRows.every((item) => baseState(item) === "later");
+        if (dormant) {
+          section.append(el("p", {
+            class: "meta",
+            text: "Nothing in this area is on your list. Put a row back if you mean to build it.",
+          }));
+        }
+
+        let last = "";
+        for (const item of catRows) {
+          const label = groupLabel(item);
+          if (label !== last) {
+            section.append(el("div", { class: "subhead", text: label }));
+            last = label;
+          }
+          section.append(renderItem(item));
+        }
+        root.append(section);
+      }
+
+      if (activeId) {
+        const current = root.querySelector('.item[data-id="' + CSS.escape(activeId) + '"]');
+        if (current) current.classList.add("active");
+        else activeId = root.querySelector(".item")?.dataset.id || null;
+        if (activeId) root.querySelector('.item[data-id="' + CSS.escape(activeId) + '"]')?.classList.add("active");
+      }
+      scroller.scrollTop = y;
+    }
+
+    function renderItem(item) {
+      const st = baseState(item);
+      const wrap = el("article", { class: "item" + (st === "done" ? " done" : "") + (openDrawers.has(item.id) ? " open" : ""), "data-id": item.id });
+      const row = el("div", { class: "row" });
+      const tick = el("button", {
+        class: "tick" + (st === "later" ? " later" : ""),
+        "aria-pressed": st === "done" ? "true" : "false",
+        "aria-label": st === "done" ? "Put back on the list" : st === "later" ? "Put on the list" : "Mark done",
+        text: st === "done" ? "✓" : st === "later" ? "–" : "",
+        onClick: () => onCheck(item),
+      });
+      const body = el("button", { class: "body", onClick: () => toggleDrawer(item.id) });
+      body.append(el("span", { class: "title", text: item.title }));
+      if (item.gap) body.append(el("span", { class: "gapline", text: item.gap }));
+      const side = el("div", { class: "side" });
+      const note = (state.items[item.id] && state.items[item.id].note) || "";
+      if (note.trim()) side.append(el("span", { class: "noted", text: "Note" }));
+      side.append(el("span", { class: "badge " + item.audit, text: AUDIT_LABEL[item.audit] || item.audit }));
+      row.append(tick, body, side);
+      wrap.append(row);
+
+      if (openDrawers.has(item.id)) {
+        const drawer = el("div", { class: "drawer" });
+        if (item.gap) drawer.append(el("p", { class: "gap", text: item.gap }));
+        else drawer.append(el("p", { class: "gap", text: "The audit lists this with no further detail." }));
+        const cat = catById(item.cat);
+        let meta = "Audit §" + item.section + " · " + item.sectionTitle;
+        if (item.moved && cat) meta += " · listed under " + cat.short;
+        drawer.append(el("p", { class: "meta", text: meta }));
+        const box = el("textarea", {
+          spellcheck: "true",
+          placeholder: "What you tried, what is left, decisions",
+          value: note,
+          "aria-label": "Notes for " + item.title,
+        });
+        box.addEventListener("input", () => {
+          if (!state.items[item.id]) state.items[item.id] = {};
+          state.items[item.id].note = box.value;
+          if (!state.items[item.id].state && !box.value) delete state.items[item.id];
+          save();
+          let flag = side.querySelector(".noted");
+          if (box.value.trim() && !flag) side.prepend(el("span", { class: "noted", text: "Note" }));
+          if (!box.value.trim() && flag) flag.remove();
+        });
+        const actions = el("div", { class: "drawer-actions" });
+        if (st === "later") {
+          actions.append(el("button", { class: "ghost", text: "Put on the list", onClick: () => onCheck(item) }));
+        } else {
+          actions.append(el("button", { class: "ghost", text: "Park", onClick: () => park(item) }));
+        }
+        actions.append(el("button", {
+          class: "ghost",
+          text: "Open in tick-through",
+          onClick: () => {
+            state.ui.scope = "cat:" + item.cat;
+            state.ui.tickId = item.id;
+            save();
+            go("tick");
+          },
+        }));
+        drawer.append(box, actions);
+        wrap.append(drawer);
+      }
+      return wrap;
+    }
+
+    function toggleDrawer(id) {
+      if (openDrawers.has(id)) openDrawers.delete(id);
+      else openDrawers.add(id);
+      activeId = id;
+      renderList();
+    }
+
+    function neighborId(id, dir) {
+      const ids = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+      const index = ids.indexOf(id);
+      if (index < 0) return ids[0] || null;
+      return ids[index + dir] || ids[index] || null;
+    }
+
+    function onCheck(item) {
+      const rows = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+      const index = rows.indexOf(item.id);
+      const snap = snapshot(item.id);
+      const st = baseState(item);
+      const next = st === "todo" ? "done" : "todo";
+      setItemState(item.id, next);
+      activeId = next === "done" && (state.ui.filter === "todo" || state.ui.filter === "missing" || state.ui.filter === "partial")
+        ? (rows[index + 1] || rows[index - 1] || null)
+        : item.id;
+      toast((next === "done" ? "Checked: " : "Back on the list: ") + item.title, () => restore(snap));
+      refreshAll();
+    }
+
+    function park(item) {
+      const snap = snapshot(item.id);
+      setItemState(item.id, "later");
+      activeId = neighborId(item.id, 1);
+      toast("Parked: " + item.title, () => restore(snap));
+      refreshAll();
+    }
+
+    function renderTick(force) {
+      const root = document.getElementById("tick-root");
+      const queue = workQueue();
+      let id = state.ui.tickId;
+      if (!id || !byId.has(id)) id = queue[0] ? queue[0].id : null;
+      state.ui.tickId = id;
+      if (!id) {
+        tickPainted = null;
+        root.replaceChildren(
+          el("p", { class: "eyebrow", text: scopeLabel() }),
+          el("h1", { text: "Nothing left in this queue" }),
+          el("p", { class: "tick-gap", text: "Everything in this view is checked, parked, or already in the system." }),
+          el("div", { class: "tick-actions" }, [
+            el("button", { class: "primary", text: "Back to the checklist", onClick: () => go("list") }),
+            el("button", { class: "ghost", text: "Widen to the main list", onClick: () => { state.ui.scope = "main"; state.ui.cat = "all"; state.ui.filter = "todo"; save(); renderTick(true); updateStat(); renderNav(); syncChips(); } }),
+          ])
+        );
+        return;
+      }
+      if (!force && tickPainted === id && document.getElementById("tick-note")) {
+        paintTickPosition(queue, id);
+        return;
+      }
+      const item = byId.get(id);
+      const st = baseState(item);
+      const cat = catById(item.cat);
+      root.replaceChildren();
+      const eyebrow = el("div", { class: "scope-row" });
+      eyebrow.append(el("span", { text: scopeLabel() + " · " + (cat ? cat.short : "") }));
+      if ((state.ui.scope || "main") !== "main") {
+        eyebrow.append(el("button", {
+          class: "ghost",
+          text: "Widen to the main list",
+          onClick: () => { state.ui.scope = "main"; state.ui.cat = "all"; save(); renderTick(true); },
+        }));
+      }
+      root.append(eyebrow);
+      root.append(el("p", { class: "eyebrow", text: (AUDIT_LABEL[item.audit] || "") + " · Audit §" + item.section }));
+      root.append(el("h1", { text: item.title }));
+      root.append(el("p", { class: "tick-gap", text: item.gap || "The audit lists this with no further detail." }));
+      if (item.moved && cat) {
+        root.append(el("p", { class: "meta", text: "Filed under " + cat.short + " · from §" + item.section + " " + item.sectionTitle }));
+      }
+      const actions = el("div", { class: "tick-actions" });
+      actions.append(el("button", {
+        class: "primary",
+        text: st === "done" ? "Checked" : "Done",
+        disabled: st === "done",
+        onClick: () => markFromTick("done"),
+      }));
+      actions.append(el("button", { class: "ghost", text: "Skip", onClick: () => moveTick(1) }));
+      if (st === "later") {
+        actions.append(el("button", { class: "ghost", text: "Put on the list", onClick: () => { setItemState(item.id, "todo"); toast("On the list: " + item.title); renderTick(true); refreshQuiet(); } }));
+      } else {
+        actions.append(el("button", { class: "ghost", text: "Park", onClick: () => markFromTick("later") }));
+      }
+      if (st === "done" || st === "later") {
+        actions.append(el("button", { class: "ghost", text: "Back to to-do", onClick: () => { setItemState(item.id, "todo"); renderTick(true); refreshQuiet(); } }));
+      }
+      root.append(actions);
+      const box = el("textarea", {
+        id: "tick-note",
+        spellcheck: "true",
+        placeholder: "Notes for this rule",
+        value: (state.items[item.id] && state.items[item.id].note) || "",
+        "aria-label": "Notes for " + item.title,
+      });
+      box.addEventListener("input", () => {
+        if (!state.items[item.id]) state.items[item.id] = {};
+        state.items[item.id].note = box.value;
+        save();
+      });
+      root.append(el("label", { class: "block", text: "Notes" }, [box]));
+      const foot = el("div", { class: "tick-foot" });
+      foot.append(
+        el("button", { class: "ghost", id: "tick-prev", text: "Previous", onClick: () => moveTick(-1) }),
+        el("span", { id: "tick-pos", text: "" }),
+        el("button", { class: "ghost", id: "tick-next", text: "Next", onClick: () => moveTick(1) })
+      );
+      root.append(foot);
+      root.append(el("p", { class: "keys", text: "Keys: X marks done, P parks, arrow keys move. Notes stay when you move on." }));
+      paintTickPosition(queue, id);
+      tickPainted = id;
+    }
+
+    function paintTickPosition(queue, id) {
+      const index = queue.findIndex((item) => item.id === id);
+      const pos = document.getElementById("tick-pos");
+      if (pos) pos.textContent = index >= 0 ? (index + 1) + " of " + queue.length : "Outside this queue";
+      const prev = document.getElementById("tick-prev");
+      const next = document.getElementById("tick-next");
+      if (prev) prev.disabled = index <= 0;
+      if (next) next.disabled = index < 0 || index >= queue.length - 1;
+    }
+
+    function moveTick(dir) {
+      const queue = workQueue();
+      const index = queue.findIndex((item) => item.id === state.ui.tickId);
+      const next = queue[index + dir];
+      if (!next) return;
+      state.ui.tickId = next.id;
+      save();
+      renderTick(true);
+    }
+
+    function markFromTick(nextState) {
+      const id = state.ui.tickId;
+      const item = byId.get(id);
+      if (!item) return;
+      const queue = workQueue();
+      const index = queue.findIndex((row) => row.id === id);
+      let follow = queue[index + 1]?.id || queue[index - 1]?.id || null;
+      if (follow === id) follow = null;
+      const snap = snapshot(id);
+      setItemState(id, nextState);
+      state.ui.tickId = follow;
+      save();
+      toast((nextState === "done" ? "Checked: " : "Parked: ") + item.title, () => restore(snap));
+      renderTick(true);
+      refreshQuiet();
+    }
+
+    function refreshQuiet() {
+      updateStat();
+      syncChips();
+      renderNav();
+    }
+
+    function renderRoadmap() {
+      const root = document.getElementById("roadmap-root");
+      root.replaceChildren();
+      root.append(el("p", { class: "eyebrow", text: "Build order" }));
+      root.append(el("h1", { text: "Nine steps, then the rest" }));
+      root.append(el("p", {
+        class: "tick-gap",
+        text: "The audit reads like the rulebook. This page reads like the work. Each row still names its audit section, so nothing was dropped.",
+      }));
+      DATA.roadmap.forEach((step, index) => {
+        const rows = DATA.items.filter((item) => item.roadmap === step.id);
+        const open = rows.filter((item) => baseState(item) === "todo" && inPool(item));
+        const block = el("article", { class: "step" + (open.length ? "" : " done") });
+        block.append(el("div", { class: "step-index", text: String(index + 1) }));
+        const body = el("div");
+        body.append(el("h2", { text: step.title }));
+        body.append(el("p", { text: step.blurb }));
+        body.append(el("p", { class: "meta", text: open.length ? open.length + " still open" : "Nothing open on the main list" }));
+        const list = el("ul");
+        for (const item of open) {
+          const li = el("li");
+          const button = el("button", { onClick: () => openStepItem(step.id, item.id) });
+          button.append(item.title, el("span", { text: AUDIT_LABEL[item.audit] + (item.gap ? " — " + item.gap : "") }));
+          li.append(button);
+          list.append(li);
+        }
+        if (!open.length) list.append(el("li", {}, [el("span", { class: "meta", text: "Checked, parked, or already in the system." })]));
+        body.append(list);
+        const parked = rows.filter((item) => inPool(item) && baseState(item) === "done").length;
+        const already = rows.filter((item) => item.audit === "present" && baseState(item) === "done").length;
+        if (parked || already) {
+          body.append(el("p", { class: "meta", text: parked + " checked in this step · " + already + " already in the system" }));
+        }
+        block.append(body);
+        root.append(block);
+      });
+
+      root.append(el("h2", { text: "Also to build" }));
+      root.append(el("p", { text: DATA.offpathBlurb }));
+      const offCats = DATA.categories.filter((cat) => DATA.items.some((item) => item.cat === cat.id && !item.roadmap && baseState(item) === "todo" && inPool(item)));
+      if (!offCats.length) root.append(el("p", { class: "meta", text: "Nothing else is open on the main list." }));
+      for (const cat of offCats) {
+        const open = DATA.items.filter((item) => item.cat === cat.id && !item.roadmap && baseState(item) === "todo" && inPool(item));
+        const details = el("details");
+        details.append(el("summary", { text: cat.short + " · " + open.length + " open" }));
+        const list = el("ul");
+        for (const item of open) {
+          const li = el("li");
+          li.append(el("button", { text: item.title, onClick: () => openStepItem(null, item.id, cat.id) }));
+          list.append(li);
+        }
+        details.append(list);
+        root.append(details);
+      }
+      root.append(el("p", { class: "footer-note", id: "saved-flag", text: "Saved in this browser" }));
+    }
+
+    function openStepItem(stepId, itemId, catId) {
+      state.ui.scope = stepId ? "step:" + stepId : "cat:" + catId;
+      state.ui.tickId = itemId;
+      if (catId) state.ui.cat = catId;
+      save();
+      go("tick");
+    }
+
+    function currentPage() {
+      const hash = location.hash.replace("#", "");
+      if (hash === "tick" || hash === "roadmap" || hash === "notes") return hash;
+      return "list";
+    }
+
+    function show(page) {
+      if (page === "tick" && !["todo", "missing", "partial", "all"].includes(state.ui.filter)) {
+        state.ui.filter = "todo";
+      }
+      for (const name of ["list", "tick", "roadmap", "notes"]) {
+        document.getElementById("view-" + name).hidden = name !== page;
+      }
+      syncChips();
+      updateStat();
+      if (page === "list") {
+        renderNav();
+        renderList();
+      } else if (page === "tick") {
+        renderTick(true);
+      } else if (page === "roadmap") {
+        renderRoadmap();
+      }
+      state.ui.page = page;
+      save();
+    }
+
+    function go(page) {
+      const hash = page === "list" ? "#checklist" : "#" + page;
+      if (location.hash !== hash) location.hash = hash;
+      else show(page);
+    }
+
+    function summaryText() {
+      const lines = ["# CTS D&D 3.5 feature desk", ""];
+      const rows = pool();
+      const todo = rows.filter((item) => baseState(item) === "todo").length;
+      const done = rows.filter((item) => baseState(item) === "done").length;
+      lines.push(todo + " to do · " + done + " checked", "");
+      for (const cat of DATA.categories) {
+        const items = DATA.items.filter((item) => item.cat === cat.id && (inPool(item) || ((state.items[item.id] && state.items[item.id].note) || "").trim()));
+        if (!items.length) continue;
+        lines.push("## " + cat.title, "");
+        for (const item of items) {
+          const st = baseState(item);
+          const mark = st === "done" ? "x" : " ";
+          lines.push("- [" + mark + "] " + item.title + " — " + (AUDIT_LABEL[item.audit] || item.audit));
+          const note = (state.items[item.id] && state.items[item.id].note || "").trim();
+          if (note) lines.push("  - " + note.replace(/\s+/g, " "));
+        }
+        const area = (state.categoryNotes[cat.id] || "").trim();
+        if (area) lines.push("", "Area notes: " + area.replace(/\s+/g, " "));
+        lines.push("");
+      }
+      for (const [name, text] of [["Working notes", state.notes.working], ["Decisions", state.notes.decisions], ["Open questions", state.notes.questions]]) {
+        if ((text || "").trim()) {
+          lines.push("## " + name, "", text.trim(), "");
+        }
+      }
+      return lines.join("\n");
+    }
+
+    async function copySummary() {
+      const text = summaryText();
+      try {
+        await navigator.clipboard.writeText(text);
+        toast("Summary copied.");
+      } catch {
+        const box = el("textarea", { class: "copy-fallback", value: text });
+        const holder = document.getElementById("toast");
+        holder.replaceChildren(el("span", { text: "Clipboard blocked. Select and copy:" }), box);
+        holder.hidden = false;
+        box.focus();
+        box.select();
+      }
+    }
+
+    function exportJson() {
+      const blob = new Blob([JSON.stringify({
+        v: 1,
+        exported: new Date().toISOString(),
+        builtAt: DATA.builtAt,
+        items: state.items,
+        notes: state.notes,
+        categoryNotes: state.categoryNotes,
+        include: state.include,
+      }, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "cts-dnd35-feature-desk.json";
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function fillNotes() {
+      for (const key of ["working", "decisions", "questions"]) {
+        const node = document.getElementById("note-" + key);
+        const value = state.notes[key] || "";
+        if (node.value !== value) node.value = value;
+      }
+    }
+
+    function bind() {
+      document.getElementById("home").addEventListener("click", () => {
+        state.ui.cat = "all";
+        state.ui.scope = "main";
+        save();
+        go("list");
+      });
+      document.getElementById("stat").addEventListener("click", () => {
+        state.ui.scope = "main";
+        state.ui.cat = "all";
+        state.ui.filter = "todo";
+        state.ui.tickId = null;
+        save();
+        go("tick");
+      });
+      for (const button of document.querySelectorAll("[data-page]")) {
+        button.addEventListener("click", () => {
+          if (button.dataset.page === "tick") {
+            state.ui.scope = state.ui.cat === "all" ? "main" : "cat:" + state.ui.cat;
+            const queue = workQueue();
+            if (!queue.some((item) => item.id === state.ui.tickId)) state.ui.tickId = queue[0] ? queue[0].id : null;
+            save();
+          }
+          go(button.dataset.page);
+        });
+      }
+      for (const button of document.querySelectorAll("[data-filter]")) {
+        button.addEventListener("click", () => {
+          state.ui.filter = button.dataset.filter;
+          save();
+          syncChips();
+          renderList();
+          updateStat();
+        });
+      }
+      const search = document.getElementById("q");
+      search.addEventListener("input", () => { query = search.value; renderList(); });
+      search.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (search.value) {
+            search.value = "";
+            query = "";
+            renderList();
+          } else search.blur();
+        }
+      });
+      document.getElementById("export").addEventListener("click", exportJson);
+      document.getElementById("import").addEventListener("click", () => document.getElementById("import-file").click());
+      document.getElementById("import-file").addEventListener("change", async (event) => {
+        const file = event.target.files && event.target.files[0];
+        event.target.value = "";
+        if (!file) return;
+        try {
+          const data = JSON.parse(await file.text());
+          if (!data || typeof data.items !== "object") throw new Error("bad file");
+          state.items = data.items || {};
+          state.notes = { working: "", decisions: "", questions: "", ...(data.notes || {}) };
+          state.categoryNotes = data.categoryNotes || {};
+          state.include = data.include || {};
+          save();
+          fillNotes();
+          refreshAll();
+          toast("Imported.");
+        } catch {
+          toast("That file is not a feature-desk backup.");
+        }
+      });
+      document.getElementById("copy").addEventListener("click", () => {
+        document.querySelector("details.more").open = false;
+        copySummary();
+      });
+      document.getElementById("show-intro").addEventListener("click", () => {
+        state.ui.hideIntro = false;
+        save();
+        document.getElementById("intro").hidden = false;
+        document.querySelector("details.more").open = false;
+        go("list");
+      });
+      document.getElementById("reset").addEventListener("click", () => {
+        if (!confirm("Clear every check, park, and note saved in this browser?")) return;
+        localStorage.removeItem(KEY);
+        location.reload();
+      });
+      document.getElementById("hide-intro").addEventListener("click", () => {
+        state.ui.hideIntro = true;
+        save();
+        document.getElementById("intro").hidden = true;
+      });
+      document.getElementById("dismiss-rebuild").addEventListener("click", () => {
+        state.seenBuild = DATA.builtAt;
+        save();
+        document.getElementById("rebuild-banner").hidden = true;
+      });
+      for (const key of ["working", "decisions", "questions"]) {
+        document.getElementById("note-" + key).addEventListener("input", (event) => {
+          state.notes[key] = event.target.value;
+          save();
+        });
+      }
+      window.addEventListener("hashchange", () => show(currentPage()));
+      document.addEventListener("keydown", (event) => {
+        const typing = event.target.matches("input, textarea, select");
+        if (event.key === "/" && !typing) {
+          event.preventDefault();
+          go("list");
+          queueMicrotask(() => document.getElementById("q").focus());
+          return;
+        }
+        if (typing) return;
+        const page = currentPage();
+        if (page === "tick") {
+          if (event.key === "ArrowRight") { event.preventDefault(); moveTick(1); }
+          if (event.key === "ArrowLeft") { event.preventDefault(); moveTick(-1); }
+          if (event.key === "x" || event.key === "X") { event.preventDefault(); markFromTick("done"); }
+          if (event.key === "p" || event.key === "P") { event.preventDefault(); markFromTick("later"); }
+          return;
+        }
+        if (page !== "list") return;
+        const ids = [...document.querySelectorAll("#list .item")].map((node) => node.dataset.id);
+        if (!ids.length) return;
+        if (!activeId || !ids.includes(activeId)) activeId = ids[0];
+        const index = ids.indexOf(activeId);
+        if (event.key === "j" || event.key === "J" || event.key === "ArrowDown") {
+          event.preventDefault();
+          activeId = ids[Math.min(ids.length - 1, index + 1)];
+          paintActive();
+        } else if (event.key === "k" || event.key === "K" || event.key === "ArrowUp") {
+          event.preventDefault();
+          activeId = ids[Math.max(0, index - 1)];
+          paintActive();
+        } else if (event.key === "x" || event.key === "X") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (item) onCheck(item);
+        } else if (event.key === "p" || event.key === "P") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (item) park(item);
+        } else if (event.key === "Enter") {
+          event.preventDefault();
+          const item = byId.get(activeId);
+          if (!item) return;
+          state.ui.scope = "cat:" + item.cat;
+          state.ui.tickId = item.id;
+          save();
+          go("tick");
+        }
+      });
+    }
+
+    function paintActive() {
+      for (const node of document.querySelectorAll("#list .item")) node.classList.toggle("active", node.dataset.id === activeId);
+      document.querySelector('#list .item[data-id="' + CSS.escape(activeId) + '"]')?.scrollIntoView({ block: "nearest" });
+    }
+
+    function refreshAll() {
+      updateStat();
+      syncChips();
+      const page = currentPage();
+      if (page === "list") {
+        renderNav();
+        renderList();
+      } else if (page === "tick") {
+        renderTick(true);
+      } else if (page === "roadmap") {
+        renderRoadmap();
+      } else {
+        renderNav();
+      }
+    }
+
+    function init() {
+      document.getElementById("intro-lead").textContent = DATA.intro;
+      const regroup = document.getElementById("regroup-list");
+      for (const row of DATA.regroup) {
+        const li = document.createElement("li");
+        const strong = document.createElement("strong");
+        strong.textContent = row.title;
+        li.append(strong, document.createTextNode(" " + row.text));
+        regroup.append(li);
+      }
+      document.getElementById("intro").hidden = !!state.ui.hideIntro;
+      if (state.seenBuild && state.seenBuild !== DATA.builtAt) {
+        document.getElementById("rebuild-banner").hidden = false;
+      } else if (!state.seenBuild) {
+        state.seenBuild = DATA.builtAt;
+        save();
+      }
+      const foot = document.getElementById("list-foot");
+      foot.textContent = "Rows generated from " + DATA.source + ". To pick up audit edits: node tools/implementation-desk/build.mjs";
+      fillNotes();
+      bind();
+      if (!location.hash) location.hash = "#checklist";
+      else show(currentPage());
+    }
+
+    init();
+  </script>
+</body>
+</html>

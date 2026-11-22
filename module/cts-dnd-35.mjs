@@ -34,6 +34,15 @@ import {
   iterativeAttackBonuses,
   summarizeConditions,
 } from "./helpers/combat-rules.mjs";
+import {
+  breathWeaponDc,
+  experienceForCr,
+  fallingDamageDice,
+  halfDamage,
+  massiveDamageDc,
+  sellAtHalf,
+  xpToReachNextLevel,
+} from "./helpers/open-rules.mjs";
 
 function _getD35DiagonalRuleValue() {
   const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
@@ -93,6 +102,13 @@ Hooks.once("init", function () {
     bonusSpellsForScore,
     iterativeAttackBonuses,
     summarizeConditions,
+    breathWeaponDc,
+    experienceForCr,
+    fallingDamageDice,
+    halfDamage,
+    massiveDamageDc,
+    sellAtHalf,
+    xpToReachNextLevel,
   };
 
   registerMerchantSockets();

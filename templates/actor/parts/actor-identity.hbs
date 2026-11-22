@@ -23,9 +23,54 @@
     <label>Racial favored class <input type="text" name="system.details.racialFavoredClass" value="{{system.details.racialFavoredClass}}" /></label>
     <label>LA buyoff XP spent <input type="number" name="system.details.laBuyoffXp" value="{{system.details.laBuyoffXp}}" min="0" step="1" title="Track XP spent to reduce level adjustment" /></label>
   </div>
+  <p class="cts-hint-block">Next level at {{system.details.level.xpNext}} XP.</p>
   {{#if system.details.xpMulticlassHint}}
   <p class="cts-hint-block">{{system.details.xpMulticlassHint}}</p>
   {{/if}}
+  {{#if system.spellcasting.powerPoints}}
+  <p class="cts-hint-block">Suggested power points: {{system.spellcasting.powerPoints}} (class table plus the key ability modifier).</p>
+  {{/if}}
+  {{#if system.attributes.classFeatures.length}}
+  <h4>Class features on the class items</h4>
+  <ul>
+    {{#each system.attributes.classFeatures}}
+    <li>{{className}} {{level}}: {{name}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+  {{#if system.attributes.slots.overflow.length}}
+  <h4>Body slots over the cap</h4>
+  <ul>
+    {{#each system.attributes.slots.overflow}}
+    <li>{{slot}}: {{count}} equipped, cap {{cap}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
+  <h4>Optional ability tables</h4>
+  <p class="cts-hint-block">Leave these off when ability scores already include race or age. Turning them on adds the PHB race row or the middle / old / venerable table on top of the written scores.</p>
+  <div class="cts-identity-grid">
+    <label>Age category
+      <select name="system.details.ageCategory">
+        <option value="" {{#unless system.details.ageCategory}}selected{{/unless}}>None</option>
+        <option value="middle" {{#if (cts-eq system.details.ageCategory "middle")}}selected{{/if}}>Middle</option>
+        <option value="old" {{#if (cts-eq system.details.ageCategory "old")}}selected{{/if}}>Old</option>
+        <option value="venerable" {{#if (cts-eq system.details.ageCategory "venerable")}}selected{{/if}}>Venerable</option>
+      </select>
+    </label>
+    <label>Apply aging table
+      <select name="system.traits.applyAgingTable">
+        <option value="false" {{#unless system.traits.applyAgingTable}}selected{{/unless}}>No</option>
+        <option value="true" {{#if system.traits.applyAgingTable}}selected{{/if}}>Yes</option>
+      </select>
+    </label>
+    <label>Apply racial adjustments
+      <select name="system.traits.applyRacialAdjustments">
+        <option value="false" {{#unless system.traits.applyRacialAdjustments}}selected{{/unless}}>No</option>
+        <option value="true" {{#if system.traits.applyRacialAdjustments}}selected{{/if}}>Yes, from the Race name</option>
+      </select>
+    </label>
+  </div>
 
   <h4>Creature type (character)</h4>
   <div class="cts-identity-grid">
