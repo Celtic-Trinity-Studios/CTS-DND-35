@@ -34,7 +34,8 @@
     <label>Humanoid subtype <input type="text" name="system.details.humanoidSubtype" value="{{system.details.humanoidSubtype}}" placeholder="If humanoid" /></label>
   </div>
 
-  <h4>Senses (aggregate for sheet; sync token vision manually)</h4>
+  <h4>Senses</h4>
+  <p class="cts-hint-block">Darkvision, low-light, and blindsight update the token. Scene light (the Light tool, or the scene’s Environment tab) decides whether that vision can see.</p>
   <div class="cts-identity-grid">
     <label>Darkvision (ft) <input type="number" name="system.traits.senses.darkvision" value="{{system.traits.senses.darkvision}}" min="0" step="5" /></label>
     <label class="cts-inline-checkbox">Low-light

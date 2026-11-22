@@ -240,9 +240,10 @@ export function visionFromSenses(senses = {}) {
   const dark = Math.max(0, Number(senses.darkvision) || 0);
   const blind = Math.max(0, Number(senses.blindsight) || Number(senses.blindsense) || 0);
   const range = Math.max(dark, blind);
+  const lowLight = senses.lowLightVision === true || senses.lowLightVision === "true";
   let visionMode = "basic";
   if (blind) visionMode = "blindsight";
   else if (dark) visionMode = "darkvision";
-  const lowLight = senses.lowLightVision === true || senses.lowLightVision === "true";
+  else if (lowLight) visionMode = "ctsLowLight";
   return { range, visionMode, enabled: range > 0 || lowLight, lowLight };
 }

@@ -3,6 +3,7 @@
  */
 
 import { visionFromSenses } from "../helpers/table-combat.mjs";
+import { lightingPreset } from "../helpers/lighting.mjs";
 
 function drawThreat(token) {
   let show = true;
@@ -41,13 +42,21 @@ function drawThreat(token) {
   }
 }
 
-export async function applySensesToTokens(actor) {
+function visionModeForScene(vision, scene) {
+  const modes = globalThis.CONFIG?.Canvas?.visionModes || {};
+  let mode = modes[vision.visionMode] ? vision.visionMode : "basic";
+  const band = lightingPreset(scene?.getFlag?.("CTS-DND-35", "lighting"))?.band;
+  if (band === "magical" && mode !== "blindsight") mode = "basic";
+  return mode;
+}
+
+export async function applySensesToTokens(actor, scene = null) {
   if (!actor) return;
   const vision = visionFromSenses(actor.system?.traits?.senses || {});
   if (!vision.range && !vision.lowLight) return;
-  const modes = globalThis.CONFIG?.Canvas?.visionModes || {};
-  const visionMode = modes[vision.visionMode] ? vision.visionMode : "basic";
   const range = vision.range || 0;
+  const home = scene || canvas?.scene;
+  const visionMode = visionModeForScene(vision, home);
   const prototype = {
     "prototypeToken.sight.enabled": true,
     "prototypeToken.sight.visionMode": visionMode,
@@ -58,12 +67,17 @@ export async function applySensesToTokens(actor) {
   } catch (err) {
     console.warn("CTS DND 3.5 | Could not update prototype token sight.", err);
   }
-  const tokens = actor.getActiveTokens?.() || [];
-  for (const token of tokens) {
-    const patch = { "sight.enabled": true, "sight.visionMode": visionMode };
+  const docs = new Set();
+  for (const token of home?.tokens || []) {
+    if (token.actor === actor || token.actorId === actor.id) docs.add(token);
+  }
+  for (const token of actor.getActiveTokens?.(false, true) || []) docs.add(token);
+  for (const token of docs) {
+    const mode = visionModeForScene(vision, token.parent || home);
+    const patch = { "sight.enabled": true, "sight.visionMode": mode };
     if (range) patch["sight.range"] = range;
     try {
-      await token.document.update(patch);
+      await token.update(patch);
     } catch (err) {
       console.warn("CTS DND 3.5 | Could not update token sight.", err);
     }

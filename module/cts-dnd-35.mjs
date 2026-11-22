@@ -24,6 +24,7 @@ import { CTSDND35HelpApp } from "./apps/help-app.mjs";
 import { CTSDND35HelpMenuApp } from "./apps/help-menu-app.mjs";
 import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
 import { registerTokenCombatHooks } from "./hooks/token-combat.mjs";
+import { registerSceneLighting } from "./hooks/scene-lighting.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -186,6 +187,7 @@ Hooks.once("init", function () {
   });
 
   registerTokenCombatHooks();
+  registerSceneLighting();
 
   try {
     game.settings.registerMenu("CTS-DND-35", "systemHelp", {

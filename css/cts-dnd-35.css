@@ -2156,3 +2156,26 @@ button.cts-open-system-help {
 #settings-documentation #cts-dnd-35-help-sidebar {
   flex-shrink: 0;
 }
+
+/* Scene config: plain light choices above the environment sliders */
+.cts-lighting {
+  margin-bottom: 8px;
+}
+
+.cts-lighting-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.cts-lighting-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  padding: 6px 8px;
+}
+
+.cts-lighting-choice.active {
+  outline: 1px solid var(--color-warm-2, #c9a84c);
+}

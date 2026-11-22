@@ -391,8 +391,8 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Lava / acid immersion | **Missing** | |
 | Starvation / thirst / forced Con damage | **Missing** | |
 | Extreme heat / cold (Fort cycles) | **Missing** | |
-| Light sources vs darkvision radius | **Missing** | Foundry lighting ≠ SRD radii rules |
-| Magical darkness vs mundane light | **Missing** | |
+| Light sources vs darkvision radius | **Partial** | Scene **Light** presets (day, overcast, dusk, moonlight, dark, magical darkness) set darkness and global light together. Low-light treats dim light as bright. Radius is still the light’s own bright/dim, not a doubled SRD radius. |
+| Magical darkness vs mundane light | **Partial** | Magical darkness preset suppresses darkvision. Placed lights stay until the GM turns them off. |
 | Weather & forced saves | **Missing** | |
 | Wind effects on ranged attacks / flight | **Missing** | |
 | Traps (Search / Disable / Reflex) | **Missing** | |
@@ -441,7 +441,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 |-------|--------|----------------|
 | Token ↔ actor link | **Present** | Foundry default |
 | Vision modes on token | **Present** | Foundry; not driven by 3.5 sense aggregation |
-| Darkvision / low-light radius from actor | **Partial** | Changing senses, or **Apply senses to token**, writes darkvision or blindsight range onto the token |
+| Darkvision / low-light radius from actor | **Partial** | Changing senses writes darkvision, low-light, or blindsight onto the token. Low-light upgrades shadowy light to bright. Magical darkness on the scene suppresses darkvision. |
 | Multi-token linked summons | **Missing** | |
 | Elevation / flight bands | **Partial** | Foundry scene features; not tied to 3.5 maneuverability |
 | Grid diagonal policy (3.5 style) | **Present** | System setting enforces 5-10-5 option |

@@ -4,6 +4,7 @@
  */
 
 import { applyEnergyToDamage, resolveClassCombatProgression } from "../helpers/combat-rules.mjs";
+import { concealmentNote } from "../helpers/lighting.mjs";
 
 export class CTSDND35Item extends Item {
 
@@ -143,6 +144,10 @@ export class CTSDND35Item extends Item {
         lines.push(`Confirm: <strong>${confirm.total}</strong> (critical ×${derived.multiplier} if this hits)`);
       }
     }
+
+    const scene = actor.getActiveTokens?.()[0]?.document?.parent || canvas?.scene;
+    const lightNote = concealmentNote(scene?.getFlag?.("CTS-DND-35", "lighting"), actor.system?.traits?.senses);
+    if (lightNote) lines.push(lightNote);
 
     if (derived.damageFormula && derived.damageFormula !== "0") {
       try {
