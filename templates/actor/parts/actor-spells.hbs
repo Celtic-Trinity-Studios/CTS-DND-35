@@ -1,9 +1,41 @@
 {{!-- Spells Tab Partial --}}
+{{#if system.spellcasting.summary.length}}
+<h3>Spellcasting</h3>
+{{#each system.spellcasting.summary}}
+<div class="mb-md">
+  <p><strong>{{this.className}}</strong> · CL {{this.casterLevel}} · {{this.type}}{{#if this.ability}} · {{this.ability}} {{cts-sign this.abilityMod}}{{/if}}</p>
+  <div class="item-list">
+    {{#each this.perDay}}
+    <div class="item">
+      <span style="width:72px;">Level {{this.level}}</span>
+      <span style="width:88px;" title="10 + level + ability">DC {{this.dc}}</span>
+      {{#if this.total}}
+      <span style="width:120px;" title="Class {{this.base}} + ability {{this.bonus}}">{{this.remaining}} / {{this.total}}</span>
+      <button type="button" class="cts-slot-spend" data-class-key="{{../key}}" data-level="{{this.level}}" title="Use a slot">Use</button>
+      <button type="button" class="cts-slot-recover" data-class-key="{{../key}}" data-level="{{this.level}}" title="Restore a slot">+</button>
+      {{else}}
+      <span class="notes">DC only — no slots on the class</span>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</div>
+{{/each}}
+{{else}}
+<p class="notes">No spellcasting class yet. Add a class item with a spellcasting type, or finish the character wizard.</p>
+{{/if}}
+
 {{#each items.spells as |spellList level|}}
 <h3>Level {{level}}</h3>
 <ol class="item-list mb-md">
   {{#each spellList}}
-  <li class="item" data-item-id="{{this._id}}"><img class="item-img" src="{{this.img}}" /><span class="item-name item-roll flex-grow">{{this.name}}</span><span style="width:60px;">{{this.system.school}}</span><div class="item-controls"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div></li>
+  <li class="item" data-item-id="{{this._id}}">
+    <img class="item-img" src="{{this.img}}" />
+    <span class="item-name item-roll flex-grow">{{this.name}}</span>
+    <span style="width:90px;">{{this.system.school}}</span>
+    <span style="width:48px;" title="{{this.system.derived.className}}">{{#if this.system.derived.dc}}DC {{this.system.derived.dc}}{{/if}}</span>
+    <div class="item-controls"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div>
+  </li>
   {{/each}}
 </ol>
 {{/each}}

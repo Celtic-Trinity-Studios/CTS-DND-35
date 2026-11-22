@@ -3,7 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="48" width="48" />
     <div class="header-fields">
       <input class="char-name flex-grow" name="name" type="text" value="{{item.name}}" />
-      <span class="stat-label" style="text-transform:uppercase;">{{item.type}}</span>
+      <span class="stat-label" style="text-transform:uppercase;">feat</span>
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
@@ -16,7 +16,15 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      <div class="form-group">
+        <label>Feat type</label>
+        <input type="text" name="system.featType" value="{{system.featType}}" placeholder="General, Fighter, Metamagic" />
+      </div>
+      <div class="form-group">
+        <label>Prerequisites</label>
+        <input type="text" name="system.prerequisites" value="{{system.prerequisites}}" />
+      </div>
+      <p class="notes">The character and level-up wizards read this prerequisite text. Numeric bonuses from a feat still go through a buff or an Active Effect.</p>
     </div>
   </section>
 </form>

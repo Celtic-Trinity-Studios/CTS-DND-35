@@ -37,8 +37,10 @@ export class CTSDND35ItemSheet extends foundry.appv1.sheets.ItemSheet {
     const context = await super.getData();
 
     const itemData = this.document.toObject();
-    context.system = itemData.system;
+    context.system = this.item.system;
     context.flags = itemData.flags;
+    context.appliedProgression = this.item.system.appliedProgression || null;
+    context.derived = this.item.system.derived || null;
 
     // Enrich description HTML
     context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(

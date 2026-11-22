@@ -3,6 +3,8 @@
  * Extends the base Item class to implement system-specific logic.
  */
 
+import { applyEnergyToDamage, resolveClassCombatProgression } from "../helpers/combat-rules.mjs";
+
 export class CTSDND35Item extends Item {
 
   /** @override */
@@ -27,40 +29,47 @@ export class CTSDND35Item extends Item {
     }
 
     if (itemData.type === "armor") {
-      systemData.equipped ??= false;
+      systemData.equipped = systemData.equipped === true || systemData.equipped === "true";
       systemData.acBonus ??= 0;
       systemData.enhancement ??= 0;
       systemData.armorType ??= "light";
-      systemData.speedPenalty ??= null;
-      systemData.checkPenalty ??= 0;
-      systemData.arcaneSpellFailure ??= 0;
+      if (systemData.speedPenalty === undefined) systemData.speedPenalty = null;
+      if (systemData.checkPenalty == null || systemData.checkPenalty === "") {
+        systemData.checkPenalty = systemData.acp ?? 0;
+      }
+      if (systemData.arcaneSpellFailure == null || systemData.arcaneSpellFailure === "") {
+        systemData.arcaneSpellFailure = systemData.spellFailure ?? 0;
+      }
     }
 
-    // Add type-specific preparation
-    if (itemData.type === "spell") this._prepareSpellData(systemData);
-    if (itemData.type === "weapon") this._prepareWeaponData(systemData);
+    if (itemData.type === "weapon" || itemData.type === "attack") this._prepareWeaponData(systemData);
     if (itemData.type === "class") this._prepareClassData(systemData);
+    if (itemData.type === "spell") this._prepareSpellData(systemData);
   }
 
-  /**
-   * Prepare spell-specific data
-   */
   _prepareSpellData(systemData) {
-    // Compute spell save DC placeholder
+    systemData.spellLevel = Math.max(0, Math.floor(Number(systemData.spellLevel) || 0));
+    systemData.school ??= "";
+    systemData.components ??= {};
   }
 
-  /**
-   * Prepare weapon-specific data
-   */
   _prepareWeaponData(systemData) {
-    // Could compute enhancement-adjusted attack/damage here
+    systemData.enhancement ??= 0;
+    systemData.weaponSubtype ??= systemData.actionType === "rwak" ? "ranged" : "melee";
+    systemData.proficient = systemData.proficient !== false && systemData.proficient !== "false";
+    systemData.finesse = systemData.finesse === true || systemData.finesse === "true";
+    systemData.twoHanded = systemData.twoHanded === true || systemData.twoHanded === "true";
+    systemData.offHand = systemData.offHand === true || systemData.offHand === "true";
+    systemData.thrown = systemData.thrown === true || systemData.thrown === "true";
+    systemData.secondary = systemData.secondary === true || systemData.secondary === "true";
   }
 
-  /**
-   * Prepare class-specific data
-   */
   _prepareClassData(systemData) {
-    // Could compute BAB, saves from progression tables
+    systemData.level ??= 0;
+    systemData.hitDie ??= "d8";
+    systemData.bab ??= "med";
+    systemData.saves ??= { fort: "low", ref: "low", will: "low" };
+    systemData.appliedProgression = resolveClassCombatProgression(this.name, systemData);
   }
 
   /**
@@ -78,10 +87,11 @@ export class CTSDND35Item extends Item {
       });
     }
 
+    if (item.type === "weapon" || item.type === "attack") return this._rollAttack(actor);
+    if (item.type === "spell") return this._rollSpell(actor);
+
     const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor: actor });
     const rollMode = game.settings.get("core", "rollMode");
-
-    // Build a basic chat card
     const content = `
       <div class="cts-dnd-35 chat-card">
         <header class="card-header">
@@ -98,6 +108,94 @@ export class CTSDND35Item extends Item {
       speaker: speaker,
       rollMode: rollMode,
       content: content,
+    });
+  }
+
+  async _rollAttack(actor) {
+    const derived = this.system.derived;
+    const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor });
+    if (!derived?.attackBonuses?.length) {
+      return foundry.documents.BaseChatMessage.create({
+        speaker,
+        content: `<p>${this.name} has no derived attack. Open it from a character sheet.</p>`,
+      });
+    }
+
+    const rolls = [];
+    const lines = [];
+    if (!derived.proficient) lines.push("Not proficient: −4 on attacks.");
+    if (derived.cannotAttack) lines.push("A current condition normally prevents attacks.");
+
+    for (let i = 0; i < derived.attackBonuses.length; i++) {
+      const bonus = derived.attackBonuses[i];
+      const roll = new foundry.dice.Roll(`1d20 + ${bonus}`);
+      await roll.evaluate();
+      rolls.push(roll);
+      const natural = roll.terms.find((term) => term.faces === 20)?.results?.[0]?.result;
+      const threat = natural >= derived.threat && natural !== 1;
+      const fumble = natural === 1;
+      lines.push(`Attack ${i + 1}: <strong>${roll.total}</strong>${threat ? " — threat" : ""}${fumble ? " — natural 1" : ""}`);
+      if (threat) {
+        const confirm = new foundry.dice.Roll(`1d20 + ${bonus}`);
+        await confirm.evaluate();
+        rolls.push(confirm);
+        lines.push(`Confirm: <strong>${confirm.total}</strong> (critical ×${derived.multiplier} if this hits)`);
+      }
+    }
+
+    if (derived.damageFormula && derived.damageFormula !== "0") {
+      try {
+        const damage = new foundry.dice.Roll(derived.damageFormula);
+        await damage.evaluate();
+        rolls.push(damage);
+        const applied = applyEnergyToDamage(damage.total, derived.damageType, actor.system.attributes?.energy);
+        const typeNote = derived.damageType ? ` ${derived.damageType}` : "";
+        const resistNote = applied.note ? ` (${applied.note} → ${applied.amount})` : "";
+        lines.push(`Damage${typeNote}: <strong>${damage.total}</strong>${resistNote}`);
+      } catch (err) {
+        lines.push(`Damage formula could not be rolled (${derived.damageFormula}).`);
+        console.warn("CTS DND 3.5 | Damage roll failed", err);
+      }
+    }
+
+    const dr = Array.isArray(actor.system.attributes?.dr) ? actor.system.attributes.dr : [];
+    if (dr.length) {
+      lines.push(`DR: ${dr.map((row) => `${row.amount ?? 0}/${row.bypass || "—"}`).join(", ")} (apply bypass at the table)`);
+    }
+
+    return foundry.documents.BaseChatMessage.create({
+      speaker,
+      rolls,
+      flavor: this.name,
+      content: `<div class="cts-dnd-35 chat-card"><h3>${this.name}</h3><p>${derived.attackLabel} · ${derived.damageFormula}</p>${lines.map((line) => `<p>${line}</p>`).join("")}</div>`,
+    });
+  }
+
+  async _rollSpell(actor) {
+    const derived = this.system.derived || {};
+    const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor });
+    const rolls = [];
+    const lines = [];
+    const level = Math.floor(Number(this.system.spellLevel) || 0);
+    lines.push(`${this.system.school || "Spell"} ${level}${derived.className ? ` · ${derived.className} CL ${derived.casterLevel}` : ""}`);
+    if (derived.dc != null) {
+      const save = derived.saveAbility ? ` ${derived.saveAbility}` : "";
+      lines.push(`Save DC <strong>${derived.dc}</strong>${save}`);
+    } else {
+      lines.push("Save DC needs a spellcasting class on this actor.");
+    }
+    if (derived.failureChance > 0) {
+      const check = new foundry.dice.Roll("1d100");
+      await check.evaluate();
+      rolls.push(check);
+      const failed = check.total <= derived.failureChance;
+      lines.push(`Failure chance ${derived.failureChance}%: rolled <strong>${check.total}</strong> — ${failed ? "spell fails" : "spell succeeds"}`);
+    }
+    return foundry.documents.BaseChatMessage.create({
+      speaker,
+      rolls,
+      flavor: this.name,
+      content: `<div class="cts-dnd-35 chat-card"><h3>${this.name}</h3>${lines.map((line) => `<p>${line}</p>`).join("")}</div>`,
     });
   }
 }

@@ -3,7 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="48" width="48" />
     <div class="header-fields">
       <input class="char-name flex-grow" name="name" type="text" value="{{item.name}}" />
-      <span class="stat-label" style="text-transform:uppercase;">{{item.type}}</span>
+      <span class="stat-label" style="text-transform:uppercase;">spell</span>
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
@@ -16,7 +16,50 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      {{#if derived.dc}}
+      <p class="notes">On the owning actor: DC <strong>{{derived.dc}}</strong>{{#if derived.className}} ({{derived.className}}, CL {{derived.casterLevel}}){{/if}}{{#if derived.failureChance}} · failure {{derived.failureChance}}%{{/if}}</p>
+      {{/if}}
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Level</label>
+          <input type="number" name="system.spellLevel" value="{{system.spellLevel}}" min="0" max="9" step="1" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>School</label>
+          <input type="text" name="system.school" value="{{system.school}}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Caster class</label>
+        <input type="text" name="system.casterClass" value="{{system.casterClass}}" placeholder="Wizard — blank uses the best match" />
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Save</label>
+          <select name="system.save.ability">
+            <option value="" {{#unless system.save.ability}}selected{{/unless}}>From description</option>
+            <option value="fort" {{#if (cts-eq system.save.ability "fort")}}selected{{/if}}>Fortitude</option>
+            <option value="ref" {{#if (cts-eq system.save.ability "ref")}}selected{{/if}}>Reflex</option>
+            <option value="will" {{#if (cts-eq system.save.ability "will")}}selected{{/if}}>Will</option>
+            <option value="none" {{#if (cts-eq system.save.ability "none")}}selected{{/if}}>None</option>
+          </select>
+        </div>
+        <div class="form-group flex-grow">
+          <label>DC override</label>
+          <input type="number" name="system.save.dc" value="{{system.save.dc}}" placeholder="auto" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Casting time</label>
+          <input type="text" name="system.castingTime" value="{{system.castingTime}}" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Range</label>
+          <input type="text" name="system.range.value" value="{{system.range.value}}" />
+        </div>
+      </div>
+      <p class="notes">Click the spell on the character to roll arcane failure (armor ASF plus deafened verbal failure) and show the save DC. DC is 10 + spell level + the class ability modifier.</p>
     </div>
   </section>
 </form>

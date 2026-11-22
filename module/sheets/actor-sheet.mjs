@@ -134,6 +134,10 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     for (const item of this.actor.items) {
       const i = item.toObject();
       i.img = i.img || foundry.documents.BaseItem.DEFAULT_ICON;
+      if (item.system?.derived) {
+        i.system ??= {};
+        i.system.derived = item.system.derived;
+      }
 
       switch (i.type) {
         case "weapon": items.weapons.push(i); break;
@@ -374,6 +378,43 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       this.render(false);
     });
 
+    html.on("click", ".cts-slot-spend, .cts-slot-recover", async (ev) => {
+      ev.preventDefault();
+      if (!this.isEditable) return;
+      const key = ev.currentTarget.dataset.classKey;
+      const level = String(ev.currentTarget.dataset.level ?? "");
+      if (!key || level === "") return;
+      const summary = (this.actor.system.spellcasting?.summary || []).find((row) => row.key === key);
+      const stored = foundry.utils.deepClone(this.actor.system.spellcasting?.classes?.[key] || {});
+      stored.className = stored.className || summary?.className || key;
+      stored.type = stored.type || summary?.type || "";
+      stored.ability = stored.ability || summary?.ability || "";
+      stored.casterLevel = stored.casterLevel ?? summary?.casterLevel ?? 0;
+      stored.spellsPerDay = stored.spellsPerDay || {};
+      stored.expended = stored.expended || {};
+      const current = Math.max(0, Math.floor(Number(stored.expended[level]) || 0));
+      const spend = ev.currentTarget.classList.contains("cts-slot-spend");
+      stored.expended[level] = spend ? current + 1 : Math.max(0, current - 1);
+      await this.actor.update({ [`system.spellcasting.classes.${key}`]: stored });
+    });
+
+    html.find(".cts-add-dr").click(async (ev) => {
+      ev.preventDefault();
+      const rows = foundry.utils.deepClone(this.actor.system.attributes?.dr ?? []);
+      rows.push({ amount: 0, bypass: "" });
+      await this.actor.update({ "system.attributes.dr": rows });
+      this.render(false);
+    });
+
+    html.on("click", ".cts-remove-dr", async (ev) => {
+      ev.preventDefault();
+      const idx = Number(ev.currentTarget.dataset.index);
+      const rows = foundry.utils.deepClone(this.actor.system.attributes?.dr ?? []);
+      rows.splice(idx, 1);
+      await this.actor.update({ "system.attributes.dr": rows });
+      this.render(false);
+    });
+
     html.on("click", ".cts-remove-temp-hp", async (ev) => {
       ev.preventDefault();
       const idx = Number(ev.currentTarget.dataset.index);
@@ -388,6 +429,13 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       const key = ev.currentTarget.dataset.conditionKey;
       if (!key) return;
       await this.actor.update({ [`system.details.status.conditions.${key}`]: ev.currentTarget.checked });
+    });
+
+    html.on("change", "input[type='checkbox'][data-energy-immune]", async (ev) => {
+      if (!this.isEditable) return;
+      const key = ev.currentTarget.dataset.energyImmune;
+      if (!key) return;
+      await this.actor.update({ [`system.attributes.energy.immune.${key}`]: ev.currentTarget.checked });
     });
 
     html.on("click", ".cts-status-subtabs [data-cts-status-sub]", (ev) => {
@@ -414,7 +462,8 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     const abilityData = this.actor.system.abilities[ability];
     const label = CTSDND35.abilities[ability] ?? ability;
 
-    return new foundry.dice.Roll("1d20 + @mod", { mod: abilityData.mod }).toMessage({
+    const penalty = Math.floor(Number(this.actor.system.attributes?.abilityCheckPenalty) || 0);
+    return new foundry.dice.Roll("1d20 + @mod", { mod: (abilityData.mod || 0) - penalty }).toMessage({
       speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `${label} Check`,
     });

@@ -6,6 +6,15 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 import { getAdjustedCarryingLimits, getLoadBandFromWeight } from "../helpers/carrying-capacity.mjs";
 import { resetActorEffectBuckets } from "../helpers/modifier-pipeline.mjs";
+import {
+  bonusSpellsForScore,
+  buildSpellDerived,
+  buildWeaponDerived,
+  normalizeAbilityKey,
+  resolveClassCombatProgression,
+  slugifyClassKey,
+  summarizeConditions,
+} from "../helpers/combat-rules.mjs";
 
 export class CTSDND35Actor extends Actor {
 
@@ -136,7 +145,18 @@ export class CTSDND35Actor extends Actor {
     systemData.spellcasting ??= {};
     systemData.spellcasting.classes ??= {};
     systemData.spellcasting.arcaneSpellFailureTotal ??= 0;
+    systemData.spellcasting.summary ??= [];
     systemData.attributes.encumbrance ??= {};
+    if (!Array.isArray(systemData.attributes.dr)) systemData.attributes.dr = [];
+    systemData.attributes.energy ??= {};
+    systemData.attributes.energy.resist ??= {};
+    systemData.attributes.energy.immune ??= {};
+    for (const key of ["fire", "cold", "acid", "electricity", "sonic"]) {
+      systemData.attributes.energy.resist[key] ??= 0;
+      systemData.attributes.energy.immune[key] =
+        systemData.attributes.energy.immune[key] === true ||
+        systemData.attributes.energy.immune[key] === "true";
+    }
 
     if (this.type === "npc") {
       systemData.merchant ??= {
@@ -164,17 +184,40 @@ export class CTSDND35Actor extends Actor {
 
     const nl = Math.max(0, Math.floor(Number(systemData.attributes?.negativeLevels) || 0));
     systemData.attributes.negativeLevels = nl;
-    systemData.attributes.attackRollPenalty = nl;
 
     this._applyBuffItemModifiers(systemData);
+    this._applyConditionModifiers(systemData, nl);
     this._prepareEncumbrance(systemData);
 
     this._prepareSpeed(systemData);
     this._prepareCombatStats(systemData, nl);
     this._prepareSkills(systemData, nl);
+    this._prepareSpellcasting(systemData);
+    this._prepareAttacksAndSpells(systemData);
 
     systemData.details.xpMulticlassHint = this._multiclassXpHint(actorData, systemData);
     systemData.attributes.hp.tempSourcesSum = this._sumTempHpSources(systemData);
+  }
+
+  /**
+   * Condition score penalties are applied in _prepareAbilities. This pass adds check, AC, and speed flags.
+   */
+  _applyConditionModifiers(systemData, nl) {
+    const flags = systemData.attributes.conditionFlags || summarizeConditions(systemData.details?.status?.conditions);
+    systemData.attributes.conditionFlags = flags;
+    systemData.attributes.conditionNotes = flags.notes;
+    const check = Math.floor(flags.checkPenalty) || 0;
+    for (const key of ["fort", "ref", "will"]) {
+      const save = systemData.attributes.savingThrows[key];
+      if (save) save.effectBonus -= check;
+    }
+    systemData.attributes.attackRollPenalty = nl + (Math.floor(flags.attackPenalty) || 0);
+    systemData.attributes.damageRollPenalty = Math.floor(flags.damagePenalty) || 0;
+    systemData.attributes.abilityCheckPenalty = check;
+    systemData.attributes.speed.land.conditionHalves = Math.floor(flags.speedHalves) || 0;
+    systemData.attributes.ac.conditionPenalty = Math.floor(flags.acPenalty) || 0;
+    systemData.attributes.ac.dexMode = flags.dexMode || "normal";
+    systemData.attributes.ac.prone = !!flags.prone;
   }
 
   /**
@@ -404,6 +447,19 @@ export class CTSDND35Actor extends Actor {
       ability.effective = eff;
       ability.mod = Math.floor((eff - 10) / 2);
     }
+
+    const flags = summarizeConditions(systemData.details?.status?.conditions);
+    systemData.attributes.conditionFlags = flags;
+    const str = systemData.abilities.str;
+    const dex = systemData.abilities.dex;
+    if (str && flags.strPen) {
+      str.effective = Math.max(1, str.effective - flags.strPen);
+      str.mod = Math.floor((str.effective - 10) / 2);
+    }
+    if (dex && flags.dexPen) {
+      dex.effective = Math.max(1, dex.effective - flags.dexPen);
+      dex.mod = Math.floor((dex.effective - 10) / 2);
+    }
   }
 
   /**
@@ -459,6 +515,8 @@ export class CTSDND35Actor extends Actor {
     if (systemData.traits?.difficultTerrain) land = Math.max(5, Math.floor(land / 2));
 
     land += Math.floor(Number(systemData.attributes.speed.land.effectBonus) || 0);
+    const halves = Math.max(0, Math.floor(Number(systemData.attributes.speed.land.conditionHalves) || 0));
+    for (let i = 0; i < halves; i++) land = Math.floor(land / 2);
     land = Math.max(5, land);
 
     systemData.attributes.speed.land.total = land;
@@ -485,25 +543,39 @@ export class CTSDND35Actor extends Actor {
    * @param {number} nl negative levels
    */
   _prepareCombatStats(systemData, nl) {
+    let totalBAB = 0;
+    const classSave = { fort: 0, ref: 0, will: 0 };
+    let anyClassSave = false;
+    const classItems = this.items.filter((i) => i.type === "class");
+    for (const cls of classItems) {
+      const level = Math.floor(Number(cls.system.level) || 0);
+      const progression = resolveClassCombatProgression(cls.name, cls.system);
+      const babTable = CTSDND35.babProgression[progression.bab] || CTSDND35.babProgression.med;
+      if (level > 0) totalBAB += babTable[Math.min(level, 20) - 1] || 0;
+      if (level <= 0) continue;
+      for (const key of ["fort", "ref", "will"]) {
+        const prog = progression.saves[key] === "high" ? "high" : "low";
+        const table = CTSDND35.saveProgression[prog];
+        classSave[key] += table[Math.min(level, 20) - 1] || 0;
+        anyClassSave = true;
+      }
+    }
+
     const saves = systemData.attributes?.savingThrows ?? {};
-    for (const [, save] of Object.entries(saves)) {
+    for (const [key, save] of Object.entries(saves)) {
       const abilityMod = systemData.abilities[save.ability]?.mod || 0;
+      save.classBase = classSave[key] || 0;
+      save.baseFromClasses = anyClassSave;
+      const baseUsed = anyClassSave ? save.classBase : Math.floor(Number(save.base) || 0);
+      save.baseUsed = baseUsed;
       save.total =
-        (save.base || 0) +
+        baseUsed +
         abilityMod +
         (save.bonus || 0) +
         Math.floor(Number(save.effectBonus) || 0) -
         nl;
     }
 
-    let totalBAB = 0;
-    const classItems = this.items.filter((i) => i.type === "class");
-    for (const cls of classItems) {
-      const level = cls.system.level || 0;
-      const progression = cls.system.bab || "med";
-      const table = CTSDND35.babProgression[progression] || CTSDND35.babProgression.med;
-      totalBAB += table[level - 1] || 0;
-    }
     totalBAB += Math.floor(Number(systemData.attributes.bab.effectBonus) || 0);
     systemData.attributes.bab.total = totalBAB;
     systemData.attributes.bab.attackPenalty = nl;
@@ -527,9 +599,14 @@ export class CTSDND35Actor extends Actor {
       }
     }
 
+    const dexMode = systemData.attributes.ac.dexMode || "normal";
+    let dexForAc = dexMod;
+    if (dexMode === "helpless") dexForAc = -5;
+    else if (dexMode === "loseBonus") dexForAc = Math.min(0, dexMod);
     const effCap = systemData.attributes.ac.effectiveMaxDex;
     const effectiveDex =
-      effCap != null && Number.isFinite(effCap) ? Math.min(dexMod, effCap) : dexMod;
+      effCap != null && Number.isFinite(effCap) ? Math.min(dexForAc, effCap) : dexForAc;
+    const acCondition = Math.floor(Number(systemData.attributes.ac.conditionPenalty) || 0);
 
     const bon = systemData.attributes.ac.bonuses || {};
     const dodgeBonus = Math.floor(Number(bon.dodge) || 0);
@@ -552,23 +629,35 @@ export class CTSDND35Actor extends Actor {
       effectiveDex +
       sizeMods.attack +
       naturalArmor +
-      bonusAcSum;
-    systemData.attributes.ac.touch = 10 + effectiveDex + sizeMods.attack + bonusAcSum;
+      bonusAcSum -
+      acCondition;
+    systemData.attributes.ac.touch = 10 + effectiveDex + sizeMods.attack + bonusAcSum - acCondition;
     systemData.attributes.ac.flatFooted =
-      10 + armorBonus + shieldBonus + sizeMods.attack + naturalArmor + flatFootedBonusAc;
+      10 + armorBonus + shieldBonus + sizeMods.attack + naturalArmor + flatFootedBonusAc - acCondition;
+    if (systemData.attributes.ac.prone) {
+      systemData.attributes.ac.vsMelee = systemData.attributes.ac.normal - 4;
+      systemData.attributes.ac.vsRanged = systemData.attributes.ac.normal + 4;
+    } else {
+      systemData.attributes.ac.vsMelee = systemData.attributes.ac.normal;
+      systemData.attributes.ac.vsRanged = systemData.attributes.ac.normal;
+    }
 
+    const conditionAttack = Math.floor(Number(systemData.attributes.conditionFlags?.attackPenalty) || 0);
+    const abilityCheckPenalty = Math.floor(Number(systemData.attributes.abilityCheckPenalty) || 0);
     systemData.attributes.init.total =
       (systemData.abilities.dex?.mod || 0) +
       (systemData.attributes.init.bonus || 0) +
       Math.floor(Number(systemData.attributes.init.effectBonus) || 0) -
-      nl;
+      nl -
+      abilityCheckPenalty;
 
     systemData.attributes.grapple.total =
       totalBAB +
       (systemData.abilities.str?.mod || 0) +
       (sizeMods.grapple || 0) +
       Math.floor(Number(systemData.attributes.grapple.effectBonus) || 0) -
-      nl;
+      nl -
+      conditionAttack;
   }
 
   /**
@@ -579,6 +668,7 @@ export class CTSDND35Actor extends Actor {
     if (!systemData.skills) systemData.skills = {};
 
     const penMag = Math.floor(Number(systemData.attributes.skillsCheckPenaltyMag) || 0);
+    const conditionPen = Math.floor(Number(systemData.attributes.conditionFlags?.checkPenalty) || 0);
 
     for (const [key, skillDef] of Object.entries(CTSDND35.skills)) {
       if (!systemData.skills[key]) {
@@ -596,7 +686,126 @@ export class CTSDND35Actor extends Actor {
         (skill.misc || 0) +
         Math.floor(Number(skill.effectBonus) || 0) -
         armorEncPen -
+        conditionPen -
         nl;
+    }
+  }
+
+  _prepareSpellcasting(systemData) {
+    const stored = systemData.spellcasting.classes || {};
+    const merged = {};
+    for (const [key, row] of Object.entries(stored)) {
+      merged[key] = { ...row };
+    }
+    for (const item of this.items) {
+      if (item.type !== "class") continue;
+      const type = String(item.system.spellcasting?.type || "none").toLowerCase();
+      if (!type || type === "none") continue;
+      const progression = resolveClassCombatProgression(item.name, item.system);
+      const key = slugifyClassKey(item.name) || "class";
+      const level = Math.max(0, Math.floor(Number(item.system.level) || 0));
+      const existing = merged[key] || {};
+      const storedPerDay = existing.spellsPerDay || {};
+      const hasStored = Object.values(storedPerDay).some((n) => Number(n) > 0);
+      let spellsPerDay = storedPerDay;
+      if (!hasStored) {
+        let table = item.system.spellcasting?.progression || item.system.spellcasting?.spellsPerDayByLevel || {};
+        if (typeof table === "string") {
+          try {
+            table = JSON.parse(table);
+          } catch {
+            table = {};
+          }
+        }
+        const levelRow = table?.[level] || table?.[String(level)] || {};
+        spellsPerDay = levelRow.spellsPerDay || levelRow.perDay || {};
+      }
+      merged[key] = {
+        ...existing,
+        className: existing.className || item.name,
+        type: existing.type || type,
+        ability: existing.ability || item.system.spellcasting?.ability || progression.ability || "",
+        classLevel: level || existing.classLevel || 0,
+        casterLevel: existing.casterLevel || level || 0,
+        spellsPerDay,
+        spellsKnown: existing.spellsKnown || {},
+        expended: existing.expended || {},
+      };
+    }
+
+    const summary = [];
+    for (const [key, row] of Object.entries(merged)) {
+      const ability = normalizeAbilityKey(row.ability) || normalizeAbilityKey(resolveClassCombatProgression(row.className, {}).ability);
+      const score = systemData.abilities[ability]?.effective ?? 10;
+      const abilityMod = systemData.abilities[ability]?.mod || 0;
+      const perDay = [];
+      const baseMap = row.spellsPerDay || {};
+      const hasTable = Object.values(baseMap).some((n) => Number(n) > 0);
+      for (let level = 0; level <= 9; level++) {
+        const base = Math.max(0, Math.floor(Number(baseMap[level] ?? baseMap[String(level)]) || 0));
+        const bonus = hasTable && base > 0 && level > 0 && ability ? bonusSpellsForScore(score, level) : 0;
+        if (hasTable && level > 0 && base <= 0) continue;
+        if (!hasTable && level > 0) continue;
+        const total = base + (level === 0 ? 0 : bonus);
+        const expended = Math.max(0, Math.floor(Number(row.expended?.[level] ?? row.expended?.[String(level)]) || 0));
+        perDay.push({
+          level,
+          base,
+          bonus,
+          total,
+          expended,
+          remaining: Math.max(0, total - expended),
+          dc: 10 + level + abilityMod,
+        });
+      }
+      if (!hasTable) {
+        for (let level = 1; level <= 9; level++) {
+          perDay.push({
+            level,
+            base: 0,
+            bonus: 0,
+            total: 0,
+            expended: 0,
+            remaining: 0,
+            dc: 10 + level + abilityMod,
+          });
+        }
+      }
+      summary.push({
+        key,
+        className: row.className || key,
+        type: row.type || "",
+        ability,
+        abilityMod,
+        casterLevel: Math.floor(Number(row.casterLevel ?? row.classLevel) || 0),
+        perDay,
+      });
+    }
+    systemData.spellcasting.summary = summary;
+  }
+
+  _prepareAttacksAndSpells(systemData) {
+    const sizeKey = systemData.traits?.size || "med";
+    const sizeMods = CTSDND35.sizeMods[sizeKey] || CTSDND35.sizeMods.med;
+    const mods = {};
+    for (const [key, ability] of Object.entries(systemData.abilities || {})) mods[key] = ability.mod || 0;
+    const ctx = {
+      bab: systemData.attributes.bab.total || 0,
+      strMod: mods.str || 0,
+      dexMod: mods.dex || 0,
+      mods,
+      sizeAttack: sizeMods.attack || 0,
+      attackPenalty: systemData.attributes.attackRollPenalty || 0,
+      damagePenalty: systemData.attributes.damageRollPenalty || 0,
+      cannotAttack: !!systemData.attributes.conditionFlags?.cannotAttack,
+    };
+    const summary = systemData.spellcasting.summary || [];
+    for (const item of this.items) {
+      if (item.type === "weapon" || item.type === "attack") {
+        item.system.derived = buildWeaponDerived(item.system, ctx);
+      } else if (item.type === "spell") {
+        item.system.derived = buildSpellDerived(item.system, summary, systemData);
+      }
     }
   }
 

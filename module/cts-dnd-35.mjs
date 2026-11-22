@@ -27,6 +27,11 @@ import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
 import { ACTIVE_EFFECT_ATTRIBUTE_KEYS } from "./helpers/modifier-pipeline.mjs";
+import {
+  bonusSpellsForScore,
+  iterativeAttackBonuses,
+  summarizeConditions,
+} from "./helpers/combat-rules.mjs";
 
 function _getD35DiagonalRuleValue() {
   const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
@@ -83,6 +88,9 @@ Hooks.once("init", function () {
     openHelp: () => CTSDND35HelpApp.open(),
     /** Documented Active Effect attribute keys for this system */
     activeEffectAttributeKeys: ACTIVE_EFFECT_ATTRIBUTE_KEYS,
+    bonusSpellsForScore,
+    iterativeAttackBonuses,
+    summarizeConditions,
   };
 
   registerMerchantSockets();

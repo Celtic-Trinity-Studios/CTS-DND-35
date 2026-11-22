@@ -16,6 +16,75 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
+      {{#if derived.attackLabel}}
+      <p class="notes">On the owning actor: <strong>{{derived.attackLabel}}</strong> · {{derived.damageFormula}} · threat {{derived.threat}}–20 / ×{{derived.multiplier}}</p>
+      {{/if}}
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Attack mode</label>
+          <select name="system.weaponSubtype">
+            <option value="melee" {{#if (cts-eq system.weaponSubtype "melee")}}selected{{/if}}>Melee</option>
+            <option value="ranged" {{#if (cts-eq system.weaponSubtype "ranged")}}selected{{/if}}>Ranged</option>
+            <option value="touch" {{#if (cts-eq system.weaponSubtype "touch")}}selected{{/if}}>Touch</option>
+            <option value="rangedTouch" {{#if (cts-eq system.weaponSubtype "rangedTouch")}}selected{{/if}}>Ranged touch</option>
+            <option value="thrown" {{#if (cts-eq system.weaponSubtype "thrown")}}selected{{/if}}>Thrown</option>
+          </select>
+        </div>
+        <div class="form-group flex-grow">
+          <label>Weapon type</label>
+          <select name="system.weaponType">
+            {{#each config.weaponTypes as |label key|}}
+            <option value="{{key}}" {{#if (cts-eq ../system.weaponType key)}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Damage</label>
+          <input type="text" name="system.damageFormula" value="{{system.damageFormula}}" placeholder="1d8" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Damage type</label>
+          <input type="text" name="system.damageType" value="{{system.damageType}}" placeholder="slashing, fire" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Enhancement</label>
+          <input type="number" name="system.enhancement" value="{{system.enhancement}}" step="1" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Attack misc</label>
+          <input type="number" name="system.attackMisc" value="{{system.attackMisc}}" step="1" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Ability override</label>
+          <select name="system.ability">
+            <option value="" {{#unless system.ability}}selected{{/unless}}>Auto</option>
+            {{#each config.abilities as |label key|}}
+            <option value="{{key}}" {{#if (cts-eq ../system.ability key)}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Threat (natural)</label>
+          <input type="number" name="system.critRange" value="{{system.critRange}}" min="1" max="20" placeholder="20" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Crit multiplier</label>
+          <input type="number" name="system.critMultiplier" value="{{system.critMultiplier}}" min="2" step="1" placeholder="2" />
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+        <label><select name="system.proficient"><option value="true" {{#if system.proficient}}selected{{/if}}>Proficient</option><option value="false" {{#unless system.proficient}}selected{{/unless}}>Not proficient (−4)</option></select></label>
+        <label><select name="system.finesse"><option value="false" {{#unless system.finesse}}selected{{/unless}}>No finesse</option><option value="true" {{#if system.finesse}}selected{{/if}}>Finesse (Dex if better)</option></select></label>
+        <label><select name="system.twoHanded"><option value="false" {{#unless system.twoHanded}}selected{{/unless}}>One-handed</option><option value="true" {{#if system.twoHanded}}selected{{/if}}>Two-handed (Str ×1.5)</option></select></label>
+        <label><select name="system.offHand"><option value="false" {{#unless system.offHand}}selected{{/unless}}>Primary</option><option value="true" {{#if system.offHand}}selected{{/if}}>Off-hand (½ Str, one attack)</option></select></label>
+        <label><select name="system.secondary"><option value="false" {{#unless system.secondary}}selected{{/unless}}>Primary natural</option><option value="true" {{#if system.secondary}}selected{{/if}}>Secondary natural (−5, ½ Str)</option></select></label>
+      </div>
       <div class="flexrow" style="gap:8px;">
         <div class="form-group flex-grow">
           <label>{{localize "CTSDND35.Weight"}} (lb)</label>
@@ -26,7 +95,7 @@
           <input type="number" name="system.quantity" value="{{system.quantity}}" step="1" min="1" />
         </div>
       </div>
-      <p class="notes">Weight counts toward carrying capacity (world setting: encumbrance automation).</p>
+      <p class="notes">Click the weapon name on the character sheet to roll each iterative attack, a confirmation roll on a threat, and damage. Compendium weapons that only store damage in <code>damage.parts</code> still roll. Set Damage here to override that formula. Two-weapon fighting penalties go in Attack misc.</p>
     </div>
   </section>
 </form>

@@ -65,7 +65,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Class as **Item** | **Present** | Levels, BAB progression type, tied to wizards |
 | BAB derived from all class levels | **Present** | Tables in `config.mjs`; summed in `actor.mjs` |
 | Fractional BAB / saves (optional variant) | **Missing** | Standard integer BAB/saves only |
-| Base saves from class + level | **Partial** | Save **total** uses manual **base** inputs; **not** computed from per-class good/poor tables |
+| Base saves from class + level | **Present** | Class items’ high/low saves (core classes use SRD lines while the compendium stub is untouched) sum into Fort/Ref/Will; misc bonus stays manual (`actor.mjs`) |
 | Hit dice / HP at level 1 & beyond | **Partial** | Level-up wizard supports **fixed / roll / manual** style flow; full HD averaging rules table-side |
 | Max HP vs rolled HP history | **Missing** | No audit trail per level |
 | Skill points per level | **Partial** | Wizard + `getSkillRankCap`; multiclass **class skill lists** merged from packs |
@@ -155,13 +155,13 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Ranged attacks | **Partial** | Same; range increments / cover not automated |
 | Range increments & cumulative −2 | **Missing** | |
 | Projectile vs thrown weapon rules | **Missing** | |
-| Iterative attacks (BAB −5, −10, …) | **Missing** | |
+| Iterative attacks (BAB −5, −10, …) | **Present** | Weapon and attack items roll each iterative; off-hand and secondary natural attacks stay a single strike (`combat-rules.mjs`) |
 | Natural weapons & secondary attacks | **Missing** | |
 | Primary / secondary natural attack BAB offset | **Missing** | |
 | Unarmed strike & monk progression | **Missing** | |
 | Touch attacks / ranged touch | **Partial** | AC touch computed; **attack mode** not distinguished in automation |
 | Holding charge / touch spell through weapon | **Missing** | |
-| Critical threat / confirmation / multiplier | **Missing** | |
+| Critical threat / confirmation / multiplier | **Partial** | A natural roll in the threat range adds a confirmation roll and shows the multiplier; Keen and immunity are not applied |
 | Keen / Improved Critical stacking limits | **Missing** | |
 | Damage rolls & chat cards | **Partial** | Basic `Item.roll()` chat output |
 | Damage types (B/S/P) & energy types | **Partial** | Schema varies by item; **DR interaction** missing |
@@ -195,9 +195,9 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Saving throws (Fort / Ref / Will total) | **Partial** | Base + ability + misc; base should tie to classes |
 | Saving throw bonuses by source | **Missing** | No typed stacking |
 | Circumstance bonuses on saves (good/neutral/evil aura, etc.) | **Missing** | |
-| Damage reduction (DR) | **Missing** | |
+| Damage reduction (DR) | **Partial** | Combat tab rows (amount / bypass) are listed on the attack card; bypass is not chosen automatically |
 | DR bypass materials / alignment / magic | **Missing** | |
-| Energy resistance / immunity | **Missing** | |
+| Energy resistance / immunity | **Partial** | Fire, cold, acid, electricity, and sonic resistance or immunity on the Combat tab adjust matching weapon damage in chat |
 | Vulnerability / healing amp for energy | **Missing** | |
 | Spell resistance (SR) | **Partial** | Numeric field; **no** caster check workflow |
 | Hardness & object HP | **Missing** | |
@@ -247,7 +247,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
 | **Buff** item type | **Present** | Exists; **duration / combat-round** automation thin |
-| SRD condition catalog (applied effects) | **Missing** | |
+| SRD condition catalog (applied effects) | **Partial** | Status checkboxes apply the common numeric penalties (fear, sickened, fatigue, grappled, helpless, prone AC, slowed, deafened spell failure). Durations and action locks are noted, not enforced |
 | Foundry **Active Effects** driving mods | **Missing** | `prepareDerivedData` does not consume unified effects |
 | Condition duration (rounds / minutes / Dismissible) | **Missing** | |
 | Fatigued / exhausted track | **Missing** | |
@@ -313,19 +313,19 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Spell preparation (Vancian) | **Missing** | |
 | Spellbook / known spells list per class | **Missing** | |
 | Spontaneous casting (known spells / slots) | **Missing** | |
-| Spell slots per level | **Missing** | |
-| Bonus spells from high ability | **Missing** | |
+| Spell slots per level | **Partial** | Slots per day from the class progression plus ability bonus spells; Use / restore on the Spells list tracks expended slots |
+| Bonus spells from high ability | **Present** | PHB Table 1–1 added only for spell levels the class can already cast (`bonusSpellsForScore`) |
 | Domain spell slots | **Missing** | |
 | Specialist wizard forbidden schools | **Missing** | |
 | Caster level (global per class) | **Partial** | Not centralized on actor for checks |
 | Penetration vs SR (Spell Penetration feats) | **Missing** | |
-| Spell DC (10 + level + ability) | **Missing** | |
+| Spell DC (10 + level + ability) | **Present** | Shown per spell and per slot; click a spell to post DC and an arcane failure check |
 | Heightened / empowered metamagic adjusted DC & level | **Missing** | |
 | Spell resistance check | **Missing** | |
 | Concentration (DC = 10 + damage + spell level, etc.) | **Missing** | Skill exists only as static total |
 | Defensive casting option | **Missing** | |
 | Components V / S / M / F / DF / XP | **Partial** | Text on items at best |
-| Arcane spell failure chance | **Missing** | Not applied from armor |
+| Arcane spell failure chance | **Partial** | Equipped armor/shield ASF (and deafened verbal failure) is rolled when an arcane spell is cast |
 | Divine focus / inexpensive material defaults | **Missing** | |
 | Somatic components in grapple | **Missing** | |
 | Counterspells | **Missing** | |

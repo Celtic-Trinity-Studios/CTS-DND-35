@@ -3,7 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="48" width="48" />
     <div class="header-fields">
       <input class="char-name flex-grow" name="name" type="text" value="{{item.name}}" />
-      <span class="stat-label" style="text-transform:uppercase;">{{item.type}}</span>
+      <span class="stat-label" style="text-transform:uppercase;">feature</span>
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
@@ -16,7 +16,20 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Feature type</label>
+          <input type="text" name="system.featureType" value="{{system.featureType}}" placeholder="class, domain, racial" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Class source</label>
+          <input type="text" name="system.classSource" value="{{system.classSource}}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Source</label>
+        <input type="text" name="system.source" value="{{system.source}}" />
+      </div>
     </div>
   </section>
 </form>

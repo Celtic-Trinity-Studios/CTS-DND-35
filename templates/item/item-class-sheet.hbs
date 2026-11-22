@@ -3,7 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" height="48" width="48" />
     <div class="header-fields">
       <input class="char-name flex-grow" name="name" type="text" value="{{item.name}}" />
-      <span class="stat-label" style="text-transform:uppercase;">{{item.type}}</span>
+      <span class="stat-label" style="text-transform:uppercase;">class</span>
     </div>
   </header>
   <nav class="sheet-tabs tabs" data-group="primary">
@@ -16,7 +16,65 @@
       {{editor enrichedDescription target="system.description" button=true editable=editable}}
     </div>
     <div class="tab" data-group="primary" data-tab="details">
-      <p><em>Type-specific details will appear here once the item detail templates are built out.</em></p>
+      {{#if appliedProgression.fromCore}}
+      <p class="notes">This class still has the compendium default (BAB medium, all saves low). Combat uses the {{item.name}} SRD line until you change BAB or a save below: BAB {{appliedProgression.bab}}, Fort {{appliedProgression.saves.fort}}, Ref {{appliedProgression.saves.ref}}, Will {{appliedProgression.saves.will}}.</p>
+      {{/if}}
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Level</label>
+          <input type="number" name="system.level" value="{{system.level}}" min="0" step="1" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Hit die</label>
+          <input type="text" name="system.hitDie" value="{{system.hitDie}}" placeholder="d10" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Skill points / level</label>
+          <input type="number" name="system.skillRanksPerLevel" value="{{system.skillRanksPerLevel}}" min="0" step="1" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>BAB</label>
+        <select name="system.bab">
+          <option value="high" {{#if (cts-eq system.bab "high")}}selected{{/if}}>High</option>
+          <option value="med" {{#if (cts-eq system.bab "med")}}selected{{/if}}>Medium</option>
+          <option value="low" {{#if (cts-eq system.bab "low")}}selected{{/if}}>Low</option>
+        </select>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Fort</label>
+          <select name="system.saves.fort">
+            <option value="high" {{#if (cts-eq system.saves.fort "high")}}selected{{/if}}>High</option>
+            <option value="low" {{#if (cts-eq system.saves.fort "low")}}selected{{/if}}>Low</option>
+          </select>
+        </div>
+        <div class="form-group flex-grow">
+          <label>Ref</label>
+          <select name="system.saves.ref">
+            <option value="high" {{#if (cts-eq system.saves.ref "high")}}selected{{/if}}>High</option>
+            <option value="low" {{#if (cts-eq system.saves.ref "low")}}selected{{/if}}>Low</option>
+          </select>
+        </div>
+        <div class="form-group flex-grow">
+          <label>Will</label>
+          <select name="system.saves.will">
+            <option value="high" {{#if (cts-eq system.saves.will "high")}}selected{{/if}}>High</option>
+            <option value="low" {{#if (cts-eq system.saves.will "low")}}selected{{/if}}>Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="flexrow" style="gap:8px;">
+        <div class="form-group flex-grow">
+          <label>Spellcasting</label>
+          <input type="text" name="system.spellcasting.type" value="{{system.spellcasting.type}}" placeholder="arcane, divine, none" />
+        </div>
+        <div class="form-group flex-grow">
+          <label>Casting ability</label>
+          <input type="text" name="system.spellcasting.ability" value="{{system.spellcasting.ability}}" placeholder="int, wis, cha" />
+        </div>
+      </div>
+      <p class="notes">Base saves and BAB on the actor add every class item. Editing a core class off the all-low stub uses the values in these dropdowns.</p>
     </div>
   </section>
 </form>

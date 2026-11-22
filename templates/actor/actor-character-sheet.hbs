@@ -78,6 +78,7 @@
             {{#each items.weapons}}
             <div class="cts-line item" data-item-id="{{this._id}}">
               <span class="item-name item-roll">{{this.name}}</span>
+              <span title="{{this.system.derived.damageFormula}}">{{this.system.derived.attackLabel}}</span>
               <span class="cts-line-controls">
                 <a class="item-edit" title="Edit"><i class="fas fa-edit"></i></a>
                 <a class="item-delete" title="Delete"><i class="fas fa-trash"></i></a>
