@@ -103,15 +103,7 @@
     </div>
 
     <div class="tab" data-group="primary" data-tab="skills">
-      <div class="cts-column cts-skills-tab-column">
-        <h3>Skills</h3>
-        {{#each skillList}}
-        <div class="cts-line">
-          <span class="rollable skill-roll" data-skill="{{this.key}}">{{this.label}}</span>
-          <span>{{cts-sign this.total}}</span>
-        </div>
-        {{/each}}
-      </div>
+      {{> "systems/CTS-DND-35/templates/actor/parts/actor-skills.hbs"}}
     </div>
 
     <div class="tab" data-group="primary" data-tab="features">

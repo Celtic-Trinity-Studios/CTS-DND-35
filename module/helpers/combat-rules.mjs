@@ -4,6 +4,7 @@
  */
 
 import { expandedThreat, rangeIncrementPenalty } from "./open-rules.mjs";
+import { flurryPenalty, monkUnarmedDamage, weaponSizePenalty } from "./phb-rest.mjs";
 import { isFinesseWeapon, metamagicProfile, schoolBonus, weaponChosen } from "./table-combat.mjs";
 
 /** Core classes whose compendium rows were imported as BAB medium / all saves low. */
@@ -280,7 +281,8 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   const sizeAttack = Math.floor(Number(ctx.sizeAttack) || 0);
   const attackPenalty = Math.floor(Number(ctx.attackPenalty) || 0);
   const nonprof = proficient ? 0 : 4;
-  const full = bab + atkAbility + sizeAttack + enhancement + misc - attackPenalty - nonprof;
+  const sizeFit = weaponSizePenalty(ctx.sizeKey || "med", system.weaponSize || ctx.sizeKey || "med");
+  const full = bab + atkAbility + sizeAttack + enhancement + misc - attackPenalty - nonprof - sizeFit.penalty;
 
   let attackBonuses;
   if (natural) attackBonuses = [secondary ? full - 5 : full];
@@ -298,6 +300,11 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   damageAbility -= Math.floor(Number(ctx.damagePenalty) || 0);
 
   const notes = [];
+  const unarmed = /unarmed/i.test(String(ctx.itemName || "")) || system.weaponType === "unarmed";
+  if (sizeFit.note) notes.push(sizeFit.note);
+  if (ctx.underwater && !natural && !/pierc/i.test(String(system.damageType || ""))) {
+    notes.push("Underwater: half damage unless the attack is piercing");
+  }
   let situational = Math.floor(Number(ctx.situationalAttack) || 0);
   if (!ranged && ctx.flanking) {
     situational += 2;
@@ -351,6 +358,15 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     attackBonuses = attackBonuses.map((bonus) => bonus + situational);
   }
 
+  if (ctx.underwater && !natural && !/pierc/i.test(String(system.damageType || ""))) {
+    attackBonuses = attackBonuses.map((bonus) => bonus - 2);
+  }
+  if (unarmed && ctx.flurry && ctx.monkLevel) {
+    const pen = flurryPenalty(ctx.monkLevel);
+    attackBonuses = attackBonuses.map((bonus) => bonus - pen);
+    attackBonuses.unshift(attackBonuses[0]);
+    notes.push(`Flurry −${pen}, extra attack`);
+  }
   if (ctx.rapidShot && ranged && !natural && !offHand) {
     attackBonuses = attackBonuses.map((bonus) => bonus - 2);
     attackBonuses.unshift(attackBonuses[0]);
@@ -368,7 +384,9 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   }
 
   const sneakDice = Math.max(0, Math.floor(Number(ctx.sneakDice) || 0));
-  const baseFormula = damageFormulaFromItem(system);
+  const monkFormula = unarmed && ctx.monkLevel ? monkUnarmedDamage(ctx.monkLevel, ctx.sizeKey || "med") : "";
+  if (monkFormula) notes.push(`Monk unarmed ${monkFormula}`);
+  const baseFormula = monkFormula || damageFormulaFromItem(system);
   let damageFormula = baseFormula;
   if (damageAbility) damageFormula = baseFormula ? `${baseFormula} + ${damageAbility}` : String(damageAbility);
   if (!damageFormula) damageFormula = "0";
@@ -404,6 +422,7 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     material: String(system.material || "").toLowerCase(),
     alignment: String(system.alignment || system.weaponAlignment || "").toLowerCase(),
     nonlethal: truthy(system.nonlethal),
+    critImmune: !!ctx.critImmune,
     cannotAttack: !!ctx.cannotAttack,
     proficient,
     notes,
@@ -462,9 +481,13 @@ export function buildSpellDerived(spellSystem = {}, summary = [], actorSystem = 
   const failureChance = Math.min(100, armorAsf + deaf);
   const preparedRaw = spellSystem.prepared;
   const prepared = preparedRaw === true || preparedRaw === "true" ? 1 : Math.max(0, Math.floor(Number(preparedRaw) || 0));
+  const negativeLevels = Math.max(0, Math.floor(Number(actorSystem.attributes?.negativeLevels) || 0));
+  const forbidden = String(actorSystem.spellcasting?.forbiddenSchools || "").toLowerCase();
+  const school = String(spellSystem.school || "").toLowerCase();
+  const forbiddenHit = !!school && forbidden.split(/[,/]/).some((part) => part.trim() && school.includes(part.trim()));
   return {
     dc: caster || (override != null && override !== "") ? dc : null,
-    casterLevel: Number(caster?.casterLevel) || 0,
+    casterLevel: Math.max(0, (Number(caster?.casterLevel) || 0) - negativeLevels),
     className: caster?.className || "",
     classKey: caster?.key || "",
     ability: caster?.ability || "",
@@ -478,6 +501,8 @@ export function buildSpellDerived(spellSystem = {}, summary = [], actorSystem = 
     empower: meta.empower,
     concentrationDc: 15 + level + meta.slotIncrease,
     halfOnSave: truthy(spellSystem.save?.half) || /half damage/i.test(String(spellSystem.description || "")),
+    forbiddenSchool: forbiddenHit,
+    grappledSomatic: !!(actorSystem.details?.status?.conditions?.grappled && somatic),
   };
 }
 
@@ -493,7 +518,16 @@ export function applyEnergyToDamage(amount, damageType, energy = {}) {
   const hit = ENERGY_KEYS.find((key) => type.includes(key));
   if (!hit) return { amount, note: "" };
   if (energy.immune?.[hit]) return { amount: 0, note: `Immune to ${hit}` };
+  let next = Math.floor(Number(amount) || 0);
+  let note = "";
+  if (energy.vulnerable?.[hit]) {
+    next = Math.floor(next * 1.5);
+    note = `${hit} vulnerability`;
+  }
   const resist = Math.max(0, Math.floor(Number(energy.resist?.[hit]) || 0));
-  if (!resist) return { amount, note: "" };
-  return { amount: Math.max(0, amount - resist), note: `${hit} resistance ${resist}` };
+  if (resist) {
+    next = Math.max(0, next - resist);
+    note = note ? `${note}, resistance ${resist}` : `${hit} resistance ${resist}`;
+  }
+  return { amount: next, note };
 }

@@ -28,7 +28,7 @@
   <p class="cts-hint-block">{{system.details.xpMulticlassHint}}</p>
   {{/if}}
   {{#if system.spellcasting.powerPoints}}
-  <p class="cts-hint-block">Suggested power points: {{system.spellcasting.powerPoints}} (class table plus the key ability modifier).</p>
+  <p class="cts-hint-block">Suggested power points: {{system.spellcasting.powerPoints}} (class table plus half the key ability modifier times manifester level). Left: {{system.spellcasting.powerPointsCurrent}}.</p>
   {{/if}}
   {{#if system.attributes.classFeatures.length}}
   <h4>Class features on the class items</h4>
@@ -64,6 +64,24 @@
         <option value="true" {{#if system.traits.applyAgingTable}}selected{{/if}}>Yes</option>
       </select>
     </label>
+    <label>Gestalt
+      <select name="system.details.gestalt">
+        <option value="false" {{#unless system.details.gestalt}}selected{{/unless}}>No</option>
+        <option value="true" {{#if system.details.gestalt}}selected{{/if}}>Best BAB and saves</option>
+      </select>
+    </label>
+    <label>Racial HD <input type="number" name="system.details.racialHd" value="{{system.details.racialHd}}" min="0" step="1" /></label>
+    <label>Racial BAB
+      <select name="system.details.racialBab">
+        <option value="med" {{#unless (cts-eq system.details.racialBab "high")}}{{#unless (cts-eq system.details.racialBab "low")}}selected{{/unless}}{{/unless}}>Medium</option>
+        <option value="high" {{#if (cts-eq system.details.racialBab "high")}}selected{{/if}}>High</option>
+        <option value="low" {{#if (cts-eq system.details.racialBab "low")}}selected{{/if}}>Low</option>
+      </select>
+    </label>
+    <label>Linked companion <input type="text" name="system.details.companionId" value="{{system.details.companionId}}" placeholder="Actor id" /></label>
+    <label>Forbidden schools <input type="text" name="system.spellcasting.forbiddenSchools" value="{{system.spellcasting.forbiddenSchools}}" placeholder="Enchantment, Evocation" /></label>
+    <label>Power points left <input type="number" name="system.spellcasting.powerPointsCurrent" value="{{system.spellcasting.powerPointsCurrent}}" min="0" step="1" /></label>
+    <label>Fortification % <input type="number" name="system.attributes.fortification" value="{{system.attributes.fortification}}" min="0" max="100" step="1" /></label>
     <label>Apply racial adjustments
       <select name="system.traits.applyRacialAdjustments">
         <option value="false" {{#unless system.traits.applyRacialAdjustments}}selected{{/unless}}>No</option>

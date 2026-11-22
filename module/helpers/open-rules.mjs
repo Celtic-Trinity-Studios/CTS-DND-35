@@ -200,7 +200,9 @@ export function psionPowerPoints(level, abilityMod = 0, kind = "psion") {
   if (n <= 0) return 0;
   const table = /warrior/i.test(String(kind)) ? WARRIOR_PP : PSION_PP;
   const base = table[Math.min(n, 20) - 1];
-  return base + Math.max(0, Math.floor(Number(abilityMod) || 0));
+  const mod = Math.floor(Number(abilityMod) || 0);
+  const bonus = mod > 0 ? Math.floor((mod * n) / 2) : 0;
+  return base + bonus;
 }
 
 export function agingAdjustments(category) {

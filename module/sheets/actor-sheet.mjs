@@ -8,6 +8,7 @@ import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
 import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
 import { MerchantApp } from "../apps/merchant-app.mjs";
+import { PROCEDURES, runProcedure } from "../helpers/phb-rest.mjs";
 
 export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
 
@@ -90,6 +91,9 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
         abilityMod,
         ranks: skillData.ranks || 0,
         misc: skillData.misc || 0,
+        circumstance: skillData.circumstance || 0,
+        competence: skillData.competence || 0,
+        insight: skillData.insight || 0,
         effectBonus: skillData.effectBonus || 0,
         total: skillData.total || 0,
         classSkill: skillData.classSkill || false,
@@ -112,6 +116,7 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
     context.hasActorSpells = Object.keys(spellBuckets).some((lvl) => (spellBuckets[lvl]?.length ?? 0) > 0);
 
     context.sheetVisualTheme = game.settings.get("CTS-DND-35", "actorSheetVisualTheme") || "angled";
+    context.procedures = PROCEDURES;
 
     context.editable = this.isEditable;
 
@@ -477,6 +482,29 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       if (!key) return;
       await this.actor.update({ [`system.attributes.energy.immune.${key}`]: ev.currentTarget.checked });
     });
+    html.on("change", "input[type='checkbox'][data-energy-vulnerable]", async (ev) => {
+      if (!this.isEditable) return;
+      const key = ev.currentTarget.dataset.energyVulnerable;
+      if (!key) return;
+      await this.actor.update({ [`system.attributes.energy.vulnerable.${key}`]: ev.currentTarget.checked });
+    });
+    html.on("click", ".cts-procedure-run", (ev) => {
+      ev.preventDefault();
+      const root = ev.currentTarget.closest(".tab") || html[0];
+      const id = root.querySelector(".cts-procedure")?.value;
+      const amount = Number(root.querySelector(".cts-procedure-amount")?.value) || 0;
+      this._onProcedure(id, amount);
+    });
+    html.on("click", ".cts-pp-spend", async (ev) => {
+      ev.preventDefault();
+      const current = Math.max(0, Math.floor(Number(this.actor.system.spellcasting?.powerPointsCurrent) || 0));
+      await this.actor.update({ "system.spellcasting.powerPointsCurrent": Math.max(0, current - 1) });
+    });
+    html.on("click", ".cts-pp-rest", async (ev) => {
+      ev.preventDefault();
+      const max = Math.max(0, Math.floor(Number(this.actor.system.spellcasting?.powerPoints) || 0));
+      await this.actor.update({ "system.spellcasting.powerPointsCurrent": max });
+    });
 
     html.on("click", ".cts-status-subtabs [data-cts-status-sub]", (ev) => {
       ev.preventDefault();
@@ -490,6 +518,76 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       root.querySelectorAll(".cts-status-subpane").forEach((pane) => {
         pane.classList.toggle("is-active", pane.dataset.ctsStatusSub === sub);
       });
+    });
+  }
+
+  _procedureContext() {
+    const system = this.actor.system;
+    const skills = {};
+    for (const [key, skill] of Object.entries(system.skills || {})) skills[key] = skill.total || 0;
+    const classes = this.actor.items
+      .filter((item) => item.type === "class")
+      .map((item) => ({ name: item.name, level: item.system?.level || 0 }));
+    return {
+      classes,
+      level: system.details?.level?.value || 0,
+      bab: system.attributes?.bab?.total || 0,
+      str: system.abilities?.str?.mod || 0,
+      dex: system.abilities?.dex?.mod || 0,
+      con: system.abilities?.con?.mod || 0,
+      conScore: system.abilities?.con?.effective || system.abilities?.con?.value || 10,
+      int: system.abilities?.int?.mod || 0,
+      wis: system.abilities?.wis?.mod || 0,
+      cha: system.abilities?.cha?.mod || 0,
+      fort: system.attributes?.savingThrows?.fort?.total || 0,
+      ref: system.attributes?.savingThrows?.ref?.total || 0,
+      will: system.attributes?.savingThrows?.will?.total || 0,
+      skills,
+      grapple: system.attributes?.grapple?.total || 0,
+      speed: system.attributes?.speed?.land?.total || 0,
+      fly: system.attributes?.speed?.fly?.total || 0,
+      reach: system.traits?.reachFt || 0,
+      size: system.traits?.size || "med",
+      hp: system.attributes?.hp?.value || 0,
+      hpMax: system.attributes?.hp?.max || 0,
+      ac: system.attributes?.ac?.normal || 0,
+      touchAc: system.attributes?.ac?.touch || 0,
+      nonlethal: system.attributes?.hp?.nonlethal || 0,
+      negativeLevels: system.attributes?.negativeLevels || 0,
+      fortification: system.attributes?.fortification || 0,
+      creatureType: system.details?.creatureType || "",
+      casterLevel: system.spellcasting?.summary?.[0]?.casterLevel || 0,
+      clericLevel: system.attributes?.turning?.level || 0,
+      hd: system.details?.level?.value || 0,
+      powerPoints: system.spellcasting?.powerPoints || 0,
+      powerPointsCurrent: system.spellcasting?.powerPointsCurrent || 0,
+      manifesterLevel: system.spellcasting?.summary?.[0]?.casterLevel || 0,
+      xpPenalty: system.details?.xpPenalty?.percent || 0,
+      gestalt: !!system.details?.gestalt,
+      companion: system.details?.companionId || "",
+      forbidden: system.spellcasting?.forbiddenSchools || "",
+      distracted: !!system.attributes?.combat?.distracted,
+      literate: !!system.details?.literate,
+      standard: system.attributes?.combat?.standardLeft !== false,
+      move: system.attributes?.combat?.moveLeft !== false,
+      swift: system.attributes?.combat?.swiftLeft !== false,
+    };
+  }
+
+  async _onProcedure(id, amount) {
+    const result = runProcedure(id, this._procedureContext(), amount);
+    const rolls = [];
+    if (result.formula) {
+      const roll = new foundry.dice.Roll(result.formula.replace("%", "100"));
+      await roll.evaluate();
+      rolls.push(roll);
+    }
+    const label = PROCEDURES.find((row) => row.id === id)?.label || id;
+    return foundry.documents.BaseChatMessage.create({
+      speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
+      rolls,
+      flavor: label,
+      content: `<div class="cts-dnd-35 chat-card"><h3>${label}</h3>${result.lines.map((line) => `<p>${line}</p>`).join("")}</div>`,
     });
   }
 

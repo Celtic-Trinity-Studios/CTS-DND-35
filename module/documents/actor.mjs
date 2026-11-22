@@ -18,6 +18,7 @@ import {
   synergyForSkill,
   xpToReachNextLevel,
 } from "../helpers/open-rules.mjs";
+import { critImmuneType, flurryPenalty, monkUnarmedDamage, skillTypedBonus, weaponSizePenalty } from "../helpers/phb-rest.mjs";
 import { getClassFeatureGrants } from "../helpers/progression-rules.mjs";
 import {
   bonusSpellsForScore,
@@ -196,6 +197,21 @@ export class CTSDND35Actor extends Actor {
     combat.concentrationDc ??= 15;
     combat.sneakAttack = combat.sneakAttack === true || combat.sneakAttack === "true";
     combat.manyshot = combat.manyshot === true || combat.manyshot === "true";
+    combat.distracted = combat.distracted === true || combat.distracted === "true";
+    combat.flurry = combat.flurry === true || combat.flurry === "true";
+    combat.underwater = combat.underwater === true || combat.underwater === "true";
+    combat.flatFooted = combat.flatFooted === true || combat.flatFooted === "true";
+    combat.standardLeft = combat.standardLeft !== false && combat.standardLeft !== "false";
+    combat.moveLeft = combat.moveLeft !== false && combat.moveLeft !== "false";
+    combat.swiftLeft = combat.swiftLeft !== false && combat.swiftLeft !== "false";
+    systemData.details.gestalt = systemData.details.gestalt === true || systemData.details.gestalt === "true";
+    systemData.attributes.fortification = Math.max(0, Math.floor(Number(systemData.attributes.fortification) || 0));
+    systemData.attributes.energy.vulnerable ??= {};
+    for (const key of ["fire", "cold", "acid", "electricity", "sonic"]) {
+      systemData.attributes.energy.vulnerable[key] =
+        systemData.attributes.energy.vulnerable[key] === true ||
+        systemData.attributes.energy.vulnerable[key] === "true";
+    }
     combat.concealment = Math.max(0, Math.floor(Number(combat.concealment) || 0));
     systemData.attributes.turning ??= {};
     systemData.attributes.turning.expended ??= 0;
@@ -551,7 +567,11 @@ export class CTSDND35Actor extends Actor {
       if (!kind) continue;
       powerPoints += psionPowerPoints(row.level, systemData.abilities?.[key]?.mod || 0, kind);
     }
-    if (powerPoints) systemData.spellcasting.powerPoints = powerPoints;
+    if (powerPoints) {
+      systemData.spellcasting.powerPoints = powerPoints;
+      const current = systemData.spellcasting.powerPointsCurrent;
+      systemData.spellcasting.powerPointsCurrent = current == null || current === "" ? powerPoints : Math.max(0, Math.floor(Number(current) || 0));
+    }
   }
 
   /**
@@ -567,6 +587,7 @@ export class CTSDND35Actor extends Actor {
     const penal =
       Math.floor(Number(ability.damage) || 0) +
       Math.floor(Number(ability.drain) || 0) +
+      Math.floor(Number(ability.burn) || 0) +
       agingPenalty;
     if (usePoly) {
       const baseScore = Math.max(1, Math.floor(Number(poly[key]) || 10));
@@ -701,21 +722,39 @@ export class CTSDND35Actor extends Actor {
    */
   _prepareCombatStats(systemData, nl) {
     let totalBAB = 0;
+    let bestBab = 0;
     const classSave = { fort: 0, ref: 0, will: 0 };
+    const bestSave = { fort: 0, ref: 0, will: 0 };
     let anyClassSave = false;
     const classItems = this.items.filter((i) => i.type === "class");
     for (const cls of classItems) {
       const level = Math.floor(Number(cls.system.level) || 0);
       const progression = resolveClassCombatProgression(cls.name, cls.system);
       const babTable = CTSDND35.babProgression[progression.bab] || CTSDND35.babProgression.med;
-      if (level > 0) totalBAB += babTable[Math.min(level, 20) - 1] || 0;
+      if (level > 0) {
+        const babValue = babTable[Math.min(level, 20) - 1] || 0;
+        totalBAB += babValue;
+        bestBab = Math.max(bestBab, babValue);
+      }
       if (level <= 0) continue;
       for (const key of ["fort", "ref", "will"]) {
         const prog = progression.saves[key] === "high" ? "high" : "low";
         const table = CTSDND35.saveProgression[prog];
-        classSave[key] += table[Math.min(level, 20) - 1] || 0;
+        const saveValue = table[Math.min(level, 20) - 1] || 0;
+        classSave[key] += saveValue;
+        bestSave[key] = Math.max(bestSave[key], saveValue);
         anyClassSave = true;
       }
+    }
+    if (systemData.details?.gestalt) {
+      totalBAB = bestBab;
+      for (const key of ["fort", "ref", "will"]) classSave[key] = bestSave[key];
+    }
+    const racialHd = Math.max(0, Math.floor(Number(systemData.details?.racialHd) || 0));
+    if (racialHd) {
+      const racialProg = systemData.details?.racialBab === "high" || systemData.details?.racialBab === "low" ? systemData.details.racialBab : "med";
+      const racialTable = CTSDND35.babProgression[racialProg] || CTSDND35.babProgression.med;
+      totalBAB += racialTable[Math.min(racialHd, 20) - 1] || 0;
     }
 
     const saves = systemData.attributes?.savingThrows ?? {};
@@ -756,6 +795,9 @@ export class CTSDND35Actor extends Actor {
       }
     }
 
+    if (systemData.attributes.combat?.flatFooted && (systemData.attributes.ac.dexMode || "normal") === "normal") {
+      systemData.attributes.ac.dexMode = "loseBonus";
+    }
     const dexMode = systemData.attributes.ac.dexMode || "normal";
     let dexForAc = dexMod;
     if (dexMode === "helpless") dexForAc = -5;
@@ -839,6 +881,8 @@ export class CTSDND35Actor extends Actor {
       }
       const synergy = synergyForSkill(key, systemData.skills);
       skill.synergy = synergy.bonus;
+      const typed = skillTypedBonus(skill);
+      skill.typedBonus = typed.total;
       const sizeHide = key === "hid" ? (CTSDND35.sizeMods[systemData.traits?.size || "med"] || CTSDND35.sizeMods.med).hide || 0 : 0;
       skill.sizeBonus = sizeHide;
       skill.untrainedBlocked = skillDef.untrained === false && Math.floor(Number(skill.ranks) || 0) < 1;
@@ -847,12 +891,14 @@ export class CTSDND35Actor extends Actor {
         abilityMod +
         (skill.misc || 0) +
         synergy.bonus +
+        typed.total +
         sizeHide +
         Math.floor(Number(skill.effectBonus) || 0) -
         armorEncPen -
         conditionPen -
         nl;
-      skill.take10 = 10 + skill.total;
+      const distracted = !!systemData.attributes.combat?.distracted;
+      skill.take10 = distracted ? null : 10 + skill.total;
       skill.take20 = 20 + skill.total;
     }
   }
@@ -999,6 +1045,11 @@ export class CTSDND35Actor extends Actor {
       manyshot: !!feats.manyshot && !!systemData.attributes.combat?.manyshot,
       sneakDice: sneakDiceForClasses(this.items),
       sneakAttack: !!systemData.attributes.combat?.sneakAttack,
+      monkLevel: this.items.reduce((sum, item) => sum + (item.type === "class" && /^monk\b/i.test(item.name || "") ? Math.floor(Number(item.system?.level) || 0) : 0), 0),
+      flurry: !!systemData.attributes.combat?.flurry,
+      underwater: !!systemData.attributes.combat?.underwater,
+      sizeKey,
+      critImmune: critImmuneType(systemData.details?.creatureType) || !!systemData.attributes.critImmune,
       twf: resolveTwf(this.items, feats),
     };
     const summary = systemData.spellcasting.summary || [];

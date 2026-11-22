@@ -155,6 +155,34 @@
     </select>
   </div>
   <div class="form-group">
+    <label>Distracted</label>
+    <select name="system.attributes.combat.distracted" title="Threatened or distracted: cannot take 10">
+      <option value="false" {{#unless system.attributes.combat.distracted}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.distracted}}selected{{/if}}>Yes</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Flurry</label>
+    <select name="system.attributes.combat.flurry">
+      <option value="false" {{#unless system.attributes.combat.flurry}}selected{{/unless}}>Off</option>
+      <option value="true" {{#if system.attributes.combat.flurry}}selected{{/if}}>On</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Underwater</label>
+    <select name="system.attributes.combat.underwater">
+      <option value="false" {{#unless system.attributes.combat.underwater}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.underwater}}selected{{/if}}>Yes</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Flat-footed</label>
+    <select name="system.attributes.combat.flatFooted">
+      <option value="false" {{#unless system.attributes.combat.flatFooted}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.flatFooted}}selected{{/if}}>Lose Dex</option>
+    </select>
+  </div>
+  <div class="form-group">
     <label>Concealment %</label>
     <input type="number" name="system.attributes.combat.concealment" value="{{system.attributes.combat.concealment}}" min="0" max="100" step="1" title="20 or 50. The attack chat rolls 1d100." />
   </div>
@@ -359,26 +387,31 @@
     <div class="stat-label">Fire</div>
     <input type="number" name="system.attributes.energy.resist.fire" value="{{system.attributes.energy.resist.fire}}" min="0" step="1" />
     <label class="notes"><input type="checkbox" data-energy-immune="fire" {{#if system.attributes.energy.immune.fire}}checked{{/if}} /> Immune</label>
+    <label class="notes"><input type="checkbox" data-energy-vulnerable="fire" {{#if system.attributes.energy.vulnerable.fire}}checked{{/if}} /> Vulnerable</label>
   </div>
   <div class="stat-box">
     <div class="stat-label">Cold</div>
     <input type="number" name="system.attributes.energy.resist.cold" value="{{system.attributes.energy.resist.cold}}" min="0" step="1" />
     <label class="notes"><input type="checkbox" data-energy-immune="cold" {{#if system.attributes.energy.immune.cold}}checked{{/if}} /> Immune</label>
+    <label class="notes"><input type="checkbox" data-energy-vulnerable="cold" {{#if system.attributes.energy.vulnerable.cold}}checked{{/if}} /> Vulnerable</label>
   </div>
   <div class="stat-box">
     <div class="stat-label">Acid</div>
     <input type="number" name="system.attributes.energy.resist.acid" value="{{system.attributes.energy.resist.acid}}" min="0" step="1" />
     <label class="notes"><input type="checkbox" data-energy-immune="acid" {{#if system.attributes.energy.immune.acid}}checked{{/if}} /> Immune</label>
+    <label class="notes"><input type="checkbox" data-energy-vulnerable="acid" {{#if system.attributes.energy.vulnerable.acid}}checked{{/if}} /> Vulnerable</label>
   </div>
   <div class="stat-box">
     <div class="stat-label">Electricity</div>
     <input type="number" name="system.attributes.energy.resist.electricity" value="{{system.attributes.energy.resist.electricity}}" min="0" step="1" />
     <label class="notes"><input type="checkbox" data-energy-immune="electricity" {{#if system.attributes.energy.immune.electricity}}checked{{/if}} /> Immune</label>
+    <label class="notes"><input type="checkbox" data-energy-vulnerable="electricity" {{#if system.attributes.energy.vulnerable.electricity}}checked{{/if}} /> Vulnerable</label>
   </div>
   <div class="stat-box">
     <div class="stat-label">Sonic</div>
     <input type="number" name="system.attributes.energy.resist.sonic" value="{{system.attributes.energy.resist.sonic}}" min="0" step="1" />
     <label class="notes"><input type="checkbox" data-energy-immune="sonic" {{#if system.attributes.energy.immune.sonic}}checked{{/if}} /> Immune</label>
+    <label class="notes"><input type="checkbox" data-energy-vulnerable="sonic" {{#if system.attributes.energy.vulnerable.sonic}}checked{{/if}} /> Vulnerable</label>
   </div>
 </div>
 
@@ -404,3 +437,17 @@
   {{/each}}
 </ol>
 {{/if}}
+
+<h3>Rules</h3>
+<p class="notes">Every remaining table procedure. The number is feet, DC, damage, CR, or gold, depending on the line you pick.</p>
+<div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+  <select class="cts-procedure" style="min-width:240px;">
+    {{#each procedures as |row|}}
+    <option value="{{row.id}}">{{row.group}}: {{row.label}}</option>
+    {{/each}}
+  </select>
+  <input type="number" class="cts-procedure-amount" value="0" step="1" />
+  <button type="button" class="cts-btn secondary cts-procedure-run">Roll</button>
+  <button type="button" class="cts-btn secondary cts-pp-spend">Spend power point</button>
+  <button type="button" class="cts-btn secondary cts-pp-rest">Rest power points</button>
+</div>

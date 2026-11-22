@@ -24,6 +24,12 @@
         {{/each}}
       </tr>
       <tr>
+        <td>Burn</td>
+        {{#each system.abilities as |ability key|}}
+        <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.burn" value="{{ability.burn}}" min="0" step="1" title="Ability burn, same as damage until rested" /></td>
+        {{/each}}
+      </tr>
+      <tr>
         <td>Drain</td>
         {{#each system.abilities as |ability key|}}
         <td><input type="number" class="cts-num-input" name="system.abilities.{{key}}.drain" value="{{ability.drain}}" min="0" step="1" title="Ability drain" /></td>

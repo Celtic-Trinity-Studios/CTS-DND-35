@@ -138,11 +138,24 @@ export class CTSDND35Item extends Item {
       const threat = natural >= derived.threat && natural !== 1;
       const fumble = natural === 1;
       lines.push(`Attack ${i + 1}: <strong>${roll.total}</strong>${threat ? " — threat" : ""}${fumble ? " — natural 1" : ""}`);
-      if (threat) {
-        const confirm = new foundry.dice.Roll(`1d20 + ${bonus}`);
-        await confirm.evaluate();
-        rolls.push(confirm);
-        lines.push(`Confirm: <strong>${confirm.total}</strong> (critical ×${derived.multiplier} if this hits)`);
+      if (threat && derived.critImmune) {
+        lines.push("Critical immune: the threat is a normal hit.");
+      } else if (threat) {
+        const fortification = Math.max(0, Math.floor(Number(actor.system.attributes?.fortification) || 0));
+        let stopped = false;
+        if (fortification) {
+          const fort = new foundry.dice.Roll("1d100");
+          await fort.evaluate();
+          rolls.push(fort);
+          stopped = fort.total <= fortification;
+          lines.push(`Fortification ${fortification}%: <strong>${fort.total}</strong> — ${stopped ? "critical negated" : "critical stands"}`);
+        }
+        if (!stopped) {
+          const confirm = new foundry.dice.Roll(`1d20 + ${bonus}`);
+          await confirm.evaluate();
+          rolls.push(confirm);
+          lines.push(`Confirm: <strong>${confirm.total}</strong> (critical ×${derived.multiplier} if this hits)`);
+        }
       }
     }
 
@@ -211,6 +224,8 @@ export class CTSDND35Item extends Item {
     if (derived.slotLevel != null && derived.slotLevel !== level) lines.push(`Slot level ${derived.slotLevel}`);
     if (derived.empower) lines.push("Empowered: multiply damage by 1.5");
     if (derived.halfOnSave) lines.push("A successful save deals half damage.");
+    if (derived.forbiddenSchool) lines.push("This school is forbidden for the specialist.");
+    if (derived.grappledSomatic) lines.push("Grappled with a somatic component: Concentration DC 20 + spell level, or use Still Spell.");
     if (derived.preparation === "prepared") {
       const count = Math.max(0, Math.floor(Number(derived.prepared) || 0));
       if (count <= 0) lines.push("Not prepared.");

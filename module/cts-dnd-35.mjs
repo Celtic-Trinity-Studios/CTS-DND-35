@@ -43,6 +43,7 @@ import {
   sellAtHalf,
   xpToReachNextLevel,
 } from "./helpers/open-rules.mjs";
+import { PROCEDURES, runProcedure } from "./helpers/phb-rest.mjs";
 
 function _getD35DiagonalRuleValue() {
   const diagonalRules = foundry?.CONST?.GRID_DIAGONALS ?? CONST?.GRID_DIAGONALS ?? {};
@@ -109,6 +110,8 @@ Hooks.once("init", function () {
     massiveDamageDc,
     sellAtHalf,
     xpToReachNextLevel,
+    procedures: PROCEDURES,
+    runProcedure,
   };
 
   registerMerchantSockets();
