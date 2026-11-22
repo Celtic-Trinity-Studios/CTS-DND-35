@@ -135,7 +135,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Metamagic feats | **Missing** | No heightening workflow tied to spells |
 | Item creation feats | **Missing** | |
 | Leadership / cohort / followers | **Missing** | |
-| Passive numeric bonuses from feats | **Partial** | No **Changes**/effect aggregation |
+| Passive numeric bonuses from feats | **Partial** | Named feats apply on their own (initiative, saves, Dodge, Toughness note, Combat Casting, finesse weapons, spell penetration). Weapon Focus / Specialization / Spell Focus need the feat Choice field (`table-combat.mjs`) |
 | **Feature** items (class features) | **Present** | Stored; mechanics manual |
 | **Race** items | **Present** | Stored; mechanics manual |
 | Alternate racial traits / subraces | **Partial** | Pack content only |
@@ -172,11 +172,11 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Splash weapons (alchemy, etc.) | **Missing** | |
 | Weapon size / inappropriate size | **Missing** | |
 | Reach weapon “dead zone” (10 ft. no adjacent) | **Missing** | |
-| Two-weapon fighting penalties | **Missing** | |
+| Two-weapon fighting penalties | **Partial** | An off-hand weapon applies the light/heavy penalty table, including Two-Weapon Fighting and extra off-hand attacks from Improved and Greater |
 | Manyshot / Rapid Shot / Flurry linkage | **Missing** | |
-| Power Attack / Combat Expertise sliders | **Missing** | |
-| Charge attack bonus / AC penalty | **Missing** | |
-| Fighting defensively / total defense modifiers | **Missing** | |
+| Power Attack / Combat Expertise sliders | **Present** | Combat tab values, capped by BAB and the feat |
+| Charge attack bonus / AC penalty | **Present** | Posture select on the Combat tab |
+| Fighting defensively / total defense modifiers | **Present** | Posture select |
 
 ---
 
@@ -230,12 +230,12 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Mounted combat | **Missing** | |
 | Mounted archery / charge / leap | **Missing** | |
 | Reach weapons & threatened squares | **Missing** | No geometry (D35E-style overlays absent) |
-| Flanking (+2 melee) | **Missing** | |
+| Flanking (+2 melee) | **Partial** | Combat tab toggle. The sheet does not detect it from token positions |
 | Soft cover from allies (Precise Shot gate) | **Missing** | |
-| Attacks of opportunity | **Missing** | No counter / provoke logic |
+| Attacks of opportunity | **Partial** | Pool from Dexterity and Combat Reflexes, spend/reset, and a refresh when that creature's turn starts. Provoking movement is not detected |
 | Provoking: casting in threat, ranged in threat, movement | **Missing** | |
 | Tumble through threatened (vs AoO) | **Missing** | |
-| Cover / concealment modifiers | **Missing** | |
+| Cover / concealment modifiers | **Partial** | Cover on you and cover on the target are Combat tab selects. Concealment is not rolled |
 | Higher ground, squeezing | **Missing** | |
 | Teleport / dimension door & AoOs | **Missing** | |
 | Underwater combat penalties | **Missing** | |
@@ -310,7 +310,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Topic | Status | Notes / gaps |
 |-------|--------|----------------|
 | **Spell** items & per-level lists | **Partial** | Sheet lists by level |
-| Spell preparation (Vancian) | **Missing** | |
+| Spell preparation (Vancian) | **Partial** | Prepared casters track a prepared count per spell and spend one on a cast. Spontaneous casters spend the metamagic-adjusted slot |
 | Spellbook / known spells list per class | **Missing** | |
 | Spontaneous casting (known spells / slots) | **Missing** | |
 | Spell slots per level | **Partial** | Slots per day from the class progression plus ability bonus spells; Use / restore on the Spells list tracks expended slots |
@@ -320,10 +320,10 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Caster level (global per class) | **Partial** | Not centralized on actor for checks |
 | Penetration vs SR (Spell Penetration feats) | **Missing** | |
 | Spell DC (10 + level + ability) | **Present** | Shown per spell and per slot; click a spell to post DC and an arcane failure check |
-| Heightened / empowered metamagic adjusted DC & level | **Missing** | |
+| Heightened / empowered metamagic adjusted DC & level | **Partial** | Spell sheet: Heighten changes DC and slot level. Empower, Extend, Still, Silent, and Quicken adjust the slot. Still ignores armor failure. Silent ignores deafened failure |
 | Spell resistance check | **Missing** | |
-| Concentration (DC = 10 + damage + spell level, etc.) | **Missing** | Skill exists only as static total |
-| Defensive casting option | **Missing** | |
+| Concentration (DC = 10 + damage + spell level, etc.) | **Partial** | Combat tab rolls Concentration against a DC you type. Combat Casting adds +4 |
+| Defensive casting option | **Partial** | Combat tab toggle. Casting a spell then rolls Concentration vs 15 + slot level |
 | Components V / S / M / F / DF / XP | **Partial** | Text on items at best |
 | Arcane spell failure chance | **Partial** | Equipped armor/shield ASF (and deafened verbal failure) is rolled when an arcane spell is cast |
 | Divine focus / inexpensive material defaults | **Missing** | |
@@ -336,7 +336,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 | Summon lists & augmented summons | **Missing** | |
 | Antimagic field / dead magic areas | **Missing** | Canvas zones absent |
 | Domains & domain spells | **Partial** | **srd-domains** pack; linkage to preparation missing |
-| Turn / rebuke undead | **Missing** | |
+| Turn / rebuke undead | **Partial** | Turn check and 2d6 damage from cleric level and paladin (as a cleric three levels lower). Uses per day include Extra Turning |
 | Turning damage / destruction thresholds | **Missing** | |
 | Divine metamagic / divine feats | **Missing** | |
 | Divine spell morality (cleric alignment) | **Missing** | |
@@ -441,7 +441,7 @@ The largest systemic gap is a **unified modifier pipeline** (items/feats/buffs/c
 |-------|--------|----------------|
 | Token ↔ actor link | **Present** | Foundry default |
 | Vision modes on token | **Present** | Foundry; not driven by 3.5 sense aggregation |
-| Darkvision / low-light radius from actor | **Missing** | |
+| Darkvision / low-light radius from actor | **Partial** | Changing senses, or **Apply senses to token**, writes darkvision or blindsight range onto the token |
 | Multi-token linked summons | **Missing** | |
 | Elevation / flight bands | **Partial** | Foundry scene features; not tied to 3.5 maneuverability |
 | Grid diagonal policy (3.5 style) | **Present** | System setting enforces 5-10-5 option |
@@ -459,7 +459,7 @@ Capabilities described in [D35E 3.0.0](https://gitlab.com/dragonshorn/D35E/-/rel
 
 | Capability | CTS status |
 |------------|------------|
-| Threatened-area overlay & reach-aware melee | **Missing** |
+| Threatened-area overlay & reach-aware melee | **Partial** | Reach ring around tokens (world setting). A circle, not a square-by-square map |
 | Automatic flanking / threat detection at attack time | **Missing** |
 | Formula builder / `@variable` picker on item fields | **Missing** |
 | Equipment slot enforcement + bonus slots from effects | **Missing** |

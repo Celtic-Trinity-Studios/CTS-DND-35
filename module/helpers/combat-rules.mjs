@@ -3,6 +3,8 @@
  * Pure functions so actor/item preparation and rolls share one path.
  */
 
+import { isFinesseWeapon, metamagicProfile, schoolBonus, weaponChosen } from "./table-combat.mjs";
+
 /** Core classes whose compendium rows were imported as BAB medium / all saves low. */
 export const CORE_CLASS_PROGRESSION = {
   barbarian: { bab: "high", fort: "high", ref: "low", will: "low", ability: "" },
@@ -243,7 +245,7 @@ function damageFormulaFromItem(system) {
 export function buildWeaponDerived(system = {}, ctx = {}) {
   const subtype = String(system.weaponSubtype || system.attackType || system.actionType || "melee").toLowerCase();
   const ranged = subtype.includes("ranged") || subtype === "rwak" || subtype === "rtouch";
-  const finesse = truthy(system.finesse);
+  const finesse = truthy(system.finesse) || (!!ctx.weaponFinesse && isFinesseWeapon(system, ctx.itemName));
   const twoHanded = truthy(system.twoHanded);
   const offHand = truthy(system.offHand);
   const thrown = truthy(system.thrown) || subtype.includes("thrown");
@@ -254,7 +256,7 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   const mods = ctx.mods || {};
   const override = normalizeAbilityKey(system.ability);
   let atkAbility = ranged ? Number(ctx.dexMod) || 0 : Number(ctx.strMod) || 0;
-  if (!ranged && finesse && (Number(ctx.dexMod) || 0) > (Number(ctx.strMod) || 0)) atkAbility = Number(ctx.dexMod) || 0;
+  if (!ranged && finesse && (Number(ctx.dexMod) || 0) > atkAbility) atkAbility = Number(ctx.dexMod) || 0;
   if (override && mods[override] != null) atkAbility = Number(mods[override]) || 0;
 
   const enhancement = Math.floor(Number(system.enhancement) || 0);
@@ -280,6 +282,66 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   damageAbility += enhancement;
   damageAbility -= Math.floor(Number(ctx.damagePenalty) || 0);
 
+  const notes = [];
+  let situational = Math.floor(Number(ctx.situationalAttack) || 0);
+  if (!ranged && ctx.flanking) {
+    situational += 2;
+    notes.push("Flanking +2");
+  }
+  if (!ranged && ctx.higherGround) {
+    situational += 2;
+    notes.push("Higher ground +2");
+  }
+  if (ranged && ctx.pointBlank) {
+    situational += 1;
+    damageAbility += 1;
+    notes.push("Point Blank Shot +1");
+  }
+  if (weaponChosen(ctx.itemName, ctx.weaponFocus)) {
+    situational += 1;
+    notes.push("Weapon Focus +1");
+  }
+  if (weaponChosen(ctx.itemName, ctx.greaterWeaponFocus)) {
+    situational += 1;
+    notes.push("Greater Weapon Focus +1");
+  }
+  if (weaponChosen(ctx.itemName, ctx.weaponSpec)) {
+    damageAbility += 2;
+    notes.push("Weapon Specialization +2");
+  }
+  if (weaponChosen(ctx.itemName, ctx.greaterWeaponSpec)) {
+    damageAbility += 2;
+    notes.push("Greater Weapon Specialization +2");
+  }
+  const power = !ranged ? Math.max(0, Math.floor(Number(ctx.powerAttack) || 0)) : 0;
+  if (power) {
+    damageAbility += twoHanded ? power * 2 : power;
+    notes.push(`Power Attack damage +${twoHanded ? power * 2 : power}`);
+  }
+
+  if (ctx.twf && !natural) {
+    if (offHand) {
+      const base = full - ctx.twf.off + situational;
+      attackBonuses = [base];
+      if (ctx.twf.extra >= 1) attackBonuses.push(base - 5);
+      if (ctx.twf.extra >= 2) attackBonuses.push(base - 10);
+      notes.push(`Off-hand −${ctx.twf.off}`);
+    } else if (!secondary) {
+      attackBonuses = attackBonuses.map((bonus) => bonus - ctx.twf.primary + situational);
+      notes.push(`Two-weapon fighting −${ctx.twf.primary}`);
+    } else {
+      attackBonuses = attackBonuses.map((bonus) => bonus + situational);
+    }
+  } else {
+    attackBonuses = attackBonuses.map((bonus) => bonus + situational);
+  }
+
+  if (ctx.rapidShot && ranged && !natural && !offHand) {
+    attackBonuses = attackBonuses.map((bonus) => bonus - 2);
+    attackBonuses.unshift(attackBonuses[0]);
+    notes.push("Rapid Shot −2, extra attack");
+  }
+
   const baseFormula = damageFormulaFromItem(system);
   let damageFormula = baseFormula;
   if (damageAbility) damageFormula = baseFormula ? `${baseFormula} + ${damageAbility}` : String(damageAbility);
@@ -301,6 +363,7 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     multiplier,
     cannotAttack: !!ctx.cannotAttack,
     proficient,
+    notes,
   };
 }
 
@@ -332,19 +395,30 @@ export function buildSpellDerived(spellSystem = {}, summary = [], actorSystem = 
     caster = summary.find((row) => row.key === want || String(row.className || "").toLowerCase() === want) || null;
   }
   if (!caster) {
-    const capable = summary.filter((row) => (Number(row.perDay?.[level]?.total) || 0) > 0);
+    const slotTotal = (row) => {
+      const slots = Array.isArray(row.perDay) ? row.perDay : [];
+      const hit = slots.find((slot) => Number(slot?.level) === level);
+      return Number(hit?.total) || 0;
+    };
+    const capable = summary.filter((row) => slotTotal(row) > 0);
     caster = capable.sort((a, b) => (b.casterLevel || 0) - (a.casterLevel || 0))[0] || summary[0] || null;
   }
   const abilityMod = Number(caster?.abilityMod) || 0;
-  const computedDc = 10 + level + abilityMod;
+  const meta = metamagicProfile(spellSystem);
+  const dcLevel = level + meta.heighten;
+  const focus = schoolBonus(spellSystem.school, actorSystem.attributes?.featProfile);
+  const computedDc = 10 + dcLevel + abilityMod + focus;
   const override = spellSystem.save?.dc;
   const dc = override != null && override !== "" && Number.isFinite(Number(override)) ? Math.floor(Number(override)) : computedDc;
   const saveAbility = inferSaveAbility(spellSystem);
   const arcane = String(caster?.type || "").toLowerCase().includes("arcane");
-  const verbal = spellSystem.components?.verbal !== false;
-  const armorAsf = arcane ? Math.max(0, Math.floor(Number(actorSystem.spellcasting?.arcaneSpellFailureTotal) || 0)) : 0;
+  const verbal = spellSystem.components?.verbal !== false && !meta.silent;
+  const somatic = spellSystem.components?.somatic !== false && !meta.still;
+  const armorAsf = arcane && somatic ? Math.max(0, Math.floor(Number(actorSystem.spellcasting?.arcaneSpellFailureTotal) || 0)) : 0;
   const deaf = verbal ? Math.max(0, Math.floor(Number(actorSystem.attributes?.conditionFlags?.verbalFail) || 0)) : 0;
   const failureChance = Math.min(100, armorAsf + deaf);
+  const preparedRaw = spellSystem.prepared;
+  const prepared = preparedRaw === true || preparedRaw === "true" ? 1 : Math.max(0, Math.floor(Number(preparedRaw) || 0));
   return {
     dc: caster || (override != null && override !== "") ? dc : null,
     casterLevel: Number(caster?.casterLevel) || 0,
@@ -354,6 +428,12 @@ export function buildSpellDerived(spellSystem = {}, summary = [], actorSystem = 
     saveAbility,
     failureChance,
     arcane,
+    slotLevel: level + meta.slotIncrease,
+    prepared,
+    preparation: caster?.preparation || "",
+    spellPenetration: Math.floor(Number(actorSystem.attributes?.featProfile?.spellPenetration) || 0),
+    empower: meta.empower,
+    concentrationDc: 15 + level + meta.slotIncrease,
   };
 }
 

@@ -59,7 +59,20 @@
           <input type="text" name="system.range.value" value="{{system.range.value}}" />
         </div>
       </div>
-      <p class="notes">Click the spell on the character to roll arcane failure (armor ASF plus deafened verbal failure) and show the save DC. DC is 10 + spell level + the class ability modifier.</p>
+      <div class="form-group">
+        <label>Prepared</label>
+        <input type="number" name="system.prepared" value="{{system.prepared}}" min="0" step="1" title="For prepared casters. Casting spends one." />
+      </div>
+      <h4>Metamagic</h4>
+      <div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+        <div class="form-group"><label>Heighten +levels</label><input type="number" name="system.metamagic.heighten" value="{{system.metamagic.heighten}}" min="0" step="1" /></div>
+        <div class="form-group"><label>Empower</label><select name="system.metamagic.empower"><option value="false" {{#unless (cts-eq system.metamagic.empower "true")}}selected{{/unless}}>No</option><option value="true" {{#if (cts-eq system.metamagic.empower "true")}}selected{{/if}}>Yes (+2 slot)</option></select></div>
+        <div class="form-group"><label>Extend</label><select name="system.metamagic.extend"><option value="false" {{#unless (cts-eq system.metamagic.extend "true")}}selected{{/unless}}>No</option><option value="true" {{#if (cts-eq system.metamagic.extend "true")}}selected{{/if}}>Yes (+1 slot)</option></select></div>
+        <div class="form-group"><label>Still</label><select name="system.metamagic.still"><option value="false" {{#unless (cts-eq system.metamagic.still "true")}}selected{{/unless}}>No</option><option value="true" {{#if (cts-eq system.metamagic.still "true")}}selected{{/if}}>Yes (no ASF)</option></select></div>
+        <div class="form-group"><label>Silent</label><select name="system.metamagic.silent"><option value="false" {{#unless (cts-eq system.metamagic.silent "true")}}selected{{/unless}}>No</option><option value="true" {{#if (cts-eq system.metamagic.silent "true")}}selected{{/if}}>Yes (no deafened fail)</option></select></div>
+        <div class="form-group"><label>Quicken</label><select name="system.metamagic.quicken"><option value="false" {{#unless (cts-eq system.metamagic.quicken "true")}}selected{{/unless}}>No</option><option value="true" {{#if (cts-eq system.metamagic.quicken "true")}}selected{{/if}}>Yes (+4 slot)</option></select></div>
+      </div>
+      <p class="notes">Click the spell on the character to roll failure, defensive casting, and the spell resistance check. Prepared casters spend one preparation. Spontaneous casters spend a slot at the metamagic-adjusted level. DC is 10 + level (plus Heighten) + ability + Spell Focus.</p>
     </div>
   </section>
 </form>

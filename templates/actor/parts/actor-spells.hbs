@@ -34,6 +34,11 @@
     <span class="item-name item-roll flex-grow">{{this.name}}</span>
     <span style="width:90px;">{{this.system.school}}</span>
     <span style="width:48px;" title="{{this.system.derived.className}}">{{#if this.system.derived.dc}}DC {{this.system.derived.dc}}{{/if}}</span>
+    {{#if (cts-eq this.system.derived.preparation "prepared")}}
+    <button type="button" class="cts-prepare-minus" data-item-id="{{this._id}}">−</button>
+    <span title="Prepared count">{{this.system.derived.prepared}}</span>
+    <button type="button" class="cts-prepare-plus" data-item-id="{{this._id}}">+</button>
+    {{/if}}
     <div class="item-controls"><a class="item-edit"><i class="fas fa-edit"></i></a><a class="item-delete"><i class="fas fa-trash"></i></a></div>
   </li>
   {{/each}}

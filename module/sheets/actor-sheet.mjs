@@ -3,6 +3,7 @@
  * Extends ActorSheet to display character / NPC data.
  */
 
+import { applySensesToTokens } from "../hooks/token-combat.mjs";
 import { CTSDND35 } from "../helpers/config.mjs";
 import { CharacterWizard } from "../apps/character-wizard.mjs";
 import { LevelUpWizard } from "../apps/level-up-wizard.mjs";
@@ -424,6 +425,41 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       this.render(false);
     });
 
+    html.on("click", ".cts-aoo-spend", async (ev) => {
+      ev.preventDefault();
+      const spent = Math.max(0, Math.floor(Number(this.actor.system.attributes?.combat?.aooSpent) || 0));
+      await this.actor.update({ "system.attributes.combat.aooSpent": spent + 1 });
+    });
+    html.on("click", ".cts-aoo-reset", async (ev) => {
+      ev.preventDefault();
+      await this.actor.update({ "system.attributes.combat.aooSpent": 0 });
+    });
+    html.on("click", ".cts-turn-undead", (ev) => {
+      ev.preventDefault();
+      this._onTurnUndead();
+    });
+    html.on("click", ".cts-concentration", (ev) => {
+      ev.preventDefault();
+      this._onConcentration();
+    });
+    html.on("click", ".cts-maneuver", (ev) => {
+      ev.preventDefault();
+      this._onManeuver(ev.currentTarget.dataset.maneuver);
+    });
+    html.on("click", ".cts-apply-senses", async (ev) => {
+      ev.preventDefault();
+      await applySensesToTokens(this.actor);
+      ui.notifications.info(`Senses applied for ${this.actor.name}.`);
+    });
+    html.on("click", ".cts-prepare-plus, .cts-prepare-minus", async (ev) => {
+      ev.preventDefault();
+      const item = this.actor.items.get(ev.currentTarget.dataset.itemId);
+      if (!item) return;
+      const current = Math.max(0, Math.floor(Number(item.system.derived?.prepared) || 0));
+      const next = ev.currentTarget.classList.contains("cts-prepare-plus") ? current + 1 : Math.max(0, current - 1);
+      await item.update({ "system.prepared": next });
+    });
+
     html.on("change", "input[type='checkbox'][data-condition-key]", async (ev) => {
       if (!this.isEditable) return;
       const key = ev.currentTarget.dataset.conditionKey;
@@ -450,6 +486,75 @@ export class CTSDND35ActorSheet extends foundry.appv1.sheets.ActorSheet {
       root.querySelectorAll(".cts-status-subpane").forEach((pane) => {
         pane.classList.toggle("is-active", pane.dataset.ctsStatusSub === sub);
       });
+    });
+  }
+
+  async _onTurnUndead() {
+    const turning = this.actor.system.attributes?.turning || {};
+    const cha = this.actor.system.abilities?.cha?.mod || 0;
+    const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor });
+    if (!turning.pool) {
+      ui.notifications.warn(`${this.actor.name} has no turn undead uses.`);
+      return;
+    }
+    const check = new foundry.dice.Roll(`1d20 + ${cha}`);
+    const damage = new foundry.dice.Roll(`2d6 + ${Math.floor(turning.level || 0) + cha}`);
+    await check.evaluate();
+    await damage.evaluate();
+    const spent = Math.max(0, Math.floor(Number(turning.expended) || 0)) + 1;
+    await this.actor.update({ "system.attributes.turning.expended": spent });
+    return foundry.documents.BaseChatMessage.create({
+      speaker,
+      rolls: [check, damage],
+      flavor: "Turn undead",
+      content: `<div class="cts-dnd-35 chat-card"><h3>Turn undead</h3><p>Check <strong>${check.total}</strong> · damage <strong>${damage.total}</strong></p><p>Uses left after this: ${Math.max(0, (turning.pool || 0) - spent)}</p></div>`,
+    });
+  }
+
+  async _onConcentration() {
+    const skill = Math.floor(Number(this.actor.system.skills?.con?.total) || 0);
+    const dc = Math.floor(Number(this.actor.system.attributes?.combat?.concentrationDc) || 0);
+    const roll = new foundry.dice.Roll(`1d20 + ${skill}`);
+    await roll.evaluate();
+    return roll.toMessage({
+      speaker: foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: `Concentration vs DC ${dc} — ${roll.total >= dc ? "success" : "failure"}`,
+    });
+  }
+
+  async _onManeuver(kind) {
+    const system = this.actor.system;
+    const bab = Math.floor(Number(system.attributes?.bab?.total) || 0);
+    const str = Math.floor(Number(system.abilities?.str?.mod) || 0);
+    const sizeKey = system.traits?.size || "med";
+    const size = CTSDND35.sizeMods[sizeKey] || CTSDND35.sizeMods.med;
+    const penalty = Math.floor(Number(system.attributes?.attackRollPenalty) || 0);
+    const speaker = foundry.documents.BaseChatMessage.getSpeaker({ actor: this.actor });
+    const rolls = [];
+    const lines = [];
+    if (kind === "bullrush") {
+      const roll = new foundry.dice.Roll(`1d20 + ${str + (size.grapple || 0)}`);
+      await roll.evaluate();
+      rolls.push(roll);
+      lines.push(`Bull rush (opposed Strength): <strong>${roll.total}</strong>`);
+    } else {
+      const attack = new foundry.dice.Roll(`1d20 + ${bab + str + (size.attack || 0) - penalty}`);
+      await attack.evaluate();
+      rolls.push(attack);
+      const label = kind === "trip" ? "Trip touch" : kind === "disarm" ? "Disarm" : "Sunder";
+      lines.push(`${label}: <strong>${attack.total}</strong>`);
+      if (kind === "trip") {
+        const oppose = new foundry.dice.Roll(`1d20 + ${str}`);
+        await oppose.evaluate();
+        rolls.push(oppose);
+        lines.push(`Opposed Strength: <strong>${oppose.total}</strong>`);
+      }
+    }
+    return foundry.documents.BaseChatMessage.create({
+      speaker,
+      rolls,
+      flavor: kind,
+      content: `<div class="cts-dnd-35 chat-card"><h3>${kind}</h3>${lines.map((line) => `<p>${line}</p>`).join("")}</div>`,
     });
   }
 

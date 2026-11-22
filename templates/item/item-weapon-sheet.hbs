@@ -84,6 +84,7 @@
         <label><select name="system.twoHanded"><option value="false" {{#unless system.twoHanded}}selected{{/unless}}>One-handed</option><option value="true" {{#if system.twoHanded}}selected{{/if}}>Two-handed (Str ×1.5)</option></select></label>
         <label><select name="system.offHand"><option value="false" {{#unless system.offHand}}selected{{/unless}}>Primary</option><option value="true" {{#if system.offHand}}selected{{/if}}>Off-hand (½ Str, one attack)</option></select></label>
         <label><select name="system.secondary"><option value="false" {{#unless system.secondary}}selected{{/unless}}>Primary natural</option><option value="true" {{#if system.secondary}}selected{{/if}}>Secondary natural (−5, ½ Str)</option></select></label>
+        <label><select name="system.light"><option value="" {{#unless system.light}}selected{{/unless}}>Light: guess from name</option><option value="true" {{#if (cts-eq system.light "true")}}selected{{/if}}>Light</option><option value="false" {{#if (cts-eq system.light "false")}}selected{{/if}}>Not light</option></select></label>
       </div>
       <div class="flexrow" style="gap:8px;">
         <div class="form-group flex-grow">

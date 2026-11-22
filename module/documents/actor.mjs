@@ -15,6 +15,14 @@ import {
   slugifyClassKey,
   summarizeConditions,
 } from "../helpers/combat-rules.mjs";
+import {
+  analyzeFeats,
+  creatureTypeNotes,
+  preparationForClass,
+  resolveRoundModifiers,
+  resolveTwf,
+  turningProfile,
+} from "../helpers/table-combat.mjs";
 
 export class CTSDND35Actor extends Actor {
 
@@ -157,6 +165,17 @@ export class CTSDND35Actor extends Actor {
         systemData.attributes.energy.immune[key] === true ||
         systemData.attributes.energy.immune[key] === "true";
     }
+    systemData.attributes.combat ??= {};
+    const combat = systemData.attributes.combat;
+    combat.posture ??= "normal";
+    combat.coverSelf ??= "none";
+    combat.coverTarget ??= "none";
+    combat.powerAttack ??= 0;
+    combat.combatExpertise ??= 0;
+    combat.aooSpent ??= 0;
+    combat.concentrationDc ??= 15;
+    systemData.attributes.turning ??= {};
+    systemData.attributes.turning.expended ??= 0;
 
     if (this.type === "npc") {
       systemData.merchant ??= {
@@ -186,14 +205,17 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.negativeLevels = nl;
 
     this._applyBuffItemModifiers(systemData);
+    this._applyFeatBonuses(systemData);
     this._applyConditionModifiers(systemData, nl);
     this._prepareEncumbrance(systemData);
 
     this._prepareSpeed(systemData);
     this._prepareCombatStats(systemData, nl);
+    this._applyRoundModifiers(systemData);
     this._prepareSkills(systemData, nl);
     this._prepareSpellcasting(systemData);
     this._prepareAttacksAndSpells(systemData);
+    systemData.attributes.typeNotes = creatureTypeNotes(systemData.details?.creatureType);
 
     systemData.details.xpMulticlassHint = this._multiclassXpHint(actorData, systemData);
     systemData.attributes.hp.tempSourcesSum = this._sumTempHpSources(systemData);
@@ -218,6 +240,62 @@ export class CTSDND35Actor extends Actor {
     systemData.attributes.ac.conditionPenalty = Math.floor(flags.acPenalty) || 0;
     systemData.attributes.ac.dexMode = flags.dexMode || "normal";
     systemData.attributes.ac.prone = !!flags.prone;
+  }
+
+  _applyFeatBonuses(systemData) {
+    const feats = analyzeFeats(this.items);
+    systemData.attributes.featProfile = feats;
+    const notes = [];
+    if (feats.improvedInitiative) {
+      systemData.attributes.init.effectBonus += 4;
+      notes.push("Improved Initiative +4");
+    }
+    if (feats.greatFortitude) {
+      systemData.attributes.savingThrows.fort.effectBonus += 2;
+      notes.push("Great Fortitude +2");
+    }
+    if (feats.lightningReflexes) {
+      systemData.attributes.savingThrows.ref.effectBonus += 2;
+      notes.push("Lightning Reflexes +2");
+    }
+    if (feats.ironWill) {
+      systemData.attributes.savingThrows.will.effectBonus += 2;
+      notes.push("Iron Will +2");
+    }
+    if (feats.dodge) {
+      systemData.attributes.ac.bonuses.dodge += 1;
+      notes.push("Dodge +1");
+    }
+    if (feats.combatCasting && systemData.skills?.con) {
+      systemData.skills.con.effectBonus += 4;
+      notes.push("Combat Casting +4 Concentration");
+    }
+    systemData.attributes.hp.toughnessBonus = feats.toughness * 3;
+    if (feats.toughness) notes.push(`Toughness +${feats.toughness * 3} HP (add once to max HP)`);
+    systemData.attributes.featNotes = notes;
+
+    const dex = systemData.abilities?.dex?.mod || 0;
+    const pool = feats.combatReflexes ? 1 + Math.max(0, dex) : 1;
+    const spent = Math.max(0, Math.floor(Number(systemData.attributes.combat?.aooSpent) || 0));
+    systemData.attributes.aoo = { pool, spent, remaining: Math.max(0, pool - spent) };
+  }
+
+  _applyRoundModifiers(systemData) {
+    const feats = systemData.attributes.featProfile || {};
+    const round = resolveRoundModifiers(systemData.attributes.combat, feats, systemData.attributes.bab?.total || 0);
+    systemData.attributes.round = round;
+    systemData.attributes.attackRollPenalty -= round.attack;
+    const meleeBefore = systemData.attributes.ac.vsMelee;
+    const rangedBefore = systemData.attributes.ac.vsRanged;
+    systemData.attributes.ac.normal += round.dodge + round.ac;
+    systemData.attributes.ac.touch += round.dodge + round.ac;
+    systemData.attributes.ac.flatFooted += round.ac;
+    const shift = round.dodge + round.ac;
+    systemData.attributes.ac.vsMelee = (meleeBefore ?? systemData.attributes.ac.normal - shift) + shift;
+    systemData.attributes.ac.vsRanged = (rangedBefore ?? systemData.attributes.ac.normal - shift) + shift;
+    if (round.cannotAttack && systemData.attributes.conditionFlags) {
+      systemData.attributes.conditionFlags.cannotAttack = true;
+    }
   }
 
   /**
@@ -778,10 +856,29 @@ export class CTSDND35Actor extends Actor {
         ability,
         abilityMod,
         casterLevel: Math.floor(Number(row.casterLevel ?? row.classLevel) || 0),
+        preparation: preparationForClass(row.className || key, row.type),
         perDay,
       });
     }
     systemData.spellcasting.summary = summary;
+
+    let clericLevel = 0;
+    let paladinLevel = 0;
+    for (const item of this.items) {
+      if (item.type !== "class") continue;
+      const name = String(item.name || "").toLowerCase();
+      const level = Math.max(0, Math.floor(Number(item.system.level) || 0));
+      if (name === "cleric" || name.startsWith("cleric ")) clericLevel += level;
+      if (name === "paladin" || name.startsWith("paladin ")) paladinLevel += level;
+    }
+    const turning = turningProfile({
+      clericLevel,
+      paladinLevel,
+      chaMod: systemData.abilities?.cha?.mod || 0,
+      extraTurning: systemData.attributes.featProfile?.extraTurning || 0,
+      expended: systemData.attributes.turning?.expended || 0,
+    });
+    systemData.attributes.turning = { ...systemData.attributes.turning, ...turning };
   }
 
   _prepareAttacksAndSpells(systemData) {
@@ -789,6 +886,8 @@ export class CTSDND35Actor extends Actor {
     const sizeMods = CTSDND35.sizeMods[sizeKey] || CTSDND35.sizeMods.med;
     const mods = {};
     for (const [key, ability] of Object.entries(systemData.abilities || {})) mods[key] = ability.mod || 0;
+    const feats = systemData.attributes.featProfile || {};
+    const round = systemData.attributes.round || {};
     const ctx = {
       bab: systemData.attributes.bab.total || 0,
       strMod: mods.str || 0,
@@ -798,11 +897,22 @@ export class CTSDND35Actor extends Actor {
       attackPenalty: systemData.attributes.attackRollPenalty || 0,
       damagePenalty: systemData.attributes.damageRollPenalty || 0,
       cannotAttack: !!systemData.attributes.conditionFlags?.cannotAttack,
+      weaponFinesse: !!feats.weaponFinesse,
+      flanking: !!round.flanking,
+      higherGround: !!round.higherGround,
+      pointBlank: !!round.pointBlank,
+      rapidShot: !!round.rapidShot,
+      powerAttack: round.powerAttack || 0,
+      weaponFocus: feats.weaponFocus || [],
+      greaterWeaponFocus: feats.greaterWeaponFocus || [],
+      weaponSpec: feats.weaponSpec || [],
+      greaterWeaponSpec: feats.greaterWeaponSpec || [],
+      twf: resolveTwf(this.items, feats),
     };
     const summary = systemData.spellcasting.summary || [];
     for (const item of this.items) {
       if (item.type === "weapon" || item.type === "attack") {
-        item.system.derived = buildWeaponDerived(item.system, ctx);
+        item.system.derived = buildWeaponDerived(item.system, { ...ctx, itemName: item.name });
       } else if (item.type === "spell") {
         item.system.derived = buildSpellDerived(item.system, summary, systemData);
       }

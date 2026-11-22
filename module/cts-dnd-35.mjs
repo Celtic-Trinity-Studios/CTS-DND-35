@@ -23,6 +23,7 @@ import { MerchantApp } from "./apps/merchant-app.mjs";
 import { CTSDND35HelpApp } from "./apps/help-app.mjs";
 import { CTSDND35HelpMenuApp } from "./apps/help-menu-app.mjs";
 import { registerInGameHelpHooks } from "./hooks/help-ui.mjs";
+import { registerTokenCombatHooks } from "./hooks/token-combat.mjs";
 import { getItemAndActorFromHookArgs } from "./utils/item-hook-args.mjs";
 import { isFactionBulkPushActive } from "./utils/faction-bulk-push-guard.mjs";
 import { adjustedGearPrice, computeGearPricePercentTotal } from "./utils/trade-modifiers.mjs";
@@ -174,6 +175,17 @@ Hooks.once("init", function () {
     type: Boolean,
     default: true,
   });
+
+  game.settings.register("CTS-DND-35", "showThreatRings", {
+    name: "Show threatened reach",
+    hint: "Draws a ring around each token out to its reach. Medium reach 5 ft. covers the adjacent squares.",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: true,
+  });
+
+  registerTokenCombatHooks();
 
   try {
     game.settings.registerMenu("CTS-DND-35", "systemHelp", {

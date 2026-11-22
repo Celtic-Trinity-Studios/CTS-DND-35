@@ -124,7 +124,8 @@ export class CTSDND35Item extends Item {
     const rolls = [];
     const lines = [];
     if (!derived.proficient) lines.push("Not proficient: −4 on attacks.");
-    if (derived.cannotAttack) lines.push("A current condition normally prevents attacks.");
+    if (derived.cannotAttack) lines.push("A current condition or total defense normally prevents attacks.");
+    for (const note of derived.notes || []) lines.push(note);
 
     for (let i = 0; i < derived.attackBonuses.length; i++) {
       const bonus = derived.attackBonuses[i];
@@ -184,12 +185,47 @@ export class CTSDND35Item extends Item {
     } else {
       lines.push("Save DC needs a spellcasting class on this actor.");
     }
+    if (derived.slotLevel != null && derived.slotLevel !== level) lines.push(`Slot level ${derived.slotLevel}`);
+    if (derived.empower) lines.push("Empowered: multiply damage by 1.5");
+    if (derived.preparation === "prepared") {
+      const count = Math.max(0, Math.floor(Number(derived.prepared) || 0));
+      if (count <= 0) lines.push("Not prepared.");
+      else {
+        await this.update({ "system.prepared": count - 1 });
+        lines.push(`Prepared remaining: ${count - 1}`);
+      }
+    } else if (derived.preparation === "spontaneous" && derived.classKey) {
+      const slot = String(derived.slotLevel ?? level);
+      const stored = foundry.utils.deepClone(actor.system.spellcasting?.classes?.[derived.classKey] || {});
+      stored.expended = stored.expended || {};
+      stored.expended[slot] = Math.max(0, Math.floor(Number(stored.expended[slot]) || 0)) + 1;
+      stored.className = stored.className || derived.className;
+      await actor.update({ [`system.spellcasting.classes.${derived.classKey}`]: stored });
+      lines.push(`Spontaneous slot ${slot} spent`);
+    }
     if (derived.failureChance > 0) {
       const check = new foundry.dice.Roll("1d100");
       await check.evaluate();
       rolls.push(check);
       const failed = check.total <= derived.failureChance;
       lines.push(`Failure chance ${derived.failureChance}%: rolled <strong>${check.total}</strong> — ${failed ? "spell fails" : "spell succeeds"}`);
+    }
+    const castDefensively = actor.system.attributes?.combat?.castDefensively === true || actor.system.attributes?.combat?.castDefensively === "true";
+    if (castDefensively) {
+      const skill = Math.floor(Number(actor.system.skills?.con?.total) || 0);
+      const dc = Math.floor(Number(derived.concentrationDc) || 15 + level);
+      const conc = new foundry.dice.Roll(`1d20 + ${skill}`);
+      await conc.evaluate();
+      rolls.push(conc);
+      lines.push(`Defensive casting: <strong>${conc.total}</strong> vs DC ${dc} — ${conc.total >= dc ? "maintained" : "spell lost"}`);
+    }
+    const casterLevel = Math.floor(Number(derived.casterLevel) || 0);
+    const penetration = Math.floor(Number(derived.spellPenetration) || 0);
+    if (casterLevel || penetration) {
+      const sr = new foundry.dice.Roll(`1d20 + ${casterLevel + penetration}`);
+      await sr.evaluate();
+      rolls.push(sr);
+      lines.push(`Spell resistance check: <strong>${sr.total}</strong> (1d20 + CL ${casterLevel}${penetration ? ` + ${penetration}` : ""})`);
     }
     return foundry.documents.BaseChatMessage.create({
       speaker,

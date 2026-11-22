@@ -22,6 +22,12 @@
     <div class="stat-label">Nonlethal</div>
     <input type="number" name="system.attributes.hp.nonlethal" value="{{system.attributes.hp.nonlethal}}" />
   </div>
+  {{#if system.attributes.hp.toughnessBonus}}
+  <div class="stat-box">
+    <div class="stat-label">Toughness</div>
+    <span class="stat-value derived" title="Add this to max HP once">+{{system.attributes.hp.toughnessBonus}}</span>
+  </div>
+  {{/if}}
   <div class="stat-box">
     <div class="stat-label">Neg. levels</div>
     <input type="number" name="system.attributes.negativeLevels" value="{{system.attributes.negativeLevels}}" min="0" step="1" title="−1 saves/skills/init/grapple per level (SRD)" />
@@ -85,6 +91,120 @@
   {{/each}}
 </div>
 {{/if}}
+{{#each system.attributes.typeNotes}}
+<p class="notes">{{this}}</p>
+{{/each}}
+{{#each system.attributes.featNotes}}
+<p class="notes">{{this}}</p>
+{{/each}}
+{{#each system.attributes.round.notes}}
+<p class="notes">{{this}}</p>
+{{/each}}
+
+<h3>This round</h3>
+<div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+  <div class="form-group">
+    <label>Posture</label>
+    <select name="system.attributes.combat.posture">
+      <option value="normal" {{#if (cts-eq system.attributes.combat.posture "normal")}}selected{{/if}}>Normal</option>
+      <option value="fightingDefensively" {{#if (cts-eq system.attributes.combat.posture "fightingDefensively")}}selected{{/if}}>Fighting defensively</option>
+      <option value="totalDefense" {{#if (cts-eq system.attributes.combat.posture "totalDefense")}}selected{{/if}}>Total defense</option>
+      <option value="charge" {{#if (cts-eq system.attributes.combat.posture "charge")}}selected{{/if}}>Charge</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Flanking</label>
+    <select name="system.attributes.combat.flanking">
+      <option value="false" {{#unless (cts-eq system.attributes.combat.flanking "true")}}selected{{/unless}}>No</option>
+      <option value="true" {{#if (cts-eq system.attributes.combat.flanking "true")}}selected{{/if}}>Yes (+2 melee)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Higher ground</label>
+    <select name="system.attributes.combat.higherGround">
+      <option value="false" {{#unless (cts-eq system.attributes.combat.higherGround "true")}}selected{{/unless}}>No</option>
+      <option value="true" {{#if (cts-eq system.attributes.combat.higherGround "true")}}selected{{/if}}>Yes (+2 melee)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Point blank</label>
+    <select name="system.attributes.combat.pointBlank">
+      <option value="false" {{#unless (cts-eq system.attributes.combat.pointBlank "true")}}selected{{/unless}}>No</option>
+      <option value="true" {{#if (cts-eq system.attributes.combat.pointBlank "true")}}selected{{/if}}>Yes (+1 ranged)</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Rapid Shot</label>
+    <select name="system.attributes.combat.rapidShot">
+      <option value="false" {{#unless (cts-eq system.attributes.combat.rapidShot "true")}}selected{{/unless}}>Off</option>
+      <option value="true" {{#if (cts-eq system.attributes.combat.rapidShot "true")}}selected{{/if}}>On</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Cast defensively</label>
+    <select name="system.attributes.combat.castDefensively">
+      <option value="false" {{#unless (cts-eq system.attributes.combat.castDefensively "true")}}selected{{/unless}}>No</option>
+      <option value="true" {{#if (cts-eq system.attributes.combat.castDefensively "true")}}selected{{/if}}>Yes</option>
+    </select>
+  </div>
+</div>
+<div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+  <div class="form-group">
+    <label>Power Attack</label>
+    <input type="number" name="system.attributes.combat.powerAttack" value="{{system.attributes.combat.powerAttack}}" min="0" step="1" title="Needs the Power Attack feat. Capped at BAB." />
+  </div>
+  <div class="form-group">
+    <label>Combat Expertise</label>
+    <input type="number" name="system.attributes.combat.combatExpertise" value="{{system.attributes.combat.combatExpertise}}" min="0" step="1" title="Needs Combat Expertise. Capped at 5 or BAB." />
+  </div>
+  <div class="form-group">
+    <label>Your cover</label>
+    <select name="system.attributes.combat.coverSelf">
+      <option value="none" {{#if (cts-eq system.attributes.combat.coverSelf "none")}}selected{{/if}}>None</option>
+      <option value="partial" {{#if (cts-eq system.attributes.combat.coverSelf "partial")}}selected{{/if}}>Cover +4 AC</option>
+      <option value="improved" {{#if (cts-eq system.attributes.combat.coverSelf "improved")}}selected{{/if}}>Improved +8 AC</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Target cover</label>
+    <select name="system.attributes.combat.coverTarget">
+      <option value="none" {{#if (cts-eq system.attributes.combat.coverTarget "none")}}selected{{/if}}>None</option>
+      <option value="cover" {{#if (cts-eq system.attributes.combat.coverTarget "cover")}}selected{{/if}}>Cover −4</option>
+      <option value="improved" {{#if (cts-eq system.attributes.combat.coverTarget "improved")}}selected{{/if}}>Improved −8</option>
+    </select>
+  </div>
+</div>
+<div class="combat-stats mb-md">
+  <div class="stat-box">
+    <div class="stat-label">AoOs</div>
+    <span class="stat-value derived">{{system.attributes.aoo.remaining}} / {{system.attributes.aoo.pool}}</span>
+  </div>
+  <div class="stat-box">
+    <button type="button" class="cts-btn secondary cts-aoo-spend">Spend</button>
+    <button type="button" class="cts-btn secondary cts-aoo-reset">Reset</button>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Turning</div>
+    <span class="stat-value derived" title="Cleric level, or paladin as a cleric three levels lower">{{system.attributes.turning.remaining}} / {{system.attributes.turning.pool}}</span>
+  </div>
+  <div class="stat-box">
+    <button type="button" class="cts-btn secondary cts-turn-undead">Turn</button>
+  </div>
+  <div class="stat-box">
+    <div class="stat-label">Conc. DC</div>
+    <input type="number" name="system.attributes.combat.concentrationDc" value="{{system.attributes.combat.concentrationDc}}" step="1" />
+  </div>
+  <div class="stat-box">
+    <button type="button" class="cts-btn secondary cts-concentration">Concentrate</button>
+  </div>
+</div>
+<div class="mb-md">
+  <button type="button" class="cts-btn secondary cts-maneuver" data-maneuver="trip">Trip</button>
+  <button type="button" class="cts-btn secondary cts-maneuver" data-maneuver="disarm">Disarm</button>
+  <button type="button" class="cts-btn secondary cts-maneuver" data-maneuver="bullrush">Bull rush</button>
+  <button type="button" class="cts-btn secondary cts-maneuver" data-maneuver="sunder">Sunder</button>
+  <button type="button" class="cts-btn secondary cts-apply-senses">Apply senses to token</button>
+</div>
 
 <div class="combat-stats mb-md cts-encumbrance-summary" title="Carrying capacity vs armor (world setting encumbrance automation)">
   <div class="stat-box">
