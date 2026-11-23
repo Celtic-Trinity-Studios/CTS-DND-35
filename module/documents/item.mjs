@@ -6,6 +6,7 @@
 import { applyEnergyToDamage, resolveClassCombatProgression } from "../helpers/combat-rules.mjs";
 import { concealmentNote } from "../helpers/lighting.mjs";
 import { applyDamageReduction } from "../helpers/open-rules.mjs";
+import { detectFlanking } from "../hooks/token-combat.mjs";
 
 export class CTSDND35Item extends Item {
 
@@ -125,12 +126,14 @@ export class CTSDND35Item extends Item {
 
     const rolls = [];
     const lines = [];
+    const flanked = detectFlanking(actor);
     if (!derived.proficient) lines.push("Not proficient: −4 on attacks.");
     if (derived.cannotAttack) lines.push("A current condition or total defense normally prevents attacks.");
+    if (flanked) lines.push("Token positions show flanking.");
     for (const note of derived.notes || []) lines.push(note);
-
     for (let i = 0; i < derived.attackBonuses.length; i++) {
-      const bonus = derived.attackBonuses[i];
+      let bonus = derived.attackBonuses[i];
+      if (flanked && !(derived.notes || []).some((note) => String(note).includes("Flanking"))) bonus += 2;
       const roll = new foundry.dice.Roll(`1d20 + ${bonus}`);
       await roll.evaluate();
       rolls.push(roll);
@@ -193,7 +196,9 @@ export class CTSDND35Item extends Item {
       rolls.push(miss);
       lines.push(`Concealment ${concealment}%: rolled <strong>${miss.total}</strong> — ${miss.total <= concealment ? "miss" : "the attack can hit"}`);
     }
-    const consumeAmmo = this.system.consumeAmmo === true || this.system.consumeAmmo === "true";
+    const returning = this.system.returning === true || this.system.returning === "true";
+    const consumeAmmo = !returning && (this.system.consumeAmmo === true || this.system.consumeAmmo === "true");
+    if (this.system.ammoDamage) lines.push(`Ammunition damage: ${this.system.ammoDamage}`);
     if (consumeAmmo && Math.floor(Number(this.system.quantity) || 0) > 0) {
       const left = Math.max(0, Math.floor(Number(this.system.quantity) || 0) - 1);
       await this.update({ "system.quantity": left });

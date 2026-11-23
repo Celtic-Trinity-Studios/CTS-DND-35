@@ -170,6 +170,27 @@ export function evaluateFeatPrerequisites({ prereqText, abilities, bab, totalLev
     if (!ok) reasons.push(`Able to cast ${reqLevel}${["th", "st", "nd", "rd"][reqLevel % 10] || "th"}-level ${reqType || ""} spells required`.trim());
   }
 
+  const casterLevelNeed = raw.match(/caster level\s*([0-9]+)/i);
+  if (casterLevelNeed) {
+    const need = Number(casterLevelNeed[1]) || 0;
+    const classes = Object.values(actor?.system?.spellcasting?.classes || {});
+    const have = classes.reduce((best, row) => Math.max(best, Number(row?.casterLevel || row?.classLevel) || 0), 0);
+    if (have < need) reasons.push(`Caster level ${need}+ required`);
+  }
+  const spellKnown = raw.match(/spell known:\s*([^.;]+)/i);
+  if (spellKnown) {
+    const want = spellKnown[1].trim().toLowerCase();
+    const known = [...(actor?.items || [])].some((item) => item.type === "spell" && String(item.name || "").toLowerCase().includes(want));
+    if (!known) reasons.push(`Spell known: ${spellKnown[1].trim()}`);
+  }
+  if (/\b(creature type|subtype|must be)\b/i.test(raw)) {
+    const typeMatch = raw.match(/\b(undead|construct|elemental|ooze|dragon|fey|giant|humanoid|outsider|plant|vermin|aberration)\b/i);
+    if (typeMatch) {
+      const have = `${actor?.system?.details?.creatureType || ""} ${actor?.system?.details?.creatureSubtype || ""} ${actor?.system?.details?.humanoidSubtype || ""}`.toLowerCase();
+      if (!have.includes(typeMatch[1].toLowerCase())) reasons.push(`Creature type ${typeMatch[1]} required`);
+    }
+  }
+
   if (text.includes("turn undead") && !actorFeatures.has("turn undead")) reasons.push("Requires Turn Undead");
   if (text.includes("sneak attack") && !Array.from(actorFeatures).some((n) => n.includes("sneak attack"))) reasons.push("Requires Sneak Attack");
 

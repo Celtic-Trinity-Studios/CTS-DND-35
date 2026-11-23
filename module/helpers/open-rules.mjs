@@ -38,7 +38,7 @@ const AGING = {
 
 const SLOT_CAPS = {
   head: 1, eyes: 1, neck: 1, shoulders: 1, body: 1, torso: 1, armor: 1,
-  waist: 1, arms: 1, hands: 1, ring: 2, feet: 1,
+  waist: 1, arms: 1, hands: 1, ring: 2, feet: 1, slotless: 99,
 };
 
 export function xpRequiredForLevel(level) {

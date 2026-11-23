@@ -282,7 +282,8 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
   const attackPenalty = Math.floor(Number(ctx.attackPenalty) || 0);
   const nonprof = proficient ? 0 : 4;
   const sizeFit = weaponSizePenalty(ctx.sizeKey || "med", system.weaponSize || ctx.sizeKey || "med");
-  const full = bab + atkAbility + sizeAttack + enhancement + misc - attackPenalty - nonprof - sizeFit.penalty;
+  const masterwork = (system.masterwork === true || system.masterwork === "true") && enhancement <= 0 ? 1 : 0;
+  const full = bab + atkAbility + sizeAttack + enhancement + masterwork + misc - attackPenalty - nonprof - sizeFit.penalty;
 
   let attackBonuses;
   if (natural) attackBonuses = [secondary ? full - 5 : full];
@@ -341,16 +342,22 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     notes.push(`Power Attack damage +${twoHanded ? power * 2 : power}`);
   }
 
-  if (ctx.twf && !natural) {
+  const doubleWeapon = system.double === true || system.double === "true";
+  const twf = ctx.twf || (doubleWeapon ? { primary: 4, off: 4, extra: 0, light: true } : null);
+  if (twf && !natural) {
     if (offHand) {
-      const base = full - ctx.twf.off + situational;
+      const base = full - twf.off + situational;
       attackBonuses = [base];
-      if (ctx.twf.extra >= 1) attackBonuses.push(base - 5);
-      if (ctx.twf.extra >= 2) attackBonuses.push(base - 10);
-      notes.push(`Off-hand −${ctx.twf.off}`);
+      if (twf.extra >= 1) attackBonuses.push(base - 5);
+      if (twf.extra >= 2) attackBonuses.push(base - 10);
+      notes.push(`Off-hand −${twf.off}`);
     } else if (!secondary) {
-      attackBonuses = attackBonuses.map((bonus) => bonus - ctx.twf.primary + situational);
-      notes.push(`Two-weapon fighting −${ctx.twf.primary}`);
+      attackBonuses = attackBonuses.map((bonus) => bonus - twf.primary + situational);
+      notes.push(doubleWeapon ? `Double weapon −${twf.primary}` : `Two-weapon fighting −${twf.primary}`);
+      if (doubleWeapon) {
+        attackBonuses.push(full - twf.off + situational);
+        notes.push("Double weapon off-hand end");
+      }
     } else {
       attackBonuses = attackBonuses.map((bonus) => bonus + situational);
     }
@@ -418,9 +425,9 @@ export function buildWeaponDerived(system = {}, ctx = {}) {
     damageType,
     threat,
     multiplier,
-    magic: enhancement > 0 || truthy(system.magic),
+    magic: enhancement > 0 || truthy(system.magic) || /ghost|holy|unholy|axiomatic|anarchic/.test(String(system.properties || "")),
     material: String(system.material || "").toLowerCase(),
-    alignment: String(system.alignment || system.weaponAlignment || "").toLowerCase(),
+    alignment: String(system.alignment || system.weaponAlignment || (/holy/i.test(system.properties || "") ? "good" : /unholy/i.test(system.properties || "") ? "evil" : /axiomatic/i.test(system.properties || "") ? "lawful" : /anarchic/i.test(system.properties || "") ? "chaotic" : "")).toLowerCase(),
     nonlethal: truthy(system.nonlethal),
     critImmune: !!ctx.critImmune,
     cannotAttack: !!ctx.cannotAttack,

@@ -87,6 +87,11 @@
         </div>
       </div>
       <div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+        <label><select name="system.masterwork"><option value="false" {{#unless system.masterwork}}selected{{/unless}}>Not masterwork</option><option value="true" {{#if system.masterwork}}selected{{/if}}>Masterwork (+1 attack, no damage)</option></select></label>
+        <label><select name="system.double"><option value="false" {{#unless system.double}}selected{{/unless}}>Not a double weapon</option><option value="true" {{#if system.double}}selected{{/if}}>Double weapon</option></select></label>
+        <label><select name="system.returning"><option value="false" {{#unless system.returning}}selected{{/unless}}>Not returning</option><option value="true" {{#if system.returning}}selected{{/if}}>Returning</option></select></label>
+        <label>Properties <input type="text" name="system.properties" value="{{system.properties}}" placeholder="holy, ghost touch, axiomatic" /></label>
+        <label>Ammo damage <input type="text" name="system.ammoDamage" value="{{system.ammoDamage}}" placeholder="+1d6 fire" /></label>
         <label><select name="system.keen"><option value="false" {{#unless system.keen}}selected{{/unless}}>Not keen</option><option value="true" {{#if system.keen}}selected{{/if}}>Keen (doubles threat)</option></select></label>
         <label><select name="system.magic"><option value="false" {{#unless system.magic}}selected{{/unless}}>Magic from enhancement</option><option value="true" {{#if system.magic}}selected{{/if}}>Counts as magic</option></select></label>
         <label><select name="system.nonlethal"><option value="false" {{#unless system.nonlethal}}selected{{/unless}}>Lethal</option><option value="true" {{#if system.nonlethal}}selected{{/if}}>Nonlethal</option></select></label>

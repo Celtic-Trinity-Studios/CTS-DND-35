@@ -176,6 +176,34 @@
     </select>
   </div>
   <div class="form-group">
+    <label>Shield spell</label>
+    <select name="system.attributes.combat.shieldSpell">
+      <option value="false" {{#unless system.attributes.combat.shieldSpell}}selected{{/unless}}>Off</option>
+      <option value="true" {{#if system.attributes.combat.shieldSpell}}selected{{/if}}>+4 shield</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Delay</label>
+    <select name="system.attributes.combat.delayed">
+      <option value="false" {{#unless system.attributes.combat.delayed}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.delayed}}selected{{/if}}>Holding turn</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Ready</label>
+    <select name="system.attributes.combat.readied">
+      <option value="false" {{#unless system.attributes.combat.readied}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.readied}}selected{{/if}}>Readied</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Teleported</label>
+    <select name="system.attributes.combat.teleported" title="Teleport and dimension door do not provoke.">
+      <option value="false" {{#unless system.attributes.combat.teleported}}selected{{/unless}}>No</option>
+      <option value="true" {{#if system.attributes.combat.teleported}}selected{{/if}}>No attack of opportunity</option>
+    </select>
+  </div>
+  <div class="form-group">
     <label>Flat-footed</label>
     <select name="system.attributes.combat.flatFooted">
       <option value="false" {{#unless system.attributes.combat.flatFooted}}selected{{/unless}}>No</option>
@@ -437,6 +465,25 @@
   {{/each}}
 </ol>
 {{/if}}
+
+<h3>Typed saves</h3>
+<p class="notes">Each bonus type is one number, so two morale bonuses do not stack. Circumstance is the amount you already added together. Dodge and circumstance are the types that stack.</p>
+<div class="flexrow" style="gap:8px; flex-wrap:wrap;">
+  {{#each system.attributes.savingThrows as |save key|}}
+  <div class="form-group">
+    <label>{{key}} circumstance</label>
+    <input type="number" name="system.attributes.savingThrows.{{key}}.circumstance" value="{{save.circumstance}}" step="1" />
+  </div>
+  <div class="form-group">
+    <label>{{key}} morale</label>
+    <input type="number" name="system.attributes.savingThrows.{{key}}.morale" value="{{save.morale}}" step="1" />
+  </div>
+  <div class="form-group">
+    <label>{{key}} resistance</label>
+    <input type="number" name="system.attributes.savingThrows.{{key}}.resistance" value="{{save.resistance}}" step="1" />
+  </div>
+  {{/each}}
+</div>
 
 <h3>Rules</h3>
 <p class="notes">Every remaining table procedure. The number is feet, DC, damage, CR, or gold, depending on the line you pick.</p>

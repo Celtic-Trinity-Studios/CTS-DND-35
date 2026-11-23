@@ -205,6 +205,16 @@ export class CTSDND35Actor extends Actor {
     combat.moveLeft = combat.moveLeft !== false && combat.moveLeft !== "false";
     combat.swiftLeft = combat.swiftLeft !== false && combat.swiftLeft !== "false";
     systemData.details.gestalt = systemData.details.gestalt === true || systemData.details.gestalt === "true";
+    systemData.details.fractional = systemData.details.fractional === true || systemData.details.fractional === "true";
+    systemData.details.combineSlots = systemData.details.combineSlots === true || systemData.details.combineSlots === "true";
+    systemData.details.skillTricks ??= "";
+    systemData.details.rebuildLog ??= "";
+    systemData.details.region ??= "";
+    systemData.details.reputation = Math.floor(Number(systemData.details.reputation) || 0);
+    combat.shieldSpell = combat.shieldSpell === true || combat.shieldSpell === "true";
+    combat.delayed = combat.delayed === true || combat.delayed === "true";
+    combat.readied = combat.readied === true || combat.readied === "true";
+    combat.teleported = combat.teleported === true || combat.teleported === "true";
     systemData.attributes.fortification = Math.max(0, Math.floor(Number(systemData.attributes.fortification) || 0));
     systemData.attributes.energy.vulnerable ??= {};
     for (const key of ["fire", "cold", "acid", "electricity", "sonic"]) {
@@ -344,10 +354,14 @@ export class CTSDND35Actor extends Actor {
   _applyBuffItemModifiers(systemData) {
     const acb = systemData.attributes.ac.bonuses;
     const nz = (x) => Math.floor(Number(x) || 0);
+    const seenBuffs = new Set();
     for (const item of this.items) {
       if (item.type !== "buff") continue;
       const active = item.system.active === true || item.system.active === "true";
       if (!active) continue;
+      const buffName = String(item.name || "").trim().toLowerCase();
+      if (buffName && seenBuffs.has(buffName)) continue;
+      if (buffName) seenBuffs.add(buffName);
       const m = item.system.modifiers || {};
       acb.dodge += nz(m.dodge);
       acb.deflection += nz(m.deflection);
@@ -732,7 +746,10 @@ export class CTSDND35Actor extends Actor {
       const progression = resolveClassCombatProgression(cls.name, cls.system);
       const babTable = CTSDND35.babProgression[progression.bab] || CTSDND35.babProgression.med;
       if (level > 0) {
-        const babValue = babTable[Math.min(level, 20) - 1] || 0;
+        let babValue = babTable[Math.min(level, 20) - 1] || 0;
+        if (systemData.details?.fractional) {
+          babValue = progression.bab === "high" ? level : progression.bab === "low" ? Math.floor(level / 2) : Math.floor((level * 3) / 4);
+        }
         totalBAB += babValue;
         bestBab = Math.max(bestBab, babValue);
       }
@@ -740,7 +757,8 @@ export class CTSDND35Actor extends Actor {
       for (const key of ["fort", "ref", "will"]) {
         const prog = progression.saves[key] === "high" ? "high" : "low";
         const table = CTSDND35.saveProgression[prog];
-        const saveValue = table[Math.min(level, 20) - 1] || 0;
+        let saveValue = table[Math.min(level, 20) - 1] || 0;
+        if (systemData.details?.fractional) saveValue = prog === "high" ? 2 + Math.floor(level / 2) : Math.floor(level / 3);
         classSave[key] += saveValue;
         bestSave[key] = Math.max(bestSave[key], saveValue);
         anyClassSave = true;
@@ -764,10 +782,20 @@ export class CTSDND35Actor extends Actor {
       save.baseFromClasses = anyClassSave;
       const baseUsed = anyClassSave ? save.classBase : Math.floor(Number(save.base) || 0);
       save.baseUsed = baseUsed;
+      const typedSave =
+        Math.floor(Number(save.circumstance) || 0) +
+        Math.floor(Number(save.resistance) || 0) +
+        Math.floor(Number(save.morale) || 0) +
+        Math.floor(Number(save.competence) || 0) +
+        Math.floor(Number(save.insight) || 0) +
+        Math.floor(Number(save.luck) || 0) +
+        Math.floor(Number(save.sacred) || 0) +
+        Math.floor(Number(save.profane) || 0);
       save.total =
         baseUsed +
         abilityMod +
         (save.bonus || 0) +
+        typedSave +
         Math.floor(Number(save.effectBonus) || 0) -
         nl;
     }
@@ -794,6 +822,7 @@ export class CTSDND35Actor extends Actor {
         armorBonus += bonus;
       }
     }
+    if (systemData.attributes.combat?.shieldSpell) shieldBonus += 4;
 
     if (systemData.attributes.combat?.flatFooted && (systemData.attributes.ac.dexMode || "normal") === "normal") {
       systemData.attributes.ac.dexMode = "loseBonus";
@@ -897,6 +926,11 @@ export class CTSDND35Actor extends Actor {
         armorEncPen -
         conditionPen -
         nl;
+      const tricks = String(systemData.details?.skillTricks || "").toLowerCase();
+      if (tricks && (tricks.split(/[,;]/).some((part) => part.trim() === key || part.trim() === skillDef.label.toLowerCase()))) {
+        skill.total += 2;
+        skill.trick = 2;
+      }
       const distracted = !!systemData.attributes.combat?.distracted;
       skill.take10 = distracted ? null : 10 + skill.total;
       skill.take20 = 20 + skill.total;
@@ -994,6 +1028,28 @@ export class CTSDND35Actor extends Actor {
         perDay,
       });
     }
+    if (systemData.details?.combineSlots && summary.length > 1) {
+      const byLevel = new Map();
+      for (const row of summary) {
+        for (const slot of row.perDay || []) {
+          const bag = byLevel.get(slot.level) || { level: slot.level, base: 0, bonus: 0, total: 0, expended: 0, remaining: 0, dc: slot.dc };
+          bag.total += slot.total || 0;
+          bag.remaining += slot.remaining || 0;
+          bag.expended += slot.expended || 0;
+          byLevel.set(slot.level, bag);
+        }
+      }
+      summary.push({
+        key: "combined",
+        className: "Combined slots",
+        type: "combined",
+        ability: "",
+        abilityMod: 0,
+        casterLevel: Math.max(...summary.map((row) => row.casterLevel || 0)),
+        preparation: "prepared",
+        perDay: [...byLevel.values()],
+      });
+    }
     systemData.spellcasting.summary = summary;
 
     let clericLevel = 0;
@@ -1074,6 +1130,9 @@ export class CTSDND35Actor extends Actor {
         data[`mod_${k}`] = v.mod;
       }
     }
+    data.bab = data.attributes?.bab?.total || 0;
+    data.ac = data.attributes?.ac?.normal || 0;
+    data.level = data.details?.level?.value || 0;
 
     return data;
   }

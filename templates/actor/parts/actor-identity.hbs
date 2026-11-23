@@ -64,6 +64,22 @@
         <option value="true" {{#if system.traits.applyAgingTable}}selected{{/if}}>Yes</option>
       </select>
     </label>
+    <label>Fractional BAB and saves
+      <select name="system.details.fractional" title="Unearthed Arcana: high BAB equals level, medium is three-quarters, low is half.">
+        <option value="false" {{#unless system.details.fractional}}selected{{/unless}}>Standard tables</option>
+        <option value="true" {{#if system.details.fractional}}selected{{/if}}>Fractional</option>
+      </select>
+    </label>
+    <label>Combine spell slots
+      <select name="system.details.combineSlots">
+        <option value="false" {{#unless system.details.combineSlots}}selected{{/unless}}>Separate</option>
+        <option value="true" {{#if system.details.combineSlots}}selected{{/if}}>Add slots together</option>
+      </select>
+    </label>
+    <label>Skill tricks <input type="text" name="system.details.skillTricks" value="{{system.details.skillTricks}}" placeholder="jmp, tumble" title="Skill keys or names. Each listed skill is +2." /></label>
+    <label>Region <input type="text" name="system.details.region" value="{{system.details.region}}" /></label>
+    <label>Reputation <input type="number" name="system.details.reputation" value="{{system.details.reputation}}" step="1" /></label>
+    <label>Rebuild log <input type="text" name="system.details.rebuildLog" value="{{system.details.rebuildLog}}" placeholder="Replaced level 4 fighter with barbarian" /></label>
     <label>Gestalt
       <select name="system.details.gestalt">
         <option value="false" {{#unless system.details.gestalt}}selected{{/unless}}>No</option>
