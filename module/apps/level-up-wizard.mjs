@@ -8,6 +8,7 @@ import {
   getSpellcastingProgression,
   evaluateClassAvailability
 } from "../helpers/progression-rules.mjs";
+import { actorForPersist } from "../utils/persist-actor.mjs";
 
 export class LevelUpWizard extends Application {
   constructor(actor, options = {}) {
@@ -604,6 +605,15 @@ export class LevelUpWizard extends Application {
     if (!cls) return;
     if (!classDoc) return;
 
+    const savedActor = actorForPersist(this.actor);
+    if (!savedActor) {
+      ui.notifications.error("This token was deleted, so the level-up was not saved. Open the actor from the Actors sidebar and level up there.");
+      return;
+    }
+    const sheetActor = this.actor;
+    this.actor = savedActor;
+
+    try {
     const existingClass = this.actor.items.find((i) => i.type === "class" && i.name.toLowerCase() === cls.name.toLowerCase());
     const oldClassLevel = Number(existingClass?.system?.level) || 0;
     const newClassLevel = oldClassLevel + 1;
@@ -666,8 +676,16 @@ export class LevelUpWizard extends Application {
       if (!exists) await this.actor.createEmbeddedDocuments("Item", [spellDoc.toObject()]);
     }
 
-    this.actor.sheet?.render(true);
-    ui.notifications.info(`${this.actor.name} advanced to level ${this._nextLevel()}.`);
+    savedActor.sheet?.render(true);
+    } finally {
+      this.actor = sheetActor;
+    }
+    const savedName = savedActor.name;
+    if (savedActor !== sheetActor) {
+      ui.notifications.info(`${savedName} advanced to level ${this._nextLevel()} on the world actor because its token was deleted.`);
+    } else {
+      ui.notifications.info(`${savedName} advanced to level ${this._nextLevel()}.`);
+    }
     this.close();
   }
 }

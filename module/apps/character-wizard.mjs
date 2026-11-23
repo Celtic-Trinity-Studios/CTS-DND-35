@@ -8,6 +8,7 @@ import {
   getSpellcastingProgression,
   evaluateClassAvailability
 } from "../helpers/progression-rules.mjs";
+import { actorForPersist } from "../utils/persist-actor.mjs";
 const GENDER_DESCRIPTIONS = {
   male: "Gender is primarily aesthetic in D&D 3.5 and does not change class abilities or mechanical options.",
   female: "Gender is primarily aesthetic in D&D 3.5 and does not change class abilities or mechanical options."
@@ -1027,7 +1028,16 @@ export class CharacterWizard extends Application {
         return;
       }
     }
-    
+
+    const savedActor = actorForPersist(this.actor);
+    if (!savedActor) {
+      ui.notifications.error("This token was deleted, so the character was not saved. Open the actor from the Actors sidebar and finish character generation there.");
+      return;
+    }
+    const sheetActor = this.actor;
+    this.actor = savedActor;
+
+    try {
     // Apply racial modifiers
     const finalAbilities = foundry.utils.deepClone(abilities);
     if (raceDef && raceDef.abilities) {
@@ -1142,8 +1152,15 @@ export class CharacterWizard extends Application {
       if (featureItems.length) await this.actor.createEmbeddedDocuments("Item", featureItems);
     }
 
-    this.actor.sheet?.render(true);
-    ui.notifications.info(`Character Wizard completed for ${basics.name}!`);
+    savedActor.sheet?.render(true);
+    } finally {
+      this.actor = sheetActor;
+    }
+    if (savedActor !== sheetActor) {
+      ui.notifications.info(`Saved ${basics.name} on the world actor because its token was deleted.`);
+    } else {
+      ui.notifications.info(`Character Wizard completed for ${basics.name}!`);
+    }
     this.close();
   }
 }

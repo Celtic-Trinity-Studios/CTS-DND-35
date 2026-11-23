@@ -4,6 +4,7 @@
 
 import { visionFromSenses } from "../helpers/table-combat.mjs";
 import { lightingPreset } from "../helpers/lighting.mjs";
+import { actorForPersist } from "../utils/persist-actor.mjs";
 
 function drawThreat(token) {
   let show = true;
@@ -109,16 +110,22 @@ export async function applySensesToTokens(actor, scene = null) {
     "prototypeToken.sight.visionMode": visionMode,
   };
   if (range) prototype["prototypeToken.sight.range"] = range;
-  try {
-    await actor.update(prototype);
-  } catch (err) {
-    console.warn("CTS DND 3.5 | Could not update prototype token sight.", err);
+  const sightActor = actorForPersist(actor);
+  if (sightActor) {
+    try {
+      await sightActor.update(prototype);
+    } catch (err) {
+      console.warn("CTS DND 3.5 | Could not update prototype token sight.", err);
+    }
   }
   const docs = new Set();
   for (const token of home?.tokens || []) {
-    if (token.actor === actor || token.actorId === actor.id) docs.add(token);
+    if (!token?.id || token.parent?.tokens?.get(token.id) !== token) continue;
+    if (token.actor === actor || token.actor === sightActor || token.actorId === actor.id || token.actorId === sightActor?.id) docs.add(token);
   }
-  for (const token of actor.getActiveTokens?.(false, true) || []) docs.add(token);
+  for (const token of actor.getActiveTokens?.(false, true) || []) {
+    if (token?.id && token.parent?.tokens?.get(token.id) === token) docs.add(token);
+  }
   for (const token of docs) {
     const mode = visionModeForScene(vision, token.parent || home);
     const patch = { "sight.enabled": true, "sight.visionMode": mode };
