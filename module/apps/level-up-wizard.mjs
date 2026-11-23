@@ -236,13 +236,30 @@ export class LevelUpWizard extends Application {
 
   _selectedSpellCountsByLevel() {
     const counts = {};
+    const className = this._selectedClass()?.name || "";
     for (const uuid of this.state.selectedSpellUuids) {
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
       if (!spell) continue;
-      const key = String(Number(spell.spellLevel) || 0);
+      const availability = this._spellAvailability(spell, className, Number.POSITIVE_INFINITY);
+      const key = String(Number(availability.spellLevel) || 0);
       counts[key] = (counts[key] || 0) + 1;
     }
     return counts;
+  }
+
+  _spellAvailability(spell, className, maxSpellLevel) {
+    const documentLevel = Number(spell?.spellLevel) || 0;
+    if (!className) return { available: false, reason: "Select a class first", spellLevel: documentLevel };
+    const classLower = this._normalizeSpellClassAlias(className);
+    const levelMap = this._spellClassLevelMap(spell);
+    if (!Object.prototype.hasOwnProperty.call(levelMap, classLower)) {
+      return { available: false, reason: "Not on this class spell list", spellLevel: documentLevel };
+    }
+    const spellLevel = Number(levelMap[classLower]);
+    if (!(maxSpellLevel >= 0) || spellLevel > maxSpellLevel) {
+      return { available: false, reason: `Spell level ${spellLevel} is above what this class can cast`, spellLevel };
+    }
+    return { available: true, reason: "", spellLevel };
   }
 
   _spellMatchesClass(spell, className) {
@@ -404,6 +421,10 @@ export class LevelUpWizard extends Application {
         projectedTotal: projectedRanks + abilityMod + classBonus
       };
     });
+    const classSkillsKnown = context.skillRows.some((row) => row.isClassSkill);
+    if (!showUnavailable && classSkillsKnown) {
+      context.skillRows = context.skillRows.filter((row) => row.isClassSkill || row.currentRanks > 0 || row.addRanks > 0);
+    }
     const classDoc = await this._classDocument();
     const spellcastingMode = this._spellcastingModeForClass(classDoc);
     context.spellcastingMode = spellcastingMode;
@@ -429,11 +450,18 @@ export class LevelUpWizard extends Application {
     context.spellPickCount = this.state.selectedSpellUuids.length;
     context.spellPickCountByLevel = this._selectedSpellCountsByLevel();
     context.availableSpells = this.spellChoices
-      .filter((s) => maxSpellLevel >= 0 && s.spellLevel <= maxSpellLevel)
-      .filter((s) => this._spellMatchesClass(s, className))
-      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
-      .map((s) => ({ ...s, selected: this.state.selectedSpellUuids.includes(s.uuid) }))
-      .slice(0, 200);
+      .map((s) => {
+        const check = this._spellAvailability(s, className, maxSpellLevel);
+        return {
+          ...s,
+          spellLevel: check.spellLevel,
+          available: check.available,
+          unavailableReason: check.reason,
+          selected: this.state.selectedSpellUuids.includes(s.uuid)
+        };
+      })
+      .filter((s) => showUnavailable || s.available)
+      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch));
     context.selectedSpells = this.state.selectedSpellUuids
       .map((uuid) => this.spellChoices.find((s) => s.uuid === uuid))
       .filter(Boolean);
@@ -519,9 +547,11 @@ export class LevelUpWizard extends Application {
       this.render();
     });
 
-    html.find(".toggle-unavailable").click((ev) => {
+    html.find(".set-availability-view").click((ev) => {
       ev.preventDefault();
-      this.state.showUnavailable = !this.state.showUnavailable;
+      const show = ev.currentTarget.dataset.showUnavailable === "true";
+      if ((this.state.showUnavailable !== false) === show) return;
+      this.state.showUnavailable = show;
       this.render();
     });
 
@@ -539,7 +569,10 @@ export class LevelUpWizard extends Application {
       const cap = mode === "spontaneous" ? this._spellPickCapForLevel(classDoc, oldClassLevel, newClassLevel) : 0;
       const capsByLevel = mode === "spontaneous" ? this._spellPickCapsByLevelForGain(classDoc, oldClassLevel, newClassLevel) : {};
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
-      const lvlKey = String(Number(spell?.spellLevel) || 0);
+      const maxSpellLevel = this._maxSpellLevelAfterGain(classDoc);
+      const availability = this._spellAvailability(spell, cls?.name || classDoc?.name || "", maxSpellLevel);
+      if (!availability.available) return;
+      const lvlKey = String(Number(availability.spellLevel) || 0);
       const currentByLevel = this._selectedSpellCountsByLevel();
       if (mode === "spontaneous") {
         if ((Number(capsByLevel[lvlKey]) || 0) <= 0) return;

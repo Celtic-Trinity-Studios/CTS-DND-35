@@ -52,7 +52,7 @@ function alignmentClauseMatches(req, actorCode) {
   return true;
 }
 
-function alignmentRequirementMatches(requirement, actorAlignment) {
+export function alignmentRequirementMatches(requirement, actorAlignment) {
   const req = String(requirement || "").trim().toLowerCase();
   if (!req || req === "none" || req === "any") return true;
   const actorCode = normalizeAlignmentCode(actorAlignment);

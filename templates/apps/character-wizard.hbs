@@ -50,17 +50,27 @@
       {{/if}}
 
       {{#if isStep2}}
-      <div class="wizard-step-head"><h3>Select a Race for your Character</h3></div>
+      <div class="wizard-step-head">
+        <h3>Select a Race for your Character</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
+      </div>
       <div class="wizard-split">
         <div class="wizard-scroll-list wizard-choice-list">
           {{#each raceChoices as |race|}}
-          <button type="button" class="wizard-choice-button race-choice {{#if race.selected}}active{{/if}}" data-race="{{race.key}}">
-            {{race.label}}
+          <button type="button" class="wizard-choice-button race-choice {{#if race.selected}}active{{/if}}{{#unless race.available}} is-unavailable{{/unless}}" data-race="{{race.key}}">
+            <span>{{race.label}}</span>
+            {{#unless race.available}}<span class="wizard-class-tag wizard-class-tag-locked">Requirements</span>{{/unless}}
           </button>
           {{/each}}
         </div>
         <div class="wizard-detail-column">
           <h4>{{activeRaceLabel}}</h4>
+          {{#unless activeRaceAvailable}}
+          <div class="wizard-class-requirements wizard-class-requirements--unmet">
+            <strong>Requirements not met</strong>
+            <p>{{activeRaceRequirementText}}</p>
+          </div>
+          {{/unless}}
           <div class="wizard-detail-body">
             <p>{{activeRaceDescription}}</p>
             <p><strong>Size:</strong> {{currentRace.size}} | <strong>Speed:</strong> {{currentRace.speed}}</p>
@@ -71,11 +81,9 @@
       {{/if}}
 
       {{#if isStep3}}
-      <div class="wizard-step-head"><h3>Select a Class for your Character</h3></div>
-      <div class="wizard-actions-row">
-        <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
-          {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
-        </button>
+      <div class="wizard-step-head">
+        <h3>Select a Class for your Character</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
       </div>
       <div class="form-group">
         <label>Search</label>
@@ -116,17 +124,26 @@
       {{/if}}
 
       {{#if isStep4}}
-      <div class="wizard-step-head"><h3>Select an Alignment for your Character</h3></div>
+      <div class="wizard-step-head">
+        <h3>Select an Alignment for your Character</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
+      </div>
       <div class="wizard-split">
         <div class="wizard-scroll-list wizard-choice-list wizard-grid-list">
           {{#each alignmentChoices as |align|}}
-          <button type="button" class="wizard-choice-button alignment-choice {{#if align.selected}}active{{/if}}" data-alignment="{{align.key}}">
+          <button type="button" class="wizard-choice-button alignment-choice {{#if align.selected}}active{{/if}}{{#unless align.available}} is-unavailable{{/unless}}" data-alignment="{{align.key}}">
             {{align.label}}
           </button>
           {{/each}}
         </div>
         <div class="wizard-detail-column">
           <h4>{{activeAlignmentLabel}}</h4>
+          {{#unless activeAlignmentAvailable}}
+          <div class="wizard-class-requirements wizard-class-requirements--unmet">
+            <strong>Requirements not met</strong>
+            <p>{{activeAlignmentRequirementText}}</p>
+          </div>
+          {{/unless}}
           <div class="wizard-detail-body">
             <p>{{activeAlignmentDescription}}</p>
             <div class="form-group">
@@ -178,7 +195,10 @@
       {{/if}}
 
       {{#if isStep6}}
-      <div class="wizard-step-head"><h3>Allocate Skill Points</h3></div>
+      <div class="wizard-step-head">
+        <h3>Allocate Skill Points</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
+      </div>
       <p class="notes">
         {{primaryClassLabel}} points: <strong>{{skillBudget.primaryRemaining}}</strong> / {{skillBudget.primary}}
         {{#if allowGestalt}}
@@ -195,7 +215,7 @@
         </div>
         {{#each skillRows as |row|}}
         <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
-          <div style="flex: 2;">{{row.label}}</div>
+          <div style="flex: 2;">{{row.label}}{{#unless row.isClassSkill}} <span class="notes">(cross-class)</span>{{/unless}}</div>
           <div style="flex: 1; text-align:center; font-weight:bold;">{{row.total}}</div>
           <div class="wizard-skill-controls" style="flex: 1; text-align:center;">
             <button type="button" class="skill-dec wizard-skill-adjust" data-which="primary" data-skill="{{row.key}}">-</button>
@@ -216,11 +236,9 @@
       {{/if}}
 
       {{#if isStep7}}
-      <div class="wizard-step-head"><h3>Feats</h3></div>
-      <div class="wizard-actions-row">
-        <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
-          {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
-        </button>
+      <div class="wizard-step-head">
+        <h3>Feats</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
       </div>
       <p class="notes">{{#if featsRemaining}}Choose feats.{{else}}No more feats may be added.{{/if}} Remaining: <strong>{{featsRemaining}}</strong> / {{featSlots}}</p>
       <div class="wizard-split wizard-feat-split">
@@ -286,7 +304,10 @@
       {{/if}}
 
       {{#if isStep8}}
-      <div class="wizard-step-head"><h3>Starting Spells</h3></div>
+      <div class="wizard-step-head">
+        <h3>Starting Spells</h3>
+        {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
+      </div>
       {{#if isSpontaneousCaster}}
       <p class="notes">Known picks: <strong>{{spellPickCount}}</strong> / {{spellPickCap}}</p>
       {{/if}}
@@ -315,9 +336,10 @@
             </button>
             {{#unless group.collapsed}}
             {{#each group.spells as |spell|}}
-            <div class="spell-choice wizard-choice-button {{#if (cts-eq spell.uuid ../../state.activeSpellUuid)}}active{{/if}}" data-uuid="{{spell.uuid}}">
+            <div class="spell-choice wizard-choice-button {{#if (cts-eq spell.uuid ../../state.activeSpellUuid)}}active{{/if}}{{#unless spell.available}} is-unavailable{{/unless}}" data-uuid="{{spell.uuid}}">
               <strong>{{spell.name}}</strong>
               <span class="notes"> ({{spell.spellLevel}})</span>
+              {{#unless spell.available}}<span class="wizard-class-tag wizard-class-tag-locked">Unavailable</span>{{/unless}}
             </div>
             {{/each}}
             {{/unless}}
@@ -330,7 +352,15 @@
         <div class="wizard-detail-column" style="flex: 1 1 58%; min-width:0;">
           <h4>{{#if activeSpell}}{{activeSpell.name}}{{else}}Select a spell{{/if}}</h4>
           <div class="wizard-detail-body">
-            {{#if activeSpell}}{{{activeSpell.description}}}{{else}}<p class="notes">Choose a spell from the list.</p>{{/if}}
+            {{#if activeSpell}}
+            {{{activeSpell.description}}}
+            {{#unless activeSpell.available}}
+            <hr />
+            <p class="notes" style="color:#c94c4c; margin:0;">{{activeSpell.unavailableReason}}</p>
+            {{/unless}}
+            {{else}}
+            <p class="notes">Choose a spell from the list.</p>
+            {{/if}}
           </div>
           <div class="wizard-inline-actions" style="margin-top:8px;">
             <button type="button" class="cts-btn add-spell">Add</button>

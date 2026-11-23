@@ -101,11 +101,43 @@
 .cts-dnd-35.wizard .wizard-step-head {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
   margin: 0;
+}
+.cts-dnd-35.wizard .wizard-availability-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  border: 1px solid #4a657e;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.cts-dnd-35.wizard .wizard-availability-toggle .set-availability-view {
+  appearance: none;
+  border: none;
+  border-right: 1px solid #4a657e;
+  background: #20344a;
+  color: #e8eef5;
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 12px;
+  line-height: 1.25;
+  cursor: pointer;
+  white-space: nowrap;
+  width: auto;
+}
+.cts-dnd-35.wizard .wizard-availability-toggle .set-availability-view:last-child {
+  border-right: none;
+}
+.cts-dnd-35.wizard .wizard-availability-toggle .set-availability-view.active {
+  background: linear-gradient(180deg, #3d6d9a, #2a4d70);
+  color: #fff;
+  font-weight: 700;
+}
+.cts-dnd-35.wizard .is-unavailable {
+  opacity: 0.72;
 }
 .cts-dnd-35.wizard .wizard-step-head h3 {
   margin: 0;
@@ -118,17 +150,6 @@
   justify-content: flex-end;
   align-items: center;
   margin: 4px 0 10px 0;
-}
-.cts-dnd-35.wizard .wizard-toggle-unavailable {
-  flex: 0 0 auto;
-  align-self: flex-start;
-  display: inline-flex !important;
-  width: auto !important;
-  padding: 3px 10px !important;
-  font-size: 12px !important;
-  line-height: 1.25 !important;
-  white-space: nowrap;
-  max-width: 100%;
 }
 .cts-dnd-35.wizard .wizard-split {
   display: flex;
@@ -399,11 +420,22 @@
   padding: 10px;
   box-sizing: border-box;
 }
+.cts-dnd-35.wizard-classic .wizard-step-head {
+  border-bottom: 1px solid #666;
+  padding-bottom: 6px;
+}
 .cts-dnd-35.wizard-classic .wizard-step-head h3 {
   color: #f3f3f3;
   font-size: 24px;
-  border-bottom: 1px solid #666;
-  padding-bottom: 6px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.cts-dnd-35.wizard-classic .race-choice,
+.cts-dnd-35.wizard-classic .spell-choice.wizard-choice-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 .cts-dnd-35.wizard-classic .wizard-actions-row {
   margin-top: 0;
@@ -464,10 +496,6 @@
 .cts-dnd-35.wizard-classic .wizard-choice-button.active {
   background: linear-gradient(180deg, #c01d1d, #6b0d0d);
   box-shadow: 0 0 0 1px #d79999 inset;
-}
-.cts-dnd-35.wizard-classic .wizard-toggle-unavailable {
-  background: linear-gradient(180deg, #2f4d6e, #20344a) !important;
-  border: 1px solid #4a657e;
 }
 .cts-dnd-35.wizard-classic .wizard-detail-column h4 {
   margin: 0 0 6px 0;

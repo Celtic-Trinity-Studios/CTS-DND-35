@@ -9,11 +9,7 @@
     {{#if isStep1}}
     <div class="wizard-step-head">
       <h3>Level {{nextLevel}} Advancement</h3>
-    </div>
-    <div class="wizard-actions-row">
-      <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
-        {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
-      </button>
+      {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
     </div>
     <p class="notes">Current level: {{totalLevel}} | New class level after gain: {{classLevelAfterGain}}</p>
 
@@ -75,7 +71,10 @@
     {{/if}}
 
     {{#if isStep2}}
-    <h3 style="margin-top:0;">Skill Allocation</h3>
+    <div class="wizard-step-head">
+      <h3 style="margin-top:0;">Skill Allocation</h3>
+      {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
+    </div>
     <p class="notes">Points remaining: <strong>{{skillPointRemaining}}</strong> / {{skillPointBudget}}</p>
 
     <div style="max-height: 430px; overflow-y: auto; border: 1px solid var(--cts-border-dark); padding: 6px;">
@@ -92,7 +91,7 @@
       <div class="flexrow" style="align-items: center; margin-bottom: 4px;">
         <div style="flex: 2;">
           {{#if row.isClassSkill}}<i class="fas fa-star" style="color:var(--cts-accent); margin-right:4px;"></i>{{/if}}
-          {{row.label}}
+          {{row.label}}{{#unless row.isClassSkill}} <span class="notes">(cross-class)</span>{{/unless}}
         </div>
         <div style="flex: 0.7; text-align:center;">{{row.currentRanks}}</div>
         <div style="flex: 1; text-align:center;">
@@ -112,11 +111,7 @@
     {{#if isStep3}}
     <div class="wizard-step-head">
       <h3>Feat & Spell Selection</h3>
-    </div>
-    <div class="wizard-actions-row">
-      <button type="button" class="cts-btn secondary toggle-unavailable wizard-toggle-unavailable">
-        {{#if showUnavailableOptions}}Hide Unavailable{{else}}Show Unavailable{{/if}}
-      </button>
+      {{> "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs"}}
     </div>
     {{#if requiresFeatChoice}}
     <p class="notes">This level grants a feat choice. Choose one to continue.</p>
@@ -170,9 +165,10 @@
     <div class="wizard-split" style="min-height: 200px;">
       <div class="wizard-scroll-list" style="max-height: min(40vh, 360px);">
         {{#each availableSpells as |spell|}}
-        <div class="spell-choice" data-uuid="{{spell.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
+        <div class="spell-choice{{#unless spell.available}} is-unavailable{{/unless}}" data-uuid="{{spell.uuid}}" style="padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--cts-border-dark);">
           <strong>{{spell.name}}</strong>
           <span class="notes"> ({{spell.spellLevel}})</span>
+          {{#unless spell.available}}<div class="notes" style="color:#c94c4c;">{{spell.unavailableReason}}</div>{{/unless}}
         </div>
         {{/each}}
       </div>

@@ -20,5 +20,6 @@ export const preloadHandlebarsTemplates = async function () {
     "systems/CTS-DND-35/templates/actor/parts/actor-identity.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-ability-adjustments.hbs",
     "systems/CTS-DND-35/templates/actor/parts/actor-status.hbs",
+    "systems/CTS-DND-35/templates/apps/wizard-availability-toggle.hbs",
   ]);
 };

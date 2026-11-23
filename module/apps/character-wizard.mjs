@@ -1,5 +1,6 @@
 import { CTSDND35 } from "../helpers/config.mjs";
 import {
+  alignmentRequirementMatches,
   evaluateFeatPrerequisites,
   getClassFeatureGrants,
   getKnownFeatNames,
@@ -170,6 +171,14 @@ export class CharacterWizard extends Application {
 
     const intMod = Math.floor(((context.finalAbilities.int || 10) - 10) / 2);
     await this._loadClassChoices();
+    context.raceChoices = this._filteredRaceChoices(showUnavailable);
+    context.alignmentChoices = this._filteredAlignmentChoices(showUnavailable);
+    const activeRaceCheck = this._raceAvailability(CTSDND35.races[this.state.basics.race]?.label || "");
+    context.activeRaceAvailable = activeRaceCheck.ok;
+    context.activeRaceRequirementText = activeRaceCheck.reasons.join("; ");
+    const activeAlignmentCheck = this._alignmentAvailability(this.state.basics.alignment);
+    context.activeAlignmentAvailable = activeAlignmentCheck.ok;
+    context.activeAlignmentRequirementText = activeAlignmentCheck.reasons.join("; ");
     const primaryBudget = this._computeClassSkillBudget(this.state.classes.primary, intMod);
     const secondaryBudget = allowGestalt ? this._computeClassSkillBudget(this.state.classes.secondary, intMod) : 0;
     const primarySpent = this._skillCostSpent("primary");
@@ -222,9 +231,14 @@ export class CharacterWizard extends Application {
         ability: skill.ability.toUpperCase(),
         primaryRanks: pRanks,
         secondaryRanks: sRanks,
+        isClassSkill: primaryIsClass || secondaryIsClass,
         total: totalRanks + abilityMod + classBonus
       };
     });
+    const classSkillsKnown = context.skillRows.some((row) => row.isClassSkill);
+    if (!showUnavailable && classSkillsKnown) {
+      context.skillRows = context.skillRows.filter((row) => row.isClassSkill || row.primaryRanks > 0 || row.secondaryRanks > 0);
+    }
     const primaryClassDoc = this.state.classes.primary ? await fromUuid(this.state.classes.primary) : null;
     const secondaryClassDoc = allowGestalt && this.state.classes.secondary ? await fromUuid(this.state.classes.secondary) : null;
     const primaryFeaturePreview = getClassFeatureGrants(primaryClassDoc?.system, 0, this.state.classLevels.primary || 0);
@@ -254,26 +268,17 @@ export class CharacterWizard extends Application {
     context.featsRemaining = context.featSlots - this.state.selectedFeatUuids.length;
     const spellSearch = this.state.spellSearch.toLowerCase().trim();
     const castingDocs = [primaryClassDoc, secondaryClassDoc].filter(Boolean);
-    const allowedSpellMap = new Map();
-    for (const classDoc of castingDocs) {
-      const level = classDoc?.uuid === this.state.classes.primary ? this.state.classLevels.primary : this.state.classLevels.secondary;
-      const maxLvl = this._maxSpellLevelForClass(classDoc, level || 0);
-      if (maxLvl < 0) continue;
-      for (const spell of this.spellChoices) {
-        const classSpellLevel = this._spellLevelForClass(spell, classDoc.name);
-        if (classSpellLevel === null || classSpellLevel > maxLvl) continue;
-        const existing = allowedSpellMap.get(spell.uuid);
-        if (!existing || classSpellLevel < existing.spellLevel) {
-          allowedSpellMap.set(spell.uuid, { ...spell, spellLevel: classSpellLevel });
-        }
-      }
-    }
+    const annotatedSpells = this.spellChoices.map((spell) => {
+      const check = this._spellAvailability(spell, castingDocs);
+      return { ...spell, spellLevel: check.spellLevel, available: check.ok, unavailableReason: check.reason };
+    });
+    const allowedSpellMap = new Map(annotatedSpells.filter((spell) => spell.available).map((spell) => [spell.uuid, spell]));
     this._availableSpellLevelsByUuid = Object.fromEntries(
       Array.from(allowedSpellMap.values()).map((spell) => [spell.uuid, Number(spell.spellLevel) || 0])
     );
-    context.availableSpells = Array.from(allowedSpellMap.values())
-      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch))
-      .slice(0, 200);
+    context.availableSpells = annotatedSpells
+      .filter((spell) => showUnavailable || spell.available)
+      .filter((s) => !spellSearch || s.name.toLowerCase().includes(spellSearch));
     context.availableSpellsByLevel = Object.entries(
       context.availableSpells.reduce((acc, spell) => {
         const level = Number(spell.spellLevel) || 0;
@@ -699,6 +704,99 @@ export class CharacterWizard extends Application {
     });
   }
 
+  _selectedClassRequirements() {
+    const allowGestalt = game.settings.get("CTS-DND-35", "enableGestalt");
+    const uuids = [this.state.classes.primary];
+    if (allowGestalt) uuids.push(this.state.classes.secondary);
+    return uuids
+      .filter(Boolean)
+      .map((uuid) => this.classChoices.find((choice) => choice.uuid === uuid)?.requirements || null)
+      .filter(Boolean);
+  }
+
+  _raceAvailability(label) {
+    const reasons = [];
+    const race = String(label || "").toLowerCase();
+    for (const requirements of this._selectedClassRequirements()) {
+      const reqRace = String(requirements.req_race || "").trim();
+      if (!reqRace || reqRace.toLowerCase() === "none") continue;
+      const races = reqRace.split(",").map((entry) => entry.trim().toLowerCase()).filter(Boolean);
+      if (races.length && !races.some((entry) => race.includes(entry))) {
+        reasons.push(`Race requirement: ${reqRace}`);
+      }
+    }
+    return { ok: reasons.length === 0, reasons };
+  }
+
+  _alignmentAvailability(alignmentKey) {
+    const reasons = [];
+    for (const requirements of this._selectedClassRequirements()) {
+      const reqAlign = String(requirements.req_alignment || "").trim();
+      if (!reqAlign || reqAlign.toLowerCase() === "none" || reqAlign.toLowerCase() === "any") continue;
+      if (!alignmentRequirementMatches(reqAlign, alignmentKey)) {
+        reasons.push(`Alignment requirement: ${reqAlign}`);
+      }
+    }
+    return { ok: reasons.length === 0, reasons };
+  }
+
+  _filteredRaceChoices(showUnavailable) {
+    const list = Object.entries(CTSDND35.races).map(([key, race]) => {
+      const check = this._raceAvailability(race.label);
+      return {
+        key,
+        label: race.label,
+        selected: key === this.state.basics.race,
+        available: check.ok,
+        unavailableReason: check.reasons.join("; ")
+      };
+    });
+    if (showUnavailable) return list;
+    return list.filter((race) => race.available || race.selected);
+  }
+
+  _filteredAlignmentChoices(showUnavailable) {
+    const list = Object.entries(CTSDND35.alignments).map(([key, label]) => {
+      const check = this._alignmentAvailability(key);
+      return {
+        key,
+        label,
+        selected: key === this.state.basics.alignment,
+        available: check.ok,
+        unavailableReason: check.reasons.join("; ")
+      };
+    });
+    if (showUnavailable) return list;
+    return list.filter((alignment) => alignment.available || alignment.selected);
+  }
+
+  _spellAvailability(spell, castingDocs) {
+    const documentLevel = Number(spell?.spellLevel) || 0;
+    if (!castingDocs.length) {
+      return { ok: false, reason: "No spellcasting class selected", spellLevel: documentLevel };
+    }
+    let bestLevel = null;
+    let tooHigh = null;
+    for (const classDoc of castingDocs) {
+      const classLevel = classDoc?.uuid === this.state.classes.primary
+        ? this.state.classLevels.primary
+        : this.state.classLevels.secondary;
+      const maxLvl = this._maxSpellLevelForClass(classDoc, classLevel || 0);
+      const classSpellLevel = this._spellLevelForClass(spell, classDoc.name);
+      if (classSpellLevel === null) continue;
+      if (maxLvl < 0 || classSpellLevel > maxLvl) {
+        if (tooHigh === null || classSpellLevel < tooHigh) tooHigh = classSpellLevel;
+        continue;
+      }
+      if (bestLevel === null || classSpellLevel < bestLevel) bestLevel = classSpellLevel;
+    }
+    if (bestLevel !== null) return { ok: true, reason: "", spellLevel: bestLevel };
+    if (tooHigh !== null) {
+      return { ok: false, reason: `Spell level ${tooHigh} is above what this class can cast`, spellLevel: tooHigh };
+    }
+    return { ok: false, reason: "Not on this class spell list", spellLevel: documentLevel };
+  }
+
   _filteredClassesList() {
     const showUnavailable = this.state.showUnavailable !== false;
     let list = this.classChoices.map((c) => {
@@ -869,6 +967,7 @@ export class CharacterWizard extends Application {
       const uuid = this.state.activeSpellUuid;
       if (!uuid || this.state.selectedSpellUuids.includes(uuid)) return;
       const spellLevel = this._availableSpellLevelsByUuid?.[uuid];
+      if (spellLevel === undefined) return;
       const spell = this.spellChoices.find((s) => s.uuid === uuid);
       const lvlKey = String(Number(spellLevel ?? spell?.spellLevel ?? 0) || 0);
       if (this.state.spellPickCap > 0) {
@@ -986,9 +1085,11 @@ export class CharacterWizard extends Application {
       this.render();
     });
 
-    html.find(".toggle-unavailable").click((ev) => {
+    html.find(".set-availability-view").click((ev) => {
       ev.preventDefault();
-      this.state.showUnavailable = !this.state.showUnavailable;
+      const show = ev.currentTarget.dataset.showUnavailable === "true";
+      if ((this.state.showUnavailable !== false) === show) return;
+      this.state.showUnavailable = show;
       this.render();
     });
 
