@@ -23,7 +23,7 @@ export class LevelUpWizard extends Application {
       selectedClassUuid: "",
       classSearch: "",
       activeClassUuid: "",
-      showUnavailable: false,
+      showUnavailable: true,
       hpMethod: "fixed",
       hpManual: 1,
       skillRanks: this._initSkillRanks(),

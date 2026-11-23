@@ -71,7 +71,7 @@ export class CharacterWizard extends Application {
       },
       classSearch: "",
       activeClassUuid: "",
-      showUnavailable: false,
+      showUnavailable: true,
       skillRanks: {
         primary: this._initSkillRanks(),
         secondary: this._initSkillRanks()
@@ -675,10 +675,27 @@ export class CharacterWizard extends Application {
   }
 
   _isClassAvailable(classChoice) {
+    const raceLabel = CTSDND35.races[this.state.basics.race]?.label || this.actor.system?.details?.race || "";
+    const alignment = this.state.basics.alignment || this.actor.system?.details?.alignment || "";
+    const knownFeatNames = getKnownFeatNames(this.actor);
+    for (const uuid of this.state.selectedFeatUuids || []) {
+      const feat = this.featChoices.find((f) => f.uuid === uuid);
+      if (feat?.name) knownFeatNames.add(feat.name.toLowerCase());
+    }
     return evaluateClassAvailability({
       requirements: classChoice?.requirements || {},
-      actor: this.actor,
-      knownFeatNames: getKnownFeatNames(this.actor)
+      actor: {
+        system: {
+          ...(this.actor.system || {}),
+          details: {
+            ...(this.actor.system?.details || {}),
+            race: raceLabel,
+            alignment
+          }
+        },
+        items: this.actor.items
+      },
+      knownFeatNames
     });
   }
 

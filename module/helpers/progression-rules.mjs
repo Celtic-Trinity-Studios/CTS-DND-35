@@ -32,13 +32,8 @@ function axisOfAlignment(code) {
   };
 }
 
-function alignmentRequirementMatches(requirement, actorAlignment) {
-  const req = String(requirement || "").trim().toLowerCase();
-  if (!req || req === "none" || req === "any") return true;
-  const actorCode = normalizeAlignmentCode(actorAlignment);
-  if (!actorCode) return false;
+function alignmentClauseMatches(req, actorCode) {
   const actorAxis = axisOfAlignment(actorCode);
-
   if (ALIGNMENT_CODES.has(req)) return req === actorCode;
   const exactCode = normalizeAlignmentCode(req);
   if (exactCode) return exactCode === actorCode;
@@ -55,6 +50,17 @@ function alignmentRequirementMatches(requirement, actorAlignment) {
   if (req === "any neutral") return actorAxis.lawChaos === "neutral" || actorAxis.goodEvil === "neutral";
 
   return true;
+}
+
+function alignmentRequirementMatches(requirement, actorAlignment) {
+  const req = String(requirement || "").trim().toLowerCase();
+  if (!req || req === "none" || req === "any") return true;
+  const actorCode = normalizeAlignmentCode(actorAlignment);
+  if (!actorCode) return false;
+
+  const parts = req.split(",").map((part) => part.trim()).filter(Boolean);
+  if (parts.length > 1) return parts.some((part) => alignmentClauseMatches(part, actorCode));
+  return alignmentClauseMatches(req, actorCode);
 }
 
 export function getSkillPointCost(isClassSkill, rankDelta = 1) {

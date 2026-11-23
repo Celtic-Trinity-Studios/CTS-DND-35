@@ -84,9 +84,10 @@
       <div class="wizard-split">
         <div class="wizard-scroll-list">
           {{#each classChoicesForSelect as |c|}}
-          <div class="class-choice wizard-choice-button {{#if (cts-eq c.uuid ../classListActiveUuid)}}active{{/if}}{{#if c.isPrimary}} class-choice-primary{{/if}}{{#if c.isSecondary}} class-choice-secondary{{/if}}" data-uuid="{{c.uuid}}">
+          <div class="class-choice wizard-choice-button {{#if (cts-eq c.uuid ../classListActiveUuid)}}active{{/if}}{{#if c.isPrimary}} class-choice-primary{{/if}}{{#if c.isSecondary}} class-choice-secondary{{/if}}{{#unless c.available}} is-unavailable{{/unless}}" data-uuid="{{c.uuid}}">
             <span class="class-choice-name"><strong>{{c.name}}</strong></span>
             <span class="class-choice-tags">
+              {{#unless c.available}}<span class="wizard-class-tag wizard-class-tag-locked">Requirements</span>{{/unless}}
               {{#if c.isPrimary}}<span class="wizard-class-tag">Primary</span>{{/if}}
               {{#if c.isSecondary}}<span class="wizard-class-tag wizard-class-tag-secondary">Secondary</span>{{/if}}
             </span>
